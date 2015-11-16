@@ -9,4 +9,14 @@
     <TextView android:text="Hello World!\n    - Will Code For Food :)" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/helloTextView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Calendar Integration"
+        android:id="@+id/button"
+        android:layout_below="@+id/helloTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:onClick="testCalendar"/>
 </RelativeLayout>

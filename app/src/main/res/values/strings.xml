@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CruCentralCoast</string>
+    <string name="phone_number">6508155687</string>
+    <string name="sms_message">Testing to Mallika</string>
 </resources>

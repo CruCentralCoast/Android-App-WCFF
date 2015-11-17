@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
 import com.will_code_for_food.crucentralcoast.model.common.components.CalendarEvent;
 import java.util.Calendar;
 
@@ -33,5 +34,10 @@ public class MainActivity extends Activity {
                 "that should be added to the users calendar at this exact time.", "PAC Circle",
                 Calendar.getInstance());
         CalendarAccessor.addEventToCalendar(event, this);
+    }
+
+    public void testSMS(View view) {
+        //test event for SMS
+        SMSHandler.sendSMS(this);
     }
 }

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Test Calendar Integration"
         android:id="@+id/button"
-        android:layout_below="@+id/helloTextView"
+        android:layout_below="@+id/button_notify"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp"
         android:onClick="testCalendar"/>

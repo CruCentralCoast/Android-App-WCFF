@@ -3,6 +3,7 @@
     package="com.will_code_for_food.crucentralcoast" >
 
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"

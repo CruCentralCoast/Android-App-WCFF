@@ -2,11 +2,13 @@ package com.will_code_for_food.crucentralcoast.model.common;
 
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.model.common.components.FakeDB;
+import com.will_code_for_food.crucentralcoast.model.common.components.Ministry;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -41,9 +43,15 @@ public class FakeDBTest extends TestCase{
         Assert.assertEquals(null, team.getParentMinistry());
         Assert.assertEquals(
                 "A passionate community of women encouraging each other to be fully" +
-                " surrendered to our King through prayer, worship, and gatherings.",
+                        " surrendered to our King through prayer, worship, and gatherings.",
                 team.getDescription());
         Assert.assertEquals("Women's Team", team.getName());
+    }
+
+    public void testGetMinistryTeams() {
+        ArrayList<MinistryTeam> teams = fakeDB.getMinistryTeams();
+
+        Assert.assertEquals(16, teams.size());
     }
 
 

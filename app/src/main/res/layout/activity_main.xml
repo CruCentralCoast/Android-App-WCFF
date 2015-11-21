@@ -30,9 +30,19 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Edit Existing Event"
+        android:id="@+id/cal_edit_button"
+        android:layout_below="@+id/button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:onClick="testCalendarEdit"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Test SMS Messaging"
         android:id="@+id/sms_button"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/cal_edit_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp"
         android:onClick="testSMS"/>

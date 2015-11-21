@@ -36,6 +36,14 @@ public class MainActivity extends Activity {
         CalendarAccessor.addEventToCalendar(event, this);
     }
 
+    public void testCalendarEdit(View view) {
+        // building test event
+        CalendarEvent event = new CalendarEvent("New Title!", "This is a cru event " +
+                "that should be added to the users calendar at this exact time.", "PAC Circle",
+                Calendar.getInstance());
+        CalendarAccessor.editExistingEvent(event, "Leave for CRU Event", this);
+    }
+
     public void testSMS(View view) {
         //test event for SMS
         SMSHandler.sendSMS(this);

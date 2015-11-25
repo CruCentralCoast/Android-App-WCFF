@@ -12,6 +12,7 @@ import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandl
 import com.will_code_for_food.crucentralcoast.model.common.components.CalendarEvent;
 import com.will_code_for_food.crucentralcoast.model.common.components.Ministry;
 import com.will_code_for_food.crucentralcoast.model.common.components.RestUtil;
+import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -83,5 +84,9 @@ public class MainActivity extends Activity {
 
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void testYoutube(View view) {
+        YoutubeViewer.watchYoutubeVideo("hGcmaztq7eU", this);
     }
 }

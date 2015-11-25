@@ -58,4 +58,14 @@
         android:layout_marginTop="39dp"
         android:onClick="testDB" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test YouTube"
+        android:id="@+id/youtube_button"
+        android:layout_below="@+id/get_ministries_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:onClick="testYoutube" />
+
 </RelativeLayout>

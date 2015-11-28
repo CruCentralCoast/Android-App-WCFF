@@ -2,4 +2,7 @@
     <string name="app_name">CruCentralCoast</string>
     <string name="phone_number">6508155687</string>
     <string name="sms_message">Testing to Mallika</string>
+
+    <string name="parseAppId">rxxFMaAKScGNlMw7hWUv1I6d7LNJ2jbeTwejpstw</string>
+    <string name="parseClientKey">Smo0iKqpWubdBmXmnQ33ILZ4mc0Ddw3ZRm6oCK7z</string>
 </resources>

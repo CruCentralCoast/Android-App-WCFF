@@ -5,4 +5,7 @@
 
     <string name="parseAppId">rxxFMaAKScGNlMw7hWUv1I6d7LNJ2jbeTwejpstw</string>
     <string name="parseClientKey">Smo0iKqpWubdBmXmnQ33ILZ4mc0Ddw3ZRm6oCK7z</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>

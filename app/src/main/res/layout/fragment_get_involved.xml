@@ -21,6 +21,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp"
         android:onClick="testDB"
-        android:text="Get Ministries from DB" />
+        android:text="View Ministries" />
 
 </LinearLayout>

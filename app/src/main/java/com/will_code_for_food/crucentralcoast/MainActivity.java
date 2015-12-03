@@ -1,7 +1,9 @@
 package com.will_code_for_food.crucentralcoast;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
+    public static Context thisContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .commit();
+
+        thisContext = this;
     }
 
     @Override
@@ -104,21 +110,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void testDB(View view) {
         //Toast.makeText(getApplicationContext(), "first toast", Toast.LENGTH_LONG).show();
+        loadFragmentById(R.layout.fragment_ministries, "Ministries");
         new dbTestTask().execute();
     }
 
     private class dbTestTask extends AsyncTask<Void, Void, Void> {
-        String textResult = "error: myTask";
-        String message = "Ministries:";
+        //String message = "Ministries:";
         ArrayList<Ministry> ministries;
+        ListView ministriesList;
+        ArrayList<String> minstriesStrings;
 
         @Override
         protected Void doInBackground(Void... params) {
             //message += "hello there!";
             ministries = RestUtil.getMinistries();
+            minstriesStrings = new ArrayList<String>();
 
             for (Ministry ministry : ministries) {
-                message += ("\n" + ministry.getName());
+                //message += ("\n" + ministry.getName());
+                minstriesStrings.add(ministry.getName());
             }
 
             return null;
@@ -128,9 +138,35 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+            ministriesList = (ListView) findViewById(R.id.ministries_list);
+
+            if ((minstriesStrings != null) && (!minstriesStrings.isEmpty())) {
+                ministriesList.setAdapter(new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, minstriesStrings));
+            }
+
+            else {
+                Toast.makeText(getApplicationContext(), "Unable to access ministries", Toast.LENGTH_LONG).show();
+            }
+
+            //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
     }
+
+    /*
+    private class MinistriesAdapter extends ArrayAdapter<Ministry> {
+
+        public MinistriesAdapter(Context context, ArrayList<Ministry> ministries) {
+            super(context, android.R.layout.simple_list_item_1, ministries);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            Ministry ministry = getItem(position);
+
+            return convertView;
+        }
+
+    }*/
 
     public void testYoutube(View view) {
         YoutubeViewer.watchYoutubeVideo("hGcmaztq7eU", this);
@@ -143,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
     private void addDrawerItems() {
         String[] osArray = {"Events", "Resources", "Summer Missions", "Get Involved",
                 "Ride Share", "Settings"};
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
     }
 
@@ -177,19 +213,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadFragment(int position) {
         int loadId;
+        String title = "";
 
         switch (position) {
             case 0:
                 loadId = R.layout.fragment_event;
+                title = "Events";
                 break;
             case 1:
                 loadId = R.layout.fragment_resources;
+                title = "Resources";
                 break;
             case 3:
                 loadId = R.layout.fragment_get_involved;
+                title = "Get Involved";
                 break;
             default:
                 loadId = R.layout.fragment_main;
+                title = "CruCentralCoast";
                 break;
         }
 
@@ -200,5 +241,18 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.content_frame, fragment)
                 .commit();
 
+        setTitle(title);
+
+    }
+
+    private void loadFragmentById(int loadId, String newTitle) {
+        Fragment fragment = new CruFragment(loadId);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
+
+        setTitle(newTitle);
     }
 }

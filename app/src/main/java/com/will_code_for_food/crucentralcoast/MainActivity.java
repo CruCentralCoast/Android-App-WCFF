@@ -1,5 +1,7 @@
 package com.will_code_for_food.crucentralcoast;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,31 +38,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         notifier = new Notifier();
 
-        Button notifyButton = (Button) findViewById(R.id.button_notify);
-        notifyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifier.createNotification("title", "text", getApplicationContext());
-            }
-        });
-
         mDrawerList = (ListView) findViewById(R.id.navList);
         addDrawerItems();
         mDrawerList.bringToFront();
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         setupDrawer();
 
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "I have been clicked!", Toast.LENGTH_SHORT).show();
+                loadNewFragment(position);
             }
         });
+
+        Fragment fragment = new CruFragment(R.layout.fragment_main);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
     }
 
     @Override
@@ -139,6 +136,10 @@ public class MainActivity extends AppCompatActivity {
         YoutubeViewer.watchYoutubeVideo("hGcmaztq7eU", this);
     }
 
+    public void testNotifier(View view) {
+        notifier.createNotification("title", "text", getApplicationContext());
+    }
+
     private void addDrawerItems() {
         String[] osArray = {"Events", "Resources", "Summer Missions", "Get Involved",
                 "Ride Share", "Settings"};
@@ -165,6 +166,39 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+    }
+
+    private void loadNewFragment(int position) {
+        loadFragment(position);
+        mDrawerList.setItemChecked(position, true);
+        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    private void loadFragment(int position) {
+        int loadId;
+
+        switch (position) {
+            case 0:
+                loadId = R.layout.fragment_event;
+                break;
+            case 1:
+                loadId = R.layout.fragment_resources;
+                break;
+            case 3:
+                loadId = R.layout.fragment_get_involved;
+                break;
+            default:
+                loadId = R.layout.fragment_main;
+                break;
+        }
+
+        Fragment fragment = new CruFragment(loadId);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
 
     }
 }

@@ -1,11 +1,9 @@
 package com.will_code_for_food.crucentralcoast;
 
-import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -49,19 +47,21 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerList = (ListView) findViewById(R.id.navList);
         addDrawerItems();
+        mDrawerList.bringToFront();
 
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "I clicked it!", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         setupDrawer();
+
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "I have been clicked!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

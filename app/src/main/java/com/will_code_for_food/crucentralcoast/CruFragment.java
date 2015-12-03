@@ -12,13 +12,15 @@ import android.view.ViewGroup;
 
 public class CruFragment extends Fragment {
     private int id;
+    public String name = "";
 
     public CruFragment() {
         super();
     }
 
-    public CruFragment(int id) {
+    public CruFragment(int id, String name) {
         this.id = id;
+        this.name = name;
     }
 
     @Override

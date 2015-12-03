@@ -27,6 +27,7 @@ import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
     Notifier notifier;
@@ -34,13 +35,14 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
-    public static Context thisContext;
+    private Stack<String> titleStack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         notifier = new Notifier();
+        titleStack = new Stack<String>();
 
         mDrawerList = (ListView) findViewById(R.id.navList);
         addDrawerItems();
@@ -57,14 +59,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Fragment fragment = new CruFragment(R.layout.fragment_main);
+        Fragment fragment = new CruFragment(R.layout.fragment_main, "CruCentralCoast");
 
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .commit();
-
-        thisContext = this;
     }
 
     @Override
@@ -85,6 +85,19 @@ public class MainActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0 ){
+            getFragmentManager().popBackStack();
+            //if (getActiveFragment() != null) {
+                setTitle(titleStack.pop());
+            //}
+
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public void testCalendar(View view) {
@@ -234,25 +247,49 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        Fragment fragment = new CruFragment(loadId);
+        Fragment fragment = new CruFragment(loadId, title);
 
         FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        titleStack.clear();
+
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment)
+                .addToBackStack(null)
                 .commit();
 
+        titleStack.push(getTitle().toString());
         setTitle(title);
 
     }
 
     private void loadFragmentById(int loadId, String newTitle) {
-        Fragment fragment = new CruFragment(loadId);
+        Fragment fragment = new CruFragment(loadId, newTitle);
 
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment)
+                .addToBackStack(null)
                 .commit();
 
+        titleStack.push(getTitle().toString());
         setTitle(newTitle);
     }
+
+    /*public CruFragment getActiveFragment() {
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            return null;
+        }
+
+        System.out.println("Count is: " + getFragmentManager().getBackStackEntryCount());
+
+        String id = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
+        System.out.println("tag is: " + id);
+
+        if (getFragmentManager().findFragmentByTag(id) == null) {
+            System.out.println("couldn't find fragment");
+        }
+
+        return (CruFragment) getFragmentManager().findFragmentByTag(id);
+    }*/
 }

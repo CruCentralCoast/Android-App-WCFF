@@ -1,9 +1,7 @@
 package com.will_code_for_food.crucentralcoast;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -20,9 +17,9 @@ import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
-import com.will_code_for_food.crucentralcoast.model.common.components.CalendarEvent;
-import com.will_code_for_food.crucentralcoast.model.common.components.Ministry;
-import com.will_code_for_food.crucentralcoast.model.common.components.RestUtil;
+import com.will_code_for_food.crucentralcoast.model.common.common.CalendarEvent;
+import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
+import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
 
 import java.util.ArrayList;

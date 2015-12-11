@@ -1,4 +1,4 @@
-package com.will_code_for_food.crucentralcoast.model.common.components;
+package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.will_code_for_food.crucentralcoast.model.common.messaging;
 
-import com.will_code_for_food.crucentralcoast.model.common.components.User;
+import com.will_code_for_food.crucentralcoast.model.common.common.User;
 
 /**
  * Created by Gavin on 11/12/2015.

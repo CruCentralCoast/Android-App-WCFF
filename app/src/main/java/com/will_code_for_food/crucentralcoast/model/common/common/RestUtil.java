@@ -1,22 +1,17 @@
-package com.will_code_for_food.crucentralcoast.model.common.components;
+package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.json.JSONArray;
-
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Brian on 11/16/2015.

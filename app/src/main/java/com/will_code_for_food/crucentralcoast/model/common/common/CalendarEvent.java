@@ -1,8 +1,6 @@
-package com.will_code_for_food.crucentralcoast.model.common.components;
+package com.will_code_for_food.crucentralcoast.model.common.common;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Gavin on 11/15/2015.

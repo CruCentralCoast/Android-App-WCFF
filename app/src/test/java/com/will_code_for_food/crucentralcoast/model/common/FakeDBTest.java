@@ -1,14 +1,12 @@
 package com.will_code_for_food.crucentralcoast.model.common;
 
 import com.google.gson.JsonObject;
-import com.will_code_for_food.crucentralcoast.model.common.components.FakeDB;
-import com.will_code_for_food.crucentralcoast.model.common.components.Ministry;
+import com.will_code_for_food.crucentralcoast.model.common.common.FakeDB;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

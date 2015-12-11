@@ -5,21 +5,16 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
-import android.provider.CalendarContract.Reminders;
 import android.widget.Toast;
 
-import com.will_code_for_food.crucentralcoast.model.common.components.CalendarEvent;
+import com.will_code_for_food.crucentralcoast.model.common.common.CalendarEvent;
 
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.TimeZone;
 
 /**

@@ -36,24 +36,4 @@ public abstract class DatabaseObject {
             }
         }
     }
-
-    //old
-    /*
-    public abstract String getId();
-    public boolean update() {
-        // TODO handles updating the object in the database
-        return false;
-    }
-    public boolean delete() {
-        // TODO deletes the object from the database
-        return false;
-    }*/
-
-    /**
-     * Gets ministry teams from the DB API and constructs their corresponding objects.
-     * @return
-     */
-    /*public Collection<MinistryTeam> getMinistryTeams() {
-        return null;
-    }*/
 }

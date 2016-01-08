@@ -3,6 +3,8 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.R;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,7 +38,7 @@ public class Ministry extends DatabaseObject {
         ArrayList<Ministry> ministries = new ArrayList<Ministry>();
         JsonObject temp;
 
-        ministriesJson = RestUtil.getAll("ministry/list"); // TODO: 11/22/2015 add this to strings file
+        ministriesJson = RestUtil.getAll(Util.getString(R.string.rest_ministry_all));
 
         if (ministriesJson != null) {
             iterator = ministriesJson.iterator();

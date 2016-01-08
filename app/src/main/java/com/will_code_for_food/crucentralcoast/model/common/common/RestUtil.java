@@ -23,7 +23,7 @@ import java.util.Iterator;
  */
 public class RestUtil
 {
-    private static final String DB_URL = MainActivity.context.getString(R.string.db_url);
+    private static final String DB_URL = Util.getString(R.string.db_url);
 
     /**
      * Gets a JSON object from the server and returns it as a String.
@@ -33,7 +33,7 @@ public class RestUtil
         URL url;
         HttpURLConnection connection = null;
         String responseStr = "!error";
-        int timeout = Integer.parseInt(MainActivity.context.getString(R.string.db_timeout));
+        int timeout = Util.getInt(R.string.db_timeout);
 
         System.out.println("Timeout is: " + timeout);
 

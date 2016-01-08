@@ -1,9 +1,13 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
+import android.content.res.Resources;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.R;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -19,26 +23,7 @@ import java.util.Iterator;
  */
 public class RestUtil
 {
-    //private static final String DB_URL = "https://httpbin.org/";
-    private static final String DB_URL = "http://10.0.2.1:3000/api/";
-
-    //depricated?
-    /*
-    public static String get(String tableName) throws IOException
-    {
-        StringBuilder jsonBuilder = new StringBuilder();
-
-        //Get input stream
-        URL getUrl = new URL(DB_URL + "get" + tableName);
-        HttpsURLConnection connection = (HttpsURLConnection) getUrl.openConnection();
-        BufferedReader restReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-        //Build json from stream
-        String line = "";
-        while ((line = restReader.readLine()) != null)
-            jsonBuilder.append(line);
-        return jsonBuilder.toString();
-    }*/
+    private static final String DB_URL = MainActivity.context.getString(R.string.db_url);
 
     /**
      * Gets a JSON object from the server and returns it as a String.
@@ -48,12 +33,15 @@ public class RestUtil
         URL url;
         HttpURLConnection connection = null;
         String responseStr = "!error";
+        int timeout = Integer.parseInt(MainActivity.context.getString(R.string.db_timeout));
+
+        System.out.println("Timeout is: " + timeout);
 
         try {
             // Create connection
             url = new URL(dataUrl);
             connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(2000);
+            connection.setConnectTimeout(timeout);
             connection.setRequestMethod("GET");
 
             // Get Response
@@ -89,7 +77,7 @@ public class RestUtil
     /**
      * Returns an array of Json Objects
      */
-    private static JsonArray getAll(String from) {
+    public static JsonArray getAll(String from) {
         JsonParser parser = new JsonParser();
         String toParse = request(from);
 
@@ -101,25 +89,4 @@ public class RestUtil
             return parser.parse(toParse).getAsJsonArray();
         }
     }
-
-    public static ArrayList<Ministry> getMinistries() {
-        JsonArray ministriesJson;
-        Iterator<JsonElement> iterator;
-        ArrayList<Ministry> ministries = new ArrayList<Ministry>();
-        JsonObject temp;
-
-        ministriesJson = getAll("ministry/list"); // TODO: 11/22/2015 add this to strings file
-
-        if (ministriesJson != null) {
-            iterator = ministriesJson.iterator();
-
-            while (iterator.hasNext()) {
-                temp = iterator.next().getAsJsonObject();
-                ministries.add(new Ministry(temp));
-            }
-        }
-
-        return ministries;
-    }
-
 }

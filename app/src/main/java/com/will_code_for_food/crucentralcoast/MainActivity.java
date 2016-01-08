@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private Stack<String> titleStack;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         notifier = new Notifier();
         titleStack = new Stack<String>();
+
+        context = this;
 
         mDrawerList = (ListView) findViewById(R.id.navList);
         addDrawerItems();
@@ -133,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             //message += "hello there!";
-            ministries = RestUtil.getMinistries();
+            ministries = Ministry.getMinistries();
             minstriesStrings = new ArrayList<String>();
 
             for (Ministry ministry : ministries) {

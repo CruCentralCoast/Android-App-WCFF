@@ -16,12 +16,26 @@ import java.util.Iterator;
 public class Ministry extends DatabaseObject {
     private String name;
     private String description;
+    private ArrayList<String> campuses;
 
     public Ministry(JsonObject obj) {
         super(obj);
 
-        name = this.get("name");
-        description = this.get("description");
+        name = this.getString("name");
+        description = this.getString("description");
+        campuses = new ArrayList<String>();
+
+        JsonElement campusList = this.get("campuses");
+
+        if (campusList.isJsonArray()) {
+            for (JsonElement campus : campusList.getAsJsonArray()) {
+                campuses.add(campus.getAsString());
+            }
+        }
+
+        else {
+            System.out.println("campusList is not an array");
+        }
     }
 
     public String getName() {
@@ -31,6 +45,8 @@ public class Ministry extends DatabaseObject {
     public String getDescription() {
         return description;
     }
+
+    public ArrayList<String> getCampuses() { return campuses; }
 
     public static ArrayList<Ministry> getMinistries() {
         JsonArray ministriesJson;
@@ -49,6 +65,21 @@ public class Ministry extends DatabaseObject {
             }
         }
 
+        //printMinistries(ministries); //for testing
+
         return ministries;
+    }
+
+    private static void printMinistries(ArrayList<Ministry> ministries) {
+
+        System.out.println("Ministries Retrieved:");
+        for (Ministry ministry : ministries) {
+            System.out.println("Name: " + ministry.getName() + "\n    ID: " + ministry.getId());
+            System.out.println("    Campuses:");
+
+            for (String campus : ministry.getCampuses()) {
+                System.out.println("        " + campus);
+            }
+        }
     }
 }

@@ -11,4 +11,5 @@
     <string name="db_url">http://10.0.2.1:3000/api/</string>
     <string name="db_timeout">2000</string>
     <string name="rest_ministry_all">"ministry/list"</string>
+    <string name="rest_campus_all">"campus/list"</string>
 </resources>

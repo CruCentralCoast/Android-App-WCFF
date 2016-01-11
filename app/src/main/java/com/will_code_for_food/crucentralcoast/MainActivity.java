@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,16 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
 import com.will_code_for_food.crucentralcoast.model.common.common.CalendarEvent;
-import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
-import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Stack;
 
@@ -120,61 +115,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void testDB(View view) {
         //Toast.makeText(getApplicationContext(), "first toast", Toast.LENGTH_LONG).show();
-        loadFragmentById(R.layout.fragment_ministries, "Ministries");
-        new dbTestTask().execute();
+        loadFragmentById(R.layout.fragment_campuses, "Select a Campus");
+        new CampusExampleTask2().execute();
     }
-
-    private class dbTestTask extends AsyncTask<Void, Void, Void> {
-        //String message = "Ministries:";
-        ArrayList<Ministry> ministries;
-        ListView ministriesList;
-        ArrayList<String> minstriesStrings;
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            //message += "hello there!";
-            ministries = Ministry.getMinistries();
-            minstriesStrings = new ArrayList<String>();
-
-            for (Ministry ministry : ministries) {
-                //message += ("\n" + ministry.getName());
-                minstriesStrings.add(ministry.getName());
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            ministriesList = (ListView) findViewById(R.id.ministries_list);
-
-            if ((minstriesStrings != null) && (!minstriesStrings.isEmpty())) {
-                ministriesList.setAdapter(new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, minstriesStrings));
-            } else {
-                Toast.makeText(getApplicationContext(), "Unable to access ministries", Toast.LENGTH_LONG).show();
-            }
-
-            //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    /*
-    private class MinistriesAdapter extends ArrayAdapter<Ministry> {
-
-        public MinistriesAdapter(Context context, ArrayList<Ministry> ministries) {
-            super(context, android.R.layout.simple_list_item_1, ministries);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            Ministry ministry = getItem(position);
-
-            return convertView;
-        }
-
-    }*/
 
     public void testYoutube(View view) {
         YoutubeViewer.watchYoutubeVideo("hGcmaztq7eU", this);
@@ -244,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
-    private void loadFragmentById(int loadId, String newTitle) {
+    public void loadFragmentById(int loadId, String newTitle) {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         titleStack.clear();
@@ -265,21 +208,4 @@ public class MainActivity extends AppCompatActivity {
         titleStack.push(getTitle().toString());
         setTitle(newTitle);
     }
-
-    /*public CruFragment getActiveFragment() {
-        if (getFragmentManager().getBackStackEntryCount() == 0) {
-            return null;
-        }
-
-        System.out.println("Count is: " + getFragmentManager().getBackStackEntryCount());
-
-        String id = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
-        System.out.println("tag is: " + id);
-
-        if (getFragmentManager().findFragmentByTag(id) == null) {
-            System.out.println("couldn't find fragment");
-        }
-
-        return (CruFragment) getFragmentManager().findFragmentByTag(id);
-    }*/
 }

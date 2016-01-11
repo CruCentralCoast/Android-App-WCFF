@@ -11,25 +11,20 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
 import com.will_code_for_food.crucentralcoast.model.common.common.CalendarEvent;
-import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
 import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
@@ -129,88 +124,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void testDB(View view) {
         //Toast.makeText(getApplicationContext(), "first toast", Toast.LENGTH_LONG).show();
-        loadFragmentById(R.layout.fragment_campuses, "Select a Campus");
-        new campusTask().execute();
+        loadFragmentById(R.layout.fragment_ministries, "Ministries");
+        new dbTestTask().execute();
     }
 
-    private class campusTask extends AsyncTask<Void, Void, Void> {
-        //ArrayList<Ministry> ministries;
-        ArrayList<Campus> campuses;
-
-        ListView ministriesList;
-        ListView campusesList;
-
-        //ArrayList<String> minstriesStrings;
-        ArrayList<String> campusesStrings;
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            //ministries = Ministry.getMinistries();
-            //minstriesStrings = new ArrayList<String>();
-
-            //for (Ministry ministry : ministries) {
-               // minstriesStrings.add(ministry.getName());
-            //}
-
-            campuses = Campus.getCampuses();
-            campusesStrings = new ArrayList<String>();
-
-            for (Campus campus : campuses) {
-                campusesStrings.add(campus.getName());
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            campusesList = (ListView) findViewById(R.id.campusesList);
-            String campusID = "All";
-
-            if ((campusesStrings != null) && (!campusesStrings.isEmpty())) {
-                campusesList.setAdapter(new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, campusesStrings));
-
-                campusesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(getApplicationContext(), "You picked " + campuses.get(position).getName(), Toast.LENGTH_SHORT).show();
-                        loadFragmentById(R.layout.fragment_ministries, "Ministries");
-                        new ministryTask(campuses.get(position).getId()).execute();
-                    }
-                });
-            }
-
-            else {
-                Toast.makeText(getApplicationContext(), "Unable to access campuses", Toast.LENGTH_LONG).show();
-            }
-
-            //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private class ministryTask extends AsyncTask<Void, Void, Void> {
+    private class dbTestTask extends AsyncTask<Void, Void, Void> {
+        //String message = "Ministries:";
         ArrayList<Ministry> ministries;
         ListView ministriesList;
         ArrayList<String> minstriesStrings;
-        String campusId;
-
-        public ministryTask(String newCampusId) {
-            campusId = newCampusId;
-        }
 
         @Override
         protected Void doInBackground(Void... params) {
-
+            //message += "hello there!";
             ministries = Ministry.getMinistries();
             minstriesStrings = new ArrayList<String>();
 
             for (Ministry ministry : ministries) {
-                if (ministry.getCampuses().contains(campusId)) {
-                    minstriesStrings.add(ministry.getName());
-                }
+                //message += ("\n" + ministry.getName());
+                minstriesStrings.add(ministry.getName());
             }
 
             return null;
@@ -233,6 +165,22 @@ public class MainActivity extends AppCompatActivity {
             //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
     }
+
+    /*
+    private class MinistriesAdapter extends ArrayAdapter<Ministry> {
+
+        public MinistriesAdapter(Context context, ArrayList<Ministry> ministries) {
+            super(context, android.R.layout.simple_list_item_1, ministries);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            Ministry ministry = getItem(position);
+
+            return convertView;
+        }
+
+    }*/
 
     public void testYoutube(View view) {
         YoutubeViewer.watchYoutubeVideo("hGcmaztq7eU", this);

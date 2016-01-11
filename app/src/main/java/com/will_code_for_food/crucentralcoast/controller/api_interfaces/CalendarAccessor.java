@@ -10,7 +10,9 @@ import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.widget.Toast;
 
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.CalendarEvent;
+import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,11 +23,8 @@ import java.util.TimeZone;
  * Created by Gavin on 11/15/2015.
  */
 public class CalendarAccessor {
-    // these should probably be in the string resources
-    private static final String SUCCESS_MESSAGE = "\"%s\" added to calendar!";
-    private static final String EDIT_SUCCESS_MESSAGE = "Event updated!";
-    private static final String FAIL_MESSAGE = "Sorry! We couldn't do that.";
-    private static final String FILENAME_EXISTING_EVENTS = "existingEventsFile";
+    // todo(Gavin) should fix where this is used
+    public static final String CAL_EXISTING_EVENTS_FNAME = "existingEventsFile";
 
     public static long TEST_ID = -1;
 
@@ -40,10 +39,10 @@ public class CalendarAccessor {
             int rows = currentActivity.getContentResolver().update(updateUri, values, null, null);
 
             Toast.makeText(currentActivity.getApplicationContext(),
-                    EDIT_SUCCESS_MESSAGE, Toast.LENGTH_LONG).show();
+                    R.string.cal_event_edit_success, Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(currentActivity.getApplicationContext(),
-                    FAIL_MESSAGE, Toast.LENGTH_LONG).show();
+                    R.string.cal_fail_msg, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -77,12 +76,12 @@ public class CalendarAccessor {
 
             // display confirmation message
             Toast.makeText(currentActivity.getApplicationContext(),
-                    String.format(SUCCESS_MESSAGE, event.title),
+                    R.string.cal_add_success,
                     Toast.LENGTH_LONG).show();
         } catch (Exception ex) {
             // I know this is not good practice, but I wanted a catch all for now
             Toast.makeText(currentActivity.getApplicationContext(),
-                    FAIL_MESSAGE,
+                    R.string.cal_fail_msg,
                     Toast.LENGTH_LONG).show();
         }
     }
@@ -92,7 +91,7 @@ public class CalendarAccessor {
         FileOutputStream fos = null;
         try {
             // this needs to be changed to not overwrite the file each time
-            fos = ctxt.openFileOutput(FILENAME_EXISTING_EVENTS, Context.MODE_PRIVATE);
+            fos = ctxt.openFileOutput(CAL_EXISTING_EVENTS_FNAME, Context.MODE_PRIVATE);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

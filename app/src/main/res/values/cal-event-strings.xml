@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cal_add_success">\'%s\' added to calendar!</string>
+    <string name="cal_event_edit_success">Event updated!</string>
+    <string name="cal_fail_msg">Sorry! We couldn\'t do that.</string>
+</resources>

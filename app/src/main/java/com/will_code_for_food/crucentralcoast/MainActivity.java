@@ -88,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
+            //if (getActiveFragment() != null) {
             setTitle(titleStack.pop());
+            //}
 
         } else {
             super.onBackPressed();
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testDB(View view) {
+        //Toast.makeText(getApplicationContext(), "first toast", Toast.LENGTH_LONG).show();
         loadFragmentById(R.layout.fragment_ministries, "Ministries");
         new dbTestTask().execute();
     }
@@ -152,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(getApplicationContext(), "Unable to access ministries", Toast.LENGTH_LONG).show();
             }
+
+            //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -261,4 +266,20 @@ public class MainActivity extends AppCompatActivity {
         setTitle(newTitle);
     }
 
+    /*public CruFragment getActiveFragment() {
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            return null;
+        }
+
+        System.out.println("Count is: " + getFragmentManager().getBackStackEntryCount());
+
+        String id = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
+        System.out.println("tag is: " + id);
+
+        if (getFragmentManager().findFragmentByTag(id) == null) {
+            System.out.println("couldn't find fragment");
+        }
+
+        return (CruFragment) getFragmentManager().findFragmentByTag(id);
+    }*/
 }

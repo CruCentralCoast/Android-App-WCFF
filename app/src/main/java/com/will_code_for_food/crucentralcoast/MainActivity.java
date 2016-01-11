@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
@@ -56,16 +57,11 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                loadNewFragment(position);
+                loadNewFragment(view, position);
             }
         });
 
-        Fragment fragment = new CruFragment(R.layout.fragment_main, "CruCentralCoast");
-
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, fragment)
-                .commit();
+        loadFragmentById(R.layout.fragment_main, "CruCentralCoast");
     }
 
     @Override
@@ -90,11 +86,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0 ){
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
-            //if (getActiveFragment() != null) {
-                setTitle(titleStack.pop());
-            //}
+            setTitle(titleStack.pop());
 
         } else {
             super.onBackPressed();
@@ -123,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testDB(View view) {
-        //Toast.makeText(getApplicationContext(), "first toast", Toast.LENGTH_LONG).show();
         loadFragmentById(R.layout.fragment_ministries, "Ministries");
         new dbTestTask().execute();
     }
@@ -156,13 +149,9 @@ public class MainActivity extends AppCompatActivity {
 
             if ((minstriesStrings != null) && (!minstriesStrings.isEmpty())) {
                 ministriesList.setAdapter(new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, minstriesStrings));
-            }
-
-            else {
+            } else {
                 Toast.makeText(getApplicationContext(), "Unable to access ministries", Toast.LENGTH_LONG).show();
             }
-
-            //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -219,26 +208,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void loadNewFragment(int position) {
-        loadFragment(position);
-        mDrawerList.setItemChecked(position, true);
-        mDrawerLayout.closeDrawer(mDrawerList);
-    }
-
-    private void loadFragment(int position) {
+    private void loadNewFragment(View view, int position) {
         int loadId;
         String title = "";
 
-        switch (position) {
-            case 0:
+        TextView tView = (TextView) view;
+        String viewText = tView.getText().toString();
+
+        switch (viewText) {
+            case "Events":
                 loadId = R.layout.fragment_event;
                 title = "Events";
                 break;
-            case 1:
+            case "Resources":
                 loadId = R.layout.fragment_resources;
                 title = "Resources";
                 break;
-            case 3:
+            case "Get Involved":
                 loadId = R.layout.fragment_get_involved;
                 title = "Get Involved";
                 break;
@@ -248,26 +234,24 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        Fragment fragment = new CruFragment(loadId, title);
+        loadFragmentById(loadId, title);
+        mDrawerList.setItemChecked(position, true);
+        mDrawerLayout.closeDrawer(mDrawerList);
+    }
 
+    private void loadFragmentById(int loadId, String newTitle) {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         titleStack.clear();
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, fragment)
-                .addToBackStack(null)
-                .commit();
+        Fragment fragment = new CruFragment();
 
-        titleStack.push(getTitle().toString());
-        setTitle(title);
+        // Supply index input as an argument.
+        Bundle args = new Bundle();
+        args.putInt("id", loadId);
+        args.putString("name", newTitle);
+        fragment.setArguments(args);
 
-    }
-
-    private void loadFragmentById(int loadId, String newTitle) {
-        Fragment fragment = new CruFragment(loadId, newTitle);
-
-        FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .addToBackStack(null)
@@ -277,20 +261,4 @@ public class MainActivity extends AppCompatActivity {
         setTitle(newTitle);
     }
 
-    /*public CruFragment getActiveFragment() {
-        if (getFragmentManager().getBackStackEntryCount() == 0) {
-            return null;
-        }
-
-        System.out.println("Count is: " + getFragmentManager().getBackStackEntryCount());
-
-        String id = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
-        System.out.println("tag is: " + id);
-
-        if (getFragmentManager().findFragmentByTag(id) == null) {
-            System.out.println("couldn't find fragment");
-        }
-
-        return (CruFragment) getFragmentManager().findFragmentByTag(id);
-    }*/
 }

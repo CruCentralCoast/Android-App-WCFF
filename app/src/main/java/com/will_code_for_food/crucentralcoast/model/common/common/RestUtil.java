@@ -35,8 +35,6 @@ public class RestUtil
         String responseStr = "!error";
         int timeout = Util.getInt(R.string.db_timeout);
 
-        System.out.println("Timeout is: " + timeout);
-
         try {
             // Create connection
             url = new URL(dataUrl);

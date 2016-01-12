@@ -1,5 +1,7 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
+import android.media.Image;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,6 +20,9 @@ import java.util.Set;
 public abstract class DatabaseObject {
 
     private String id;
+    private String name;
+    private String image;
+    private String description;
     private HashMap<String, JsonElement> fields;
 
     public DatabaseObject(JsonObject obj) {
@@ -72,6 +77,18 @@ public abstract class DatabaseObject {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     private void load(JsonObject obj) {
         for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
             fields.put(entry.getKey(), entry.getValue());
@@ -79,6 +96,19 @@ public abstract class DatabaseObject {
 
         if (fields.containsKey("_id")) {
             id = fields.get("_id").getAsString();
+        }
+
+        if (fields.containsKey("name")) {
+            name = fields.get("name").getAsString();
+        }
+
+        if (fields.containsKey("image")) {
+            JsonObject imageObject = fields.get("image").getAsJsonObject();
+            image = imageObject.get("url").getAsString();
+        }
+
+        if (fields.containsKey("description")) {
+            description = fields.get("description").getAsString();
         }
     }
 }

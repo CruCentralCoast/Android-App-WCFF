@@ -30,24 +30,4 @@ public class Campus extends DatabaseObject {
 
     public String getName() { return name; }
     public String getWebsiteUrl() { return websiteUrl; }
-
-    public static ArrayList<Campus> getCampuses() {
-        JsonArray campusesJson;
-        Iterator<JsonElement> iterator;
-        ArrayList<Campus> campuses = new ArrayList<Campus>();
-        JsonObject temp;
-
-        campusesJson = RestUtil.getAll(Util.getString(R.string.rest_campus_all));
-
-        if (campusesJson != null) {
-            iterator = campusesJson.iterator();
-
-            while (iterator.hasNext()) {
-                temp = iterator.next().getAsJsonObject();
-                campuses.add(new Campus(temp));
-            }
-        }
-
-        return campuses;
-    }
 }

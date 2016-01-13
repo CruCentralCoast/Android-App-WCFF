@@ -46,25 +46,7 @@ public class Ministry extends DatabaseObject {
         return description;
     }
 
-    public ArrayList<String> getCampuses() { return campuses; }
-
-    public static ArrayList<Ministry> getMinistries() {
-        JsonArray ministriesJson;
-        Iterator<JsonElement> iterator;
-        ArrayList<Ministry> ministries = new ArrayList<Ministry>();
-        JsonObject temp;
-
-        ministriesJson = RestUtil.getAll(Util.getString(R.string.rest_ministry_all));
-
-        if (ministriesJson != null) {
-            iterator = ministriesJson.iterator();
-
-            while (iterator.hasNext()) {
-                temp = iterator.next().getAsJsonObject();
-                ministries.add(new Ministry(temp));
-            }
-        }
-
-        return ministries;
+    public ArrayList<String> getCampuses() {
+        return campuses;
     }
 }

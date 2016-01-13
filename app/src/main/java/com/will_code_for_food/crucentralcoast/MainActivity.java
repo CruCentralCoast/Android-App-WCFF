@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -19,17 +20,18 @@ import com.will_code_for_food.crucentralcoast.controller.api_interfaces.Calendar
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
 import com.will_code_for_food.crucentralcoast.model.common.common.CalendarEvent;
 import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
+import com.will_code_for_food.crucentralcoast.model.common.messaging.Notifier;
 
 import java.util.Calendar;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
-    Notifier notifier;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private Stack<String> titleStack;
+    private Notifier notifier;
     public static Context context;
 
     @Override
@@ -61,10 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return false;
+        return mDrawerToggle.onOptionsItemSelected(item);
     }
 
     @Override
@@ -90,41 +89,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-    }
-
-    public void testCalendar(View view) {
-        // building test event
-        CalendarEvent event = new CalendarEvent("Leave for CRU Event", "This is a cru event " +
-                "that should be added to the users calendar at this exact time.", "PAC Circle",
-                Calendar.getInstance());
-        CalendarAccessor.addEventToCalendar(event, this);
-    }
-
-    public void testCalendarEdit(View view) {
-        // building test event
-        CalendarEvent event = new CalendarEvent("New Title!", "This is a cru event " +
-                "that should be added to the users calendar at this exact time.", "PAC Circle",
-                Calendar.getInstance());
-        CalendarAccessor.editExistingEvent(event, "Leave for CRU Event", this);
-    }
-
-    public void testSMS(View view) {
-        //test event for SMS
-        SMSHandler.sendSMS(this);
-    }
-
-    public void testDB(View view) {
-        //Toast.makeText(getApplicationContext(), "first toast", Toast.LENGTH_LONG).show();
-        loadFragmentById(R.layout.fragment_campuses, "Select a Campus");
-        new CampusExampleTask2().execute();
-    }
-
-    public void testYoutube(View view) {
-        YoutubeViewer.watchYoutubeVideo("hGcmaztq7eU", this);
-    }
-
-    public void testNotifier(View view) {
-        notifier.createNotification("title", "text", getApplicationContext());
     }
 
     private void addDrawerItems() {
@@ -158,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadNewFragment(View view, int position) {
         int loadId;
-        String title = "";
+        String title;
 
         TextView tView = (TextView) view;
         String viewText = tView.getText().toString();
@@ -207,5 +171,62 @@ public class MainActivity extends AppCompatActivity {
 
         titleStack.push(getTitle().toString());
         setTitle(newTitle);
+    }
+
+
+
+    /* TEST METHODS*/
+
+    public void testCalendar(View view) {
+        // building test event
+        CalendarEvent event = new CalendarEvent("Leave for CRU Event", "This is a cru event " +
+                "that should be added to the users calendar at this exact time.", "PAC Circle",
+                Calendar.getInstance());
+        CalendarAccessor.addEventToCalendar(event, this);
+    }
+
+    public void testCalendarEdit(View view) {
+        // building test event
+        CalendarEvent event = new CalendarEvent("New Title!", "This is a cru event " +
+                "that should be added to the users calendar at this exact time.", "PAC Circle",
+                Calendar.getInstance());
+        CalendarAccessor.editExistingEvent(event, "Leave for CRU Event", this);
+    }
+
+    // Test event for SMS
+    public void testSMS(View view) {
+        SMSHandler.sendSMS(this);
+    }
+
+    public void testDB(View view) {
+        //Toast.makeText(getApplicationContext(), "first toast", Toast.LENGTH_LONG).show();
+        loadFragmentById(R.layout.fragment_campuses, "Select a Campus");
+        new CampusExampleTask2().execute();
+    }
+
+    public void testYoutube(View view) {
+        YoutubeViewer.watchYoutubeVideo("hGcmaztq7eU", this);
+    }
+
+    // Sends a basic test notification
+    public void testNotifier(View view)
+    {
+        notifier.createNotification("title", "text", getApplicationContext());
+    }
+
+    // Saves a basic test message
+    public void testSaving(View view)
+    {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("Ministry", "test");
+        editor.commit();
+    }
+
+    // Retrieves a basic test message
+    public void testRetrieving(View view)
+    {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        String ministry = sharedPref.getString("Ministry", "no ministries");
     }
 }

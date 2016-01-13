@@ -46,7 +46,9 @@ public class Ministry extends DatabaseObject {
         return description;
     }
 
-    public ArrayList<String> getCampuses() { return campuses; }
+    public ArrayList<String> getCampuses() {
+        return campuses;
+    }
 
     public static ArrayList<Ministry> getMinistries() {
         JsonArray ministriesJson;

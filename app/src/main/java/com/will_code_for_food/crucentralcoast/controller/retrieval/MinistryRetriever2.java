@@ -10,7 +10,7 @@ import java.util.Iterator;
 /**
  * Created by Gavin on 1/13/2016.
  */
-public class MinistryRetriever2 extends Retriever2 {
+public class MinistryRetriever2 extends SingleRetriever {
 
     @Override
     protected Class getDatabaseObjectClass() {

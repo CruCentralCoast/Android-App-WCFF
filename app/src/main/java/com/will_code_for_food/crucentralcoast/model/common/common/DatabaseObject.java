@@ -1,17 +1,10 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
-import android.media.Image;
-
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.will_code_for_food.crucentralcoast.R;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by Gavin on 11/12/2015.

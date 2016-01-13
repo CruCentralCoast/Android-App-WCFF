@@ -1,4 +1,4 @@
-package com.will_code_for_food.crucentralcoast.model.common.retrieval;
+package com.will_code_for_food.crucentralcoast.controller.retrieval;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -15,7 +15,7 @@ import java.util.Iterator;
 /**
  * Created by MasonJStevenson on 1/12/2016.
  */
-public class CampusRetriever implements Retriever{
+public class CampusRetriever implements Retriever {
 
     public ArrayList<DatabaseObject> getAll() {
         JsonArray campusesJson;

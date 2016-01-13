@@ -65,21 +65,6 @@ public class Ministry extends DatabaseObject {
             }
         }
 
-        //printMinistries(ministries); //for testing
-
         return ministries;
-    }
-
-    private static void printMinistries(ArrayList<Ministry> ministries) {
-
-        System.out.println("Ministries Retrieved:");
-        for (Ministry ministry : ministries) {
-            System.out.println("Name: " + ministry.getName() + "\n    ID: " + ministry.getId());
-            System.out.println("    Campuses:");
-
-            for (String campus : ministry.getCampuses()) {
-                System.out.println("        " + campus);
-            }
-        }
     }
 }

@@ -12,8 +12,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
+import com.will_code_for_food.crucentralcoast.model.common.retrieval.CampusRetriever;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is an example of how to asynchronously retrieve all campus objects.
@@ -32,8 +34,9 @@ public class CampusExampleTask2 extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-
-        campuses = Campus.getCampuses();
+        CampusRetriever retriever = new CampusRetriever();
+        //campuses = Campus.getCampuses(); //old way
+        campuses = (ArrayList<Campus>) (List<?>) retriever.getAll();
         campusesStrings = new ArrayList<String>();
 
         for (Campus campus : campuses) {

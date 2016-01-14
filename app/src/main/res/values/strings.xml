@@ -8,7 +8,7 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="db_url">http://10.0.2.1:3000/api/</string>
+    <string name="db_url">http://ec2-52-91-235-48.compute-1.amazonaws.com:3000/api/</string>
     <string name="db_timeout">2000</string>
     <string name="rest_ministry_all">"ministry/list"</string>
     <string name="rest_campus_all">"campus/list"</string>

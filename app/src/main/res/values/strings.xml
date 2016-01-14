@@ -13,4 +13,9 @@
     <string name="rest_ministry_all">"ministry/list"</string>
     <string name="rest_campus_all">"campus/list"</string>
     <string name="rest_event_all">"event/list"</string>
+
+    <string name="log_file">log_info</string>
+    <string name="log_warning">[WARN] </string>
+    <string name="log_error">[ERROR] </string>
+    <string name="log_date_format">HH:mm:ss</string>
 </resources>

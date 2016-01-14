@@ -7,4 +7,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ministries_list" />
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save ministry"
+        android:onClick="testSaving" />
+
+    <Button
+        android:id="@+id/button_retrieve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retrieve ministry"
+        android:onClick="testRetrieving" />
+
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast.controller.local_io.log;
 import android.app.Activity;
 import android.content.Context;
 
+import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 
@@ -27,13 +28,11 @@ import java.util.List;
 public final class Logger {
     private static final String fileName = Util.getString(R.string.log_file);
     private final DateFormat dateFormat;
-    private final Activity activity;
     private List<String> output;
 
-    public Logger(final Activity activity) {
+    public Logger() {
         output = new ArrayList<String>();
         dateFormat = new SimpleDateFormat(Util.getString(R.string.log_date_format));
-        this.activity = activity;
     }
 
     public List<String> getOutput() {
@@ -77,10 +76,10 @@ public final class Logger {
 
     public void updateOutput() {
         output = new ArrayList<String>();
-        File file = activity.getFileStreamPath(fileName);
+        File file = MainActivity.context.getFileStreamPath(fileName);
         InputStream stream = null;
         try {
-            stream = activity.openFileInput(file.getName());
+            stream = MainActivity.context.openFileInput(file.getName());
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         }
@@ -113,7 +112,7 @@ public final class Logger {
     }
 
     private FileOutputStream getOutputWriter() {
-        File file = activity.getFileStreamPath(fileName);
+        File file = MainActivity.context.getFileStreamPath(fileName);
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -123,7 +122,7 @@ public final class Logger {
         }
         FileOutputStream out = null;
         try {
-            out = activity.openFileOutput(file.getName(), Context.MODE_APPEND);
+            out = MainActivity.context.openFileOutput(file.getName(), Context.MODE_APPEND);
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         }

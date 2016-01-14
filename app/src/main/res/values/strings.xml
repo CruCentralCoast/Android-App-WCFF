@@ -12,4 +12,5 @@
     <string name="db_timeout">2000</string>
     <string name="rest_ministry_all">"ministry/list"</string>
     <string name="rest_campus_all">"campus/list"</string>
+    <string name="rest_event_all">"event/list"</string>
 </resources>

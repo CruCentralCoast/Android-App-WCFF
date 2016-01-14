@@ -1,10 +1,7 @@
 package com.will_code_for_food.crucentralcoast.controller;
 
 import com.will_code_for_food.crucentralcoast.controller.retrieval.CampusRetriever;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.MinistryRetriever;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.MultiRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 
 import org.junit.Test;

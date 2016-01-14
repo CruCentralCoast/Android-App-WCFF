@@ -44,28 +44,6 @@ public abstract class DatabaseObject {
         return fields.get(fieldName);
     }
 
-    //Trying to create a generic get method- its not working at the moment...
-    /*
-    public static ArrayList<Object> getAll(Class type, int table) {
-        JsonArray arrayJson;
-        Iterator<JsonElement> iterator;
-        ArrayList<Object> toReturn = new ArrayList<Object>();
-        JsonObject temp;
-
-        arrayJson = RestUtil.getAll(Util.getString(table));
-
-        if (arrayJson != null) {
-            iterator = arrayJson.iterator();
-
-            while (iterator.hasNext()) {
-                temp = iterator.next().getAsJsonObject();
-                toReturn.add(type.getDeclaredConstructor().newInstance());
-            }
-        }
-
-        return toReturn;
-    }*/
-
     public String getId() {
         return id;
     }

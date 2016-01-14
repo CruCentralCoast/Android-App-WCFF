@@ -13,7 +13,7 @@ import java.util.List;
  * creates a MultiRetriever with no retriever, but the list of
  * retrievers can be changed after instantiation.
  */
-public final class MultiRetriever extends Retriever2 {
+public final class MultiRetriever extends Retriever {
     private List<Retriever> retrievers;
 
     public MultiRetriever(List<Retriever> retrievers) {

@@ -1,13 +1,9 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.will_code_for_food.crucentralcoast.MainActivity;
-import com.will_code_for_food.crucentralcoast.R;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by Gavin on 11/12/2015.
@@ -46,25 +42,7 @@ public class Ministry extends DatabaseObject {
         return description;
     }
 
-    public ArrayList<String> getCampuses() { return campuses; }
-
-    public static ArrayList<Ministry> getMinistries() {
-        JsonArray ministriesJson;
-        Iterator<JsonElement> iterator;
-        ArrayList<Ministry> ministries = new ArrayList<Ministry>();
-        JsonObject temp;
-
-        ministriesJson = RestUtil.getAll(Util.getString(R.string.rest_ministry_all));
-
-        if (ministriesJson != null) {
-            iterator = ministriesJson.iterator();
-
-            while (iterator.hasNext()) {
-                temp = iterator.next().getAsJsonObject();
-                ministries.add(new Ministry(temp));
-            }
-        }
-
-        return ministries;
+    public ArrayList<String> getCampuses() {
+        return campuses;
     }
 }

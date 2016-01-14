@@ -37,7 +37,6 @@ public class CampusExampleTask2 extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         CampusRetriever retriever = new CampusRetriever();
-        //campuses = Campus.getCampuses(); //old way
         campuses = (ArrayList<Campus>) (List<?>) retriever.getAll();
         campusesStrings = new ArrayList<String>();
 

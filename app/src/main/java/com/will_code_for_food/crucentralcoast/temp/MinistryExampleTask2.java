@@ -36,7 +36,6 @@ public class MinistryExampleTask2 extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         MinistryRetriever retriever = new MinistryRetriever();
-        //ministries = Ministry.getMinistries(); //old way
         ministries = (ArrayList<Ministry>)(List<?>) retriever.getAll();
 
         minstriesStrings = new ArrayList<String>();

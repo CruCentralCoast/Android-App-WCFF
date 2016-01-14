@@ -14,7 +14,7 @@ import java.util.Iterator;
 /**
  * Retrieves a single type of DatabaseObject.
  */
-public abstract class SingleRetriever extends Retriever2 {
+public abstract class SingleRetriever extends Retriever {
 
     public ArrayList<DatabaseObject> getAll() {
         JsonArray json;

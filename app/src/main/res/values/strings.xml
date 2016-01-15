@@ -8,15 +8,26 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="db_url">http://ec2-52-91-235-48.compute-1.amazonaws.com:3000/api/</string>
+    <string name="db_url">http://ec2-52-91-235-48.compute-1.amazonaws.com:3000/api</string>
     <string name="db_timeout">2000</string>
-    <string name="rest_ministry_all">"ministry/list"</string>
-    <string name="rest_campus_all">"campus/list"</string>
-    <string name="rest_event_all">"event/list"</string>
+    <string name="rest_collection_ministry">/ministry</string>
+    <string name="rest_collection_campus">/campus</string>
+    <string name="rest_collection_event">/event</string>
 
     <string name="preferences_file">preferences</string>
     <string name="log_file">log_info</string>
     <string name="log_warning">[WARN] </string>
     <string name="log_error">[ERROR] </string>
     <string name="log_date_format">HH:mm:ss</string>
+    <string name="json_key_common_id">_id</string>
+    <string name="json_key_common_image">image</string>
+    <string name="json_key_common_description">description</string>
+    <string name="json_key_common_name">name</string>
+    <string name="json_key_campus_url">url</string>
+    <string name="json_key_ministry_campuses">campuses</string>
+    <string name="iso_format">"yyyy-MM-dd'T'HH:mmZ"</string>
+    <string name="json_key_event_startdate">startDate</string>
+    <string name="json_key_event_location">location</string>
+    <string name="http_request_method_get">GET</string>
+    <string name="rest_query_get_all">/list</string>
 </resources>

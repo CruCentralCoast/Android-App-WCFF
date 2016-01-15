@@ -2,6 +2,8 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,11 +14,7 @@ import java.util.Map;
  */
 public abstract class DatabaseObject {
 
-    private String id;
-    private String name;
-    private String image;
-    private String description;
-    private HashMap<String, JsonElement> fields;
+    private final HashMap<String, JsonElement> fields;
 
     public DatabaseObject(JsonObject obj) {
         fields = new HashMap<String, JsonElement>();
@@ -27,12 +25,12 @@ public abstract class DatabaseObject {
      * Gets a field from this object as a String. If the field can't be represented as a String
      * or if it does not exist, returns null.
      */
-    public String getString(String fieldName) {
+    public String getFieldAsString(String fieldName) {
 
-        JsonElement toReturn = fields.get(fieldName);
+        JsonElement fieldValue = fields.get(fieldName);
 
-        if (toReturn != null && toReturn.isJsonPrimitive()) {
-            return toReturn.getAsString();
+        if (fieldValue != null && fieldValue.isJsonPrimitive()) {
+            return fieldValue.getAsString();
         }
 
         else {
@@ -40,46 +38,35 @@ public abstract class DatabaseObject {
         }
     }
 
-    public JsonElement get(String fieldName) {
+    /**
+     * Returns the corresponding JsonElement for key fieldName, or null if that key does not exist.
+     */
+    public JsonElement getField(String fieldName) {
         return fields.get(fieldName);
     }
 
     public String getId() {
-        return id;
+        return getFieldAsString(Util.getString(R.string.json_key_common_id));
     }
 
     public String getName() {
-        return name;
+        return getFieldAsString(Util.getString(R.string.json_key_common_name));
     }
 
     public String getImage() {
-        return image;
+        return getFieldAsString(Util.getString(R.string.json_key_common_image));
     }
 
     public String getDescription() {
-        return description;
+        return getFieldAsString(Util.getString(R.string.json_key_common_description));
     }
 
+    /**
+     * Converts the JsonObject for this DatabaseObject into a hashmap.
+     */
     private void load(JsonObject obj) {
         for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
             fields.put(entry.getKey(), entry.getValue());
-        }
-
-        if (fields.containsKey("_id")) {
-            id = fields.get("_id").getAsString();
-        }
-
-        if (fields.containsKey("name")) {
-            name = fields.get("name").getAsString();
-        }
-
-        if (fields.containsKey("image")) {
-            JsonObject imageObject = fields.get("image").getAsJsonObject();
-            image = imageObject.get("url").getAsString();
-        }
-
-        if (fields.containsKey("description")) {
-            description = fields.get("description").getAsString();
         }
     }
 }

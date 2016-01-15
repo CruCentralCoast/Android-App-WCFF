@@ -7,7 +7,7 @@ import android.widget.EditText;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 
 /**
- * Created by mallika on 1/14/16.
+ * Allows the user to change their settings, such as Ministry, Campus, and notifications.
  */
 public class SettingsActivity extends MainActivity {
     @Override

@@ -80,9 +80,9 @@ public class RestUtil
     }
 
     /**
-     * Returns an array of Json Objects
+     * Returns an array of Json Objects, or null if an error occured.
      */
-    public static JsonArray getAll(String tableName) {
+    public static JsonArray get(String tableName) {
         JsonParser parser = new JsonParser();
         try{
             HttpURLConnection conn = createGetConnection(tableName + "/" + "list");

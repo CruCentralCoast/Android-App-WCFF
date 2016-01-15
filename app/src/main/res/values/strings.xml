@@ -14,6 +14,7 @@
     <string name="rest_campus_all">"campus/list"</string>
     <string name="rest_event_all">"event/list"</string>
 
+    <string name="preferences_file">preferences</string>
     <string name="log_file">log_info</string>
     <string name="log_warning">[WARN] </string>
     <string name="log_error">[ERROR] </string>

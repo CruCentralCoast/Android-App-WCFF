@@ -20,7 +20,7 @@ public class RestTest
     public void testGet()
     {
         //Ministries
-        JsonArray ministryJSON = RestUtil.getAll(Util.getString(R.string.rest_ministry_all));
+        JsonArray ministryJSON = RestUtil.get(Util.getString(R.string.rest_ministry_all));
     }
 
     @Test

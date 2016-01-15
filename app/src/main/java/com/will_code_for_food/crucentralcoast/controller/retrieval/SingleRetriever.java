@@ -42,7 +42,7 @@ public class SingleRetriever<T extends DatabaseObject> implements Retriever {
             ex.printStackTrace();
         }
 
-        json = RestUtil.getAll(schema.getTableName());
+        json = RestUtil.get(schema.getTableName());
 
         if (json != null) {
             for (JsonElement jsonElement : json) {

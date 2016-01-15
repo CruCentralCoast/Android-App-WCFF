@@ -177,6 +177,10 @@ public class MainActivity extends AppCompatActivity {
                 loadId = R.layout.fragment_get_involved;
                 title = "Get Involved";
                 break;
+            case "Settings":
+                loadId = R.layout.fragment_settings;
+                title = "Settings";
+                break;
             default:
                 loadId = R.layout.fragment_main;
                 title = "CruCentralCoast";

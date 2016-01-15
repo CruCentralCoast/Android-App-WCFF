@@ -16,11 +16,15 @@ import java.util.List;
 public final class MultiRetriever extends Retriever {
     private List<Retriever> retrievers;
 
+    public MultiRetriever() { super(DBObjectSchema.CAMPUS);}
+
     public MultiRetriever(List<Retriever> retrievers) {
+        super(null);
         this.retrievers = retrievers;
     }
 
     public MultiRetriever(Retriever... retrievers) {
+        super(null);
         this.retrievers = Arrays.asList(retrievers);
     }
 
@@ -32,8 +36,9 @@ public final class MultiRetriever extends Retriever {
         this.retrievers = Arrays.asList(retrievers);
     }
 
-    public List<DatabaseObject> getAll() {
-        ArrayList<DatabaseObject> objects = new ArrayList<DatabaseObject>();
+    @Override
+    public List<? extends DatabaseObject> getAll() {
+        List<? extends DatabaseObject> objects = new ArrayList();
         for (Retriever ret : retrievers) {
             if (ret != null) {
                 objects.addAll(ret.getAll());

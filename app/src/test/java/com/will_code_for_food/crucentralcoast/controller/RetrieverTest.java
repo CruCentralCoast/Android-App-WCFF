@@ -1,6 +1,5 @@
 package com.will_code_for_food.crucentralcoast.controller;
 
-import com.will_code_for_food.crucentralcoast.controller.retrieval.CampusRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class RetrieverTest {
     @Test
     public void testRetriever() throws Exception {
-        Retriever retriever = new CampusRetriever();
+        Retriever retriever = new Retriever(null);
         List<DatabaseObject> objects = retriever.getAll();
     }
 }

@@ -13,18 +13,14 @@ import java.util.List;
  * creates a MultiRetriever with no retriever, but the list of
  * retrievers can be changed after instantiation.
  */
-public final class MultiRetriever extends Retriever {
+public final class MultiRetriever implements Retriever {
     private List<Retriever> retrievers;
 
-    public MultiRetriever() { super(DBObjectSchema.CAMPUS);}
-
     public MultiRetriever(List<Retriever> retrievers) {
-        super(null);
         this.retrievers = retrievers;
     }
 
     public MultiRetriever(Retriever... retrievers) {
-        super(null);
         this.retrievers = Arrays.asList(retrievers);
     }
 

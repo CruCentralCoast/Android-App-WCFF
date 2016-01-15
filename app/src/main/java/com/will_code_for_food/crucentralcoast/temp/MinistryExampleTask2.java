@@ -11,8 +11,9 @@ import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.DBObjectSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 
@@ -37,7 +38,7 @@ public class MinistryExampleTask2 extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        Retriever<Ministry> retriever = new Retriever(DBObjectSchema.MINISTRY);
+        Retriever retriever = new SingleRetriever(RetrieverSchema.MINISTRY);
         ministries = retriever.getAll();
 
         minstriesStrings = new ArrayList<String>();

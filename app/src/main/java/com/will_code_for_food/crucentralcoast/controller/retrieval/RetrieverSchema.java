@@ -10,7 +10,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.*;
  *
  * Created by Brian on 1/14/2016.
  */
-public enum DBObjectSchema {
+public enum RetrieverSchema {
     CAMPUS (Campus.class, Util.getString(R.string.rest_campus_all)),
     MINISTRY (Ministry.class, Util.getString(R.string.rest_ministry_all)),
     EVENT (Event.class, Util.getString(R.string.rest_event_all));
@@ -27,7 +27,7 @@ public enum DBObjectSchema {
     private final Class<? extends DatabaseObject> objClass;
     private final String tableName;
 
-    private DBObjectSchema(Class<? extends DatabaseObject> objClass, String tableName) {
+    private RetrieverSchema(Class<? extends DatabaseObject> objClass, String tableName) {
         this.objClass = objClass;
         this.tableName = tableName;
     }

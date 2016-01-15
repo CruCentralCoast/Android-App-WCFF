@@ -13,8 +13,9 @@ import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.DBObjectSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class CampusExampleTask2 extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        Retriever retriever = new Retriever(DBObjectSchema.CAMPUS);
+        Retriever retriever = new SingleRetriever(RetrieverSchema.CAMPUS);
         campuses = (ArrayList<Campus>) (List<?>) retriever.getAll();
         campusesStrings = new ArrayList<String>();
 

@@ -31,7 +31,7 @@ public abstract class SingleRetriever extends Retriever {
             ex.printStackTrace();
         }
 
-        json = RestUtil.getAll(getJSONDatabaseString());
+        json = RestUtil.get(getJSONCollectionString(), getJSONQueryString());
 
         if (json != null) {
             iterator = json.iterator();
@@ -58,5 +58,6 @@ public abstract class SingleRetriever extends Retriever {
     }
 
     protected abstract Class getDatabaseObjectClass();
-    protected abstract String getJSONDatabaseString();
+    protected abstract String getJSONCollectionString();
+    protected abstract String getJSONQueryString();
 }

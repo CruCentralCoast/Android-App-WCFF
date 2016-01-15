@@ -28,8 +28,8 @@ public class RestUtil
     /**
      * Gets a JSON object from the server and returns it as a String.
      */
-    private static String request(String from) {
-        String dataUrl = DB_URL + from;
+    private static String request(String collection, String query) {
+        String dataUrl = DB_URL + collection + query;
         URL url;
         HttpURLConnection connection = null;
         String responseStr = "!error";
@@ -40,7 +40,7 @@ public class RestUtil
             url = new URL(dataUrl);
             connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(timeout);
-            connection.setRequestMethod("GET");
+            connection.setRequestMethod(Util.getString(R.string.http_request_method_get));
 
             // Get Response
             InputStream is = connection.getInputStream();
@@ -73,11 +73,11 @@ public class RestUtil
     }
 
     /**
-     * Returns an array of Json Objects
+     * Returns an array of Json Objects, or null if an error occured.
      */
-    public static JsonArray getAll(String from) {
+    public static JsonArray get(String collection, String query) {
         JsonParser parser = new JsonParser();
-        String toParse = request(from);
+        String toParse = request(collection, query);
 
         if (toParse.equals("!error")) {
             return null;

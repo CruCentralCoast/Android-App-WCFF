@@ -15,7 +15,12 @@ public class CampusRetriever extends SingleRetriever {
     }
 
     @Override
-    protected String getJSONDatabaseString() {
-        return Util.getString(R.string.rest_campus_all);
+    protected String getJSONCollectionString() {
+        return Util.getString(R.string.rest_collection_campus);
+    }
+
+    @Override
+    protected String getJSONQueryString() {
+        return Util.getString(R.string.rest_query_get_all);
     }
 }

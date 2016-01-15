@@ -18,7 +18,12 @@ public class MinistryRetriever extends SingleRetriever {
     }
 
     @Override
-    protected String getJSONDatabaseString() {
-        return Util.getString(R.string.rest_ministry_all);
+    protected String getJSONCollectionString() {
+        return Util.getString(R.string.rest_collection_ministry);
+    }
+
+    @Override
+    protected String getJSONQueryString() {
+        return Util.getString(R.string.rest_query_get_all);
     }
 }

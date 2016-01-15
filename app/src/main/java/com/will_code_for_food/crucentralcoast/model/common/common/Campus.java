@@ -1,6 +1,7 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.R;
 
 /**
  * Created by Gavin on 11/12/2015.
@@ -15,7 +16,7 @@ public class Campus extends DatabaseObject {
 
     public Campus(JsonObject obj) {
         super(obj);
-        websiteUrl = this.getString("url");
+        websiteUrl = this.getFieldAsString(Util.getString(R.string.json_key_campus_url));
     }
 
     public String getWebsiteUrl() {

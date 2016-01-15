@@ -14,7 +14,12 @@ public class EventRetriever extends SingleRetriever {
     }
 
     @Override
-    protected String getJSONDatabaseString() {
-        return Util.getString(R.string.rest_event_all);
+    protected String getJSONCollectionString() {
+        return Util.getString(R.string.rest_collection_event);
+    }
+
+    @Override
+    protected String getJSONQueryString() {
+        return Util.getString(R.string.rest_query_get_all);
     }
 }

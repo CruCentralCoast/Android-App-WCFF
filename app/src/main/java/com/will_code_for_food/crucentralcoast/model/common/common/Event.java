@@ -4,6 +4,7 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 import android.app.Activity;
 
 import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 
 import java.text.DateFormat;
@@ -32,11 +33,11 @@ public class Event extends DatabaseObject {
     }
 
     private void updateCalendarEvent() {
-        DateFormat isoFormater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
+        DateFormat isoFormater = new SimpleDateFormat(Util.getString(R.string.iso_format));
         Date dateTime;
 
         try {
-            dateTime = isoFormater.parse(getString("startDate"));
+            dateTime = isoFormater.parse(getFieldAsString(Util.getString(R.string.json_key_event_startdate)));
         }
 
         catch (java.text.ParseException exception) {
@@ -44,6 +45,6 @@ public class Event extends DatabaseObject {
             dateTime = new Date();
         }
 
-        calendarEvent = new CalendarEvent(getName(), getDescription(), getString("location"), dateTime);
+        calendarEvent = new CalendarEvent(getName(), getDescription(), getFieldAsString(Util.getString(R.string.json_key_event_location)), dateTime);
     }
 }

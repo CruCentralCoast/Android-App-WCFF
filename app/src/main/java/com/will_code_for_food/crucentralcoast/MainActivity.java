@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -15,13 +16,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
-import com.will_code_for_food.crucentralcoast.model.common.common.CalendarEvent;
-import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
-import com.will_code_for_food.crucentralcoast.temp.CampusExampleTask2;
+import com.will_code_for_food.crucentralcoast.model.common.messaging.Notifier;
 
-import java.util.Calendar;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
@@ -53,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                loadNewFragment(view, position);
+                loadNewScreen(view, position);
             }
         });
 
@@ -93,41 +89,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void testCalendar(View view) {
-        // building test event
-        CalendarEvent event = new CalendarEvent("Leave for CRU Event", "This is a cru event " +
-                "that should be added to the users calendar at this exact time.", "PAC Circle",
-                Calendar.getInstance());
-        CalendarAccessor.addEventToCalendar(event, this);
-    }
-
-    public void testCalendarEdit(View view) {
-        // building test event
-        CalendarEvent event = new CalendarEvent("New Title!", "This is a cru event " +
-                "that should be added to the users calendar at this exact time.", "PAC Circle",
-                Calendar.getInstance());
-        CalendarAccessor.editExistingEvent(event, "Leave for CRU Event", this);
-    }
-
-    public void testSMS(View view) {
-        //test event for SMS
-        SMSHandler.sendSMS(this);
-    }
-
-    public void testDB(View view) {
-        //Toast.makeText(getApplicationContext(), "first toast", Toast.LENGTH_LONG).show();
-        loadFragmentById(R.layout.fragment_campuses, "Select a Campus");
-        new CampusExampleTask2().execute();
-    }
-
-    public void testYoutube(View view) {
-        YoutubeViewer.watchYoutubeVideo("hGcmaztq7eU", this);
-    }
-
-    public void testNotifier(View view) {
-        notifier.createNotification("title", "text", getApplicationContext());
-    }
-
     private void addDrawerItems() {
         String[] osArray = {"Events", "Resources", "Summer Missions", "Get Involved",
                 "Ride Share", "Settings"};
@@ -157,25 +118,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void loadNewFragment(View view, int position) {
+    private void loadNewScreen(View view, int position) {
         int loadId;
         String title = "";
 
         TextView tView = (TextView) view;
         String viewText = tView.getText().toString();
 
+
         switch (viewText) {
             case "Events":
-                loadId = R.layout.fragment_event;
-                title = "Events";
+                newActivity(EventsActivity.class);
                 break;
             case "Resources":
-                loadId = R.layout.fragment_resources;
-                title = "Resources";
+                newActivity(ResourcesActivity.class);
                 break;
             case "Get Involved":
-                loadId = R.layout.fragment_get_involved;
-                title = "Get Involved";
+                newActivity(GetInvolvedActivity.class);
+                break;
+            case "Summer Missions":
+                newActivity(SummerMissionsActivity.class);
+                break;
+            case "Ride Share":
+                newActivity(RideShareActivity.class);
+                break;
+            case "Settings":
+                newActivity(SettingsActivity.class);
                 break;
             case "Settings":
                 loadId = R.layout.fragment_settings;
@@ -184,12 +152,14 @@ public class MainActivity extends AppCompatActivity {
             default:
                 loadId = R.layout.fragment_main;
                 title = "CruCentralCoast";
+                loadFragmentById(loadId, title);
                 break;
         }
 
-        loadFragmentById(loadId, title);
         mDrawerList.setItemChecked(position, true);
         mDrawerLayout.closeDrawer(mDrawerList);
+
+
     }
 
     public void loadFragmentById(int loadId, String newTitle) {
@@ -212,5 +182,11 @@ public class MainActivity extends AppCompatActivity {
 
         titleStack.push(getTitle().toString());
         setTitle(newTitle);
+    }
+
+    public void newActivity(Class newClass) {
+        Intent intent = new Intent(this, newClass);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

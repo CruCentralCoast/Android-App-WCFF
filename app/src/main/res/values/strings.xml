@@ -30,5 +30,6 @@
     <string name="http_request_method_get">GET</string>
     <string name="http_request_method_post">POST</string>
     <string name="rest_query_get_all">/list</string>
+    <string name="json_key_common_image_url">url</string>
     <string name="rest_query_find">/find</string>
 </resources>

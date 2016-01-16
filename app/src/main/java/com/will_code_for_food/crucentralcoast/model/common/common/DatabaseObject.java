@@ -54,7 +54,15 @@ public abstract class DatabaseObject {
     }
 
     public String getImage() {
-        return getFieldAsString(Util.getString(R.string.json_key_common_image));
+        if (fields.containsKey(Util.getString(R.string.json_key_common_image))) {
+            JsonObject imageObject = fields.get(Util.getString(R.string.json_key_common_image)).getAsJsonObject();
+            String image = imageObject.get(Util.getString(R.string.json_key_common_image_url)).getAsString();
+            return image;
+        }
+
+        else {
+            return null;
+        }
     }
 
     public String getDescription() {

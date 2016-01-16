@@ -36,18 +36,18 @@ public class RestUtil
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int timeout = Util.getInt(R.string.db_timeout);
         connection.setConnectTimeout(timeout);
-        connection.setRequestMethod("GET");
+        connection.setRequestMethod(Util.getString(R.string.http_request_method_get));
         return connection;
     }
 
     private static HttpURLConnection createPostConnection(String from, Pair<String, String>... fields) throws Exception
     {
         String dataUrl = DB_URL + from;
-        URL url = new URL(dataUrl);;
+        URL url = new URL(dataUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int timeout = Util.getInt(R.string.db_timeout);
         connection.setConnectTimeout(timeout);
-        connection.setRequestMethod("POST");
+        connection.setRequestMethod(Util.getString(R.string.http_request_method_post));
 
         for (Pair<String, String> field : fields)
         {
@@ -85,7 +85,8 @@ public class RestUtil
     public static JsonArray get(String tableName) {
         JsonParser parser = new JsonParser();
         try{
-            HttpURLConnection conn = createGetConnection(tableName + "/" + "list");
+            HttpURLConnection conn = createGetConnection(tableName
+                    + Util.getString(R.string.rest_query_get_all));
             String toParse = request(conn);
 
             if (toParse.equals("!error"))
@@ -106,12 +107,13 @@ public class RestUtil
      *               The first string should be the key, and the second the value
      * @return
      */
-    public static JsonArray getAllWithCondition(String tableName, Pair<String, String>... fields)
+    public static JsonArray getWithConditions(String tableName, Pair<String, String>... fields)
     {
 
         JsonParser parser = new JsonParser();
         try{
-            HttpURLConnection conn = createPostConnection(tableName + "/" + "find", fields);
+            HttpURLConnection conn = createPostConnection(tableName
+                    + Util.getString(R.string.rest_query_find), fields);
             String toParse = request(conn);
 
             if (toParse.equals("!error"))

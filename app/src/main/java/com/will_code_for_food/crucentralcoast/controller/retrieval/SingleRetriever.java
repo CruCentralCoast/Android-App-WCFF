@@ -46,7 +46,7 @@ public class SingleRetriever<T extends DatabaseObject> implements Retriever {
 
         if (json != null) {
             for (JsonElement jsonElement : json) {
-                T dbObject = getObjectFromJson(json, constructor);
+                T dbObject = getObjectFromJson(jsonElement, constructor);
                 objects.add(dbObject);
             }
         }
@@ -59,7 +59,7 @@ public class SingleRetriever<T extends DatabaseObject> implements Retriever {
         if (jsonElement.isJsonObject())
         {
             try {
-                return (T)constructor.newInstance(jsonElement);
+                return (T)constructor.newInstance(jsonElement.getAsJsonObject());
             } catch (InstantiationException ex) {
                 // ERROR instantiating database object
                 // Note: Can't multi-catch for reflection because we support old phones

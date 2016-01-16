@@ -11,9 +11,9 @@ import com.will_code_for_food.crucentralcoast.model.common.common.*;
  * Created by Brian on 1/14/2016.
  */
 public enum RetrieverSchema {
-    CAMPUS (Campus.class, Util.getString(R.string.rest_campus_all)),
-    MINISTRY (Ministry.class, Util.getString(R.string.rest_ministry_all)),
-    EVENT (Event.class, Util.getString(R.string.rest_event_all));
+    CAMPUS (Campus.class, Util.getString(R.string.rest_campus)),
+    MINISTRY (Ministry.class, Util.getString(R.string.rest_ministry)),
+    EVENT (Event.class, Util.getString(R.string.rest_event));
 
 
     public Class<? extends DatabaseObject> getObjClass() {

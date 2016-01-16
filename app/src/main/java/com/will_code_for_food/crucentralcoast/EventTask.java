@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.will_code_for_food.crucentralcoast.controller.retrieval.CampusRetriever;
@@ -38,14 +39,20 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
 
         Event event = events.get(0);
         ImageView imageView = (ImageView)currentActivity.findViewById(R.id.image_event);
+        Button button = (Button)currentActivity.findViewById(R.id.button_notify);
 
         // Get the URL for the image
         try {
             URL imgurl = new URL(event.getImage());
             Bitmap bitmap = BitmapFactory.decodeStream(imgurl.openConnection().getInputStream());
             imageView.setImageBitmap(bitmap);
+            button.setText(imgurl.toString());
         } catch (Exception e) {
-
+            if (event.getImage() == null)
+                button.setText("null");
+            else
+                button.setText("empty");
+            throw new Error("Invalid URL for an image");
         }
     }
 }

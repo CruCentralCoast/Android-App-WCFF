@@ -11,8 +11,11 @@ import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.MinistryRetriever;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +25,9 @@ import java.util.List;
  * Currently we aren't storing them anywhere.
  */
 public class MinistryExampleTask2 extends AsyncTask<Void, Void, Void> {
-    ArrayList<Ministry> ministries;
+    List<Ministry> ministries;
     ListView ministriesList;
-    ArrayList<String> minstriesStrings;
+    List<String> minstriesStrings;
     String campusId;
     MainActivity currentActivity;
 
@@ -35,8 +38,8 @@ public class MinistryExampleTask2 extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        MinistryRetriever retriever = new MinistryRetriever();
-        ministries = (ArrayList<Ministry>)(List<?>) retriever.getAll();
+        Retriever retriever = new SingleRetriever(RetrieverSchema.MINISTRY);
+        ministries = retriever.getAll();
 
         minstriesStrings = new ArrayList<String>();
 

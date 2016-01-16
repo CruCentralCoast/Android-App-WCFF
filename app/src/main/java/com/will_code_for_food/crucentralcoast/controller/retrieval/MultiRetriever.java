@@ -13,7 +13,7 @@ import java.util.List;
  * creates a MultiRetriever with no retriever, but the list of
  * retrievers can be changed after instantiation.
  */
-public final class MultiRetriever extends Retriever {
+public final class MultiRetriever implements Retriever {
     private List<Retriever> retrievers;
 
     public MultiRetriever(List<Retriever> retrievers) {
@@ -32,8 +32,9 @@ public final class MultiRetriever extends Retriever {
         this.retrievers = Arrays.asList(retrievers);
     }
 
-    public List<DatabaseObject> getAll() {
-        ArrayList<DatabaseObject> objects = new ArrayList<DatabaseObject>();
+    @Override
+    public List<? extends DatabaseObject> getAll() {
+        List<? extends DatabaseObject> objects = new ArrayList();
         for (Retriever ret : retrievers) {
             if (ret != null) {
                 objects.addAll(ret.getAll());

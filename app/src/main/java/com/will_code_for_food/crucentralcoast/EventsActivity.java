@@ -29,7 +29,7 @@ public class EventsActivity extends MainActivity {
      * Retrieves and loads all of the events
      */
     public void loadEvents() {
-        new EventTask().execute();
+        new EventTask().execute(0);
     }
 
     public void testNotifier(View view) {

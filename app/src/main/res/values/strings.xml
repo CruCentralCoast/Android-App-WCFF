@@ -30,4 +30,5 @@
     <string name="json_key_event_location">location</string>
     <string name="http_request_method_get">GET</string>
     <string name="rest_query_get_all">/list</string>
+    <string name="json_key_common_image_url">url</string>
 </resources>

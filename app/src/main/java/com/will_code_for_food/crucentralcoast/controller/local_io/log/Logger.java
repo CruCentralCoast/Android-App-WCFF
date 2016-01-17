@@ -6,6 +6,7 @@ import android.content.Context;
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.values.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,13 +27,13 @@ import java.util.List;
  * to display it in the app.
  */
 public final class Logger {
-    private static final String fileName = Util.getString(R.string.log_file);
+    private static final String fileName = Log.FILE;
     private final DateFormat dateFormat;
     private List<String> output;
 
     public Logger() {
         output = new ArrayList<String>();
-        dateFormat = new SimpleDateFormat(Util.getString(R.string.log_date_format));
+        dateFormat = new SimpleDateFormat(Log.DATE_FORMAT);
     }
 
     public List<String> getOutput() {
@@ -43,9 +44,9 @@ public final class Logger {
                                           final boolean showNormalMessages) {
         List<String> filtered = new ArrayList<String>();
         for (String entry : output) {
-            if (entry.contains(Util.getString(R.string.log_error)) && showErrors) {
+            if (entry.contains(Log.ERROR) && showErrors) {
                 filtered.add(entry);
-            } else if (entry.contains(Util.getString(R.string.log_warning)) && showWarnings) {
+            } else if (entry.contains(Log.WARNING) && showWarnings) {
                 filtered.add(entry);
             } else if (showNormalMessages) {
                 filtered.add(entry);
@@ -55,11 +56,11 @@ public final class Logger {
     }
 
     public boolean isError(final String msg) {
-        return msg.contains(Util.getString(R.string.log_error));
+        return msg.contains(Log.ERROR);
     }
 
     public boolean isWarning(final String msg) {
-        return msg.contains(Util.getString(R.string.log_warning));
+        return msg.contains(Log.WARNING);
     }
 
     public void logMessage(final String message) {
@@ -67,11 +68,11 @@ public final class Logger {
     }
 
     public void logWarning(final String warning) {
-        logMessage(Util.getString(R.string.log_warning) + warning);
+        logMessage(Log.WARNING + warning);
     }
 
     public void logError(final String error) {
-        logMessage(Util.getString(R.string.log_error) + error);
+        logMessage(Log.ERROR + error);
     }
 
     public void updateOutput() {

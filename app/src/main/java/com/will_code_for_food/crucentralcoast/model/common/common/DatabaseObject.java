@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,17 +47,17 @@ public abstract class DatabaseObject {
     }
 
     public String getId() {
-        return getFieldAsString(Util.getString(R.string.json_key_common_id));
+        return getFieldAsString(Database.JSON_KEY_COMMON_ID);
     }
 
     public String getName() {
-        return getFieldAsString(Util.getString(R.string.json_key_common_name));
+        return getFieldAsString(Database.JSON_KEY_COMMON_NAME);
     }
 
     public String getImage() {
-        if (fields.containsKey(Util.getString(R.string.json_key_common_image))) {
-            JsonObject imageObject = fields.get(Util.getString(R.string.json_key_common_image)).getAsJsonObject();
-            String image = imageObject.get(Util.getString(R.string.json_key_common_image_url)).getAsString();
+        if (fields.containsKey(Database.JSON_KEY_COMMON_IMAGE)) {
+            JsonObject imageObject = fields.get(Database.JSON_KEY_COMMON_IMAGE).getAsJsonObject();
+            String image = imageObject.get(Database.JSON_KEY_COMMON_IMAGE_URL).getAsString();
             return image;
         }
 
@@ -66,7 +67,7 @@ public abstract class DatabaseObject {
     }
 
     public String getDescription() {
-        return getFieldAsString(Util.getString(R.string.json_key_common_description));
+        return getFieldAsString(Database.JSON_KEY_COMMON_DESCRIPTION);
     }
 
     /**

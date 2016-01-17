@@ -2,12 +2,14 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 
 
 import android.app.Activity;
+import android.provider.ContactsContract;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
+import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -47,7 +49,7 @@ public class Event extends DatabaseObject {
      */
     private void loadParentMinistries() {
         parentMinistries = new ArrayList<String>();
-        JsonArray ministriesJson = this.getField("parentMinistries").getAsJsonArray();
+        JsonArray ministriesJson = this.getField(Database.JSON_KEY_EVENT_MINISTRIES).getAsJsonArray();
 
         for (JsonElement ministry : ministriesJson) {
             if (ministry.isJsonPrimitive()) {
@@ -57,11 +59,11 @@ public class Event extends DatabaseObject {
     }
 
     private void updateCalendarEvent() {
-        DateFormat isoFormater = new SimpleDateFormat(Util.getString(R.string.iso_format));
+        DateFormat isoFormater = new SimpleDateFormat(Database.ISO_FORMAT);
         Date dateTime;
 
         try {
-            dateTime = isoFormater.parse(getFieldAsString(Util.getString(R.string.json_key_event_startdate)));
+            dateTime = isoFormater.parse(getFieldAsString(Database.JSON_KEY_EVENT_STARTDATE));
         }
 
         catch (java.text.ParseException exception) {
@@ -69,6 +71,6 @@ public class Event extends DatabaseObject {
             dateTime = new Date();
         }
 
-        calendarEvent = new CalendarEvent(getName(), getDescription(), getFieldAsString(Util.getString(R.string.json_key_event_location)), dateTime);
+        calendarEvent = new CalendarEvent(getName(), getDescription(), getFieldAsString(Database.JSON_KEY_EVENT_LOCATION), dateTime);
     }
 }

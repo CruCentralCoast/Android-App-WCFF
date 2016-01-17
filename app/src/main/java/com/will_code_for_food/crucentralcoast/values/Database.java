@@ -8,15 +8,16 @@ public class Database {
     public static final String DB_URL = "http://ec2-52-91-235-48.compute-1.amazonaws.com:3000/api/";
     public static final int DB_TIMEOUT = 2000;
 
-    public static final String rest_ministry = "ministry";
-    public static final String rest_campus = "campus";
-    public static final String rest_event = "event";
+    public static final String REST_MINISTRY = "ministry";
+    public static final String REST_CAMPUS = "campus";
+    public static final String REST_EVENT = "event";
 
     public static final String JSON_KEY_COMMON_ID = "_id";
     public static final String JSON_KEY_COMMON_IMAGE = "image";
     public static final String JSON_KEY_COMMON_DESCRIPTION = "description";
     public static final String JSON_KEY_COMMON_NAME = "name";
     public static final String JSON_KEY_COMMON_URL = "url";
+    public static final String JSON_KEY_COMMON_IMAGE_URL = "url";
 
     public static final String JSON_KEY_CAMPUS_URL = "url";
 

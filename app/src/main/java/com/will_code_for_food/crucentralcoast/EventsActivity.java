@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.will_code_for_food.crucentralcoast.controller.retrieval.EventRetriever;
@@ -14,43 +15,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by mallika on 1/14/16.
+ * Activity which handles displaying of Events
  */
 public class EventsActivity extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFragmentById(R.layout.fragment_event, "Events");
-
+        loadFragmentById(R.layout.fragment_eventslist, "Events");
         loadEvents();
     }
 
-    /**
-     * Retrieves and loads all of the events
-     */
+    // Display the list of events
     public void loadEvents() {
-        new EventTask().execute(0);
+        new EventTask().execute();
     }
 
     public void testNotifier(View view) {
         notifier.createNotification("title", "text", getApplicationContext());
     }
 
-    /*
     public void testCalendar(View view) {
-        // building test event
-        CalendarEvent event = new CalendarEvent("Leave for CRU Event", "This is a cru event " +
-                "that should be added to the users calendar at this exact time.", "PAC Circle",
-                Calendar.getInstance());
-        CalendarAccessor.addEventToCalendar(event, this);
+        ImageButton calendarButton = (ImageButton)findViewById(R.id.button_calendar);
+        calendarButton.setImageResource(R.drawable.calendar_added);
     }
 
-    public void testCalendarEdit(View view) {
-        // building test event
-        CalendarEvent event = new CalendarEvent("New Title!", "This is a cru event " +
-                "that should be added to the users calendar at this exact time.", "PAC Circle",
-                Calendar.getInstance());
-        CalendarAccessor.editExistingEvent(event, "Leave for CRU Event", this);
+    public void testRideshare(View view) {
+
     }
-    */
+
+    public void testFacebook(View view) {
+
+    }
+
+    public void testMap(View view) {
+
+    }
 }

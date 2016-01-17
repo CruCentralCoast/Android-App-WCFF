@@ -3,12 +3,15 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import android.app.Activity;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -16,10 +19,17 @@ import java.util.Date;
  */
 public class Event extends DatabaseObject {
     private CalendarEvent calendarEvent;
+    private ArrayList<String> parentMinistries;
 
     public Event(JsonObject json) {
         super(json);
-        //updateCalendarEvent();
+
+        loadParentMinistries();
+        updateCalendarEvent();
+    }
+
+    public ArrayList<String> getParentMinistries() {
+        return parentMinistries;
     }
 
     public void saveToCalendar(final Activity currentActivity) {
@@ -29,6 +39,20 @@ public class Event extends DatabaseObject {
         } else {
             long id = CalendarAccessor.addEventToCalendar(calendarEvent, currentActivity);
             calendarEvent = calendarEvent.copy(id);
+        }
+    }
+
+    /**
+     * Parses the JsonArray that contains the parent Ministries associated with this object.
+     */
+    private void loadParentMinistries() {
+        parentMinistries = new ArrayList<String>();
+        JsonArray ministriesJson = this.getField("parentMinistries").getAsJsonArray();
+
+        for (JsonElement ministry : ministriesJson) {
+            if (ministry.isJsonPrimitive()) {
+                parentMinistries.add(ministry.getAsString());
+            }
         }
     }
 

@@ -18,6 +18,12 @@ public class Database {
     public static final String JSON_KEY_COMMON_NAME = "name";
     public static final String JSON_KEY_COMMON_URL = "url";
     public static final String JSON_KEY_COMMON_IMAGE_URL = "url";
+    public static final String JSON_KEY_COMMON_LOCATION = "location";
+    public static final String JSON_KEY_COMMON_LOCATION_POSTCODE = "postcode";
+    public static final String JSON_KEY_COMMON_LOCATION_STATE = "state";
+    public static final String JSON_KEY_COMMON_LOCATION_SUBURB = "suburb";
+    public static final String JSON_KEY_COMMON_LOCATION_STREET = "street1";
+    public static final String JSON_KEY_COMMON_LOCATION_COUNTRY = "country";
 
     public static final String JSON_KEY_CAMPUS_URL = "url";
 

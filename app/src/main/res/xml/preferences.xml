@@ -2,6 +2,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
         android:title="Notifications">
-
+        <CheckBoxPreference
+            android:key="pref_notif"
+            android:defaultValue="false"
+            android:title="@string/settings_event_notifications"
+            android:summary="@string/settings_event_notifications"/>
     </PreferenceCategory>
 </PreferenceScreen>

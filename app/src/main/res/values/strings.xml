@@ -32,4 +32,8 @@
     <string name="rest_query_get_all">/list</string>
     <string name="json_key_common_image_url">url</string>
     <string name="rest_query_find">/find</string>
+
+    <!--    Preferences     -->
+    <string name="settings_event_notifications">Receive Event Notifications</string>
+
 </resources>

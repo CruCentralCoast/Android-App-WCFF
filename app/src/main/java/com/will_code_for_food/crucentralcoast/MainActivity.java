@@ -145,10 +145,6 @@ public class MainActivity extends AppCompatActivity {
             case "Settings":
                 newActivity(SettingsActivity.class);
                 break;
-            case "Settings":
-                loadId = R.layout.fragment_settings;
-                title = "Settings";
-                break;
             default:
                 loadId = R.layout.fragment_main;
                 title = "CruCentralCoast";

@@ -10,7 +10,9 @@ import android.widget.Toast;
 import com.will_code_for_food.crucentralcoast.EventsActivity;
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.EventRetriever;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        EventRetriever retriever = new EventRetriever();
+        Retriever retriever = new SingleRetriever<>(RetrieverSchema.EVENT);
         events = (ArrayList<Event>) (List<?>) retriever.getAll();
         eventStrings = new ArrayList<String>();
 

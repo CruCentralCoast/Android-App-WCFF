@@ -1,31 +1,24 @@
-package com.will_code_for_food.crucentralcoast;
+package com.will_code_for_food.crucentralcoast.temp;
 
-import android.content.Intent;
-import android.graphics.Point;
 import android.os.AsyncTask;
-import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.EventsActivity;
+import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.EventRetriever;
-import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
-import com.will_code_for_food.crucentralcoast.temp.MinistryExampleTask2;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Kayla on 1/14/2016.
+ * Loads the list of events asynchronously in a ListView layout
+ * Calls a new task to display individual events when an event is selected from list
  */
 public class EventTask extends AsyncTask<Void, Void, Void> {
 

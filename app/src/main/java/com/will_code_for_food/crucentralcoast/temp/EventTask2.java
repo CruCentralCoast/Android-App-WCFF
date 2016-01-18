@@ -1,14 +1,19 @@
-package com.will_code_for_food.crucentralcoast;
+package com.will_code_for_food.crucentralcoast.temp;
 
 import android.graphics.Point;
 import android.os.AsyncTask;
 import android.view.Display;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
+import com.will_code_for_food.crucentralcoast.EventsActivity;
+import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 
 import java.text.DateFormat;
@@ -17,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Kayla on 1/16/2016.
+ * Displays information
  */
 public class EventTask2 extends AsyncTask<Event, Void, Void> {
 
@@ -38,6 +43,13 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
+        // Display the header image of the event
+        ImageView imageView = (ImageView)currentActivity.findViewById(R.id.image_event);
+        scaleImage(imageView, 1.0, 1.0 / 6.0);
+        if (event.getImage() != null && event.getImage() != "") {
+            Picasso.with(currentActivity).load(event.getImage()).into(imageView);
+        }
+
         // Display the location of the event
         TextView locationLabel = (TextView)currentActivity.findViewById(R.id.text_event_location);
         locationLabel.setText(getEventLocation());
@@ -51,15 +63,16 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
         JsonElement description = event.getField("description");
         descriptionLabel.setText(description.getAsString());
 
-        // Display the header image of the event
-        ImageView imageView = (ImageView)currentActivity.findViewById(R.id.image_event);
-        scaleImage(imageView, 1.0, 1.0/6.0);
-
-        try {
-            // Get the url for the image
-        } catch (Exception e) {
-
+        // Set the Facebook link to be retrieved later in EventsActivity
+        ImageButton fbButton = (ImageButton)currentActivity.findViewById(R.id.button_facebook);
+        String url = event.getField("url").getAsString();
+        fbButton.setContentDescription(url);
+        // Grey out button to note invalid url link
+        if (url == null || url == "") {
+            fbButton.setImageResource(R.drawable.facebook_no);
         }
+
+        // TODO: Display the parent ministries of the event
     }
 
     // Gets the address of the event in reader format
@@ -84,7 +97,7 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
             Date end = dateFormat.parse(dateEnd.getAsString());
             eventDate = formatDate(start) + " - " + formatDate(end);
         } catch (ParseException e) {
-
+            // Can't be parsed; just use the default ISO format
         }
 
         return eventDate;

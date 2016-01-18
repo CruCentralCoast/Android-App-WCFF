@@ -15,11 +15,15 @@ import java.util.Map;
  */
 public abstract class DatabaseObject {
 
-    private final HashMap<String, JsonElement> fields;
+    private final JsonObject fields;
+    private ImageData imageData;
 
     public DatabaseObject(JsonObject obj) {
-        fields = new HashMap<String, JsonElement>();
-        load(obj);
+        fields = obj;
+
+        if (fields.has(Database.JSON_KEY_COMMON_IMAGE)) {
+            imageData = new ImageData(fields.get(Database.JSON_KEY_COMMON_IMAGE));
+        }
     }
 
     /**
@@ -54,28 +58,23 @@ public abstract class DatabaseObject {
         return getFieldAsString(Database.JSON_KEY_COMMON_NAME);
     }
 
+    /**
+     * DEPRECATED: USE getImageData
+     * Gets the url for the image associated with this DatabaseObject
+     */
     public String getImage() {
-        if (fields.containsKey(Database.JSON_KEY_COMMON_IMAGE)) {
-            JsonObject imageObject = fields.get(Database.JSON_KEY_COMMON_IMAGE).getAsJsonObject();
-            String image = imageObject.get(Database.JSON_KEY_COMMON_IMAGE_URL).getAsString();
-            return image;
+        if (imageData != null) {
+            return "";
         }
 
-        else {
-            return null;
-        }
+        else return null;
+    }
+
+    public ImageData getImageData() {
+        return imageData;
     }
 
     public String getDescription() {
         return getFieldAsString(Database.JSON_KEY_COMMON_DESCRIPTION);
-    }
-
-    /**
-     * Converts the JsonObject for this DatabaseObject into a hashmap.
-     */
-    private void load(JsonObject obj) {
-        for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
-            fields.put(entry.getKey(), entry.getValue());
-        }
     }
 }

@@ -7,4 +7,8 @@ import junit.framework.TestCase;
  */
 public class CalendarEventTest extends TestCase {
 
+    //placeholder test so we can test the whole package
+    public void testPlaceHolder() {
+
+    }
 }

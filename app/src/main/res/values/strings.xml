@@ -8,11 +8,11 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="db_url">http://ec2-52-91-235-48.compute-1.amazonaws.com:3000/api</string>
+    <string name="db_url">http://ec2-52-91-235-48.compute-1.amazonaws.com:3000/api/</string>
     <string name="db_timeout">2000</string>
-    <string name="rest_collection_ministry">/ministry</string>
-    <string name="rest_collection_campus">/campus</string>
-    <string name="rest_collection_event">/event</string>
+    <string name="rest_ministry">"ministry"</string>
+    <string name="rest_campus">"campus"</string>
+    <string name="rest_event">"event"</string>
 
     <string name="preferences_file">preferences</string>
     <string name="log_file">log_info</string>
@@ -29,6 +29,8 @@
     <string name="json_key_event_startdate">startDate</string>
     <string name="json_key_event_location">location</string>
     <string name="http_request_method_get">GET</string>
+    <string name="http_request_method_post">POST</string>
     <string name="rest_query_get_all">/list</string>
     <string name="json_key_common_image_url">url</string>
+    <string name="rest_query_find">/find</string>
 </resources>

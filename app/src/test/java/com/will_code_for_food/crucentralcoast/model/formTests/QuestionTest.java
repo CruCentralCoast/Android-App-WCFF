@@ -1,4 +1,4 @@
-package com.will_code_for_food.crucentralcoast.modelTests.formTests;
+package com.will_code_for_food.crucentralcoast.model.formTests;
 
 
 import com.will_code_for_food.crucentralcoast.WCFFUnitTest;
@@ -18,7 +18,7 @@ public class QuestionTest extends WCFFUnitTest {
 
     @Test
     public void testAllQuestionTypes() {
-        newTest();
+        newTest("Question");
         final String prompt = "prompt";
 
         for (QuestionType type : QuestionType.values()) {

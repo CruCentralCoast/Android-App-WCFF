@@ -154,8 +154,6 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerList.setItemChecked(position, true);
         mDrawerLayout.closeDrawer(mDrawerList);
-
-
     }
 
     public void loadFragmentById(int loadId, String newTitle) {

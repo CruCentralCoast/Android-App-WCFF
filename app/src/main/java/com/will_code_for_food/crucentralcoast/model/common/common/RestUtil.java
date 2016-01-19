@@ -95,6 +95,7 @@ public class RestUtil
                 return parser.parse(toParse).getAsJsonArray();
         }
         catch (Exception ex){
+            ex.printStackTrace();
             new Logger().logError(ex.getLocalizedMessage());
             return null;
         }

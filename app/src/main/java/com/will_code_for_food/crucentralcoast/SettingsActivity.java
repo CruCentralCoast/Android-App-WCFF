@@ -20,16 +20,4 @@ public class SettingsActivity extends MainActivity {
         getFragmentManager().beginTransaction().replace(R.id.content_frame,
                 new PrefsFragment()).commit();
     }
-
-    public void testSave(View view) {
-        EditText editText = (EditText) findViewById(R.id.text_ministry);
-        String text = editText.getText().toString();
-        Util.saveString("ministry", text, this);
-    }
-
-    public void testLoad(View view) {
-        EditText editText = (EditText) findViewById(R.id.text_ministry);
-        String ministry = Util.loadString("ministry", this);
-        editText.setText(ministry);
-    }
 }

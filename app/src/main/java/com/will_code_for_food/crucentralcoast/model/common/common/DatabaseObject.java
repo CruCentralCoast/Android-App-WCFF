@@ -64,7 +64,7 @@ public abstract class DatabaseObject {
      */
     public String getImage() {
         if (imageData != null) {
-            return "";
+            return imageData.getUrl();
         }
 
         else return null;

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.temp.EventTask;
 
 /**
@@ -40,13 +41,13 @@ public class EventsActivity extends MainActivity {
         ImageButton calendarButton = (ImageButton)findViewById(R.id.button_calendar);
         calendarButton.setImageResource(R.drawable.calendar_added);
         // TODO: ADD TO CALENDAR
-        Toast.makeText(getApplicationContext(), "Event added to Google Calendar.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_calendar_added), Toast.LENGTH_LONG).show();
     }
 
     // Links to the event's ridesharing page, if ridesharing exists
     public void testRideshare(View view) {
         // UNIMPLEMENTED FOR NOW
-        Toast.makeText(getApplicationContext(), "Ridesharing is not available for this event.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_rides), Toast.LENGTH_LONG).show();
     }
 
     // Links to the event's Facebook page
@@ -60,7 +61,7 @@ public class EventsActivity extends MainActivity {
             startActivity(browserIntent);
         }
         else {
-            Toast.makeText(getApplicationContext(), "No FaceBook page for this event.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_facebook), Toast.LENGTH_LONG).show();
         }
     }
 

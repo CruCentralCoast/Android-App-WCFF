@@ -10,6 +10,7 @@ import com.google.gson.JsonParser;
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.local_io.log.Logger;
+import com.will_code_for_food.crucentralcoast.values.Database;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,16 +28,16 @@ import java.net.URL;
  */
 public class RestUtil
 {
-    private static final String DB_URL = Util.getString(R.string.db_url);
+    private static final String DB_URL = Database.DB_URL;
 
     private static HttpURLConnection createGetConnection(String from) throws Exception
     {
         String dataUrl = DB_URL + from;
         URL url = new URL(dataUrl);;
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        int timeout = Util.getInt(R.string.db_timeout);
+        int timeout = Database.DB_TIMEOUT;
         connection.setConnectTimeout(timeout);
-        connection.setRequestMethod(Util.getString(R.string.http_request_method_get));
+        connection.setRequestMethod(Database.HTTP_REQUEST_METHOD_GET);
         return connection;
     }
 
@@ -45,9 +46,9 @@ public class RestUtil
         String dataUrl = DB_URL + from;
         URL url = new URL(dataUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        int timeout = Util.getInt(R.string.db_timeout);
+        int timeout = Database.DB_TIMEOUT;
         connection.setConnectTimeout(timeout);
-        connection.setRequestMethod(Util.getString(R.string.http_request_method_post));
+        connection.setRequestMethod(Database.HTTP_REQUEST_METHOD_POST);
 
         for (Pair<String, String> field : fields)
         {
@@ -86,7 +87,7 @@ public class RestUtil
         JsonParser parser = new JsonParser();
         try{
             HttpURLConnection conn = createGetConnection(tableName
-                    + Util.getString(R.string.rest_query_get_all));
+                    + Database.REST_QUERY_GET_ALL);
             String toParse = request(conn);
 
             if (toParse.equals("!error"))
@@ -114,7 +115,7 @@ public class RestUtil
         JsonParser parser = new JsonParser();
         try{
             HttpURLConnection conn = createPostConnection(tableName
-                    + Util.getString(R.string.rest_query_find), fields);
+                    + Database.REST_QUERY_FIND, fields);
             String toParse = request(conn);
 
             if (toParse.equals("!error"))

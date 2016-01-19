@@ -14,6 +14,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,8 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
             });
         }
         else {
-            Toast.makeText(currentActivity.getApplicationContext(), "Unable to access events", Toast.LENGTH_LONG).show();
+            String errorMessage = Util.getString(R.string.toast_no_events);
+            Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
         }
     }
 }

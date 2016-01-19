@@ -15,6 +15,7 @@ import com.will_code_for_food.crucentralcoast.EventsActivity;
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Displays information
+ * Displays information about the event
  */
 public class EventTask2 extends AsyncTask<Event, Void, Void> {
 
@@ -60,12 +61,12 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
 
         // Display the description of the event
         TextView descriptionLabel = (TextView)currentActivity.findViewById(R.id.text_event_description);
-        JsonElement description = event.getField("description");
+        JsonElement description = event.getField(Database.JSON_KEY_COMMON_DESCRIPTION);
         descriptionLabel.setText(description.getAsString());
 
         // Set the Facebook link to be retrieved later in EventsActivity
         ImageButton fbButton = (ImageButton)currentActivity.findViewById(R.id.button_facebook);
-        String url = event.getField("url").getAsString();
+        String url = event.getField(Database.JSON_KEY_COMMON_URL).getAsString();
         fbButton.setContentDescription(url);
         // Grey out button to note invalid url link
         if (url == null || url == "") {
@@ -77,17 +78,17 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
 
     // Gets the address of the event in reader format
     private String getEventLocation() {
-        JsonObject eventLoc = event.getField("location").getAsJsonObject();
-        String street = eventLoc.get("street1").getAsString();
-        String suburb = eventLoc.get("suburb").getAsString();
-        String state = eventLoc.get("state").getAsString();
+        JsonObject eventLoc = event.getField(Database.JSON_KEY_COMMON_LOCATION).getAsJsonObject();
+        String street = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STREET).getAsString();
+        String suburb = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_SUBURB).getAsString();
+        String state = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STATE).getAsString();
         return street + ", " + suburb + " " + state;
     }
 
     // Gets the date of the event in reader format
     private String getEventDate() {
-        JsonElement dateStart = event.getField("startDate");
-        JsonElement dateEnd = event.getField("endDate");
+        JsonElement dateStart = event.getField(Database.JSON_KEY_EVENT_STARTDATE);
+        JsonElement dateEnd = event.getField(Database.JSON_KEY_EVENT_ENDDATE);
         String eventDate = dateStart.getAsString() + " - " + dateEnd.getAsString();
 
         // Convert ISODate to Java Date format
@@ -105,7 +106,7 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
 
     // Formats the date into the form Jan 15, 7:00AM
     private String formatDate(Date date) {
-        String formattedDate = new SimpleDateFormat("MMM dd, K:mma").format(date);
+        String formattedDate = new SimpleDateFormat(Database.EVENT_DATE_FORMAT).format(date);
         return formattedDate;
     }
 

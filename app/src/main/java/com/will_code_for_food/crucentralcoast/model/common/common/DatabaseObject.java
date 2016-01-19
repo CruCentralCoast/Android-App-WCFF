@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +15,15 @@ import java.util.Map;
  */
 public abstract class DatabaseObject {
 
-    private final HashMap<String, JsonElement> fields;
+    private final JsonObject fields;
+    private ImageData imageData;
 
     public DatabaseObject(JsonObject obj) {
-        fields = new HashMap<String, JsonElement>();
-        load(obj);
+        fields = obj;
+
+        if (fields.has(Database.JSON_KEY_COMMON_IMAGE)) {
+            imageData = new ImageData(fields.get(Database.JSON_KEY_COMMON_IMAGE));
+        }
     }
 
     /**
@@ -46,35 +51,30 @@ public abstract class DatabaseObject {
     }
 
     public String getId() {
-        return getFieldAsString(Util.getString(R.string.json_key_common_id));
+        return getFieldAsString(Database.JSON_KEY_COMMON_ID);
     }
 
     public String getName() {
-        return getFieldAsString(Util.getString(R.string.json_key_common_name));
-    }
-
-    public String getImage() {
-        if (fields.containsKey(Util.getString(R.string.json_key_common_image))) {
-            JsonObject imageObject = fields.get(Util.getString(R.string.json_key_common_image)).getAsJsonObject();
-            String image = imageObject.get(Util.getString(R.string.json_key_common_image_url)).getAsString();
-            return image;
-        }
-
-        else {
-            return null;
-        }
-    }
-
-    public String getDescription() {
-        return getFieldAsString(Util.getString(R.string.json_key_common_description));
+        return getFieldAsString(Database.JSON_KEY_COMMON_NAME);
     }
 
     /**
-     * Converts the JsonObject for this DatabaseObject into a hashmap.
+     * DEPRECATED: USE getImageData
+     * Gets the url for the image associated with this DatabaseObject
      */
-    private void load(JsonObject obj) {
-        for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
-            fields.put(entry.getKey(), entry.getValue());
+    public String getImage() {
+        if (imageData != null) {
+            return imageData.getUrl();
         }
+
+        else return null;
+    }
+
+    public ImageData getImageData() {
+        return imageData;
+    }
+
+    public String getDescription() {
+        return getFieldAsString(Database.JSON_KEY_COMMON_DESCRIPTION);
     }
 }

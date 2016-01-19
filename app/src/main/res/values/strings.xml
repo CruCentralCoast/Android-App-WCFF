@@ -9,7 +9,13 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="preferences_file">preferences</string>
-    
+
+    <!-- Toast Messages -->
+    <string name="toast_calendar_added">Added event to calendar</string>
+    <string name="toast_no_rides">Ridesharing is not available for this event</string>
+    <string name="toast_no_facebook">No Facebook page for this event</string>
+    <string name="toast_no_events">Could not load events</string>
+
     <!--    Preferences     -->
     <string name="settings_event_notifications">Receive Event Notifications</string>
 </resources>

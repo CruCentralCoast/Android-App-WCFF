@@ -1,4 +1,4 @@
-package com.will_code_for_food.crucentralcoast.controller;
+package com.will_code_for_food.crucentralcoast.controller.retrieval;
 
 import android.test.ActivityInstrumentationTestCase2;
 

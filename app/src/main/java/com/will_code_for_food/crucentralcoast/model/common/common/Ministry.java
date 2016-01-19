@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ public class Ministry extends DatabaseObject {
 
         campuses = new ArrayList<String>();
 
-        JsonElement campusList = this.getField(Util.getString(R.string.json_key_ministry_campuses));
+        JsonElement campusList = this.getField(Database.JSON_KEY_MINISTRY_CAMPUSES);
 
         if (campusList.isJsonArray()) {
             for (JsonElement campus : campusList.getAsJsonArray()) {

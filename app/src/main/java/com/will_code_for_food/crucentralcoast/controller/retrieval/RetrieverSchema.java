@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.controller.retrieval;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.*;
+import com.will_code_for_food.crucentralcoast.values.Database;
 
 /**
  * This schema is used by retrievers to get DatabaseObject object from the database.
@@ -11,9 +12,9 @@ import com.will_code_for_food.crucentralcoast.model.common.common.*;
  * Created by Brian on 1/14/2016.
  */
 public enum RetrieverSchema {
-    CAMPUS (Campus.class, Util.getString(R.string.rest_campus)),
-    MINISTRY (Ministry.class, Util.getString(R.string.rest_ministry)),
-    EVENT (Event.class, Util.getString(R.string.rest_event));
+    CAMPUS (Campus.class, Database.REST_CAMPUS),
+    MINISTRY (Ministry.class, Database.REST_MINISTRY),
+    EVENT (Event.class, Database.REST_EVENT);
 
 
     public Class<? extends DatabaseObject> getObjClass() {

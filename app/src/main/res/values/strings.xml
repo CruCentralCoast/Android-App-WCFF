@@ -16,4 +16,6 @@
     <string name="toast_no_facebook">No Facebook page for this event</string>
     <string name="toast_no_events">Could not load events</string>
 
+    <!--    Preferences     -->
+    <string name="settings_event_notifications">Receive Event Notifications</string>
 </resources>

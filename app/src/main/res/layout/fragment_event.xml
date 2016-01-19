@@ -12,28 +12,142 @@
     android:focusable="false"
     tools:context=".EventsActivity">
 
-    <Button
-        android:id="@+id/button_notify"
-        android:layout_width="wrap_content"
+    <!-- Image header -->
+    <ImageView
+        android:id="@+id/image_event"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Send Notification"
-        android:onClick="testNotifier" />
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:src="@drawable/crulogo" />
 
-    <Button
-        android:id="@+id/button"
+    <!-- Date -->
+    <TextView
+        android:id="@+id/text_event_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
-        android:onClick="testCalendar"
-        android:text="Test Calendar Integration" />
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="2dip"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:fontFamily="sans-serif" />
 
-    <Button
-        android:id="@+id/cal_edit_button"
+    <!-- Location -->
+    <TextView
+        android:id="@+id/text_event_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:onClick="testCalendarEdit"
-        android:text="Edit Existing Event" />
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="2dip"
+        android:layout_marginBottom="20dip"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:textColor="#666062"
+        android:fontFamily="sans-serif" />
+
+    <!-- Description -->
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/stroke_bg" >
+        <TextView
+            android:id="@+id/text_event_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:textColor="#666062"
+            android:fontFamily="sans-serif"
+            android:padding="20dip" />
+    </ScrollView>
+
+    <!-- Applicable ministries -->
+    <HorizontalScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+        <TextView
+            android:id="@+id/text_event_ministries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:textColor="#666062"
+            android:fontFamily="sans-serif" />
+    </HorizontalScrollView>
+
+    <!-- Buttons go here -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <!-- Add to Calendar -->
+        <ImageButton
+            android:id="@+id/button_calendar"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp"
+            android:background="@null"
+            android:onClick="testCalendar"
+            android:src="@drawable/calendar_add" />
+
+        <!-- Go to Rideshare -->
+        <ImageButton
+            android:id="@+id/button_rideshare"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp"
+            android:background="@null"
+            android:onClick="testRideshare"
+            android:src="@drawable/car_no" />
+
+        <!-- Go to Facebook Page -->
+        <ImageButton
+            android:id="@+id/button_facebook"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp"
+            android:background="@null"
+            android:onClick="testFacebook"
+            android:src="@drawable/facebook"
+            android:contentDescription="FB LINK HERE" />
+
+        <!-- Go to Google Maps -->
+        <ImageButton
+            android:id="@+id/button_map"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp"
+            android:background="@null"
+            android:onClick="testMap"
+            android:src="@drawable/map" />
+    </LinearLayout>
 
 </LinearLayout>

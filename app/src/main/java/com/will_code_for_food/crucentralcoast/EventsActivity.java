@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.temp.EventTask;
+import com.will_code_for_food.crucentralcoast.values.Database;
 
 /**
  * Implementation of the UI behavior for the Event UI
@@ -18,7 +19,6 @@ import com.will_code_for_food.crucentralcoast.temp.EventTask;
  * Button logic goes in here
  */
 public class EventsActivity extends MainActivity {
-    private Event event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +67,17 @@ public class EventsActivity extends MainActivity {
 
     // Link to the Google map location of the event
     public void testMap(View view) {
-        TextView locationLabel = (TextView)findViewById(R.id.text_event_location);
-        String map = "http://maps.google.co.in/maps?q=" + locationLabel.getText();
-        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
-        startActivity(i);
+        ImageButton mapButton = (ImageButton)findViewById(R.id.button_map);
+
+        // No map for this location
+        if (mapButton.getContentDescription().equals(Database.EVENT_BAD_LOCATION)) {
+            Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_map), Toast.LENGTH_LONG).show();
+        }
+        else {
+            TextView locationLabel = (TextView)findViewById(R.id.text_event_location);
+            String map = "http://maps.google.co.in/maps?q=" + locationLabel.getText();
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+            startActivity(i);
+        }
     }
 }

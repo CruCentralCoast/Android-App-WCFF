@@ -82,6 +82,14 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
         String street = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STREET).getAsString();
         String suburb = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_SUBURB).getAsString();
         String state = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STATE).getAsString();
+
+        // Grey out button to note no chosen location
+        if (street.equals(Database.EVENT_BAD_LOCATION) || suburb.equals(Database.EVENT_BAD_LOCATION)) {
+            ImageButton mapButton = (ImageButton)currentActivity.findViewById(R.id.button_map);
+            mapButton.setContentDescription(street);
+            mapButton.setImageResource(R.drawable.map_no);
+        }
+
         return street + ", " + suburb + " " + state;
     }
 

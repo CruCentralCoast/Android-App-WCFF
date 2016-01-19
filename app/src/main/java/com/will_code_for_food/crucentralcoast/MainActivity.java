@@ -158,9 +158,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadFragmentById(int loadId, String newTitle) {
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        titleStack.clear();
-
         Fragment fragment = new CruFragment();
 
         // Supply index input as an argument.
@@ -183,4 +180,6 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+
+
 }

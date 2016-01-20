@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:padding="5dp"
+        android:src="@drawable/crulogo"
+        android:id="@+id/card_image"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/card_image"
+        android:id="@+id/card_text"
+        android:text="This is an event"
+        android:textSize="15dp"
+        android:textAlignment="center"
+        />
+</RelativeLayout>

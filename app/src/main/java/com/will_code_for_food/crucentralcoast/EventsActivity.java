@@ -24,7 +24,6 @@ public class EventsActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFragmentById(R.layout.fragment_eventslist, "Events");
-        //loadEvents();
     }
 
     // Display the list of events

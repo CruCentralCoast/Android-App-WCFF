@@ -17,7 +17,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.will_code_for_food.crucentralcoast.model.common.messaging.Notifier;
+import com.will_code_for_food.crucentralcoast.view.fragments.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.fragments.EventsFragment;
+import com.will_code_for_food.crucentralcoast.view.fragments.PrefsFragment;
 
 import java.util.Stack;
 
@@ -157,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
+    // TODO: 1/19/16 Change Settings fragment so it isn't created only programmatically- use XML! 
     public void loadFragmentById(int loadId, String newTitle) {
         FragmentManager fragmentManager = getFragmentManager();
         Fragment fragment;
@@ -164,6 +167,9 @@ public class MainActivity extends AppCompatActivity {
         switch (loadId) {
             case R.layout.fragment_eventslist:
                 fragment = new EventsFragment();
+                break;
+            case R.layout.fragment_settings:
+                fragment = new PrefsFragment();
                 break;
             default:
                 fragment = new CruFragment();

@@ -36,7 +36,7 @@ public class Database {
     public static final String JSON_KEY_EVENT_LOCATION = "location";
     public static final String JSON_KEY_EVENT_MINISTRIES = "parentMinistries";
     public static final String EVENT_BAD_LOCATION = "TBD";
-
+    public static final String JSON_KEY_EVENT_REMINDER = "notificationDate";
 
     public static final String HTTP_REQUEST_METHOD_GET = "GET";
     public static final String HTTP_REQUEST_METHOD_POST = "POST";

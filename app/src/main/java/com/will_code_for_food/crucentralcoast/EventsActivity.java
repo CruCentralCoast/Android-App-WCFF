@@ -8,10 +8,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.temp.EventTask;
-import com.will_code_for_food.crucentralcoast.values.Database;
 
 /**
  * Implementation of the UI behavior for the Event UI
@@ -19,16 +19,25 @@ import com.will_code_for_food.crucentralcoast.values.Database;
  * Button logic goes in here
  */
 public class EventsActivity extends MainActivity {
+    private static Event event = null;
+
+    public static void setEvent(final Event newEvent) {
+        event = newEvent;
+    }
+
+    public static Event getEvent() {
+        return event;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFragmentById(R.layout.fragment_eventslist, "Events");
-        //loadEvents();
     }
 
     // Display the list of events
     public void loadEvents() {
+        event = null;
         new EventTask().execute();
     }
 
@@ -38,10 +47,14 @@ public class EventsActivity extends MainActivity {
 
     // Adds the event to the Google Calendar
     public void testCalendar(View view) {
-        ImageButton calendarButton = (ImageButton)findViewById(R.id.button_calendar);
-        calendarButton.setImageResource(R.drawable.calendar_added);
-        // TODO: ADD TO CALENDAR
-        Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_calendar_added), Toast.LENGTH_LONG).show();
+        if (event != null) {
+            event.saveToCalendar(this);
+            Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_calendar_added), Toast.LENGTH_LONG).show();
+            ImageButton calendarButton = (ImageButton) findViewById(R.id.button_calendar);
+            calendarButton.setImageResource(R.drawable.calendar_added);
+        } else {
+            Toast.makeText(getApplicationContext(), Util.getString(R.string.cal_fail_msg), Toast.LENGTH_LONG).show();
+        }
     }
 
     // Links to the event's ridesharing page, if ridesharing exists
@@ -67,17 +80,9 @@ public class EventsActivity extends MainActivity {
 
     // Link to the Google map location of the event
     public void testMap(View view) {
-        ImageButton mapButton = (ImageButton)findViewById(R.id.button_map);
-
-        // No map for this location
-        if (mapButton.getContentDescription().equals(Database.EVENT_BAD_LOCATION)) {
-            Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_map), Toast.LENGTH_LONG).show();
-        }
-        else {
-            TextView locationLabel = (TextView)findViewById(R.id.text_event_location);
-            String map = "http://maps.google.co.in/maps?q=" + locationLabel.getText();
-            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
-            startActivity(i);
-        }
+        TextView locationLabel = (TextView)findViewById(R.id.text_event_location);
+        String map = "http://maps.google.co.in/maps?q=" + locationLabel.getText();
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+        startActivity(i);
     }
 }

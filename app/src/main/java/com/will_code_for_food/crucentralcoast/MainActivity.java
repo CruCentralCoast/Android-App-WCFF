@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.will_code_for_food.crucentralcoast.model.common.messaging.Notifier;
+import com.will_code_for_food.crucentralcoast.view.fragments.EventsFragment;
 
 import java.util.Stack;
 
@@ -158,7 +159,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadFragmentById(int loadId, String newTitle) {
         FragmentManager fragmentManager = getFragmentManager();
-        Fragment fragment = new CruFragment();
+        Fragment fragment;
+
+        switch (loadId) {
+            case R.layout.fragment_eventslist:
+                fragment = new EventsFragment();
+                break;
+            default:
+                fragment = new CruFragment();
+                break;
+        }
 
         // Supply index input as an argument.
         Bundle args = new Bundle();

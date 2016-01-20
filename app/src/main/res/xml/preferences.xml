@@ -6,8 +6,7 @@
         <CheckBoxPreference
             android:key="pref_notif"
             android:defaultValue="false"
-            android:title="@string/settings_event_notifications"
-            android:summary="@string/settings_event_notifications"/>
+            android:title="@string/settings_event_notifications" />
 
         <MultiSelectListPreference
             android:key="pref_campuses"

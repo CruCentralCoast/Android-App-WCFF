@@ -21,6 +21,8 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSche
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.values.Android;
+import com.will_code_for_food.crucentralcoast.values.UI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,38 +32,17 @@ import java.util.List;
  */
 public class SetupCampusActivity extends Activity implements android.widget.CompoundButton.OnCheckedChangeListener {
 
-    public static List<Campus> campuses;
     public static List<Campus> selectedCampuses;
-    ListView campusList;
-    Button nextButton;
+    private ListView campusList;
+    private Button nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
-        selectedCampuses = new ArrayList<Campus>();
-
-        campusList = (ListView) this.findViewById(R.id.setup_campus_list);
-        nextButton = (Button) this.findViewById(R.id.setup_campus_next_button);
-        nextButton.setEnabled(false);
-        campusList.setVisibility(View.INVISIBLE);
-        nextButton.setVisibility(View.INVISIBLE);
-
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (Campus campus : selectedCampuses) {
-                    Util.saveToSet("pref_campuses", campus.getId());
-                }
-
-                nextScreen();
-            }
-        });
-
-        new SetupCampusTask(this).execute();
-
-        run();
+        initComponents();
+        translateTitle();
     }
 
     @Override
@@ -87,6 +68,40 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
         }
     }
 
+    private void initComponents() {
+        selectedCampuses = new ArrayList<Campus>();
+
+        campusList = (ListView) this.findViewById(R.id.setup_campus_list);
+        nextButton = (Button) this.findViewById(R.id.setup_campus_next_button);
+        nextButton.setEnabled(false);
+        campusList.setVisibility(View.INVISIBLE);
+        nextButton.setVisibility(View.INVISIBLE);
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (Campus campus : selectedCampuses) {
+                    Util.saveToSet(Android.PREF_CAMPUSES, campus.getId());
+                }
+
+                nextScreen();
+            }
+        });
+
+        new SetupCampusTask(this).execute();
+    }
+
+    private void translateTitle() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                TextView title = (TextView) findViewById(R.id.question_campus);
+                title.animate().translationY(-1 * title.getTop() + UI.SETUP_TITLE_MARGIN).withLayer().setDuration(UI.SETUP_TITLE_TRANSLATE_DURATION);
+                delayedListAppearance();
+            }
+        }, UI.SETUP_CAMPUS_WAIT_DURATION);
+    }
+
     private void nextScreen() {
 
         this.finish();
@@ -98,26 +113,13 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
         startActivity(intent);
     }
 
-    private void run() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                TextView title = (TextView) findViewById(R.id.question_campus);
-                title.animate().translationY(-1 * title.getTop() + 100).withLayer().setDuration(500);
-                fadeInList();
-            }
-        }, 3000);
-    }
-
-    private void fadeInList() {
-
+    private void delayedListAppearance() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 campusList.setVisibility(View.VISIBLE);
-                //nextButton.setVisibility(View.VISIBLE);
             }
-        }, 500);
+        }, UI.SETUP_TITLE_TRANSLATE_DURATION);
     }
 
     private class CampusAdapter extends ArrayAdapter<Campus> {
@@ -151,7 +153,7 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
 
             }
             else {
-                //holder = (PlanetHolder) v.getTag();
+                //not sure what should go here...
             }
 
             Campus campus = campusList.get(position);

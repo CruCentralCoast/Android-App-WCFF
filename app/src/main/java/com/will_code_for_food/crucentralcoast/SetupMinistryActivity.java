@@ -22,6 +22,8 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriev
 import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
 import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.values.Android;
+import com.will_code_for_food.crucentralcoast.values.UI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +33,10 @@ import java.util.List;
  */
 public class SetupMinistryActivity extends Activity implements android.widget.CompoundButton.OnCheckedChangeListener {
 
-    Button finishButton;
-    List<Campus> selectedCampuses;
-    List<Ministry> selectedMinistries;
-    ListView ministryList;
-    int itemsChecked = 0;
+    private Button finishButton;
+    private List<Campus> selectedCampuses;
+    private List<Ministry> selectedMinistries;
+    private ListView ministryList;
 
     public SetupMinistryActivity() {
         this.selectedCampuses = SetupCampusActivity.selectedCampuses;
@@ -46,30 +47,8 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_setup_ministry);
 
-        selectedMinistries = new ArrayList<Ministry>();
-
-        ministryList = (ListView) this.findViewById(R.id.setup_ministry_list);
-        finishButton = (Button) this.findViewById(R.id.setup_ministry_next_button);
-        finishButton.setVisibility(View.INVISIBLE);
-        ministryList.setVisibility(View.INVISIBLE);
-
-        finishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                for(Ministry ministry : selectedMinistries) {
-                    Util.saveToSet("pref_ministries", ministry.getId());
-                }
-
-                Util.saveBool("setup_complete", true);
-
-                nextScreen();
-            }
-        });
-
-        new SetupMinistryTask(this).execute();
-
-        run();
+        initComponents();
+        translateTitle();
     }
 
     @Override
@@ -95,6 +74,31 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         }
     }
 
+    private void initComponents() {
+        selectedMinistries = new ArrayList<Ministry>();
+
+        ministryList = (ListView) this.findViewById(R.id.setup_ministry_list);
+        finishButton = (Button) this.findViewById(R.id.setup_ministry_next_button);
+        finishButton.setVisibility(View.INVISIBLE);
+        ministryList.setVisibility(View.INVISIBLE);
+
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                for(Ministry ministry : selectedMinistries) {
+                    Util.saveToSet(Android.PREF_MINISTIES, ministry.getId());
+                }
+
+                Util.saveBool(Android.PREF_SETUP_COMPLETE, true);
+
+                nextScreen();
+            }
+        });
+
+        new SetupMinistryTask(this).execute();
+    }
+
     private void nextScreen() {
 
         this.finish();
@@ -106,26 +110,25 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         startActivity(intent);
     }
 
-    private void run() {
+    private void translateTitle() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 TextView title = (TextView) findViewById(R.id.question_ministry);
-                title.animate().translationY(-1 * title.getTop() + 100).withLayer().setDuration(500);
-                fadeInList();
+                title.animate().translationY(-1 * title.getTop() + UI.SETUP_TITLE_MARGIN).withLayer().setDuration(UI.SETUP_TITLE_TRANSLATE_DURATION);
+                delayedListAppearance();
             }
-        }, 2000);
+        }, UI.SETUP_MINISTRY_WAIT_DURATION);
     }
 
-    private void fadeInList() {
+    private void delayedListAppearance() {
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //finishButton.setVisibility(View.VISIBLE);
                 ministryList.setVisibility(View.VISIBLE);
             }
-        }, 500);
+        }, UI.SETUP_TITLE_TRANSLATE_DURATION);
     }
 
     private class MinistryAdapter extends ArrayAdapter<Ministry> {
@@ -159,7 +162,7 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
 
             }
             else {
-                //holder = (PlanetHolder) v.getTag();
+                //not sure what to put here...
             }
 
             Ministry ministry = ministryList.get(position);

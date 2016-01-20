@@ -8,7 +8,6 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="preferences_file">com.will_code_for_food.crucentralcoast_preferences</string>
 
     <!-- Toast Messages -->
     <string name="toast_calendar_added">Added event to calendar</string>
@@ -18,4 +17,5 @@
 
     <!--    Preferences     -->
     <string name="settings_event_notifications">Receive Event Notifications</string>
+    <string name="preferences_file">com.will_code_for_food.crucentralcoast_preferences</string>
 </resources>

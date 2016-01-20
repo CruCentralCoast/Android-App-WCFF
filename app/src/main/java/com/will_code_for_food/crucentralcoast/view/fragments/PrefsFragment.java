@@ -21,6 +21,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.values.Android;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +44,8 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
 
-        MultiSelectListPreference campusPref = (MultiSelectListPreference) findPreference("pref_campuses");
-        Preference clearPref = (Preference) findPreference("pref_clear");
+        MultiSelectListPreference campusPref = (MultiSelectListPreference) findPreference(Android.PREF_CAMPUSES);
+        Preference clearPref = (Preference) findPreference(Android.PREF_CLEAR);
 
         clearPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -81,11 +82,11 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
 
         @Override
         protected void onPostExecute(List<Ministry> ministries) {
-            Set<String> selectedCampuses = Util.loadStringSet("pref_campuses");
+            Set<String> selectedCampuses = Util.loadStringSet(Android.PREF_CAMPUSES);
             List<String> filteredIds = new ArrayList<String>();
             List<String> filteredNames = new ArrayList<String>();
 
-            MultiSelectListPreference ministryPref = (MultiSelectListPreference) getPreferenceManager().findPreference("pref_ministries");
+            MultiSelectListPreference ministryPref = (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_MINISTIES);
 
             if (selectedCampuses != null && !selectedCampuses.isEmpty()) {
                 ministryPref.setEnabled(true);
@@ -129,7 +130,7 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
                 names[nameIdx++] = campus.getName();
             }
             MultiSelectListPreference ministryPref =
-                    (MultiSelectListPreference) getPreferenceManager().findPreference("pref_campuses");
+                    (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_CAMPUSES);
             ministryPref.setEntries(names);
             ministryPref.setEntryValues(ids);
         }

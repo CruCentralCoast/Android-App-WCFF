@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.values.Android;
+import com.will_code_for_food.crucentralcoast.values.UI;
 
 /**
  * Created by MasonJStevenson on 1/19/2016.
@@ -39,15 +41,14 @@ public class SplashscreenActivity extends Activity{
 
                 launchApp();
             }
-        }, 3000);
+        }, UI.SETUP_SPLASHSCREEN_WAIT_DURATION);
     }
 
     private void launchApp() {
 
-        if (!Util.loadBool("setup_complete")) {
+        if (!Util.loadBool(Android.PREF_SETUP_COMPLETE)) {
             Intent intent = new Intent(this, SetupCampusActivity.class);
             startActivity(intent);
-            //Util.saveBool("setup_complete", true);
         }
 
         else {

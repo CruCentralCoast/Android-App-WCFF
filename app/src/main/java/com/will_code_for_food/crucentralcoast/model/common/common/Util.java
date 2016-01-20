@@ -7,6 +7,7 @@ import android.util.ArraySet;
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.SplashscreenActivity;
+import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.util.HashSet;
@@ -43,7 +44,7 @@ public class Util {
      */
     public static void saveString(String key, String toSave) {
         Context context = SplashscreenActivity.context;
-        String preferences_file = Util.getString(R.string.preferences_file);
+        String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(key, toSave);
@@ -52,7 +53,7 @@ public class Util {
 
     public static void saveBool(String key, Boolean toSave) {
         Context context = SplashscreenActivity.context;
-        String preferences_file = Util.getString(R.string.preferences_file);
+        String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean(key, toSave);
@@ -63,7 +64,7 @@ public class Util {
     // Saves the string to the set in the given key
     public static void saveToSet(String key, String toSave) {
         Context context = SplashscreenActivity.context;
-        String preferences_file = Util.getString(R.string.preferences_file);
+        String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         Set<String> newSet = sharedPref.getStringSet(key, null);
 
@@ -83,7 +84,7 @@ public class Util {
      */
     public static String loadString(String key) {
         Context context = SplashscreenActivity.context;
-        String preferences_file = Util.getString(R.string.preferences_file);
+        String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         String value = sharedPref.getString(key, null);
 
@@ -92,7 +93,7 @@ public class Util {
 
     public static Boolean loadBool(String key) {
         Context context = SplashscreenActivity.context;
-        String preferences_file = Util.getString(R.string.preferences_file);
+        String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         Boolean value = sharedPref.getBoolean(key, false);
 
@@ -104,7 +105,7 @@ public class Util {
      */
     public static Set<String> loadStringSet(String key) {
         Context context = SplashscreenActivity.context;
-        String preferences_file = Util.getString(R.string.preferences_file);
+        String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         Set<String> value = sharedPref.getStringSet(key, null);
 

@@ -23,8 +23,11 @@ public class CruFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Bundle args = getArguments();
+        //these arguments should have always been passed by using loadFragmentById
+        //if not you need to modify stuff
         id = args.getInt("id", R.layout.fragment_main);
         name = args.getString("name", "");
         return inflater.inflate(id, container, false);
     }
+
 }

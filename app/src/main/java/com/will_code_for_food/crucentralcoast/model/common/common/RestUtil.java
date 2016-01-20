@@ -1,22 +1,18 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import android.content.res.Resources;
-import android.util.Pair;
+import android.support.v4.util.Pair;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.will_code_for_food.crucentralcoast.MainActivity;
-import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.local_io.log.Logger;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONStringer;
-
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -41,7 +37,7 @@ public class RestUtil
         return connection;
     }
 
-    private static HttpURLConnection createPostConnection(String from, Pair<String, String>... fields) throws Exception
+    private static HttpURLConnection createPostConnection(String from, String body) throws Exception
     {
         String dataUrl = DB_URL + from;
         URL url = new URL(dataUrl);
@@ -49,11 +45,11 @@ public class RestUtil
         int timeout = Database.DB_TIMEOUT;
         connection.setConnectTimeout(timeout);
         connection.setRequestMethod(Database.HTTP_REQUEST_METHOD_POST);
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setDoOutput(true);
 
-        for (Pair<String, String> field : fields)
-        {
-            connection.addRequestProperty(field.first, field.second);
-        }
+        DataOutputStream wr = new DataOutputStream( connection.getOutputStream());
+        wr.writeBytes(body);
         return connection;
     }
     
@@ -96,7 +92,6 @@ public class RestUtil
                 return parser.parse(toParse).getAsJsonArray();
         }
         catch (Exception ex){
-            ex.printStackTrace();
             new Logger().logError(ex.getLocalizedMessage());
             return null;
         }
@@ -114,8 +109,12 @@ public class RestUtil
 
         JsonParser parser = new JsonParser();
         try{
+            JsonObject bodyJson = new JsonObject();
+            for (Pair<String, String> field : fields)
+                bodyJson.addProperty(field.first, field.second);
+
             HttpURLConnection conn = createPostConnection(tableName
-                    + Database.REST_QUERY_FIND, fields);
+                    + Database.REST_QUERY_FIND, bodyJson.toString());
             String toParse = request(conn);
 
             if (toParse.equals("!error"))
@@ -124,6 +123,7 @@ public class RestUtil
                 return parser.parse(toParse).getAsJsonArray();
         }
         catch (Exception ex){
+            ex.getLocalizedMessage();
             new Logger().logError(ex.getLocalizedMessage());
             return null;
         }

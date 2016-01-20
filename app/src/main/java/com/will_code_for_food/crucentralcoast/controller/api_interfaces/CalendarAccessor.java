@@ -8,10 +8,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.local_io.log.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.CalendarEvent;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 
 import java.io.FileNotFoundException;
@@ -23,7 +26,6 @@ import java.util.TimeZone;
  * Created by Gavin on 11/15/2015.
  */
 public class CalendarAccessor {
-    // TODO store events persistently somewhere
 
     public static void editExistingEvent(final CalendarEvent event, final Activity currentActivity) {
         if (!event.hasId()) {
@@ -41,6 +43,7 @@ public class CalendarAccessor {
     public static long addEventToCalendar(final CalendarEvent event, final Activity currentActivity) {
         long eventId = -1;
         try {
+            Log.i("EVENT", "Creating event in calendar: " + event.getTitle());
             // event information
             ContentValues values = getContentValues(event);
             TimeZone timeZone = TimeZone.getDefault();
@@ -55,20 +58,13 @@ public class CalendarAccessor {
             eventId = Long.parseLong(uri.getLastPathSegment());
 
             ContentValues reminderVals = new ContentValues();
-            reminderVals.put(CalendarContract.Reminders.MINUTES, CalendarEvent.reminderTime);
+            reminderVals.put(CalendarContract.Reminders.MINUTES, event.getReminderTime());
             reminderVals.put(CalendarContract.Reminders.EVENT_ID, eventId);
             reminderVals.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
             cr.insert(CalendarContract.Reminders.CONTENT_URI, reminderVals);
-
-            // display confirmation message
-            Toast.makeText(currentActivity.getApplicationContext(),
-                    R.string.cal_add_success,
-                    Toast.LENGTH_LONG).show();
         } catch (Exception ex) {
             // I know this is not good practice, but I wanted a catch all for now
-            Toast.makeText(currentActivity.getApplicationContext(),
-                    R.string.cal_fail_msg,
-                    Toast.LENGTH_LONG).show();
+            ex.printStackTrace();
         }
 
         return eventId;
@@ -80,7 +76,7 @@ public class CalendarAccessor {
         values.put(Events.DESCRIPTION, event.getDescription());
         values.put(Events.EVENT_LOCATION, event.getLocation());
         values.put(Events.DTSTART, event.getStartTime());
-        values.put(Events.DTEND, event.getStartTime() + 60 * 60 * 1000); // TODO make different
+        values.put(Events.DTEND, event.getEndTime());
         return values;
     }
 }

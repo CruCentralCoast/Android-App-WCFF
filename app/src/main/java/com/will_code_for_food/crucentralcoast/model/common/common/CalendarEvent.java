@@ -11,31 +11,48 @@ public class CalendarEvent {
     private String title;
     private String description;
     private String location;
-    private Date dateTime;
     private long startTime;
+    private long endTime;
+    private long reminder;
 
     private Long id;
 
     // three hours reminder
-    public static final int reminderTime = 3 * 60;
+    public static final int DEFAULT_REMINDER_TIME = 3 * 60;
 
-    public CalendarEvent(String title, String description, String location, Date dateTime) {
+    public CalendarEvent(String title, String description, String location, long startTime,
+                        long endTime, long reminder) {
         this.title = title;
         this.description = description;
         this.location = location;
-        this.dateTime = dateTime;
-        this.startTime = dateTime.getTime();
+        this.startTime = startTime;
+        this.endTime = endTime;
+        if (reminder > 0) {
+            this.reminder = reminder;
+        } else {
+            this.reminder = DEFAULT_REMINDER_TIME;
+        }
 
         id = null;
     }
 
-    private CalendarEvent(String title, String description, String location, Date dateTime, long id) {
-        this(title, description, location, dateTime);
+    public CalendarEvent(String title, String description, String location, Date startTime,
+                         Date endTime, long reminder) {
+        this(title, description, location, startTime.getTime(), endTime.getTime(), reminder);
+    }
+
+    private CalendarEvent(String title, String description, String location, long startTime,
+                          long endTime, long reminder, long id) {
+        this(title, description, location, startTime, endTime, reminder);
         this.id = id;
     }
 
+    public long getReminderTime() {
+        return reminder;
+    }
+
     public CalendarEvent copy(long newId) {
-        return new CalendarEvent(title, description, location, dateTime, newId);
+        return new CalendarEvent(title, description, location, startTime, endTime, reminder, newId);
     }
 
     public long getId() {
@@ -70,11 +87,19 @@ public class CalendarEvent {
         this.location = location;
     }
 
+    public void setStartTime(Date newStartTime) {
+        startTime = newStartTime.getTime();
+    }
+
     public long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
+    public void setEndTime(Date newEndTime) {
+        endTime = newEndTime.getTime();
+    }
+
+    public long getEndTime() {
+        return endTime;
     }
 }

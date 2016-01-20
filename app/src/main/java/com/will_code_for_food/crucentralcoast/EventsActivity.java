@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.temp.EventTask;
@@ -18,7 +19,15 @@ import com.will_code_for_food.crucentralcoast.temp.EventTask;
  * Button logic goes in here
  */
 public class EventsActivity extends MainActivity {
-    private Event event;
+    private static Event event = null;
+
+    public static void setEvent(final Event newEvent) {
+        event = newEvent;
+    }
+
+    public static Event getEvent() {
+        return event;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +38,7 @@ public class EventsActivity extends MainActivity {
 
     // Display the list of events
     public void loadEvents() {
+        event = null;
         new EventTask().execute();
     }
 
@@ -38,10 +48,14 @@ public class EventsActivity extends MainActivity {
 
     // Adds the event to the Google Calendar
     public void testCalendar(View view) {
-        ImageButton calendarButton = (ImageButton)findViewById(R.id.button_calendar);
-        calendarButton.setImageResource(R.drawable.calendar_added);
-        // TODO: ADD TO CALENDAR
-        Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_calendar_added), Toast.LENGTH_LONG).show();
+        if (event != null) {
+            event.saveToCalendar(this);
+            Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_calendar_added), Toast.LENGTH_LONG).show();
+            ImageButton calendarButton = (ImageButton) findViewById(R.id.button_calendar);
+            calendarButton.setImageResource(R.drawable.calendar_added);
+        } else {
+            Toast.makeText(getApplicationContext(), Util.getString(R.string.cal_fail_msg), Toast.LENGTH_LONG).show();
+        }
     }
 
     // Links to the event's ridesharing page, if ridesharing exists

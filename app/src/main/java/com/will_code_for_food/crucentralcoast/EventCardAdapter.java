@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class EventCardAdapter extends ArrayAdapter<EventCardFragment> {
 
-    ArrayList<EventCardFragment> cards = new ArrayList<EventCardFragment>();
+    ArrayList<EventCardFragment> cards = new ArrayList<>();
 
     public EventCardAdapter(Context context, int resource, List<EventCardFragment> objects) {
         super(context, resource, objects);
@@ -33,11 +33,12 @@ public class EventCardAdapter extends ArrayAdapter<EventCardFragment> {
         String imageLabel = current.getImageLabel();
         View hold = inflater.inflate(R.layout.fragment_event_card, parent, false);
         ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
-        if (imageLabel != null && imageLabel != "") {
-            Picasso.with(EventsActivity.context).load(imageLabel).into(imageView);
+        if (imageLabel != null && !imageLabel.equals("")) {
+            Picasso.with(EventsActivity.context).load(imageLabel).fit().into(imageView);
         }
         else {
             System.out.println("Image is this: " + imageLabel);
+            imageView.setImageResource(R.drawable.crulogo);
         }
         TextView titleView = (TextView) hold.findViewById(R.id.card_text);
         titleView.setText(current.getTitle());

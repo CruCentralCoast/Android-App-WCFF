@@ -13,9 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
@@ -69,7 +71,7 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
     }
 
     private void initComponents() {
-        selectedCampuses = new ArrayList<Campus>();
+        selectedCampuses = new ArrayList<>();
 
         campusList = (ListView) this.findViewById(R.id.setup_campus_list);
         nextButton = (Button) this.findViewById(R.id.setup_campus_next_button);
@@ -130,8 +132,11 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
         private TextView campusName;
         private CheckBox chkBox;
 
+        private ImageView cardImage;
+        private String imageLabel = "";
+
         public CampusAdapter(List<Campus> campusList, Context context) {
-            super(context, R.layout.setup_list_item, campusList);
+            super(context, R.layout.fragment_campus_setup_card, campusList);
             this.campusList = campusList;
             this.context = context;
         }
@@ -144,10 +149,11 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
             if(convertView == null) {
 
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = inflater.inflate(R.layout.setup_list_item, null);
+                v = inflater.inflate(R.layout.fragment_campus_setup_card, null);
 
-                campusName = (TextView) v.findViewById(R.id.setup_name);
-                chkBox = (CheckBox) v.findViewById(R.id.setup_chk_box);
+                campusName = (TextView) v.findViewById(R.id.campus_card_text);
+                chkBox = (CheckBox) v.findViewById(R.id.campus_setup_chk_box);
+                cardImage = (ImageView) v.findViewById(R.id.campus_card_image);
 
                 chkBox.setOnCheckedChangeListener((SetupCampusActivity) context);
 
@@ -156,18 +162,26 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
                 //not sure what should go here...
             }
 
+
             Campus campus = campusList.get(position);
             campusName.setText(campus.getName());
             chkBox.setChecked(false);
             chkBox.setTag(campus);
 
+            imageLabel = campus.getImage();
+            if (imageLabel != null && !imageLabel.equals("")) {
+                System.out.println("Image is this: " + imageLabel);
+                Picasso.with(this.getContext()).load(imageLabel).fit().into(cardImage);
+            } else {
+                cardImage.setImageResource(R.drawable.crulogo);
+            }
             return v;
         }
     }
 
     private class SetupCampusTask extends AsyncTask<Void, Void, Void> {
 
-        ArrayList<Campus> campuses;
+        ArrayList<Campus> campuses = new ArrayList<>();
         Activity parent;
 
         public SetupCampusTask(Activity newParent) {

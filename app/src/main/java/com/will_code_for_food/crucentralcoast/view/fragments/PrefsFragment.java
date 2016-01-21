@@ -86,7 +86,7 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
             List<String> filteredIds = new ArrayList<String>();
             List<String> filteredNames = new ArrayList<String>();
 
-            MultiSelectListPreference ministryPref = (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_MINISTIES);
+            MultiSelectListPreference ministryPref = (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_MINISTRIES);
 
             if (selectedCampuses != null && !selectedCampuses.isEmpty()) {
                 ministryPref.setEnabled(true);

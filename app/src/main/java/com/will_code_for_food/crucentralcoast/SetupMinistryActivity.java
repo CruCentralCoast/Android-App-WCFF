@@ -87,7 +87,7 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
             public void onClick(View v) {
 
                 for(Ministry ministry : selectedMinistries) {
-                    Util.saveToSet(Android.PREF_MINISTIES, ministry.getId());
+                    Util.saveToSet(Android.PREF_MINISTRIES, ministry.getId());
                 }
 
                 Util.saveBool(Android.PREF_SETUP_COMPLETE, true);

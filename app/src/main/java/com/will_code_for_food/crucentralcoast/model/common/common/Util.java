@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.ArraySet;
+import android.util.Log;
 
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
@@ -66,6 +67,23 @@ public class Util {
         editor.commit();
     }
 
+    // Saves the string to the set in the given key
+    public static void saveToSet(String key, Set<String> toSave) {
+        for (String str : toSave) {
+            saveToSet(key, str);
+        }
+    }
+
+    // Clears a set
+    public static void clearSet(String key) {
+        Context context = MainActivity.context;
+        String preferences_file = Util.getString(R.string.preferences_file);
+        SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
+          SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putStringSet(key, new HashSet<String>());
+        editor.commit();
+    }
+
     /**
      * Loads a string from the shared preferences file, or null if none exist
      */
@@ -88,5 +106,21 @@ public class Util {
         Set<String> value = sharedPref.getStringSet(key, null);
 
         return value;
+    }
+
+    /**
+     * Prints a set to the console (debugging purposes)
+     */
+    public static void printSet(final String key) {
+        Set<String> set = Util.loadStringSet(key);
+        Log.i("*********", "**************************");
+        if (set == null) {
+            Log.i("   ", "No set");
+        } else {
+            for (String s : set) {
+                Log.i("     ", s);
+            }
+        }
+        Log.i("*********", "**************************");
     }
 }

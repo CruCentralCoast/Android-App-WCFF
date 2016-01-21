@@ -11,6 +11,7 @@ import com.will_code_for_food.crucentralcoast.EventCardAdapter;
 import com.will_code_for_food.crucentralcoast.EventsActivity;
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
@@ -29,7 +30,7 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
 
     ArrayList<Event> events;        // list of all events in database
     ArrayList<EventCardFragment> eventScreens; // list of event fragments
-    MainActivity currentActivity;   // reference to the activity running this task
+    EventsActivity currentActivity;   // reference to the activity running this task
     ListView eventsList;            // used to display events in a list
 
     public EventTask() {
@@ -60,7 +61,6 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
 
         eventsList = (ListView) currentActivity.findViewById(R.id.list_events);
 
-
         if ((eventScreens != null) && (!eventScreens.isEmpty())) {
             eventsList.setAdapter(new EventCardAdapter(MainActivity.context, android.R.layout.simple_list_item_1, eventScreens));
 
@@ -72,8 +72,7 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
                     new EventTask2().execute(events.get(position));
                 }
             });
-        }
-        else {
+        }else {
             String errorMessage = Util.getString(R.string.toast_no_events);
             Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
         }

@@ -1,5 +1,10 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
+import android.app.Activity;
+import android.util.Log;
+
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,14 +19,15 @@ public class CalendarEvent {
     private long startTime;
     private long endTime;
     private long reminder;
+    private String databaseId;
 
-    private Long id;
+    private Long calendarId;
 
     // three hours reminder
     public static final int DEFAULT_REMINDER_TIME = 3 * 60;
 
-    public CalendarEvent(String title, String description, String location, long startTime,
-                        long endTime, long reminder) {
+    public CalendarEvent(String databaseId, String title, String description, String location, long startTime, long endTime, long reminder) {
+        this.databaseId = databaseId;
         this.title = title;
         this.description = description;
         this.location = location;
@@ -33,34 +39,38 @@ public class CalendarEvent {
             this.reminder = DEFAULT_REMINDER_TIME;
         }
 
-        id = null;
+        calendarId = null;
     }
 
-    public CalendarEvent(String title, String description, String location, Date startTime,
-                         Date endTime, long reminder) {
-        this(title, description, location, startTime.getTime(), endTime.getTime(), reminder);
+    protected CalendarEvent(String databaseId, String title, String description, String location, long startTime, long endTime, long reminder, long calendarId) {
+        this(databaseId, title, description, location, startTime, endTime, reminder);
+        if (calendarId != -1) {
+            this.calendarId = calendarId;
+            Log.i("Create Event", "Found " + title + " in calendar");
+        } else {
+            Log.i("Create Event", "Did not find " + title + " in calendar");
+            this.calendarId = null;
+        }
     }
 
-    private CalendarEvent(String title, String description, String location, long startTime,
-                          long endTime, long reminder, long id) {
-        this(title, description, location, startTime, endTime, reminder);
-        this.id = id;
+    protected void setCalendarId(final Long newId) {
+        calendarId = newId;
     }
 
     public long getReminderTime() {
         return reminder;
     }
 
-    public CalendarEvent copy(long newId) {
-        return new CalendarEvent(title, description, location, startTime, endTime, reminder, newId);
+    public long getCalendarId() {
+        return calendarId;
     }
 
-    public long getId() {
-        return id;
+    public String getDatabaseId() {
+        return databaseId;
     }
 
-    public boolean hasId() {
-        return id != -1;
+    public boolean hasCalendarId() {
+        return calendarId != null;
     }
 
     public String getDescription() {

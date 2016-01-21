@@ -150,6 +150,18 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         }
 
         @Override
+        public int getViewTypeCount() {
+
+            return getCount();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+
+            return position;
+        }
+
+        @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
             View v = convertView;

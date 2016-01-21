@@ -2,7 +2,6 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.ArraySet;
 
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;

@@ -83,6 +83,14 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
         String street = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STREET).getAsString();
         String suburb = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_SUBURB).getAsString();
         String state = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STATE).getAsString();
+
+        // Grey out button to note no chosen location
+        if (street.equals(Database.EVENT_BAD_LOCATION) || suburb.equals(Database.EVENT_BAD_LOCATION)) {
+            ImageButton mapButton = (ImageButton)currentActivity.findViewById(R.id.button_map);
+            mapButton.setContentDescription(street);
+            mapButton.setImageResource(R.drawable.map_no);
+        }
+
         return street + ", " + suburb + " " + state;
     }
 
@@ -90,7 +98,7 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
     private String getEventDate() {
         JsonElement dateStart = event.getField(Database.JSON_KEY_EVENT_STARTDATE);
         JsonElement dateEnd = event.getField(Database.JSON_KEY_EVENT_ENDDATE);
-        String eventDate = dateStart.getAsString() + " - " + dateEnd.getAsString();
+        String eventDate;
 
         // Convert ISODate to Java Date format
         try {
@@ -100,6 +108,7 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
             eventDate = formatDate(start) + " - " + formatDate(end);
         } catch (ParseException e) {
             // Can't be parsed; just use the default ISO format
+            eventDate = dateStart.getAsString() + " - " + dateEnd.getAsString();
         }
 
         return eventDate;

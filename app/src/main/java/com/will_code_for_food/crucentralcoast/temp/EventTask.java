@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
 import com.will_code_for_food.crucentralcoast.EventCardAdapter;
 import com.will_code_for_food.crucentralcoast.EventsActivity;
 import com.will_code_for_food.crucentralcoast.MainActivity;
@@ -16,10 +17,13 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSche
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.values.Android;
+import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.fragments.EventCardFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Loads the list of events asynchronously in a ListView layout
@@ -28,9 +32,10 @@ import java.util.List;
 public class EventTask extends AsyncTask<Void, Void, Void> {
 
     ArrayList<Event> events;        // list of all events in database
-    ArrayList<EventCardFragment> eventScreens; // list of event fragments
     MainActivity currentActivity;   // reference to the activity running this task
     ListView eventsList;            // used to display events in a list
+    ArrayList<EventCardFragment> eventScreens; // list of relevant event fragments only
+    ArrayList<Event> myEvents;      // list of relevant ministry events only
 
     public EventTask() {
         currentActivity = (EventsActivity) EventsActivity.context;
@@ -41,14 +46,24 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
         Retriever retriever = new SingleRetriever<>(RetrieverSchema.EVENT);
         events = (ArrayList<Event>) (List<?>) retriever.getAll();
         eventScreens = new ArrayList<EventCardFragment>();
+        myEvents = new ArrayList<Event>();
 
+        // Only display events for the ministry
+        Set<String> userMinistries = Util.loadStringSet(Android.PREF_MINISTRIES);
         for (Event event : events) {
-            EventCardFragment tempCard = new EventCardFragment();
-            Bundle args = new Bundle();
-            args.putString("imageLabel", event.getImage());
-            args.putString("title", event.getName());
-            tempCard.setArguments(args);
-            eventScreens.add(tempCard);
+            JsonArray eventMinistries = event.getField(Database.JSON_KEY_EVENT_MINISTRIES).getAsJsonArray();
+            for (int i = 0; i < eventMinistries.size(); i++) {
+                if (userMinistries.contains(eventMinistries.get(i).getAsString())) {
+                    EventCardFragment tempCard = new EventCardFragment();
+                    Bundle args = new Bundle();
+                    args.putString("imageLabel", event.getImage());
+                    args.putString("title", event.getName());
+                    tempCard.setArguments(args);
+                    eventScreens.add(tempCard);
+                    myEvents.add(event);
+                    break;
+                }
+            }
         }
 
         return null;
@@ -60,7 +75,6 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
 
         eventsList = (ListView) currentActivity.findViewById(R.id.list_events);
 
-
         if ((eventScreens != null) && (!eventScreens.isEmpty())) {
             eventsList.setAdapter(new EventCardAdapter(MainActivity.context, android.R.layout.simple_list_item_1, eventScreens));
 
@@ -69,7 +83,7 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     currentActivity.loadFragmentById(R.layout.fragment_event, "Events > " + eventScreens.get(position).getTitle());
-                    new EventTask2().execute(events.get(position));
+                    new EventTask2().execute(myEvents.get(position));
                 }
             });
         }

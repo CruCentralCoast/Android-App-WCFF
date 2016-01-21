@@ -42,4 +42,6 @@ public class Database {
     public static final String HTTP_REQUEST_METHOD_POST = "POST";
     public static final String REST_QUERY_GET_ALL = "/list";
     public static final String REST_QUERY_FIND = "/find";
+
+    public static final String GOOGLE_MAP = "http://maps.google.co.in/maps?q=";
 }

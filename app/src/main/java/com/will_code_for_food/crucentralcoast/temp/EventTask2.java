@@ -98,7 +98,7 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
     private String getEventDate() {
         JsonElement dateStart = event.getField(Database.JSON_KEY_EVENT_STARTDATE);
         JsonElement dateEnd = event.getField(Database.JSON_KEY_EVENT_ENDDATE);
-        String eventDate = dateStart.getAsString() + " - " + dateEnd.getAsString();
+        String eventDate;
 
         // Convert ISODate to Java Date format
         try {
@@ -108,6 +108,7 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
             eventDate = formatDate(start) + " - " + formatDate(end);
         } catch (ParseException e) {
             // Can't be parsed; just use the default ISO format
+            eventDate = dateStart.getAsString() + " - " + dateEnd.getAsString();
         }
 
         return eventDate;

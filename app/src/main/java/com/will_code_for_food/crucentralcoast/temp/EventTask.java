@@ -30,7 +30,7 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
 
     ArrayList<Event> events;        // list of all events in database
     ArrayList<EventCardFragment> eventScreens; // list of event fragments
-    EventsActivity currentActivity;   // reference to the activity running this task
+    MainActivity currentActivity;   // reference to the activity running this task
     ListView eventsList;            // used to display events in a list
 
     public EventTask() {

@@ -11,6 +11,7 @@
 
     <!-- Toast Messages -->
     <string name="toast_calendar_added">Added event to calendar</string>
+    <string name="toast_calendar_removed">Removed event from calendar</string>
     <string name="toast_no_rides">Ridesharing is not available for this event</string>
     <string name="toast_no_facebook">No Facebook page for this event</string>
     <string name="toast_no_map">No location for this event</string>

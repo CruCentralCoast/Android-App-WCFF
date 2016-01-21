@@ -1,8 +1,10 @@
 package com.will_code_for_food.crucentralcoast;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -36,6 +38,20 @@ public class EventsActivity extends MainActivity {
         loadFragmentById(R.layout.fragment_eventslist, "Events");
     }
 
+    /**
+     * Changes the "add to calendar" button to reflect whether or not
+     * the event is already in the calendar
+     */
+    public void modifyAddToCalendarButton() {
+        Log.e("Changing button", "changing button");
+        ImageButton calendarButton = (ImageButton)findViewById(R.id.button_calendar);
+        if (event.isInCalendarAlready()) {
+            calendarButton.setImageResource(R.drawable.calendar_added);
+        } else {
+            calendarButton.setImageResource(R.drawable.calendar_add);
+        }
+    }
+
     // Display the list of events
     public void loadEvents() {
         event = null;
@@ -46,26 +62,34 @@ public class EventsActivity extends MainActivity {
         notifier.createNotification("title", "text", getApplicationContext());
     }
 
-    // Adds the event to the Google Calendar
-    public void testCalendar(View view) {
+    // Adds the event to the user's calendar
+    public void calendarButton(View view) {
         if (event != null) {
-            event.saveToCalendar(this);
-            Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_calendar_added), Toast.LENGTH_LONG).show();
             ImageButton calendarButton = (ImageButton) findViewById(R.id.button_calendar);
-            calendarButton.setImageResource(R.drawable.calendar_added);
+            if (event.isInCalendarAlready()) {
+                event.deleteFromCalendar(this);
+                Toast.makeText(getApplicationContext(),
+                        Util.getString(R.string.toast_calendar_removed), Toast.LENGTH_LONG).show();
+                calendarButton.setImageResource(R.drawable.calendar_add);
+            } else {
+                event.saveToCalendar(this);
+                Toast.makeText(getApplicationContext(),
+                        Util.getString(R.string.toast_calendar_added), Toast.LENGTH_LONG).show();
+                calendarButton.setImageResource(R.drawable.calendar_added);
+            }
         } else {
             Toast.makeText(getApplicationContext(), Util.getString(R.string.cal_fail_msg), Toast.LENGTH_LONG).show();
         }
     }
 
     // Links to the event's ridesharing page, if ridesharing exists
-    public void testRideshare(View view) {
+    public void viewRidesharing(View view) {
         // UNIMPLEMENTED FOR NOW
         Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_rides), Toast.LENGTH_LONG).show();
     }
 
     // Links to the event's Facebook page
-    public void testFacebook(View view) {
+    public void viewFacebook(View view) {
         ImageButton fbButton = (ImageButton)findViewById(R.id.button_facebook);
         String url = fbButton.getContentDescription().toString();
 

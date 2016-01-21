@@ -12,6 +12,7 @@ import com.will_code_for_food.crucentralcoast.EventCardAdapter;
 import com.will_code_for_food.crucentralcoast.EventsActivity;
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
@@ -86,8 +87,7 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
                     new EventTask2().execute(myEvents.get(position));
                 }
             });
-        }
-        else {
+        }else {
             String errorMessage = Util.getString(R.string.toast_no_events);
             Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
         }

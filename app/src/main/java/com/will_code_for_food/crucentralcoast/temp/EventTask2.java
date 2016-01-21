@@ -27,7 +27,7 @@ import java.util.Date;
  */
 public class EventTask2 extends AsyncTask<Event, Void, Void> {
 
-    MainActivity currentActivity;   // reference to the activity running this task
+    EventsActivity currentActivity;   // reference to the activity running this task
     Event event;                    // event being displayed
 
     public EventTask2() {
@@ -75,6 +75,8 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
         }
 
         // TODO: Display the parent ministries of the event
+
+        currentActivity.modifyAddToCalendarButton();
     }
 
     // Gets the address of the event in reader format

@@ -21,9 +21,11 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.model.common.messaging.PushUtil;
 import com.will_code_for_food.crucentralcoast.values.Android;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.prefs.Preferences;
@@ -31,7 +33,8 @@ import java.util.prefs.Preferences;
 /**
  * Created by Brian on 1/17/2016.
  */
-public class PrefsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class PrefsFragment extends PreferenceFragment
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
     static Activity parent;
 
     public PrefsFragment() {
@@ -45,6 +48,7 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
         addPreferencesFromResource(R.xml.preferences);
 
         MultiSelectListPreference campusPref = (MultiSelectListPreference) findPreference(Android.PREF_CAMPUSES);
+
         Preference clearPref = (Preference) findPreference(Android.PREF_CLEAR);
 
         clearPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -52,6 +56,7 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
             public boolean onPreferenceClick(Preference preference) {
                 getPreferenceManager().getSharedPreferences().edit().clear().commit();
                 reload();
+                PushUtil.clearPushChannels();
                 return false;
             }
         });
@@ -60,6 +65,28 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
 
         new MinistrySettingsTask().execute();
         new CampusSettingsTask().execute();
+    }
+
+    /**
+     * Listener for performing actions when ministries are (un)subscribed to
+     */
+    private class MinistryPreferenceListener implements Preference.OnPreferenceChangeListener{
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue) {
+            Set<String> newSubscribed = (HashSet<String>) newValue;
+            Set<String> oldSubscribed = ((MultiSelectListPreference) preference).getValues();
+            //Subscibe to new ministries
+            for (String ministry : newSubscribed)
+                if (!oldSubscribed.contains(ministry))
+                    PushUtil.subscribe(ministry);
+
+            //Unsubscribe from old ministries
+            for (String ministry : oldSubscribed)
+                if (!newSubscribed.contains(ministry))
+                    PushUtil.unsubscribe(ministry);
+
+            return true;
+        }
     }
 
     @Override
@@ -86,7 +113,9 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
             List<String> filteredIds = new ArrayList<String>();
             List<String> filteredNames = new ArrayList<String>();
 
-            MultiSelectListPreference ministryPref = (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_MINISTIES);
+            MultiSelectListPreference ministryPref =
+                    (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_MINISTIES);
+            ministryPref.setOnPreferenceChangeListener(new MinistryPreferenceListener());
 
             if (selectedCampuses != null && !selectedCampuses.isEmpty()) {
                 ministryPref.setEnabled(true);

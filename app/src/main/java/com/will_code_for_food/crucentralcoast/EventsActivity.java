@@ -104,7 +104,7 @@ public class EventsActivity extends MainActivity {
     }
 
     // Link to the Google map location of the event
-    public void viewMap(View view) {
+    public void testMap(View view) {
         ImageButton mapButton = (ImageButton)findViewById(R.id.button_map);
 
         // No map for this location

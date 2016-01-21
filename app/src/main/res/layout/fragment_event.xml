@@ -100,7 +100,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="5dp"
             android:background="@null"
-            android:onClick="testCalendar"
+            android:onClick="calendarButton"
             android:src="@drawable/calendar_add" />
 
         <!-- Go to Rideshare -->
@@ -115,7 +115,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="5dp"
             android:background="@null"
-            android:onClick="testRideshare"
+            android:onClick="viewRidesharing"
             android:src="@drawable/car_no" />
 
         <!-- Go to Facebook Page -->
@@ -130,7 +130,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="5dp"
             android:background="@null"
-            android:onClick="testFacebook"
+            android:onClick="viewFacebook"
             android:src="@drawable/facebook"
             android:contentDescription="FB LINK HERE" />
 

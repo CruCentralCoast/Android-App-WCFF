@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
+        android:key="preferences_main"
         android:title="Notifications">
         <CheckBoxPreference
             android:key="pref_notif"
             android:defaultValue="false"
-            android:title="@string/settings_event_notifications"
-            android:summary="@string/settings_event_notifications"/>
+            android:title="@string/settings_event_notifications" />
+
+        <MultiSelectListPreference
+            android:key="pref_campuses"
+            android:title="Select Campuses"/>
         <MultiSelectListPreference
             android:key="pref_ministries"
             android:title="Select Ministries"/>
+        <CheckBoxPreference
+            android:key="setup_complete"
+            android:title="Initial Setup Complete"
+            android:summary="(debug)"/>
+        <Preference
+            android:key="pref_clear"
+            android:title="Clear Preferences"
+            android:summary="(debug)"/>
     </PreferenceCategory>
 </PreferenceScreen>

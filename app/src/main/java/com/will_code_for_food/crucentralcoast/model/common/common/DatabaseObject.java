@@ -67,7 +67,7 @@ public abstract class DatabaseObject {
             return imageData.getUrl();
         }
 
-        else return null;
+        return null;
     }
 
     public ImageData getImageData() {
@@ -76,5 +76,22 @@ public abstract class DatabaseObject {
 
     public String getDescription() {
         return getFieldAsString(Database.JSON_KEY_COMMON_DESCRIPTION);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        DatabaseObject dbObj;
+
+        if (other instanceof DatabaseObject) {
+            dbObj = (DatabaseObject) other;
+            return this.getId().equals(dbObj.getId());
+        }
+
+        //for comparing ids directly
+        else if (other instanceof String) {
+            return this.getId().equals((String) other);
+        }
+
+        return false;
     }
 }

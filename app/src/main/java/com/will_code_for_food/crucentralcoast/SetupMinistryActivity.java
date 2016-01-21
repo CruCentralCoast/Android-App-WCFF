@@ -13,9 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
@@ -75,7 +77,7 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
     }
 
     private void initComponents() {
-        selectedMinistries = new ArrayList<Ministry>();
+        selectedMinistries = new ArrayList<>();
 
         ministryList = (ListView) this.findViewById(R.id.setup_ministry_list);
         finishButton = (Button) this.findViewById(R.id.setup_ministry_next_button);
@@ -138,9 +140,11 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
 
         private TextView ministryName;
         private CheckBox chkBox;
+        private ImageView cardImage;
+        private String imageLabel = "";
 
         public MinistryAdapter(List<Ministry> ministryList, Context context) {
-            super(context, R.layout.setup_list_item, ministryList);
+            super(context, R.layout.fragment_ministry_setup_card, ministryList);
             this.ministryList = ministryList;
             this.context = context;
         }
@@ -153,10 +157,11 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
             if(convertView == null) {
 
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = inflater.inflate(R.layout.setup_list_item, null);
+                v = inflater.inflate(R.layout.fragment_ministry_setup_card, null);
 
-                ministryName = (TextView) v.findViewById(R.id.setup_name);
-                chkBox = (CheckBox) v.findViewById(R.id.setup_chk_box);
+                ministryName = (TextView) v.findViewById(R.id.ministry_card_text);
+                chkBox = (CheckBox) v.findViewById(R.id.ministry_setup_chk_box);
+                cardImage = (ImageView) v.findViewById(R.id.ministry_card_image);
 
                 chkBox.setOnCheckedChangeListener((SetupMinistryActivity) context);
 
@@ -169,6 +174,15 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
             ministryName.setText(ministry.getName());
             chkBox.setChecked(false);
             chkBox.setTag(ministry);
+            imageLabel = ministry.getImage();
+
+            if (imageLabel != null && !imageLabel.equals("")) {
+                System.out.println("Image is this: " + imageLabel);
+                Picasso.with(this.getContext()).load(imageLabel).fit().into(cardImage);
+            } else {
+                //System.out.println("Image is this: " + imageLabel);
+                cardImage.setImageResource(R.drawable.crulogo);
+            }
 
             return v;
         }
@@ -177,7 +191,7 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
     private class SetupMinistryTask extends AsyncTask<Void, Void, Void> {
 
         List<Ministry> ministries;
-        List<Ministry> ministriesFiltered = new ArrayList<Ministry>();
+        List<Ministry> ministriesFiltered = new ArrayList<>();
 
         Activity parent;
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SetupActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/setup_campus_container"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Where do you go to school?"
+            android:id="@+id/question_campus"
+            android:layout_gravity="center"
+            android:textSize="@dimen/question_get_campus" />
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/setup_campus_list"
+            android:layout_gravity="top"
+            android:layout_marginTop="@dimen/setup_question_padding_top" />
+
+    </FrameLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="next >"
+        android:id="@+id/setup_campus_next_button"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp" />
+
+</LinearLayout>

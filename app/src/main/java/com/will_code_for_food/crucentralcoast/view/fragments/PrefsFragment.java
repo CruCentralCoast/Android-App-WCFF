@@ -114,7 +114,7 @@ public class PrefsFragment extends PreferenceFragment
             List<String> filteredNames = new ArrayList<String>();
 
             MultiSelectListPreference ministryPref =
-                    (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_MINISTIES);
+                    (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_MINISTRIES);
             ministryPref.setOnPreferenceChangeListener(new MinistryPreferenceListener());
 
             if (selectedCampuses != null && !selectedCampuses.isEmpty()) {

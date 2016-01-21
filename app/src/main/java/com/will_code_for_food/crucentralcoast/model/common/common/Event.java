@@ -50,7 +50,7 @@ public class Event extends DatabaseObject {
      * local calendar.
      */
     public boolean isInCalendarAlready() {
-        return calendarEvent.hasCalendarId();
+        return calendarEvent != null && calendarEvent.hasCalendarId();
     }
 
     public void deleteFromCalendar(final Activity currentActivity) {
@@ -116,6 +116,7 @@ public class Event extends DatabaseObject {
                     endTime.getTime(), reminderMinutesBefore, calendarId);
         } catch (java.text.ParseException ex) {
             Log.e("Event Creation", "Unable to get mandatory data for" + getName());
+            ex.printStackTrace();
         }
     }
 }

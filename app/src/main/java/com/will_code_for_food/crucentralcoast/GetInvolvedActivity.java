@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
-import com.will_code_for_food.crucentralcoast.temp.CampusExampleTask2;
+import com.will_code_for_food.crucentralcoast.tasks.CampusExampleTask2;
 
 /**
  * Created by mallika on 1/14/16.

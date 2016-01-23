@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.tasks.BackgroundSound;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.UI;
 
 /**
  * Created by MasonJStevenson on 1/19/2016.
  */
-public class SplashscreenActivity extends Activity{
+public class SplashscreenActivity extends Activity {
 
     public static Context context;
 
@@ -45,12 +46,10 @@ public class SplashscreenActivity extends Activity{
     }
 
     private void launchApp() {
-
         if (!Util.loadBool(Android.PREF_SETUP_COMPLETE)) {
             Intent intent = new Intent(this, SetupCampusActivity.class);
             startActivity(intent);
         }
-
         else {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

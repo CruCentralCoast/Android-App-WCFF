@@ -9,6 +9,7 @@ import com.will_code_for_food.crucentralcoast.R;
 
 /**
  * Created by Kayla on 1/21/2016.
+ * Plays background music in all activities that extend MainActivity
  */
 public class BackgroundSound extends AsyncTask<Void, Void, Void> {
 

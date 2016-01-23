@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -39,6 +40,8 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
     private List<Campus> selectedCampuses;
     private List<Ministry> selectedMinistries;
     private ListView ministryList;
+    public static Context context;
+    public static Ministry selecetedMinistry;
 
     public SetupMinistryActivity() {
         this.selectedCampuses = SetupCampusActivity.selectedCampuses;
@@ -47,7 +50,9 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_setup_ministry);
+        setContentView(R.layout.activity_setup_ministry);
+
+        context = this;
 
         initComponents();
         translateTitle();
@@ -142,6 +147,7 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         private CheckBox chkBox;
         private ImageView cardImage;
         private String imageLabel = "";
+        private RelativeLayout background;
 
         public MinistryAdapter(List<Ministry> ministryList, Context context) {
             super(context, R.layout.fragment_ministry_setup_card, ministryList);
@@ -165,6 +171,7 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         public View getView(int position, View convertView, ViewGroup parent) {
 
             View v = convertView;
+            final Ministry ministry = ministryList.get(position);
 
             if(convertView == null) {
 
@@ -174,29 +181,46 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
                 ministryName = (TextView) v.findViewById(R.id.ministry_card_text);
                 chkBox = (CheckBox) v.findViewById(R.id.ministry_setup_chk_box);
                 cardImage = (ImageView) v.findViewById(R.id.ministry_card_image);
+                background = (RelativeLayout) v.findViewById(R.id.ministry_setup_card_background);
+
+                background.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selecetedMinistry = ministry;
+                        Intent intent = new Intent(context, MinistryInfoActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+                cardImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selecetedMinistry = ministry;
+                        Intent intent = new Intent(context, MinistryInfoActivity.class);
+                        startActivity(intent);
+                    }
+                });
 
                 chkBox.setOnCheckedChangeListener((SetupMinistryActivity) context);
 
+                ministryName.setText(ministry.getName());
+                chkBox.setChecked(false);
+                chkBox.setTag(ministry);
+                imageLabel = ministry.getImage();
+
+                if (imageLabel != null && !imageLabel.equals("")) {
+                    System.out.println("Image is this: " + imageLabel);
+                    Picasso.with(this.getContext()).load(imageLabel).fit().into(cardImage);
+                } else {
+                    //System.out.println("Image is this: " + imageLabel);
+                    cardImage.setImageResource(R.drawable.cru_logo_default);
+                }
+
+                return v;
             }
             else {
-                //not sure what to put here...
+                return convertView;
             }
-
-            Ministry ministry = ministryList.get(position);
-            ministryName.setText(ministry.getName());
-            chkBox.setChecked(false);
-            chkBox.setTag(ministry);
-            imageLabel = ministry.getImage();
-
-            if (imageLabel != null && !imageLabel.equals("")) {
-                System.out.println("Image is this: " + imageLabel);
-                Picasso.with(this.getContext()).load(imageLabel).fit().into(cardImage);
-            } else {
-                //System.out.println("Image is this: " + imageLabel);
-                cardImage.setImageResource(R.drawable.crulogo);
-            }
-
-            return v;
         }
     }
 

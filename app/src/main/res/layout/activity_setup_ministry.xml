@@ -17,7 +17,8 @@
             android:id="@+id/question_ministry"
             android:layout_gravity="center"
             android:textSize="@dimen/question_get_campus"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary_cruGray" />
 
         <ListView
             android:layout_width="fill_parent"
@@ -34,5 +35,6 @@
         android:text="finish"
         android:id="@+id/setup_ministry_next_button"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/setup_next_button" />
 </LinearLayout>

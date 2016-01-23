@@ -41,6 +41,9 @@
         <activity android:name=".SetupMinistryActivity" >
         </activity>
 
+        <activity android:name=".MinistryInfoActivity" >
+        </activity>
+
         <activity android:name=".MainActivity" >
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />

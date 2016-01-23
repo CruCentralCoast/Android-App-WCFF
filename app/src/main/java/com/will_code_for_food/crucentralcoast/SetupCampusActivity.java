@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,6 +52,7 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         Campus campus = (Campus) buttonView.getTag();
+        CheckBox checkBox = (CheckBox) buttonView;
 
         if (isChecked) {
             selectedCampuses.add(campus);
@@ -106,7 +108,7 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
 
     private void nextScreen() {
 
-        this.finish();
+        //this.finish();
 
         //Apply splash exit (fade out) and main entry (fade in) animation transitions.
         overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
@@ -169,25 +171,25 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
 
                 chkBox.setOnCheckedChangeListener((SetupCampusActivity) context);
 
+                Campus campus = campusList.get(position);
+                campusName.setText(campus.getName());
+                chkBox.setChecked(false);
+                chkBox.setTag(campus);
+
+                imageLabel = campus.getImage();
+                if (imageLabel != null && !imageLabel.equals("")) {
+                    System.out.println("Image is this: " + imageLabel);
+                    Picasso.with(this.getContext()).load(imageLabel).into(cardImage);
+                } else {
+                    cardImage.setImageResource(R.drawable.cru_logo_default);
+                }
+
+                return v;
+
             }
             else {
-                //not sure what should go here...
+                return convertView;
             }
-
-
-            Campus campus = campusList.get(position);
-            campusName.setText(campus.getName());
-            chkBox.setChecked(false);
-            chkBox.setTag(campus);
-
-            imageLabel = campus.getImage();
-            if (imageLabel != null && !imageLabel.equals("")) {
-                System.out.println("Image is this: " + imageLabel);
-                Picasso.with(this.getContext()).load(imageLabel).fit().into(cardImage);
-            } else {
-                cardImage.setImageResource(R.drawable.crulogo);
-            }
-            return v;
         }
     }
 

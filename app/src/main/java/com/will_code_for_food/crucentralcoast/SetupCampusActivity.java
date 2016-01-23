@@ -3,7 +3,6 @@ package com.will_code_for_food.crucentralcoast;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,11 +38,13 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
     public static List<Campus> selectedCampuses;
     private ListView campusList;
     private Button nextButton;
+    private LinearLayout screen;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setup);
+        setContentView(R.layout.activity_setup_campus);
 
         initComponents();
         translateTitle();
@@ -77,6 +79,9 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
 
         campusList = (ListView) this.findViewById(R.id.setup_campus_list);
         nextButton = (Button) this.findViewById(R.id.setup_campus_next_button);
+        screen = (LinearLayout) this.findViewById(R.id.setup_campus_container);
+        title = (TextView) findViewById(R.id.question_campus);
+
         nextButton.setEnabled(false);
         campusList.setVisibility(View.INVISIBLE);
         nextButton.setVisibility(View.INVISIBLE);
@@ -96,25 +101,40 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
     }
 
     private void translateTitle() {
-        new Handler().postDelayed(new Runnable() {
+
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                TextView title = (TextView) findViewById(R.id.question_campus);
                 title.animate().translationY(-1 * title.getTop() + UI.SETUP_TITLE_MARGIN).withLayer().setDuration(UI.SETUP_TITLE_TRANSLATE_DURATION);
                 delayedListAppearance();
             }
-        }, UI.SETUP_CAMPUS_WAIT_DURATION);
+        };
+
+        screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handler.removeCallbacks(runnable);
+
+                title.animate().translationY(-1 * title.getTop() + UI.SETUP_TITLE_MARGIN).withLayer().setDuration(0);
+                campusList.setVisibility(View.VISIBLE);
+
+                screen.setOnClickListener(null);
+            }
+        });
+
+        handler.postDelayed(runnable, UI.SETUP_CAMPUS_WAIT_DURATION);
     }
 
     private void nextScreen() {
 
         //this.finish();
 
-        //Apply splash exit (fade out) and main entry (fade in) animation transitions.
-        overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
-
         Intent intent = new Intent(this, SetupMinistryActivity.class);
         startActivity(intent);
+
+        //Apply splash exit (fade out) and main entry (fade in) animation transitions.
+        overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
     }
 
     private void delayedListAppearance() {

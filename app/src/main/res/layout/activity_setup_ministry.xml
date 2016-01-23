@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SetupMinistryActivity">
+    tools:context=".SetupMinistryActivity"
+    android:id="@+id/setup_ministry_container"
+    android:background="@android:color/white">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/setup_ministry_container"
         android:layout_weight="1">
 
         <TextView

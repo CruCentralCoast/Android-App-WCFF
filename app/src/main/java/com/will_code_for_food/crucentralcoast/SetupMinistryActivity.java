@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -40,6 +41,9 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
     private List<Campus> selectedCampuses;
     private List<Ministry> selectedMinistries;
     private ListView ministryList;
+    private LinearLayout screen;
+    private TextView title;
+
     public static Context context;
     public static Ministry selecetedMinistry;
 
@@ -88,6 +92,8 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         finishButton = (Button) this.findViewById(R.id.setup_ministry_next_button);
         finishButton.setVisibility(View.INVISIBLE);
         ministryList.setVisibility(View.INVISIBLE);
+        title = (TextView) findViewById(R.id.question_ministry);
+        screen = (LinearLayout) findViewById(R.id.setup_ministry_container);
 
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,14 +124,28 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
     }
 
     private void translateTitle() {
-        new Handler().postDelayed(new Runnable() {
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                TextView title = (TextView) findViewById(R.id.question_ministry);
                 title.animate().translationY(-1 * title.getTop() + UI.SETUP_TITLE_MARGIN).withLayer().setDuration(UI.SETUP_TITLE_TRANSLATE_DURATION);
                 delayedListAppearance();
             }
-        }, UI.SETUP_MINISTRY_WAIT_DURATION);
+        };
+
+        screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handler.removeCallbacks(runnable);
+
+                title.animate().translationY(-1 * title.getTop() + UI.SETUP_TITLE_MARGIN).withLayer().setDuration(0);
+                ministryList.setVisibility(View.VISIBLE);
+
+                screen.setOnClickListener(null);
+            }
+        });
+
+        new Handler().postDelayed(runnable, UI.SETUP_MINISTRY_WAIT_DURATION);
     }
 
     private void delayedListAppearance() {

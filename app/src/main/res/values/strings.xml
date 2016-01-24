@@ -21,4 +21,7 @@
     <!--    Preferences     -->
     <string name="settings_event_notifications">Receive Event Notifications</string>
     <string name="preferences_file">com.will_code_for_food.crucentralcoast_preferences</string>
+
+    <!--    Ridesharing     -->
+    <string name="ridesharing_driver_notification">%s has joined your ride to %s!</string>
 </resources>

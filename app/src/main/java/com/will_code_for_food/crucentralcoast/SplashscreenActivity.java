@@ -14,13 +14,14 @@ import com.will_code_for_food.crucentralcoast.values.UI;
 
 /**
  * Created by MasonJStevenson on 1/19/2016.
+ * <p/>
+ * Controls the splashscreen the user sees when the app starts.
  */
-public class SplashscreenActivity extends Activity{
+public class SplashscreenActivity extends Activity {
 
     public static Context context;
 
     private FrameLayout screen;
-    private boolean skipAnimation = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,9 @@ public class SplashscreenActivity extends Activity{
         run();
     }
 
+    /**
+     * Defines behavior of splashscreen
+     */
     private void run() {
         final Handler handler = new Handler();
         final Runnable runnable = new Runnable() {
@@ -50,6 +54,7 @@ public class SplashscreenActivity extends Activity{
             }
         };
 
+        //makes the pause on this screen skippable.
         screen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +68,9 @@ public class SplashscreenActivity extends Activity{
         handler.postDelayed(runnable, UI.SETUP_SPLASHSCREEN_WAIT_DURATION);
     }
 
+    /**
+     * Launches either the initial setup or the main page depending on if the user has previously completed the initial setup.
+     */
     private void launchApp() {
 
         if (!Util.loadBool(Android.PREF_SETUP_COMPLETE)) {

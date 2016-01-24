@@ -36,9 +36,7 @@ public abstract class DatabaseObject {
 
         if (fieldValue != null && fieldValue.isJsonPrimitive()) {
             return fieldValue.getAsString();
-        }
-
-        else {
+        } else {
             return null;
         }
     }

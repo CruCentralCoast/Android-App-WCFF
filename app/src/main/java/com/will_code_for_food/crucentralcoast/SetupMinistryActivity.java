@@ -34,6 +34,8 @@ import java.util.List;
 
 /**
  * Created by MasonJStevenson on 1/20/2016.
+ * <p/>
+ * Controls the ministry setup screen that new users will see following the campus setup screen.
  */
 public class SetupMinistryActivity extends Activity implements android.widget.CompoundButton.OnCheckedChangeListener {
 
@@ -62,6 +64,9 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         translateTitle();
     }
 
+    /**
+     * Handles checkboxes in the ministry cards.
+     */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
@@ -69,22 +74,21 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
 
         if (isChecked) {
             selectedMinistries.add(ministry);
-        }
-
-        else {
+        } else {
             selectedMinistries.remove(ministry);
         }
 
         if (!selectedMinistries.isEmpty()) {
             finishButton.setEnabled(true);
             finishButton.setVisibility(View.VISIBLE);
-        }
-
-        else {
+        } else {
             finishButton.setEnabled(false);
         }
     }
 
+    /**
+     * Initializes UI components.
+     */
     private void initComponents() {
         selectedMinistries = new ArrayList<>();
 
@@ -99,7 +103,7 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
             @Override
             public void onClick(View v) {
 
-                for(Ministry ministry : selectedMinistries) {
+                for (Ministry ministry : selectedMinistries) {
                     Util.saveToSet(Android.PREF_MINISTRIES, ministry.getId());
                 }
 
@@ -112,9 +116,13 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         new SetupMinistryTask(this).execute();
     }
 
+    /**
+     * Loads the main page.
+     */
     private void nextScreen() {
 
-        this.finish();
+        //Finish this activity so user cant go back to it.
+        finish();
 
         //Apply splash exit (fade out) and main entry (fade in) animation transitions.
         overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
@@ -123,6 +131,9 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         startActivity(intent);
     }
 
+    /**
+     * Moves the title of this screen from the center to the top of the view.
+     */
     private void translateTitle() {
         final Handler handler = new Handler();
         final Runnable runnable = new Runnable() {
@@ -133,6 +144,7 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
             }
         };
 
+        //makes the translation animation skippable.
         screen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,6 +160,9 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         new Handler().postDelayed(runnable, UI.SETUP_MINISTRY_WAIT_DURATION);
     }
 
+    /**
+     * Makes the list of ministries appear as the title translation animation is finishing.
+     */
     private void delayedListAppearance() {
 
         new Handler().postDelayed(new Runnable() {
@@ -158,6 +173,9 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         }, UI.SETUP_TITLE_TRANSLATE_DURATION);
     }
 
+    /**
+     * Adapter for a list of ministry cards.
+     */
     private class MinistryAdapter extends ArrayAdapter<Ministry> {
 
         private List<Ministry> ministryList;
@@ -175,33 +193,34 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
             this.context = context;
         }
 
+        /**
+         * Fixes a weird bug in ListView that makes the list items change around when you scroll.
+         */
         @Override
         public int getViewTypeCount() {
-
             return getCount();
         }
 
+        /**
+         * Fixes a weird bug in ListView that makes the list items change around when you scroll.
+         */
         @Override
         public int getItemViewType(int position) {
-
             return position;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
-            View v = convertView;
             final Ministry ministry = ministryList.get(position);
 
-            if(convertView == null) {
-
+            if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = inflater.inflate(R.layout.fragment_ministry_setup_card, null);
+                convertView = inflater.inflate(R.layout.fragment_ministry_setup_card, null);
 
-                ministryName = (TextView) v.findViewById(R.id.ministry_card_text);
-                chkBox = (CheckBox) v.findViewById(R.id.ministry_setup_chk_box);
-                cardImage = (ImageView) v.findViewById(R.id.ministry_card_image);
-                background = (RelativeLayout) v.findViewById(R.id.ministry_setup_card_background);
+                ministryName = (TextView) convertView.findViewById(R.id.ministry_card_text);
+                chkBox = (CheckBox) convertView.findViewById(R.id.ministry_setup_chk_box);
+                cardImage = (ImageView) convertView.findViewById(R.id.ministry_card_image);
+                background = (RelativeLayout) convertView.findViewById(R.id.ministry_setup_card_background);
 
                 background.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -225,25 +244,25 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
 
                 ministryName.setText(ministry.getName());
                 chkBox.setChecked(false);
-                chkBox.setTag(ministry);
-                imageLabel = ministry.getImage();
+                chkBox.setTag(ministry); //associates a single checkbox with a ministry
 
+                //load image
+                imageLabel = ministry.getImage();
                 if (imageLabel != null && !imageLabel.equals("")) {
-                    System.out.println("Image is this: " + imageLabel);
                     Picasso.with(this.getContext()).load(imageLabel).fit().into(cardImage);
                 } else {
-                    //System.out.println("Image is this: " + imageLabel);
                     cardImage.setImageResource(R.drawable.cru_logo_default);
                 }
+            }
 
-                return v;
-            }
-            else {
-                return convertView;
-            }
+            return convertView;
         }
     }
 
+    /**
+     * Asynchronously retrieves a list of ministries from the database and puts them into the ListView
+     * for this activity.
+     */
     private class SetupMinistryTask extends AsyncTask<Void, Void, Void> {
 
         List<Ministry> ministries;
@@ -261,6 +280,7 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
             Retriever retriever = new SingleRetriever<>(RetrieverSchema.MINISTRY);
             ministries = (List<Ministry>) retriever.getAll();
 
+            //Filter the ministry list based on the selected campuses from the previous screen.
             for (Ministry ministry : ministries) {
                 for (String campus : ministry.getCampuses()) {
                     for (Campus selectedCampus : selectedCampuses) {

@@ -12,6 +12,8 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 
 /**
  * Created by MasonJStevenson on 1/22/2016.
+ * <p/>
+ * Controls the ministry info screen reachable from the ministry setup screen as part of the inital setup.
  */
 public class MinistryInfoActivity extends Activity {
 
@@ -19,9 +21,6 @@ public class MinistryInfoActivity extends Activity {
     private TextView description;
     private TextView campusesView;
     private Ministry ministry;
-
-    private static final String CAMPUSES_TITLE_SINGULAR = "Campus:\n\n";
-    private static final String CAMPUSES_TITLE_PLURAL = "Campuses:\n\n";
 
     public static Context context;
 
@@ -39,6 +38,9 @@ public class MinistryInfoActivity extends Activity {
         updateContents();
     }
 
+    /**
+     * Pulls image and description from the selected ministry and displays them.
+     */
     public void updateContents() {
 
         String campusesText = "";
@@ -47,19 +49,17 @@ public class MinistryInfoActivity extends Activity {
 
             ministry = SetupMinistryActivity.selecetedMinistry;
 
+            //load image
             String imageLabel = ministry.getImage();
-
             if (imageLabel != null && !imageLabel.equals("")) {
                 Picasso.with(this).load(imageLabel).fit().into(imageView);
             }
 
             description.setText(ministry.getDescription());
 
-            //campusesText = (ministry.getCampuses().size() > 1) ? CAMPUSES_TITLE_PLURAL : CAMPUSES_TITLE_SINGULAR;
-
+            //display associated campuses
             for (String campusID : ministry.getCampuses()) {
                 for (Campus campus : SetupCampusActivity.selectedCampuses) {
-
                     if (campus.getId().equals(campusID)) {
                         campusesText += campus.getName() + "\n";
                     }

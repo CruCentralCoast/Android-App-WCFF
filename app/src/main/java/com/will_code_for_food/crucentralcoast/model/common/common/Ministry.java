@@ -10,6 +10,8 @@ import java.util.ArrayList;
 /**
  * Created by Gavin on 11/12/2015.
  * Updated by Mason on 11/22/2015
+ *
+ * A Cru Ministry is a subgroup of the Cru organization usually associated with one or more campuses.
  */
 public class Ministry extends DatabaseObject {
     private ArrayList<String> campuses;
@@ -25,9 +27,7 @@ public class Ministry extends DatabaseObject {
             for (JsonElement campus : campusList.getAsJsonArray()) {
                 campuses.add(campus.getAsString());
             }
-        }
-
-        else {
+        } else {
             System.out.println("campusList is not an array");
         }
     }

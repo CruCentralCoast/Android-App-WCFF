@@ -32,6 +32,8 @@ import java.util.List;
 
 /**
  * Created by MasonJStevenson on 1/19/2016.
+ * <p/>
+ * Controls the campus setup screen that new users will see following the splashscreen.
  */
 public class SetupCampusActivity extends Activity implements android.widget.CompoundButton.OnCheckedChangeListener {
 
@@ -50,30 +52,31 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
         translateTitle();
     }
 
+    /**
+     * Handles checkboxes in the campus cards.
+     */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
         Campus campus = (Campus) buttonView.getTag();
         CheckBox checkBox = (CheckBox) buttonView;
 
         if (isChecked) {
             selectedCampuses.add(campus);
-        }
-
-        else {
+        } else {
             selectedCampuses.remove(campus);
         }
 
         if (!selectedCampuses.isEmpty()) {
             nextButton.setEnabled(true);
             nextButton.setVisibility(View.VISIBLE);
-        }
-
-        else {
+        } else {
             nextButton.setEnabled(false);
         }
     }
 
+    /**
+     * Initializes UI components.
+     */
     private void initComponents() {
         selectedCampuses = new ArrayList<>();
 
@@ -100,8 +103,10 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
         new SetupCampusTask(this).execute();
     }
 
+    /**
+     * Moves the title of this screen from the center to the top of the view.
+     */
     private void translateTitle() {
-
         final Handler handler = new Handler();
         final Runnable runnable = new Runnable() {
             @Override
@@ -126,10 +131,10 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
         handler.postDelayed(runnable, UI.SETUP_CAMPUS_WAIT_DURATION);
     }
 
+    /**
+     * Launches the ministry setup page.
+     */
     private void nextScreen() {
-
-        //this.finish();
-
         Intent intent = new Intent(this, SetupMinistryActivity.class);
         startActivity(intent);
 
@@ -137,6 +142,9 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
         overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
     }
 
+    /**
+     * Makes the list of campuses appear as the title translation animation is finishing.
+     */
     private void delayedListAppearance() {
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -146,8 +154,10 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
         }, UI.SETUP_TITLE_TRANSLATE_DURATION);
     }
 
+    /**
+     * Adapter for list of campus cards.
+     */
     private class CampusAdapter extends ArrayAdapter<Campus> {
-
         private List<Campus> campusList;
         private Context context;
 
@@ -165,54 +175,52 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
 
         @Override
         public int getViewTypeCount() {
-
             return getCount();
         }
 
         @Override
         public int getItemViewType(int position) {
-
             return position;
         }
 
+        /**
+         * Updates a single card in the list with the correct name and image.
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
-            View v = convertView;
-
-            if(convertView == null) {
+            if (convertView == null) {
 
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = inflater.inflate(R.layout.fragment_campus_setup_card, null);
+                convertView = inflater.inflate(R.layout.fragment_campus_setup_card, null);
 
-                campusName = (TextView) v.findViewById(R.id.campus_card_text);
-                chkBox = (CheckBox) v.findViewById(R.id.campus_setup_chk_box);
-                cardImage = (ImageView) v.findViewById(R.id.campus_card_image);
+                campusName = (TextView) convertView.findViewById(R.id.campus_card_text);
+                chkBox = (CheckBox) convertView.findViewById(R.id.campus_setup_chk_box);
+                cardImage = (ImageView) convertView.findViewById(R.id.campus_card_image);
 
                 chkBox.setOnCheckedChangeListener((SetupCampusActivity) context);
 
                 Campus campus = campusList.get(position);
                 campusName.setText(campus.getName());
                 chkBox.setChecked(false);
-                chkBox.setTag(campus);
+                chkBox.setTag(campus); // associates an individual checkbox with a campus
 
+                //load the image
                 imageLabel = campus.getImage();
                 if (imageLabel != null && !imageLabel.equals("")) {
-                    System.out.println("Image is this: " + imageLabel);
                     Picasso.with(this.getContext()).load(imageLabel).into(cardImage);
                 } else {
                     cardImage.setImageResource(R.drawable.cru_logo_default);
                 }
-
-                return v;
-
             }
-            else {
-                return convertView;
-            }
+
+            return convertView;
         }
     }
 
+    /**
+     * Asynchronously retrieves a list of campuses from the database and puts them into the ListView
+     * for this activity.
+     */
     private class SetupCampusTask extends AsyncTask<Void, Void, Void> {
 
         ArrayList<Campus> campuses = new ArrayList<>();

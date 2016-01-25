@@ -46,7 +46,7 @@ public class Question {
             return false;
         }
         for (Question sub : subquestions) {
-            if (sub.isEnabled() && sub.getAnswer() == null) {
+            if (sub.isEnabled() && !sub.isAnswered()) {
                 return false;
             }
         }

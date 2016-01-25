@@ -9,7 +9,6 @@ import java.util.List;
  */
 public class MultiOptionQuestion extends Question {
     private List<Object> options;
-    private String selectedOption;
 
     public MultiOptionQuestion(final String prompt, final List<Object> options) {
         super(prompt, QuestionType.MULTI_OPTION_SELECT);

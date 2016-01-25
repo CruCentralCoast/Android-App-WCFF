@@ -3,36 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SetupMinistryActivity">
+    tools:context=".SetupActivity"
+    android:id="@+id/setup_campus_container"
+    android:background="@android:color/white">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/setup_ministry_container"
         android:layout_weight="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome to Cru.\nHere are our Ministries:"
-            android:id="@+id/question_ministry"
+            android:text="Where do you go to school?"
+            android:id="@+id/question_campus"
             android:layout_gravity="center"
             android:textSize="@dimen/question_get_campus"
-            android:textAlignment="center" />
+            android:textColor="@color/colorPrimary_cruGray" />
 
         <ListView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/setup_ministry_list"
-            android:layout_marginTop="130dp"
-            android:layout_gravity="right" />
+            android:id="@+id/setup_campus_list"
+            android:layout_gravity="top"
+            android:layout_marginTop="@dimen/setup_question_padding_top" />
 
     </FrameLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="finish"
-        android:id="@+id/setup_ministry_next_button"
+        android:text="next >"
+        android:id="@+id/setup_campus_next_button"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/setup_next_button" />
+
 </LinearLayout>

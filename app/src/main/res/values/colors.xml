@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorAndroidDefaultButton">#E6E6E6</color>
+
+    <!-- Cru colors -->
+    <color name="colorPrimary_cruGold">#F9B625</color>
+    <color name="colorPrimary_cruGray">#666062</color>
+    <color name="colorSecondary_cruOrange">#DD7D1B</color>
+    <color name="colorAccent_cruDeepBlue">#007398</color>
+    <color name="colorAccent_cruBrightBlue">#3EB1C8</color>
 </resources>

@@ -21,15 +21,16 @@ import java.net.URL;
 /**
  * Created by Brian on 11/16/2015.
  * Updated by Mason on 11/22/2015.
+ * <p/>
+ * Communicates with the REST api to retrieve DatabaseObjects from the database.
  */
-public class RestUtil
-{
+public class RestUtil {
     private static final String DB_URL = Database.DB_URL;
 
-    private static HttpURLConnection createGetConnection(String from) throws Exception
-    {
+    private static HttpURLConnection createGetConnection(String from) throws Exception {
         String dataUrl = DB_URL + from;
-        URL url = new URL(dataUrl);;
+        URL url = new URL(dataUrl);
+        ;
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int timeout = Database.DB_TIMEOUT;
         connection.setConnectTimeout(timeout);
@@ -37,8 +38,7 @@ public class RestUtil
         return connection;
     }
 
-    private static HttpURLConnection createPostConnection(String from, String body) throws Exception
-    {
+    private static HttpURLConnection createPostConnection(String from, String body) throws Exception {
         String dataUrl = DB_URL + from;
         URL url = new URL(dataUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -48,11 +48,11 @@ public class RestUtil
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setDoOutput(true);
 
-        DataOutputStream wr = new DataOutputStream( connection.getOutputStream());
+        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
         wr.writeBytes(body);
         return connection;
     }
-    
+
     /**
      * Gets a JSON object from the server and returns it as a String.
      */
@@ -81,7 +81,7 @@ public class RestUtil
      */
     public static JsonArray get(String tableName) {
         JsonParser parser = new JsonParser();
-        try{
+        try {
             HttpURLConnection conn = createGetConnection(tableName
                     + Database.REST_QUERY_GET_ALL);
             String toParse = request(conn);
@@ -90,25 +90,22 @@ public class RestUtil
                 return null;
             else
                 return parser.parse(toParse).getAsJsonArray();
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             new Logger().logError(ex.getLocalizedMessage());
             return null;
         }
     }
 
     /**
-     *
      * @param tableName Name of the db table to search
-     * @param fields A series of paired strings for searching purposes.
-     *               The first string should be the key, and the second the value
+     * @param fields    A series of paired strings for searching purposes.
+     *                  The first string should be the key, and the second the value
      * @return
      */
-    public static JsonArray getWithConditions(String tableName, Pair<String, String>... fields)
-    {
+    public static JsonArray getWithConditions(String tableName, Pair<String, String>... fields) {
 
         JsonParser parser = new JsonParser();
-        try{
+        try {
             JsonObject bodyJson = new JsonObject();
             for (Pair<String, String> field : fields)
                 bodyJson.addProperty(field.first, field.second);
@@ -121,8 +118,7 @@ public class RestUtil
                 return null;
             else
                 return parser.parse(toParse).getAsJsonArray();
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             ex.getLocalizedMessage();
             new Logger().logError(ex.getLocalizedMessage());
             return null;

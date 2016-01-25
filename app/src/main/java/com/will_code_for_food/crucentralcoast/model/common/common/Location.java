@@ -12,6 +12,8 @@ import java.util.Map;
 
 /**
  * Created by MasonJStevenson on 1/18/2016.
+ * <p/>
+ * Holds location data associated with a DatabaseObject
  */
 public class Location {
     private String postcode;
@@ -48,40 +50,20 @@ public class Location {
         return postcode;
     }
 
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
-
     public String getState() {
         return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public String getSuburb() {
         return suburb;
     }
 
-    public void setSuburb(String suburb) {
-        this.suburb = suburb;
-    }
-
     public String getStreet() {
         return street;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
     public String getCountry() {
         return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     @Override

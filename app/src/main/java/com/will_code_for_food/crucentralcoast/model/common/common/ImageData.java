@@ -5,6 +5,8 @@ import com.google.gson.JsonObject;
 
 /**
  * Created by MasonJStevenson on 1/18/2016.
+ * <p/>
+ * Holds image data associated with a DatabaseObject
  */
 public class ImageData {
     private String id;

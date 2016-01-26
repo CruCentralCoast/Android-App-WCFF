@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.will_code_for_food.crucentralcoast.temp.EventTask;
+import com.will_code_for_food.crucentralcoast.tasks.EventTask;
 
 /**
  * Created by mallika on 1/19/16.

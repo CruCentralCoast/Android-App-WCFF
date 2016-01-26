@@ -1,5 +1,6 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -12,7 +13,11 @@ import com.will_code_for_food.crucentralcoast.values.Database;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.graphics.Point;
 import android.util.Log;
+import android.view.Display;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 /**
  * General utility methods
@@ -144,5 +149,25 @@ public class Util {
             }
         }
         Log.i("*********", "**************************");
+    }
+
+    /**
+     * Gets the scaled size for an image, dependent on the android screen size
+     * @param widthRatio percent of screen width the image takes (1.0 is max)
+     * @param heightRatio percent of screen height the image takes (1.0 is max)
+     */
+    public static Point scaledImageSize(Activity currentActivity, double widthRatio, double heightRatio) {
+        // Get the screen size
+        Display display = currentActivity.getWindowManager().getDefaultDisplay();
+        Point windowSize = new Point();
+        display.getSize(windowSize);
+        int width_screen = windowSize.x;
+        int height_screen = windowSize.y;
+
+        // Scale image based on screen size
+        int newWidth = (int)(width_screen * widthRatio);
+        int newHeight = (int)(height_screen * heightRatio);
+
+        return new Point(newWidth, newHeight);
     }
 }

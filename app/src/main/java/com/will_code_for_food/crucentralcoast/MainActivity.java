@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.will_code_for_food.crucentralcoast.model.common.messaging.Notifier;
+import com.will_code_for_food.crucentralcoast.tasks.BackgroundSound;
 import com.will_code_for_food.crucentralcoast.view.fragments.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.fragments.EventsFragment;
 import com.will_code_for_food.crucentralcoast.view.fragments.PrefsFragment;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private Stack<String> titleStack;
     public static Context context;
+
+    private static BackgroundSound bgMusic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         loadFragmentById(R.layout.fragment_main, "CruCentralCoast");
+
+        // GLORIOUS
+        if (bgMusic == null) {
+            bgMusic = new BackgroundSound();
+            bgMusic.execute();
+        }
+        else {
+            bgMusic.resume();
+        }
     }
 
     @Override
@@ -196,6 +208,5 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-
 
 }

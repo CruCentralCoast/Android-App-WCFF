@@ -1,6 +1,5 @@
 package com.will_code_for_food.crucentralcoast;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,10 +9,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.temp.EventTask;
+import com.will_code_for_food.crucentralcoast.tasks.EventTask;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 /**
@@ -48,7 +46,7 @@ public class EventsActivity extends MainActivity {
         if (event.isInCalendarAlready()) {
             calendarButton.setImageResource(R.drawable.calendar_added);
         } else {
-            calendarButton.setImageResource(R.drawable.calendar_add);
+            calendarButton.setImageResource(R.drawable.calendar_add2);
         }
     }
 
@@ -70,7 +68,7 @@ public class EventsActivity extends MainActivity {
                 event.deleteFromCalendar(this);
                 Toast.makeText(getApplicationContext(),
                         Util.getString(R.string.toast_calendar_removed), Toast.LENGTH_LONG).show();
-                calendarButton.setImageResource(R.drawable.calendar_add);
+                calendarButton.setImageResource(R.drawable.calendar_add2);
             } else {
                 event.saveToCalendar(this);
                 Toast.makeText(getApplicationContext(),
@@ -104,7 +102,7 @@ public class EventsActivity extends MainActivity {
     }
 
     // Link to the Google map location of the event
-    public void testMap(View view) {
+    public void viewMap(View view) {
         ImageButton mapButton = (ImageButton)findViewById(R.id.button_map);
 
         // No map for this location

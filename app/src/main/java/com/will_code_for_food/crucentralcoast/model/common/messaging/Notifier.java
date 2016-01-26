@@ -4,7 +4,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.support.v4.app.NotificationCompat;
 
-import com.will_code_for_food.crucentralcoast.model.common.common.User;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
 
 /**
  * Created by Gavin on 11/12/2015.

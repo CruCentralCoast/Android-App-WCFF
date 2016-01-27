@@ -62,8 +62,8 @@ public class DriverForm extends RiderForm {
             dir.setLeaveTimeToEvent(
                     ((GregorianCalendar)leaveTimeToEvent.getAnswer()).getTimeInMillis());
 
-            return new Ride(event, driver, (int)numSeats.getAnswer(),
-                    (String)locations.getAnswer(), dir);
+            //return new Ride(event, driver, (int)numSeats.getAnswer(),
+            //        (String)locations.getAnswer(), dir);
         }
         return null;
     }

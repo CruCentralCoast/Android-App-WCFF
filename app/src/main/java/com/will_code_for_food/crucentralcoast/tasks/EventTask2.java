@@ -18,6 +18,7 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Database;
+import com.will_code_for_food.crucentralcoast.values.UI;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -29,7 +30,7 @@ import java.util.Date;
  */
 public class EventTask2 extends AsyncTask<Event, Void, Void> {
 
-    EventsActivity currentActivity;   // reference to the activity running this task
+    EventsActivity currentActivity; // reference to the activity running this task
     Event event;                    // event being displayed
 
     public EventTask2() {
@@ -49,12 +50,14 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
 
         // Display the header image of the event
         ImageView imageView = (ImageView)currentActivity.findViewById(R.id.image_event);
-        Point scaledSize = Util.scaledImageSize(currentActivity, 0.95, 0.2);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(scaledSize.x, scaledSize.y);
-        imageView.setLayoutParams(layoutParams);
+        Point scaledSize = Util.scaledImageSize(currentActivity, UI.IMAGE_HEADER_LENGTH_RATIO, UI.IMAGE_HEADER_HEIGHT_RATIO);
         if (event.getImage() != null && event.getImage() != "") {
             Picasso.with(currentActivity).load(event.getImage()).resize(scaledSize.x, scaledSize.y)
-                    .onlyScaleDown().placeholder(R.drawable.crulogo).into(imageView);
+                    .onlyScaleDown().placeholder(R.drawable.transparent).into(imageView);
+        }
+        else {
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(scaledSize.x, scaledSize.y);
+            imageView.setLayoutParams(layoutParams);
         }
 
         // Display the location of the event

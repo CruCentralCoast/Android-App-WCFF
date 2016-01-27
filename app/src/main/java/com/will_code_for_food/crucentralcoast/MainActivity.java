@@ -1,11 +1,15 @@
 package com.will_code_for_food.crucentralcoast;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.will_code_for_food.crucentralcoast.model.common.messaging.Notifier;
+import com.will_code_for_food.crucentralcoast.model.resources.TypeFaceUtil;
 import com.will_code_for_food.crucentralcoast.view.fragments.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.fragments.EventsFragment;
 import com.will_code_for_food.crucentralcoast.view.fragments.PrefsFragment;
@@ -57,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         loadFragmentById(R.layout.fragment_main, "CruCentralCoast");
+
+        android.support.v7.app.ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context, R.color.colorAccent_cruBrightBlue)));
+
+        TypeFaceUtil.overrideFont(getApplicationContext(), "SERIF", "FreigSanProLiglt.otf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
     }
 
     @Override

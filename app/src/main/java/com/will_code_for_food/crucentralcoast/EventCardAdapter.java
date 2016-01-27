@@ -42,6 +42,8 @@ public class EventCardAdapter extends ArrayAdapter<EventCardFragment> {
         }
         TextView titleView = (TextView) hold.findViewById(R.id.card_text);
         titleView.setText(current.getTitle());
+        TextView dateView = (TextView) hold.findViewById(R.id.card_date);
+        dateView.setText(current.getDate());
         return hold;
     }
 }

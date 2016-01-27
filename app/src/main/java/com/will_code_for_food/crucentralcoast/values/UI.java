@@ -12,5 +12,5 @@ public class UI {
     public static final int SETUP_SPLASHSCREEN_WAIT_DURATION = 3000;
 
     public static final double IMAGE_HEADER_HEIGHT_RATIO = 0.2;
-    public static final double IMAGE_HEADER_LENGTH_RATIO = 0.95;
+    public static final double IMAGE_HEADER_LENGTH_RATIO = 1.0;
 }

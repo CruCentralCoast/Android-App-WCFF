@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.will_code_for_food.crucentralcoast.tasks.EventTask;
+import com.will_code_for_food.crucentralcoast.tasks.LoadEventsTask;
 
 /**
  * Created by mallika on 1/19/16.
@@ -16,7 +16,7 @@ public class EventsFragment extends CruFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View hold = super.onCreateView(inflater, container, savedInstanceState);
-        new EventTask().execute();
+        new LoadEventsTask().execute();
         return hold;
     }
 }

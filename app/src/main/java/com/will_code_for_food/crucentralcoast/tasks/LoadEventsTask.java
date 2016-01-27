@@ -29,24 +29,24 @@ import java.util.Set;
  * Loads the list of events asynchronously in a ListView layout
  * Calls a new task to display individual events when an event is selected from list
  */
-public class EventTask extends AsyncTask<Void, Void, Void> {
+public class LoadEventsTask extends AsyncTask<Void, Void, Void> {
 
-    ArrayList<Event> events;        // list of all events in database
+    List<Event> events;             // list of all events in database
+    List<Event> eventsFiltered;     // list of relevant ministry events only
     MainActivity currentActivity;   // reference to the activity running this task
     ListView eventsList;            // used to display events in a list
-    ArrayList<EventCardFragment> eventScreens; // list of relevant event fragments only
-    ArrayList<Event> myEvents;      // list of relevant ministry events only
+    List<EventCardFragment> eventScreens; // list of relevant event fragments only
 
-    public EventTask() {
+    public LoadEventsTask() {
         currentActivity = (EventsActivity) EventsActivity.context;
     }
 
     @Override
     protected Void doInBackground(Void... params) {
         Retriever retriever = new SingleRetriever<>(RetrieverSchema.EVENT);
-        events = (ArrayList<Event>) (List<?>) retriever.getAll();
+        events = (List<Event>) retriever.getAll();
         eventScreens = new ArrayList<EventCardFragment>();
-        myEvents = new ArrayList<Event>();
+        eventsFiltered = new ArrayList<Event>();
 
         // Only display events for the ministry
         Set<String> userMinistries = Util.loadStringSet(Android.PREF_MINISTRIES);
@@ -60,7 +60,7 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
                     args.putString("title", event.getName());
                     tempCard.setArguments(args);
                     eventScreens.add(tempCard);
-                    myEvents.add(event);
+                    eventsFiltered.add(event);
                     break;
                 }
             }
@@ -76,19 +76,23 @@ public class EventTask extends AsyncTask<Void, Void, Void> {
         eventsList = (ListView) currentActivity.findViewById(R.id.list_events);
 
         if ((eventScreens != null) && (!eventScreens.isEmpty())) {
-            eventsList.setAdapter(new EventCardAdapter(MainActivity.context, android.R.layout.simple_list_item_1, eventScreens));
+            eventsList.setAdapter(new EventCardAdapter(MainActivity.context,
+                    android.R.layout.simple_list_item_1, eventScreens));
 
             // Display more information about the event chosen in a new layout
             eventsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    currentActivity.loadFragmentById(R.layout.fragment_event, "Events > " + eventScreens.get(position).getTitle());
-                    new EventTask2().execute(myEvents.get(position));
+                    currentActivity.loadFragmentById(R.layout.fragment_event,
+                            "Events > " + eventScreens.get(position).getTitle());
+                    EventsActivity.setEvent(eventsFiltered.get(position));
+                    new DisplayEventInfoTask().execute(eventsFiltered.get(position));
                 }
             });
         } else {
             String errorMessage = Util.getString(R.string.toast_no_events);
-            Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+            Toast.makeText(currentActivity.getApplicationContext(), errorMessage,
+                    Toast.LENGTH_LONG).show();
         }
     }
 }

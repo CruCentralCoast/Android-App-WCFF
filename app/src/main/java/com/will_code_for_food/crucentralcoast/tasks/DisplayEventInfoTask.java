@@ -1,9 +1,6 @@
 package com.will_code_for_food.crucentralcoast.tasks;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,12 +25,12 @@ import java.util.Date;
 /**
  * Displays information about the event
  */
-public class EventTask2 extends AsyncTask<Event, Void, Void> {
+public class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {
 
     EventsActivity currentActivity; // reference to the activity running this task
     Event event;                    // event being displayed
 
-    public EventTask2() {
+    public DisplayEventInfoTask() {
         currentActivity = (EventsActivity) EventsActivity.context;
     }
 
@@ -73,11 +70,9 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
         JsonElement description = event.getField(Database.JSON_KEY_COMMON_DESCRIPTION);
         descriptionLabel.setText(description.getAsString());
 
-        // Set the Facebook link to be retrieved later in EventsActivity
+        // Grey out FB button if invalid url link
         ImageButton fbButton = (ImageButton)currentActivity.findViewById(R.id.button_facebook);
         String url = event.getField(Database.JSON_KEY_COMMON_URL).getAsString();
-        fbButton.setContentDescription(url);
-        // Grey out button to note invalid url link
         if (url == null || url == "") {
             fbButton.setImageResource(R.drawable.facebook_no);
         }
@@ -97,7 +92,6 @@ public class EventTask2 extends AsyncTask<Event, Void, Void> {
         if (street.equals(Database.EVENT_BAD_LOCATION) || suburb.equals(Database.EVENT_BAD_LOCATION)) {
             mapButton.setImageResource(R.drawable.map_no);
         }
-        mapButton.setContentDescription(street);
 
         return street + ", " + suburb + " " + state;
     }

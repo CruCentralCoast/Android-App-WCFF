@@ -23,7 +23,7 @@ public class RiderForm extends Form {
     public final Question leaveDayFromEvent;
     public final Question leaveTimeFromEvent;
     // TODO probably make locations a map-selection question (doesn't exist yet)
-    //public final Question locations;
+    public final Question locations;
 
     /**
      * Creates a form for riders to fill out to find a ride.
@@ -31,7 +31,7 @@ public class RiderForm extends Form {
      * for the dropdown.
      *      TODO maybe replace this dropdown with a location selector (Google maps)
      */
-    public RiderForm(final Event event, final List<String> possibleLeaveLocations) {
+    public RiderForm(final Event event, final List<Object> possibleLeaveLocations) {
         super();
         this.event = event;
         leaveDayToEvent = new Question(Resources.getSystem().getString(
@@ -52,13 +52,13 @@ public class RiderForm extends Form {
         direction.addSubquestion(leaveDayFromEvent);
         direction.addSubquestion(leaveDayFromEvent);
 
-        //locations = new MultiOptionQuestion(Resources.getSystem().getString(
-        //        R.string.ridesharing_location), possibleLeaveLocations);
+        locations = new MultiOptionQuestion(Resources.getSystem().getString(
+                R.string.ridesharing_location), possibleLeaveLocations);
 
         addQuestion(leaveDayFromEvent);
         addQuestion(leaveTimeFromEvent);
         addQuestion(direction);
-        //addQuestion(locations);
+        addQuestion(locations);
     }
 
     @Override

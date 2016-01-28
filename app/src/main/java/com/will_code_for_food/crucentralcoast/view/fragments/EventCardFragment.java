@@ -14,6 +14,7 @@ public class EventCardFragment extends Fragment {
     private Retriever retriever;
     protected String imageLabel = "";
     protected String title = "";
+    protected String date = "";
 
     public EventCardFragment() {
         super();
@@ -37,6 +38,12 @@ public class EventCardFragment extends Fragment {
         Bundle args = getArguments();
         title = args.getString("title", "");
         return title;
+    }
+
+    public String getDate() {
+        Bundle args = getArguments();
+        date = args.getString("date", "");
+        return date;
     }
 
 }

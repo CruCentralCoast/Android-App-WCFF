@@ -1,6 +1,7 @@
 package com.will_code_for_food.crucentralcoast.tasks;
 
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.EventsActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.resources.TypeFaceUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.values.UI;
@@ -57,18 +59,25 @@ public class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {
             imageView.setLayoutParams(layoutParams);
         }
 
+        System.out.println("Find assets: " + currentActivity.getApplication().getAssets());
+
+        //Typeface freigSanProLiglt = Typeface.createFromFile("app/src/main/assets/FreigSanProBooklt.otf");
+
         // Display the location of the event
         TextView locationLabel = (TextView)currentActivity.findViewById(R.id.text_event_location);
         locationLabel.setText(getEventLocation());
+        //locationLabel.setTypeface(freigSanProLiglt);
 
         // Display the time of the event
         TextView dateLabel = (TextView)currentActivity.findViewById(R.id.text_event_date);
         dateLabel.setText(getEventDate());
+        //dateLabel.setTypeface(freigSanProLiglt);
 
         // Display the description of the event
         TextView descriptionLabel = (TextView)currentActivity.findViewById(R.id.text_event_description);
         JsonElement description = event.getField(Database.JSON_KEY_COMMON_DESCRIPTION);
         descriptionLabel.setText(description.getAsString());
+        //descriptionLabel.setTypeface(freigSanProLiglt);
 
         // Grey out FB button if invalid url link
         ImageButton fbButton = (ImageButton)currentActivity.findViewById(R.id.button_facebook);

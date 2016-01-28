@@ -25,7 +25,7 @@ public class DriverForm extends RiderForm {
      * for the dropdown.
      *      TODO maybe replace this dropdown with a location selector (Google maps)
      */
-    public DriverForm(final Event event, final List<String> possibleLeaveLocations) {
+    public DriverForm(final Event event, final List<Object> possibleLeaveLocations) {
         super(event, possibleLeaveLocations);
         ArrayList<Object> options = new ArrayList<Object>();
         for (int num = 1; num <= maxNumSeats; num++) {
@@ -62,8 +62,8 @@ public class DriverForm extends RiderForm {
             dir.setLeaveTimeToEvent(
                     ((GregorianCalendar)leaveTimeToEvent.getAnswer()).getTimeInMillis());
 
-            //return new Ride(event, driver, (int)numSeats.getAnswer(),
-            //        (String)locations.getAnswer(), dir);
+            return new Ride(event, driver, (int)numSeats.getAnswer(),
+                    (String)locations.getAnswer(), dir);
         }
         return null;
     }

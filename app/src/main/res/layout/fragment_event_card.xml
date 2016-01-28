@@ -4,16 +4,26 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:padding="5dp"
+        android:paddingTop="10dp"
         android:src="@drawable/crulogo"
         android:id="@+id/card_image"/>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
         android:layout_below="@+id/card_image"
         android:id="@+id/card_text"
         android:text="This is an event"
-        android:textSize="15dp"
-        android:textAlignment="center"
-        />
+        android:textSize="15sp"
+        android:paddingLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/card_image"
+        android:layout_alignEnd="@+id/card_image"
+        android:layout_alignRight="@+id/card_image"
+        android:id="@+id/card_date"
+        android:text="This is an event"
+        android:textSize="15sp"
+        android:paddingRight="10dp" />
 </RelativeLayout>

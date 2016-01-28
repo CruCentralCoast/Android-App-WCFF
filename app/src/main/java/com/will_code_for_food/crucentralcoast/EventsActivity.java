@@ -1,28 +1,52 @@
 package com.will_code_for_food.crucentralcoast;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Point;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.temp.EventTask;
+//import com.will_code_for_food.crucentralcoast.tasks.LoadEventsTask;
+import com.will_code_for_food.crucentralcoast.tasks.LoadEventsTask;
+import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
+import com.will_code_for_food.crucentralcoast.values.UI;
+import com.will_code_for_food.crucentralcoast.view.fragments.EventCardFragment;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
- * Implementation of the UI behavior for the Event UI
- * Calls asynchronous task EventTask to load the list of events
- * Button logic goes in here
+ * EventsActivity implements the functionality of the buttons in an Event page
+ * Calls asynchronous task LoadEventsTask to load the list of events
  */
 public class EventsActivity extends MainActivity {
+
     private static Event event = null;
+    private ImageButton calendarButton;
 
     public static void setEvent(final Event newEvent) {
         event = newEvent;
@@ -35,7 +59,9 @@ public class EventsActivity extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         loadFragmentById(R.layout.fragment_eventslist, "Events");
+        loadEvents();
     }
 
     /**
@@ -44,33 +70,28 @@ public class EventsActivity extends MainActivity {
      */
     public void modifyAddToCalendarButton() {
         Log.e("Changing button", "changing button");
-        ImageButton calendarButton = (ImageButton)findViewById(R.id.button_calendar);
+        calendarButton = (ImageButton) findViewById(R.id.button_calendar);
         if (event.isInCalendarAlready()) {
             calendarButton.setImageResource(R.drawable.calendar_added);
         } else {
-            calendarButton.setImageResource(R.drawable.calendar_add);
+            calendarButton.setImageResource(R.drawable.calendar_add2);
         }
     }
 
     // Display the list of events
     public void loadEvents() {
         event = null;
-        new EventTask().execute();
+        new LoadEventsTask().execute();
     }
 
-    public void testNotifier(View view) {
-        notifier.createNotification("title", "text", getApplicationContext());
-    }
-
-    // Adds the event to the user's calendar
+    // Adds the event to the user's Google Calendar
     public void calendarButton(View view) {
         if (event != null) {
-            ImageButton calendarButton = (ImageButton) findViewById(R.id.button_calendar);
             if (event.isInCalendarAlready()) {
                 event.deleteFromCalendar(this);
                 Toast.makeText(getApplicationContext(),
                         Util.getString(R.string.toast_calendar_removed), Toast.LENGTH_LONG).show();
-                calendarButton.setImageResource(R.drawable.calendar_add);
+                calendarButton.setImageResource(R.drawable.calendar_add2);
             } else {
                 event.saveToCalendar(this);
                 Toast.makeText(getApplicationContext(),
@@ -78,39 +99,45 @@ public class EventsActivity extends MainActivity {
                 calendarButton.setImageResource(R.drawable.calendar_added);
             }
         } else {
-            Toast.makeText(getApplicationContext(), Util.getString(R.string.cal_fail_msg), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), Util.getString(R.string.cal_fail_msg),
+                    Toast.LENGTH_LONG).show();
         }
     }
 
-    // Links to the event's ridesharing page, if ridesharing exists
+    // Opens the event's ridesharing page, if one exists
     public void viewRidesharing(View view) {
         // UNIMPLEMENTED FOR NOW
-        Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_rides), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_rides),
+                Toast.LENGTH_LONG).show();
     }
 
-    // Links to the event's Facebook page
+    // Opens the event's Facebook page
     public void viewFacebook(View view) {
-        ImageButton fbButton = (ImageButton)findViewById(R.id.button_facebook);
-        String url = fbButton.getContentDescription().toString();
+        String url = event.getField(Database.JSON_KEY_COMMON_URL).getAsString();
 
         // Check for valid url
         if (url != null && url != "") {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(browserIntent);
         }
+        // Invalid url
         else {
-            Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_facebook), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_facebook),
+                    Toast.LENGTH_LONG).show();
         }
     }
 
-    // Link to the Google map location of the event
-    public void testMap(View view) {
-        ImageButton mapButton = (ImageButton)findViewById(R.id.button_map);
+    // Opens the event's location in Google Maps
+    public void viewMap(View view) {
+        JsonObject eventLoc = event.getField(Database.JSON_KEY_COMMON_LOCATION).getAsJsonObject();
+        String street = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STREET).getAsString();
 
         // No map for this location
-        if (mapButton.getContentDescription().equals(Database.EVENT_BAD_LOCATION)) {
-            Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_map), Toast.LENGTH_LONG).show();
+        if (street.equals(Database.EVENT_BAD_LOCATION)) {
+            Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_map),
+                    Toast.LENGTH_LONG).show();
         }
+        // Link to the Google Map page
         else {
             TextView locationLabel = (TextView)findViewById(R.id.text_event_location);
             String map = Database.GOOGLE_MAP + locationLabel.getText();
@@ -118,5 +145,4 @@ public class EventsActivity extends MainActivity {
             startActivity(i);
         }
     }
-
 }

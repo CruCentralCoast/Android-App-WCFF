@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * The form that user's fill out when looking for a ride to an event.
  */
-public class DriverForm extends com.will_code_for_food.crucentralcoast.model.ridesharing.RiderForm {
+public class DriverForm extends RiderForm {
     private final int maxNumSeats = 10; // upper limit of dropdown options
     private final Question numSeats;
 

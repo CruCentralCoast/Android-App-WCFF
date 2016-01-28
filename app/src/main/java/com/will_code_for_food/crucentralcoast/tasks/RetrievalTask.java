@@ -25,7 +25,6 @@ import java.util.List;
 public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Void, Void>{
     private List<T> dbObjects;         // list of all events in database
     private MainActivity currentActivity;           // reference to the activity running this task
-    private List<Fragment> cardFragments;           // list of relevant card fragments only
     private List<T> myDBObjects;       // list of relevant ministry objects only
     private Retriever retriever;                    //Database retriever
     private CardFragmentFactory cardFactory;        //Factory to create a card fragment from a json object
@@ -48,14 +47,11 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
     protected Void doInBackground(Void... params) {
         Retriever retriever = new SingleRetriever<>(RetrieverSchema.EVENT);
         dbObjects = retriever.getAll();
-        cardFragments = new ArrayList<Fragment>();
         myDBObjects = new ArrayList<T>();
 
 
         for (T object : dbObjects) {
-            Fragment cardFragment = cardFactory.createCardFragment(object);
-            if (cardFragment != null) {
-                cardFragments.add(cardFragment);
+            if (cardFactory.include(object)) {
                 myDBObjects.add(object);
             }
         }
@@ -67,8 +63,8 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         ListView list = (ListView) currentActivity.findViewById(listId);
-        if ((cardFragments != null) && (!cardFragments.isEmpty())) {
-            list.setAdapter(cardFactory.createAdapter(cardFragments));
+        if ((dbObjects != null) && (!dbObjects.isEmpty())) {
+            list.setAdapter(cardFactory.createAdapter(dbObjects));
             list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, myDBObjects));
         }else {
             String errorMessage = Util.getString(errorMessageId);

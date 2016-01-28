@@ -24,4 +24,8 @@
 
     <!--    Ridesharing     -->
     <string name="ridesharing_driver_notification">%%s has joined your ride to %%s!</string>
+
+    <!-- Font formatting -->
+    <string name="default_serif">SERIF</string>
+    <string name="new_default">FreigSanProLiglt.otf</string>
 </resources>

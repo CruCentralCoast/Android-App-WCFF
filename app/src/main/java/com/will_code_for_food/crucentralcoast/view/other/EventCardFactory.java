@@ -18,6 +18,10 @@ import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.fragments.EventCardFragment;
 import com.will_code_for_food.crucentralcoast.view.other.CardFragmentFactory;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -39,10 +43,16 @@ public class EventCardFactory implements CardFragmentFactory<EventCardFragment> 
         //Go through all ministries for the event and see if the user is subscribed
         for (JsonElement objectMinistry : ministriesObject.getAsJsonArray()) {
             if (myMinistries.contains(objectMinistry.getAsString())) {
-                EventCardFragment card = new EventCardFragment();Bundle args = new Bundle();
-                args.putString("imageLabel", object.getImage());
-                args.putString("title", object.getName());
-                card.setArguments(args);
+                Event event = null;
+                EventCardFragment card = new EventCardFragment();
+                if (object instanceof Event) {
+                    event = (Event) object;
+                    Bundle args = new Bundle();
+                    args.putString("imageLabel", event.getImage());
+                    args.putString("title", event.getName());
+                    args.putString("date", getEventDate(event));
+                    card.setArguments(args);
+                }
                 return card;
             }
         }
@@ -70,5 +80,31 @@ public class EventCardFactory implements CardFragmentFactory<EventCardFragment> 
                 new DisplayEventInfoTask().execute(selectedEvent);
             }
         } ;
+    }
+
+    // Gets the date of the event in reader format
+    private String getEventDate(Event event) {
+
+        JsonElement dateStart = event.getField(Database.JSON_KEY_EVENT_STARTDATE);
+        JsonElement dateEnd = event.getField(Database.JSON_KEY_EVENT_ENDDATE);
+        String eventDate;
+
+        // Convert ISODate to Java Date format
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            Date start = dateFormat.parse(dateStart.getAsString());
+            Date end = dateFormat.parse(dateEnd.getAsString());
+            eventDate = formatDate(start);
+            } catch (ParseException e) {
+            // Can't be parsed; just use the default ISO format
+            eventDate = dateStart.getAsString();
+        }
+        return eventDate;
+    }
+
+    // Formats the date into the form Jan 15, 7:00AM
+    private String formatDate(Date date) {
+        String formattedDate = new SimpleDateFormat(Database.EVENT_DATE_FORMAT).format(date);
+        return formattedDate;
     }
 }

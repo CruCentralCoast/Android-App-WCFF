@@ -1,6 +1,6 @@
 package com.will_code_for_food.crucentralcoast;
 
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -63,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         loadFragmentById(R.layout.fragment_main, "CruCentralCoast");
+
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(
+                ContextCompat.getColor(context, R.color.colorAccent_cruBrightBlue)));
+        TypeFaceUtil.overrideFont(getApplicationContext(),
+                getResources().getString(R.string.default_serif),
+                getResources().getString(R.string.new_default));
     }
 
     @Override

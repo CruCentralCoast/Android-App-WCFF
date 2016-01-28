@@ -1,43 +1,26 @@
 package com.will_code_for_food.crucentralcoast;
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 //import com.will_code_for_food.crucentralcoast.tasks.LoadEventsTask;
-import com.will_code_for_food.crucentralcoast.tasks.LoadEventsTask;
-import com.will_code_for_food.crucentralcoast.values.Android;
+import com.will_code_for_food.crucentralcoast.tasks.DisplayEventInfoTask;
+import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
 import com.will_code_for_food.crucentralcoast.values.Database;
-import com.will_code_for_food.crucentralcoast.values.UI;
-import com.will_code_for_food.crucentralcoast.view.fragments.EventCardFragment;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import com.will_code_for_food.crucentralcoast.view.other.CardFragmentFactory;
+import com.will_code_for_food.crucentralcoast.view.other.EventCardFactory;
 
 /**
  * EventsActivity implements the functionality of the buttons in an Event page
@@ -61,7 +44,6 @@ public class EventsActivity extends MainActivity {
         super.onCreate(savedInstanceState);
 
         loadFragmentById(R.layout.fragment_eventslist, "Events");
-        loadEvents();
     }
 
     /**
@@ -76,12 +58,6 @@ public class EventsActivity extends MainActivity {
         } else {
             calendarButton.setImageResource(R.drawable.calendar_add2);
         }
-    }
-
-    // Display the list of events
-    public void loadEvents() {
-        event = null;
-        new LoadEventsTask().execute();
     }
 
     // Adds the event to the user's Google Calendar

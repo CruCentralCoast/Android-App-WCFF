@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.tasks;
 
 import android.app.Fragment;
 import android.os.AsyncTask;
+import android.support.annotation.MainThread;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -40,12 +41,11 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
         this.errorMessageId = errorMessageId;
         this.onClickTask = onClickTask;
         this.listId = listId;
-        currentActivity = (EventsActivity) EventsActivity.context;
+        currentActivity = (MainActivity) MainActivity.context;
     }
 
     @Override
     protected Void doInBackground(Void... params) {
-        Retriever retriever = new SingleRetriever<>(RetrieverSchema.EVENT);
         dbObjects = retriever.getAll();
         myDBObjects = new ArrayList<T>();
 
@@ -63,8 +63,8 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         ListView list = (ListView) currentActivity.findViewById(listId);
-        if ((dbObjects != null) && (!dbObjects.isEmpty())) {
-            list.setAdapter(cardFactory.createAdapter(dbObjects));
+        if ((myDBObjects != null) && (!myDBObjects.isEmpty())) {
+            list.setAdapter(cardFactory.createAdapter(myDBObjects));
             list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, myDBObjects));
         }else {
             String errorMessage = Util.getString(errorMessageId);

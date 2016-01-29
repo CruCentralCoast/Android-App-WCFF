@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class EventCardAdapter extends ArrayAdapter<Event> {
 
-    List<Event> cards = new ArrayList<>();
+    List<Event> cards;
 
     public EventCardAdapter(Context context, int resource, List<Event> objects) {
         super(context, resource, objects);

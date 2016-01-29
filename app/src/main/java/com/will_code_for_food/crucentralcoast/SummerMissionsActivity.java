@@ -7,11 +7,11 @@ import android.os.Bundle;
  */
 public class SummerMissionsActivity extends MainActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        loadFragmentById(R.layout.fragment_summermissions_list, "Summer Missions");
     }
 
 }

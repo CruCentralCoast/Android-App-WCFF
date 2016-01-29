@@ -1,6 +1,5 @@
 package com.will_code_for_food.crucentralcoast.controller.retrieval;
 
-import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.*;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
@@ -14,8 +13,8 @@ import com.will_code_for_food.crucentralcoast.values.Database;
 public enum RetrieverSchema {
     CAMPUS (Campus.class, Database.REST_CAMPUS),
     MINISTRY (Ministry.class, Database.REST_MINISTRY),
-    EVENT (Event.class, Database.REST_EVENT);
-
+    EVENT (Event.class, Database.REST_EVENT),
+    SUMMERMISSION (SummerMission.class, Database.REST_SUMMER_MISSION);
 
     public Class<? extends DatabaseObject> getObjClass() {
         return objClass;

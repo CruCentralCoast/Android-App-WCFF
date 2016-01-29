@@ -9,6 +9,9 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <!-- Button Text -->
+    <string name="button_apply">Apply Now</string>
+
     <!-- Toast Messages -->
     <string name="toast_calendar_added">Added event to calendar</string>
     <string name="toast_calendar_removed">Removed event from calendar</string>
@@ -16,7 +19,6 @@
     <string name="toast_no_facebook">No Facebook page for this event</string>
     <string name="toast_no_map">No location for this event</string>
     <string name="toast_no_events">Could not load events</string>
-
 
     <!--    Preferences     -->
     <string name="settings_event_notifications">Receive Event Notifications</string>

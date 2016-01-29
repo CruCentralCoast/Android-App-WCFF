@@ -11,6 +11,7 @@ public class Database {
     public static final String REST_MINISTRY = "ministry";
     public static final String REST_CAMPUS = "campus";
     public static final String REST_EVENT = "event";
+    public static final String REST_SUMMER_MISSION = "summermission";
 
     public static final String JSON_KEY_COMMON_ID = "_id";
     public static final String JSON_KEY_COMMON_IMAGE = "image";
@@ -28,6 +29,10 @@ public class Database {
     public static final String JSON_KEY_CAMPUS_URL = "url";
 
     public static final String JSON_KEY_MINISTRY_CAMPUSES = "campuses";
+
+    public static final String JSON_KEY_MISSION_COST = "cost";
+    public static final String JSON_KEY_MISSION_NAME = "name";
+    public static final String MISSION_DATE_FORMAT = "MMMM dd, yyyy";
 
     public static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public static final String EVENT_DATE_FORMAT = "MMM dd, K:mma";

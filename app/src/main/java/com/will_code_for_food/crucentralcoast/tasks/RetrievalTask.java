@@ -2,8 +2,6 @@ package com.will_code_for_food.crucentralcoast.tasks;
 
 import android.app.Fragment;
 import android.os.AsyncTask;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 

@@ -113,7 +113,7 @@ public class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {
 
         // Convert ISODate to Java Date format
         try {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
             Date start = dateFormat.parse(dateStart.getAsString());
             Date end = dateFormat.parse(dateEnd.getAsString());
             eventDate = formatDate(start) + " - " + formatDate(end);

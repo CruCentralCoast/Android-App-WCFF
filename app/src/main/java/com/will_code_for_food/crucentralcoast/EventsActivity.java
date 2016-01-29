@@ -10,17 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-//import com.will_code_for_food.crucentralcoast.tasks.LoadEventsTask;
-import com.will_code_for_food.crucentralcoast.tasks.DisplayEventInfoTask;
-import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
 import com.will_code_for_food.crucentralcoast.values.Database;
-import com.will_code_for_food.crucentralcoast.view.other.CardFragmentFactory;
-import com.will_code_for_food.crucentralcoast.view.other.EventCardFactory;
 
 /**
  * EventsActivity implements the functionality of the buttons in an Event page
@@ -59,7 +51,7 @@ public class EventsActivity extends MainActivity {
             calendarButton.setImageResource(R.drawable.calendar_add2);
         }
     }
-
+    
     // Adds the event to the user's Google Calendar
     public void calendarButton(View view) {
         if (event != null) {

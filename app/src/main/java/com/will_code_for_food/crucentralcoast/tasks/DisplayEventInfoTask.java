@@ -58,26 +58,21 @@ public class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(scaledSize.x, scaledSize.y);
             imageView.setLayoutParams(layoutParams);
         }
-
         System.out.println("Find assets: " + currentActivity.getApplication().getAssets());
 
-        //Typeface freigSanProLiglt = Typeface.createFromFile("app/src/main/assets/FreigSanProBooklt.otf");
 
         // Display the location of the event
         TextView locationLabel = (TextView)currentActivity.findViewById(R.id.text_event_location);
         locationLabel.setText(getEventLocation());
-        //locationLabel.setTypeface(freigSanProLiglt);
 
         // Display the time of the event
         TextView dateLabel = (TextView)currentActivity.findViewById(R.id.text_event_date);
         dateLabel.setText(getEventDate());
-        //dateLabel.setTypeface(freigSanProLiglt);
 
         // Display the description of the event
         TextView descriptionLabel = (TextView)currentActivity.findViewById(R.id.text_event_description);
         JsonElement description = event.getField(Database.JSON_KEY_COMMON_DESCRIPTION);
         descriptionLabel.setText(description.getAsString());
-        //descriptionLabel.setTypeface(freigSanProLiglt);
 
         // Grey out FB button if invalid url link
         ImageButton fbButton = (ImageButton)currentActivity.findViewById(R.id.button_facebook);

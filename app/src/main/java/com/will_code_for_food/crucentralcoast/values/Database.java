@@ -35,7 +35,7 @@ public class Database {
     public static final String MISSION_DATE_FORMAT = "MMMM dd, yyyy";
 
     public static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-    public static final String EVENT_DATE_FORMAT = "MMM dd, K:mma";
+    public static final String EVENT_DATE_FORMAT = "MMM dd, h:mma";
     public static final String JSON_KEY_EVENT_STARTDATE = "startDate";
     public static final String JSON_KEY_EVENT_ENDDATE = "endDate";
     public static final String JSON_KEY_EVENT_LOCATION = "location";

@@ -11,6 +11,8 @@
 
     <!-- Button Text -->
     <string name="button_apply">Apply Now</string>
+    <string name="button_prev">&lt; Previous</string>
+    <string name="button_next">Next &gt;</string>
 
     <!-- Toast Messages -->
     <string name="toast_calendar_added">Added event to calendar</string>

@@ -52,6 +52,8 @@ public class SummerMissionsActivity extends MainActivity {
         context = this;
         loadFragmentById(R.layout.fragment_mission, "Missions");
         new MissionTEST().execute();
+
+        loadFragmentById(R.layout.fragment_summermissions_list, "Summer Missions");
     }
 
     // Opens the mission's website application in browser

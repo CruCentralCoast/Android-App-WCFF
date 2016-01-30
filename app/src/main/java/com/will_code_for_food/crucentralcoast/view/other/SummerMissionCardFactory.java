@@ -1,0 +1,75 @@
+package com.will_code_for_food.crucentralcoast.view.other;
+
+import android.app.Fragment;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+import com.will_code_for_food.crucentralcoast.EventsActivity;
+import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.SummerMissionsActivity;
+import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
+
+import java.util.List;
+
+/**
+ * Created by Brian on 1/28/2016.
+ */
+public class SummerMissionCardFactory implements CardFragmentFactory {
+    List<SummerMission> cards;
+
+    @Override
+    public boolean include(DatabaseObject object) {
+        return true;
+    }
+
+    @Override
+    public ArrayAdapter createAdapter(List cardObjects) {
+        return new SummerMissionAdapter(SummerMissionsActivity.context,
+                android.R.layout.simple_list_item_1, cardObjects);
+    }
+
+    @Override
+    public AdapterView.OnItemClickListener createCardListener(MainActivity currentActivity, List myDBObjects) {
+        return null;
+    }
+
+    private class SummerMissionAdapter extends ArrayAdapter<SummerMission>{
+
+        public SummerMissionAdapter(Context context, int resource, List objects) {
+            super(context, resource, objects);
+            cards = objects;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent){
+            SummerMission current = cards.get(position);
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            String imageLabel = current.getImage();
+            View hold = inflater.inflate(R.layout.fragment_event_card, parent, false);
+            ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
+            if (imageLabel != null && !imageLabel.equals("")) {
+                Picasso.with(SummerMissionsActivity.context).load(imageLabel).fit().into(imageView);
+            }
+            else {
+                System.out.println("Image is this: " + imageLabel);
+                imageView.setImageResource(R.drawable.crulogo);
+            }
+            TextView titleView = (TextView) hold.findViewById(R.id.card_text);
+            titleView.setText(current.getName());
+            TextView dateView = (TextView) hold.findViewById(R.id.card_date);
+            dateView.setText(current.getMissionDateString());
+
+            return hold;
+        }
+    }
+}

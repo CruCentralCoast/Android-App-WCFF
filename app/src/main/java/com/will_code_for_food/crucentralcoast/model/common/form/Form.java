@@ -36,19 +36,57 @@ public abstract class Form {
     }
 
     /**
+     * Checks if a form is complete and valid
+     */
+    public boolean isFinished() {
+        return isFinishedDetailed() == FormValidationResult.VALID;
+    }
+
+    /**
+     * Gives detailed information on whether or not a
+     * form is complete and valid
+     */
+    public FormValidationResult isFinishedDetailed() {
+        FormValidationResult result;
+        result = isCompleteDetailed();
+        if (result == FormValidationResult.VALID) {
+            result = isValidDetailed();
+        }
+        return result;
+    }
+
+    /**
      * Checks if every question has been answered
      */
     public boolean isComplete() {
+        return isCompleteDetailed() == FormValidationResult.VALID;
+    }
+
+    /**
+     * Checks if every question has been answered, returns
+     * a form validation result for more information
+     */
+    public FormValidationResult isCompleteDetailed() {
+        FormValidationResult result = FormValidationResult.VALID;
         for (Question question : questions) {
-            if (!question.isAnswered()) {
-                return false;
+            if (question.isRequired() && !question.isAnswered()) {
+                result = FormValidationResult.ERROR_INCOMPLETE;
+                result.setDefaultMessageQuestion(question);
             }
         }
-        return true;
+        return result;
     }
 
     /**
      * Returns whether or not all of the questions on the form are valid.
      */
-    public abstract boolean isValid();
+    public boolean isValid() {
+        return isValidDetailed() == FormValidationResult.VALID;
+    }
+
+    /**
+     * Returns whether or not all of the questions on the form are valid.
+     * Returns a form validation result for more information.
+     */
+    public abstract FormValidationResult isValidDetailed();
 }

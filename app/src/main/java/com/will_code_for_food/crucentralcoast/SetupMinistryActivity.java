@@ -282,10 +282,12 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
 
             //Filter the ministry list based on the selected campuses from the previous screen.
             for (Ministry ministry : ministries) {
-                for (String campus : ministry.getCampuses()) {
-                    for (Campus selectedCampus : selectedCampuses) {
-                        if (selectedCampus.equals(campus)) {
-                            ministriesFiltered.add(ministry);
+                if (ministry != null) {
+                    for (String campus : ministry.getCampuses()) {
+                        for (Campus selectedCampus : selectedCampuses) {
+                            if (selectedCampus.equals(campus)) {
+                                ministriesFiltered.add(ministry);
+                            }
                         }
                     }
                 }

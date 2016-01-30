@@ -25,6 +25,7 @@ public class Database {
     public static final String JSON_KEY_COMMON_LOCATION_SUBURB = "suburb";
     public static final String JSON_KEY_COMMON_LOCATION_STREET = "street1";
     public static final String JSON_KEY_COMMON_LOCATION_COUNTRY = "country";
+    public static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
     public static final String JSON_KEY_CAMPUS_URL = "url";
 
@@ -34,14 +35,14 @@ public class Database {
     public static final String JSON_KEY_MISSION_NAME = "name";
     public static final String MISSION_DATE_FORMAT = "MMMM dd, yyyy";
 
-    public static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-    public static final String EVENT_DATE_FORMAT = "MMM dd, h:mma";
     public static final String JSON_KEY_EVENT_STARTDATE = "startDate";
     public static final String JSON_KEY_EVENT_ENDDATE = "endDate";
     public static final String JSON_KEY_EVENT_LOCATION = "location";
     public static final String JSON_KEY_EVENT_MINISTRIES = "parentMinistries";
-    public static final String EVENT_BAD_LOCATION = "TBD";
     public static final String JSON_KEY_EVENT_REMINDER = "notificationDate";
+    public static final String JSON_KEY_EVENT_HASRIDES = "rideSharingEnabled";
+    public static final String EVENT_BAD_LOCATION = "TBD";
+    public static final String EVENT_DATE_FORMAT = "MMM dd, h:mma";
 
     public static final String HTTP_REQUEST_METHOD_GET = "GET";
     public static final String HTTP_REQUEST_METHOD_POST = "POST";

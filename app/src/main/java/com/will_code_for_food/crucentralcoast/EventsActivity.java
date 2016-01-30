@@ -74,17 +74,21 @@ public class EventsActivity extends MainActivity {
 
     // Opens the event's ridesharing page, if one exists
     public void viewRidesharing(View view) {
-        // UNIMPLEMENTED FOR NOW
-        Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_rides),
-                Toast.LENGTH_LONG).show();
+        if (event.hasRideSharing()) {
+            // TODO: LINK TO RIDESHARING TAB
+        }
+        else {
+            Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_rides),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     // Opens the event's Facebook page
     public void viewFacebook(View view) {
-        String url = event.getField(Database.JSON_KEY_COMMON_URL).getAsString();
+        String url = event.getFacebookLink();
 
         // Check for valid url
-        if (url != null && url != "") {
+        if (event.hasFacebook()) {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(browserIntent);
         }
@@ -97,18 +101,14 @@ public class EventsActivity extends MainActivity {
 
     // Opens the event's location in Google Maps
     public void viewMap(View view) {
-        JsonObject eventLoc = event.getField(Database.JSON_KEY_COMMON_LOCATION).getAsJsonObject();
-        String street = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STREET).getAsString();
-
         // No map for this location
-        if (street.equals(Database.EVENT_BAD_LOCATION)) {
+        if (!event.hasLocation()) {
             Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_map),
                     Toast.LENGTH_LONG).show();
         }
         // Link to the Google Map page
         else {
-            TextView locationLabel = (TextView)findViewById(R.id.text_event_location);
-            String map = Database.GOOGLE_MAP + locationLabel.getText();
+            String map = Database.GOOGLE_MAP + event.getEventLocation();
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
             startActivity(i);
         }

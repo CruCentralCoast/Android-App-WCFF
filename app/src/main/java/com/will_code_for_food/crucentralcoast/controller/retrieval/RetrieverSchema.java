@@ -14,7 +14,7 @@ import com.will_code_for_food.crucentralcoast.values.Database;
 public enum RetrieverSchema {
     CAMPUS (Campus.class, Database.REST_CAMPUS),
     MINISTRY (Ministry.class, Database.REST_MINISTRY),
-    EVENT (Event.class, Database.REST_EVENT);
+    EVENT (Event.class, Database.REST_EVENT),
     SUMMER_MISSION (SummerMission.class, Database.REST_SUMMER_MISSION);
 
 

@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import android.content.res.Resources;
 import android.support.v4.util.Pair;
+import android.util.Log;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -40,16 +41,20 @@ public class RestUtil {
 
     private static HttpURLConnection createPostConnection(String from, String body) throws Exception {
         String dataUrl = DB_URL + from;
+
         URL url = new URL(dataUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int timeout = Database.DB_TIMEOUT;
         connection.setConnectTimeout(timeout);
         connection.setRequestMethod(Database.HTTP_REQUEST_METHOD_POST);
         connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
+
         connection.setDoOutput(true);
 
         DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
         wr.writeBytes(body);
+        wr.close();
         return connection;
     }
 
@@ -123,5 +128,55 @@ public class RestUtil {
             new Logger().logError(ex.getLocalizedMessage());
             return null;
         }
+    }
+
+    /**
+     * Sends a JSON object to the database, returns the resulting JSON object pulled from the database.
+     * This new JSON object will have an auto-generated _id field.
+     */
+    public static JsonObject create(JsonObject toSend, String collectionName) {
+
+        HttpURLConnection connection = null;
+
+        JsonParser parser = new JsonParser();
+        JsonObject dbObj = null;
+
+        try {
+            connection = createPostConnection(collectionName + "/create", toSend.toString());
+
+            StringBuilder sb = new StringBuilder();
+            int HttpResult = connection.getResponseCode();
+
+            if(HttpResult == HttpURLConnection.HTTP_OK){
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(),"utf-8"));
+                String line = null;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+
+                br.close();
+
+                Log.d("RestUtil.java", sb.toString());
+
+                dbObj = parser.parse(sb.toString()).getAsJsonObject().get("post").getAsJsonObject();
+
+            }else{
+                Log.d("RestUtil.java", connection.getResponseMessage());
+            }
+
+        } catch (Exception ex) {
+            Log.e("RestUtil.java", ex.toString());
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+
+        return dbObj;
+    }
+
+    //updates the field of an existing object
+    public static void update(String collection, String objId, String field, JsonObject newValue) {
+        //TODO get this working
     }
 }

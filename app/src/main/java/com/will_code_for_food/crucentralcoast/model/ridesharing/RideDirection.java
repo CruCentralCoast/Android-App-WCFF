@@ -35,6 +35,19 @@ public enum RideDirection {
         return false;
     }
 
+    public static String toString(RideDirection dir) {
+        switch (dir) {
+            case ONE_WAY_FROM_EVENT:
+                return "from";
+            case ONE_WAY_TO_EVENT:
+                return "to";
+            case TWO_WAY:
+                return "both";
+            default:
+                return "both";
+        }
+    }
+
     public Long getLeaveTimeToEvent() {
         return leaveTimeToEvent;
     }

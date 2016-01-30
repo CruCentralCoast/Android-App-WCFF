@@ -19,7 +19,7 @@ public class SummerMission extends DatabaseObject {
         super(obj);
     }
 
-    // Gets the date of the event in reader format
+    // Gets the date of the mission in reader format
     public String getMissionDateString() {
         JsonElement dateStart = this.getField(Database.JSON_KEY_EVENT_STARTDATE);
         String eventDate;
@@ -37,6 +37,7 @@ public class SummerMission extends DatabaseObject {
         return eventDate;
     }
 
+    // Gets the start and end date of the mission in reader format
     public String getMissionFullDate() {
         JsonElement dateEnd = getField(Database.JSON_KEY_EVENT_ENDDATE);
         String eventDate;

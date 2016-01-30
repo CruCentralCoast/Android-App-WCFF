@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * Created by Brian on 1/24/2016.
  */
-public interface CardFragmentFactory <T extends Fragment> {
-    public T createCardFragment(DatabaseObject object);
-    public ArrayAdapter createAdapter(List<T> cardFragments);
+public interface CardFragmentFactory <T extends DatabaseObject> {
+    public boolean include(DatabaseObject object);
+    public ArrayAdapter createAdapter(List<T> cardObjects);
     public AdapterView.OnItemClickListener createCardListener(
             final MainActivity currentActivity, final List<? extends DatabaseObject> myDBObjects);
 }

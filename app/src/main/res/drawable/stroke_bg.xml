@@ -5,5 +5,5 @@
         android:color="@android:color/transparent"/>
     <stroke
         android:width="2dp"
-        android:color="#f9b625"/>
+        android:color="@color/colorPrimary_cruGold"/>
 </shape>

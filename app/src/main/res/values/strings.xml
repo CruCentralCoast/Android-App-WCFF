@@ -9,6 +9,11 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <!-- Button Text -->
+    <string name="button_apply">Apply Now</string>
+    <string name="button_prev">&lt; Previous</string>
+    <string name="button_next">Next &gt;</string>
+
     <!-- Toast Messages -->
     <string name="toast_calendar_added">Added event to calendar</string>
     <string name="toast_calendar_removed">Removed event from calendar</string>
@@ -17,7 +22,6 @@
     <string name="toast_no_map">No location for this event</string>
     <string name="toast_no_events">Could not load events</string>
     <string name="toast_no_summer_missions">Could not load summer missions</string>
-
 
     <!--    Preferences     -->
     <string name="settings_event_notifications">Receive Event Notifications</string>

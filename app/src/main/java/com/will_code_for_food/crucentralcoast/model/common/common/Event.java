@@ -3,10 +3,12 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.ImageButton;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
@@ -32,18 +34,36 @@ public class Event extends DatabaseObject {
         updateCalendarEvent();
     }
 
+    // Gets the description of this event
+    public String getDescription() {
+        return getFieldAsString(Database.JSON_KEY_COMMON_DESCRIPTION);
+    }
+
+    // Gets whether ride sharing is enabled for this event
+    public boolean hasRideSharing() {
+        return getField(Database.JSON_KEY_EVENT_HASRIDES).getAsBoolean();
+    }
+
+    // Gets the url of the Facebook page for this event
+    public String getFacebookLink() {
+        return getFieldAsString(Database.JSON_KEY_COMMON_URL);
+    }
+
+    // Checks if there is a Facebook page for this event
+    public boolean hasFacebook() {
+        String url = getFacebookLink();
+        return url != null && url != "";
+    }
+
     // Gets the date of the event in reader format
     public String getEventDate() {
-
         JsonElement dateStart = this.getField(Database.JSON_KEY_EVENT_STARTDATE);
-        JsonElement dateEnd = this.getField(Database.JSON_KEY_EVENT_ENDDATE);
         String eventDate;
 
         // Convert ISODate to Java Date format
         try {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
             Date start = dateFormat.parse(dateStart.getAsString());
-            Date end = dateFormat.parse(dateEnd.getAsString());
             eventDate = formatDate(start);
         } catch (ParseException e) {
             // Can't be parsed; just use the default ISO format
@@ -52,10 +72,48 @@ public class Event extends DatabaseObject {
         return eventDate;
     }
 
+    // Gets the start and end dates of the event in reader format
+    public String getEventFullDate() {
+        JsonElement dateEnd = getField(Database.JSON_KEY_EVENT_ENDDATE);
+        String eventDate;
+
+        // Convert ISODate to Java Date format
+        try {
+            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+            Date end = dateFormat.parse(dateEnd.getAsString());
+            eventDate = getEventDate() + " - " + formatDate(end);
+        } catch (ParseException e) {
+            // Can't be parsed; just use the default ISO format
+            eventDate = getEventDate();
+        }
+
+        return eventDate;
+    }
+
     // Formats the date into the form Jan 15, 7:00AM
     private String formatDate(Date date) {
         String formattedDate = new SimpleDateFormat(Database.EVENT_DATE_FORMAT).format(date);
         return formattedDate;
+    }
+
+    // Gets the address of the event in reader format
+    public String getEventLocation() {
+        JsonObject eventLoc = getField(Database.JSON_KEY_COMMON_LOCATION).getAsJsonObject();
+        String street = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STREET).getAsString();
+        String suburb = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_SUBURB).getAsString();
+        String state = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STATE).getAsString();
+
+        return street + ", " + suburb + " " + state;
+    }
+
+    // Checks if the event has a valid location
+    public boolean hasLocation() {
+        JsonObject eventLoc = getField(Database.JSON_KEY_COMMON_LOCATION).getAsJsonObject();
+        String street = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STREET).getAsString();
+        String suburb = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_SUBURB).getAsString();
+
+        return !street.equals(Database.EVENT_BAD_LOCATION) &&
+                !suburb.equals(Database.EVENT_BAD_LOCATION);
     }
 
     public ArrayList<String> getParentMinistries() {

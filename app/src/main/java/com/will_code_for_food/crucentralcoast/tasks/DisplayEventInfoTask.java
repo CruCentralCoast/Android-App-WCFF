@@ -58,76 +58,38 @@ public class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(scaledSize.x, scaledSize.y);
             imageView.setLayoutParams(layoutParams);
         }
-
         System.out.println("Find assets: " + currentActivity.getApplication().getAssets());
-
-        //Typeface freigSanProLiglt = Typeface.createFromFile("app/src/main/assets/FreigSanProBooklt.otf");
 
         // Display the location of the event
         TextView locationLabel = (TextView)currentActivity.findViewById(R.id.text_event_location);
-        locationLabel.setText(getEventLocation());
-        //locationLabel.setTypeface(freigSanProLiglt);
-
-        // Display the time of the event
-        TextView dateLabel = (TextView)currentActivity.findViewById(R.id.text_event_date);
-        dateLabel.setText(getEventDate());
-        //dateLabel.setTypeface(freigSanProLiglt);
-
-        // Display the description of the event
-        TextView descriptionLabel = (TextView)currentActivity.findViewById(R.id.text_event_description);
-        JsonElement description = event.getField(Database.JSON_KEY_COMMON_DESCRIPTION);
-        descriptionLabel.setText(description.getAsString());
-        //descriptionLabel.setTypeface(freigSanProLiglt);
-
-        // Grey out FB button if invalid url link
-        ImageButton fbButton = (ImageButton)currentActivity.findViewById(R.id.button_facebook);
-        String url = event.getField(Database.JSON_KEY_COMMON_URL).getAsString();
-        if (url == null || url == "") {
-            fbButton.setImageResource(R.drawable.facebook_no);
-        }
-
-        currentActivity.modifyAddToCalendarButton();
-    }
-
-    // Gets the address of the event in reader format
-    private String getEventLocation() {
-        JsonObject eventLoc = event.getField(Database.JSON_KEY_COMMON_LOCATION).getAsJsonObject();
-        String street = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STREET).getAsString();
-        String suburb = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_SUBURB).getAsString();
-        String state = eventLoc.get(Database.JSON_KEY_COMMON_LOCATION_STATE).getAsString();
-        ImageButton mapButton = (ImageButton)currentActivity.findViewById(R.id.button_map);
+        locationLabel.setText(event.getEventLocation());
 
         // Grey out button to note no chosen location
-        if (street.equals(Database.EVENT_BAD_LOCATION) || suburb.equals(Database.EVENT_BAD_LOCATION)) {
+        if (!event.hasLocation()) {
+            ImageButton mapButton = (ImageButton)currentActivity.findViewById(R.id.button_map);
             mapButton.setImageResource(R.drawable.map_no);
         }
 
-        return street + ", " + suburb + " " + state;
-    }
+        // Display the time of the event
+        TextView dateLabel = (TextView)currentActivity.findViewById(R.id.text_event_date);
+        dateLabel.setText(event.getEventFullDate());
 
-    // Gets the date of the event in reader format
-    private String getEventDate() {
-        JsonElement dateStart = event.getField(Database.JSON_KEY_EVENT_STARTDATE);
-        JsonElement dateEnd = event.getField(Database.JSON_KEY_EVENT_ENDDATE);
-        String eventDate;
+        // Display the description of the event
+        TextView descriptionLabel = (TextView)currentActivity.findViewById(R.id.text_event_description);
+        descriptionLabel.setText(event.getDescription());
 
-        // Convert ISODate to Java Date format
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            Date start = dateFormat.parse(dateStart.getAsString());
-            Date end = dateFormat.parse(dateEnd.getAsString());
-            eventDate = formatDate(start) + " - " + formatDate(end);
-        } catch (ParseException e) {
-            // Can't be parsed; just use the default ISO format
-            eventDate = dateStart.getAsString() + " - " + dateEnd.getAsString();
+        // Grey out FB button if invalid url link
+        if (!event.hasFacebook()) {
+            ImageButton fbButton = (ImageButton)currentActivity.findViewById(R.id.button_facebook);
+            fbButton.setImageResource(R.drawable.facebook_no);
         }
 
-        return eventDate;
-    }
+        // Color RideShare button if enabled
+        if (event.hasRideSharing()) {
+            ImageButton rideButton = (ImageButton)currentActivity.findViewById(R.id.button_rideshare);
+            rideButton.setImageResource(R.drawable.car_yes);
+        }
 
-    // Formats the date into the form Jan 15, 7:00AM
-    private String formatDate(Date date) {
-        String formattedDate = new SimpleDateFormat(Database.EVENT_DATE_FORMAT).format(date);
-        return formattedDate;
+        currentActivity.modifyAddToCalendarButton();
     }
 }

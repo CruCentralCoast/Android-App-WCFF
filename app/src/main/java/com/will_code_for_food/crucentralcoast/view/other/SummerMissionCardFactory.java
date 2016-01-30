@@ -1,6 +1,5 @@
 package com.will_code_for_food.crucentralcoast.view.other;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.will_code_for_food.crucentralcoast.EventsActivity;
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.SummerMissionsActivity;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
-import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
+import com.will_code_for_food.crucentralcoast.tasks.SummerMissionViewTask;
 
 import java.util.List;
 
@@ -39,8 +37,18 @@ public class SummerMissionCardFactory implements CardFragmentFactory {
     }
 
     @Override
-    public AdapterView.OnItemClickListener createCardListener(MainActivity currentActivity, List myDBObjects) {
-        return null;
+    public AdapterView.OnItemClickListener createCardListener(
+            final MainActivity currentActivity, final List myDBObjects) {
+        return new AdapterView.OnItemClickListener () {
+            @Override
+            public void onItemClick (AdapterView < ? > parent, View view,int position, long id){
+                SummerMission selectedMission = (SummerMission) myDBObjects.get(position);
+                currentActivity.loadFragmentById(R.layout.fragment_summermission,
+                        currentActivity.getTitle() + " > " + selectedMission.getName());
+                new SummerMissionViewTask().execute(selectedMission);
+            }
+        } ;
+
     }
 
     private class SummerMissionAdapter extends ArrayAdapter<SummerMission>{
@@ -56,6 +64,7 @@ public class SummerMissionCardFactory implements CardFragmentFactory {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             String imageLabel = current.getImage();
             View hold = inflater.inflate(R.layout.fragment_event_card, parent, false);
+
             ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
             if (imageLabel != null && !imageLabel.equals("")) {
                 Picasso.with(SummerMissionsActivity.context).load(imageLabel).fit().into(imageView);
@@ -64,8 +73,10 @@ public class SummerMissionCardFactory implements CardFragmentFactory {
                 System.out.println("Image is this: " + imageLabel);
                 imageView.setImageResource(R.drawable.crulogo);
             }
+
             TextView titleView = (TextView) hold.findViewById(R.id.card_text);
             titleView.setText(current.getName());
+
             TextView dateView = (TextView) hold.findViewById(R.id.card_date);
             dateView.setText(current.getMissionDateString());
 

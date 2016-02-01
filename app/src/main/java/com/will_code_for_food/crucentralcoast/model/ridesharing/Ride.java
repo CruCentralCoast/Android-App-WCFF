@@ -2,11 +2,15 @@ package com.will_code_for_food.crucentralcoast.model.ridesharing;
 
 import android.content.res.Resources;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
+import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +56,7 @@ public class Ride extends DatabaseObject {
     public Ride(final Event event, final User driver, final int numSeats, final String location,
                 final RideDirection direction) {
         super(new JsonObject()); // satisfies need to call super
+
         this.eventId = event.getId();
         this.driver = driver;
         this.numSeats = numSeats;
@@ -114,5 +119,27 @@ public class Ride extends DatabaseObject {
 
     public boolean isFromEvent() {
         return direction.hasTimeLeavingFromEvent();
+    }
+
+    //Example of how to add a new Ride to the database and store it in a ride object for later use:
+    // Ride newRide = new Ride(RestUtil.create(Ride.toJSON(event, driver, seats, loc, dir)));
+    public static JsonObject toJSON(final Event event, final User driver, final int numSeats, final String location, final RideDirection direction) {
+
+        JsonObject thisObj = new JsonObject();
+
+        //TODO add missing fields
+        //TODO implement gcm key retrieval
+
+        thisObj.add(Database.JSON_KEY_RIDE_EVENT, new JsonPrimitive(event.getId()));
+        thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NAME, new JsonPrimitive(driver.getName()));
+        thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NUMBER, new JsonPrimitive(driver.getPhoneNumber()));
+        thisObj.add(Database.JSON_KEY_RIDE_GCM, new JsonPrimitive("dummy_key"));
+        thisObj.add(Database.JSON_KEY_RIDE_LOCATION, new JsonPrimitive(location));
+        //thisObj.add(Database.JSON_KEY_RIDE_TIME, );
+        //thisObj.add(Database.JSON_KEY_RIDE_RADIUS, );
+        thisObj.add(Database.JSON_KEY_RIDE_SEATS, new JsonPrimitive(Integer.toString(numSeats)));
+        thisObj.add(Database.JSON_KEY_RIDE_DIRECTION, new JsonPrimitive(RideDirection.toString(direction)));
+        //thisObj.add(Database.JSON_KEY_RIDE_GENDER, );
+        return thisObj;
     }
 }

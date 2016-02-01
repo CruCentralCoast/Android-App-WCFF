@@ -12,7 +12,7 @@ public class Database {
     public static final String REST_CAMPUS = "campus";
     public static final String REST_EVENT = "event";
     public static final String REST_SUMMER_MISSION = "summermission";
-    public static final String REST_RIDES = "ride";
+    public static final String REST_RIDE = "ride";
     public static final String REST_PASSENGER = "passenger";
 
     public static final String JSON_KEY_COMMON_ID = "_id";

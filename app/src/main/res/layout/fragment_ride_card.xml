@@ -12,14 +12,37 @@
         android:layout_alignParentLeft="true"
         android:src="@drawable/car_yes" />
     <TextView
-        android:id="@+id/text_driver_name"
+        android:id="@+id/card_driver_name"
         android:layout_toRightOf="@id/image_car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:textSize="20dp"/>
 
     <!-- Ride Info -->
-
+    <TextView
+        android:id="@+id/card_ride_leave_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
+    <TextView
+        android:id="@+id/card_ride_leave_location"
+        android:layout_below="@id/card_ride_leave_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
+    <TextView
+        android:id="@+id/card_ride_seats_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/colorPrimary_cruGray"/>
 
 
 </RelativeLayout>

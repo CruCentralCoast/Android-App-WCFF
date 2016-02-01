@@ -13,6 +13,8 @@
     <string name="button_apply">Apply Now</string>
     <string name="button_prev">&lt; Previous</string>
     <string name="button_next">Next &gt;</string>
+    <string name="button_need_ride">Need a ride?</string>
+    <string name="button_make_ride">I can drive!</string>
 
     <!-- Toast Messages -->
     <string name="toast_calendar_added">Added event to calendar</string>

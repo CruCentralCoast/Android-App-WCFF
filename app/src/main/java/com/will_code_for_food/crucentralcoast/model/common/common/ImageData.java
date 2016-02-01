@@ -12,8 +12,8 @@ public class ImageData {
     private String id;
     private String version;
     private String signature;
-    private int width;
-    private int height;
+    private Integer width;
+    private Integer height;
     private String format;
     private String resourceType;
     private String url;
@@ -38,16 +38,36 @@ public class ImageData {
         if (imageElement.isJsonObject()) {
             fields = imageElement.getAsJsonObject();
 
-            id = fields.get("public_id").getAsString();
-            version = fields.get("version").getAsString();
-            signature = fields.get("signature").getAsString();
-            width = fields.get("width").getAsInt();
-            height = fields.get("height").getAsInt();
-            format = fields.get("format").getAsString();
-            resourceType = fields.get("resource_type").getAsString();
-            url = fields.get("url").getAsString();
-            secureUrl = fields.get("secure_url").getAsString();
+            id = getFieldAsString("public_id");
+            version = getFieldAsString("version");
+            signature = getFieldAsString("signature");
+            width = getFieldAsInt("width");
+            height = getFieldAsInt("height");
+            format = getFieldAsString("format");
+            resourceType = getFieldAsString("resource_type");
+            url = getFieldAsString("url");
+            secureUrl = getFieldAsString("secure_url");
         }
+    }
+
+    public String getFieldAsString(String field) {
+        JsonElement element = fields.get(field);
+
+        if (element != null && element.isJsonPrimitive()) {
+            return element.getAsString();
+        }
+
+        return null;
+    }
+
+    public Integer getFieldAsInt(String field) {
+        JsonElement element = fields.get(field);
+
+        if (element != null && element.isJsonPrimitive()) {
+            return element.getAsInt();
+        }
+
+        return null;
     }
 
     public JsonObject getFields() {
@@ -66,7 +86,7 @@ public class ImageData {
         this.format = format;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
@@ -122,7 +142,7 @@ public class ImageData {
         this.version = version;
     }
 
-    public int getWidth() {
+    public Integer getWidth() {
         return width;
     }
 

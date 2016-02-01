@@ -142,7 +142,7 @@ public class RestUtil {
         JsonObject dbObj = null;
 
         try {
-            connection = createPostConnection(collectionName + "/create", toSend.toString());
+            connection = createPostConnection(collectionName + Database.REST_QUERY_CREATE, toSend.toString());
 
             StringBuilder sb = new StringBuilder();
             int HttpResult = connection.getResponseCode();

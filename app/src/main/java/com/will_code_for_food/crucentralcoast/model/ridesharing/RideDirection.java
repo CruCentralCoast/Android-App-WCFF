@@ -4,19 +4,21 @@ package com.will_code_for_food.crucentralcoast.model.ridesharing;
  * Created by Gavin on 1/24/2016.
  */
 public enum RideDirection {
-    ONE_WAY_TO_EVENT(true, false),
-    ONE_WAY_FROM_EVENT(false, true),
-    TWO_WAY(true, true);
+    ONE_WAY_TO_EVENT(true, false, "to"),
+    ONE_WAY_FROM_EVENT(false, true, "from"),
+    TWO_WAY(true, true, "both");
 
     private final boolean hasTimeLeavingToEvent;
     private final boolean hasTimeLeavingFromEvent;
+    private final String directionString;
 
     private Long leaveTimeToEvent = null;
     private Long leaveTimeFromEvent = null;
 
-    RideDirection(final boolean hasTimeLeavingToEvent, final boolean hasTimeLeavingFromEvent) {
+    RideDirection(final boolean hasTimeLeavingToEvent, final boolean hasTimeLeavingFromEvent, final String directionString) {
         this.hasTimeLeavingFromEvent = hasTimeLeavingFromEvent;
         this.hasTimeLeavingToEvent = hasTimeLeavingToEvent;
+        this.directionString = directionString;
     }
 
     public boolean setLeaveTimeToEvent(Long leaveTime) {
@@ -35,19 +37,6 @@ public enum RideDirection {
         return false;
     }
 
-    public static String toString(RideDirection dir) {
-        switch (dir) {
-            case ONE_WAY_FROM_EVENT:
-                return "from";
-            case ONE_WAY_TO_EVENT:
-                return "to";
-            case TWO_WAY:
-                return "both";
-            default:
-                return "both";
-        }
-    }
-
     public Long getLeaveTimeToEvent() {
         return leaveTimeToEvent;
     }
@@ -63,4 +52,6 @@ public enum RideDirection {
     public boolean hasTimeLeavingFromEvent() {
         return hasTimeLeavingFromEvent;
     }
+
+    public String toString() { return directionString; }
 }

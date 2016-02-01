@@ -138,7 +138,7 @@ public class Ride extends DatabaseObject {
         //thisObj.add(Database.JSON_KEY_RIDE_TIME, );
         //thisObj.add(Database.JSON_KEY_RIDE_RADIUS, );
         thisObj.add(Database.JSON_KEY_RIDE_SEATS, new JsonPrimitive(Integer.toString(numSeats)));
-        thisObj.add(Database.JSON_KEY_RIDE_DIRECTION, new JsonPrimitive(RideDirection.toString(direction)));
+        thisObj.add(Database.JSON_KEY_RIDE_DIRECTION, new JsonPrimitive(direction.toString()));
         //thisObj.add(Database.JSON_KEY_RIDE_GENDER, );
         return thisObj;
     }

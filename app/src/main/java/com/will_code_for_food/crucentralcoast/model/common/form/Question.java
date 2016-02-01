@@ -7,22 +7,39 @@ import java.util.List;
  * A question that may be inserted into a form.
  */
 public class Question {
-    private String prompt;
-    private QuestionType type;
+    private final String prompt;            // prompt displayed to user
+    private final String name;              // name of the question
+    private final QuestionType type;
+
     private Object answer;
     private boolean enabled;
+    private boolean required;
     private List<Question> subquestions;
 
-    public Question(final String prompt, final QuestionType type) {
+    public Question(final String name, final String prompt, final QuestionType type) {
+        this.name = name;
         this.prompt = prompt;
         this.type = type;
         this.answer = null;
         this.enabled = true;
         this.subquestions = new ArrayList<Question>();
+        this.required = true;
+    }
+
+    public boolean isRequired() {
+        return required;
+    }
+
+    public void setRequired(final boolean required) {
+        this.required = required;
     }
 
     public String getPrompt() {
         return prompt;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public QuestionType getType() {
@@ -83,6 +100,7 @@ public class Question {
      */
     public void addSubquestion(final Question subquestion) {
         subquestion.setEnabled(false);
+        subquestion.setRequired(false);
         subquestions.add(subquestion);
     }
 

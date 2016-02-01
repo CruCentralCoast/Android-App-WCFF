@@ -16,7 +16,7 @@ import java.util.List;
  * The form that user's fill out when looking for a ride to an event.
  */
 public class DriverForm extends RiderForm {
-    private final int maxNumSeats = 10; // upper limit of dropdown options
+    public static final int maxNumSeats = 10; // upper limit of dropdown options
     private final Question numSeats;
 
     /**
@@ -31,7 +31,7 @@ public class DriverForm extends RiderForm {
         for (int num = 1; num <= maxNumSeats; num++) {
             options.add(Integer.toString(num));
         }
-        numSeats = new MultiOptionQuestion(Resources.getSystem().getString(
+        numSeats = new MultiOptionQuestion("number of seats", Resources.getSystem().getString(
                 R.string.ridesharing_seats), options);
         addQuestion(numSeats);
     }

@@ -10,8 +10,8 @@ import java.util.List;
 public class MultiOptionQuestion extends Question {
     private List<Object> options;
 
-    public MultiOptionQuestion(final String prompt, final List<Object> options) {
-        super(prompt, QuestionType.MULTI_OPTION_SELECT);
+    public MultiOptionQuestion(final String name, final String prompt, final List<Object> options) {
+        super(name, prompt, QuestionType.MULTI_OPTION_SELECT);
         this.options = options;
     }
 

@@ -85,7 +85,8 @@ public class Ride extends DatabaseObject {
     }
 
     public int getNumAvailableSeats() {
-        return getNumSeats() - riders.size();
+        JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
+        return getNumSeats() - passengers.size();
     }
 
     public boolean addRider(final User rider) {
@@ -97,7 +98,7 @@ public class Ride extends DatabaseObject {
     }
 
     public String getEventId() {
-        return eventId;
+        return getFieldAsString(Database.JSON_KEY_RIDE_EVENT);
     }
 
     public User getDriver() {

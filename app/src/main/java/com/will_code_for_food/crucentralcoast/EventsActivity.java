@@ -75,7 +75,9 @@ public class EventsActivity extends MainActivity {
     // Opens the event's ridesharing page, if one exists
     public void viewRidesharing(View view) {
         if (event.hasRideSharing()) {
-            // TODO: LINK TO RIDESHARING TAB
+            RideShareActivity.setEvent(event);
+            Intent myIntent = new Intent(this, RideShareActivity.class);
+            startActivity(myIntent);
         }
         else {
             Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_rides),

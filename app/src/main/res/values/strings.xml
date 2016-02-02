@@ -13,6 +13,8 @@
     <string name="button_apply">Apply Now</string>
     <string name="button_prev">&lt; Previous</string>
     <string name="button_next">Next &gt;</string>
+    <string name="button_need_ride">Need a ride?</string>
+    <string name="button_make_ride">I can drive!</string>
 
     <!-- Toast Messages -->
     <string name="toast_calendar_added">Added event to calendar</string>
@@ -29,6 +31,10 @@
 
     <!--    Ridesharing     -->
     <string name="ridesharing_driver_notification">%%s has joined your ride to %%s!</string>
+    <string name="ridesharing_leaving_date" formatted="false">Leaving %s on %s</string>
+    <string name="ridesharing_leaving_location" formatted="false">from %s</string>
+    <string name="ridesharing_seats_left" formatted="false">%d seats left</string>
+    <string name="ridesharing_seat_left" formatted="false">%d seat left</string>
 
     <!-- Font formatting -->
     <string name="default_serif">SERIF</string>

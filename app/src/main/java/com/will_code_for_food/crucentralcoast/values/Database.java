@@ -12,7 +12,7 @@ public class Database {
     public static final String REST_CAMPUS = "campus";
     public static final String REST_EVENT = "event";
     public static final String REST_SUMMER_MISSION = "summermission";
-    public static final String REST_RIDES = "ride";
+    public static final String REST_RIDE = "ride";
     public static final String REST_PASSENGER = "passenger";
 
     public static final String JSON_KEY_COMMON_ID = "_id";
@@ -30,7 +30,6 @@ public class Database {
     public static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
     public static final String JSON_KEY_CAMPUS_URL = "url";
-
     public static final String JSON_KEY_MINISTRY_CAMPUSES = "campuses";
 
     public static final String JSON_KEY_MISSION_COST = "cost";
@@ -49,6 +48,7 @@ public class Database {
     public static final String JSON_KEY_RIDE_EVENT = "event";
     public static final String JSON_KEY_RIDE_DRIVER_NAME = "driverName";
     public static final String JSON_KEY_RIDE_DRIVER_NUMBER = "driverNumber";
+    public static final String JSON_KEY_RIDE_PASSENGERS = "passengers";
     public static final String JSON_KEY_RIDE_GCM = "gcmAPIKey";
     public static final String JSON_KEY_RIDE_LOCATION = "location";
     public static final String JSON_KEY_RIDE_TIME = "time";
@@ -56,6 +56,8 @@ public class Database {
     public static final String JSON_KEY_RIDE_SEATS = "seats";
     public static final String JSON_KEY_RIDE_DIRECTION = "direction";
     public static final String JSON_KEY_RIDE_GENDER = "gender";
+    public static final String RIDE_TIME_FORMAT = "h:mm a";
+    public static final String RIDE_DATE_FORMAT = "M/d/yy";
 
     public static final String JSON_KEY_USER_NAME = "name";
     public static final String JSON_KEY_USER_PHONE = "phone";

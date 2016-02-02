@@ -26,6 +26,7 @@ import com.will_code_for_food.crucentralcoast.model.resources.TypeFaceUtil;
 import com.will_code_for_food.crucentralcoast.view.fragments.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.fragments.EventsFragment;
 import com.will_code_for_food.crucentralcoast.view.fragments.PrefsFragment;
+import com.will_code_for_food.crucentralcoast.view.fragments.RidesFragment;
 import com.will_code_for_food.crucentralcoast.view.fragments.SummerMissionFragment;
 
 import java.util.Stack;
@@ -188,6 +189,9 @@ public class MainActivity extends AppCompatActivity {
             case R.layout.fragment_settings:
                 fragment = new PrefsFragment();
                 break;
+            case R.layout.fragment_ridesharing_select_action:
+                fragment = new RidesFragment();
+                break;
             default:
                 fragment = new CruFragment();
                 break;
@@ -213,6 +217,4 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-
-
 }

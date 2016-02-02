@@ -1,29 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center_horizontal"
+    android:focusable="false"
+    tools:context=".RideShareActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/image_ride_event"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Event Title"
-        android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp" />
+        android:layout_gravity="center"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/crulogo" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Need a Ride?"
         android:id="@+id/btn_need_a_ride"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="150dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/colorPrimary_cruGold"
+        android:text="@string/button_need_ride"
+        android:onClick="viewAvailableRides" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="I Can Drive!"
         android:id="@+id/btn_i_can_drive"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp" />
-</LinearLayout>
+        android:layout_below="@id/btn_need_a_ride"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/colorPrimary_cruGold"
+        android:text="@string/button_make_ride"
+        android:onClick="makeRide" />
+
+</RelativeLayout>

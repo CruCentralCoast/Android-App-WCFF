@@ -59,6 +59,7 @@ public class RideShareActivity extends MainActivity {
     }
 
     private void setEventHeader() {
+        // THIS IS NOT WORKING FOR SOME REASON: CAN'T FIND R.id.image_ride_event
         ImageView imageView = (ImageView) findViewById(R.id.image_ride_event);
         Point scaledSize = Util.scaledImageSize(this, UI.IMAGE_HEADER_LENGTH_RATIO, UI.IMAGE_HEADER_HEIGHT_RATIO);
         if (event.getImage() != null && event.getImage() != "") {
@@ -92,6 +93,4 @@ public class RideShareActivity extends MainActivity {
     public void viewMyRides(View view) {
 
     }
-
-
 }

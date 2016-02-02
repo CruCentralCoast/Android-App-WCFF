@@ -65,7 +65,7 @@ public class RideCardFactory implements CardFragmentFactory {
             TextView leaveLocation = (TextView) hold.findViewById(R.id.card_ride_leave_location);
             // Currently just the country in location in database...
             text = String.format(Util.getString(R.string.ridesharing_leaving_location),
-                    "the PAC circle"); // use dummy value
+                    "the PAC circle"); // use dummy value for now
             leaveLocation.setText(text);
 
             TextView seatsLeft = (TextView) hold.findViewById(R.id.card_ride_seats_left);

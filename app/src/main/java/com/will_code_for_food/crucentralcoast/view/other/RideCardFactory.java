@@ -6,10 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.RideShareActivity;
@@ -60,19 +58,22 @@ public class RideCardFactory implements CardFragmentFactory {
             driverName.setText(current.getDriverName());
 
             TextView leaveDate = (TextView) hold.findViewById(R.id.card_ride_leave_date);
-            String text = String.format("Leaving %s on %s", current.getLeaveTime(), current.getLeaveDate());
+            String text = String.format(Util.getString(R.string.ridesharing_leaving_date),
+                    current.getLeaveTime(), current.getLeaveDate());
             leaveDate.setText(text);
 
             TextView leaveLocation = (TextView) hold.findViewById(R.id.card_ride_leave_location);
-            text = String.format("from %s", "the PAC circle");
+            // Currently just the country in location in database...
+            text = String.format(Util.getString(R.string.ridesharing_leaving_location),
+                    "the PAC circle"); // use dummy value
             leaveLocation.setText(text);
 
             TextView seatsLeft = (TextView) hold.findViewById(R.id.card_ride_seats_left);
             int seats = current.getNumSeats();
             if (seats == 1) {
-                text = String.format("%d seat left", seats);
+                text = String.format(Util.getString(R.string.ridesharing_seat_left), seats);
             } else {
-                text = String.format("%d seats left", seats);
+                text = String.format(Util.getString(R.string.ridesharing_seats_left), seats);
             }
             seatsLeft.setText(text);
 

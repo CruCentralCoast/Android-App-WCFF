@@ -31,10 +31,10 @@
 
     <!--    Ridesharing     -->
     <string name="ridesharing_driver_notification">%%s has joined your ride to %%s!</string>
-    <string name="ridesharing_leaving_date">Leaving %%s on %%s</string>
-    <string name="ridesharing_leaving_location">from %%s</string>
-    <string name="ridesharing_seats_left">%%d seats left</string>
-    <string name="ridesharing_seat_left">%%d seat left</string>
+    <string name="ridesharing_leaving_date" formatted="false">Leaving %s on %s</string>
+    <string name="ridesharing_leaving_location" formatted="false">from %s</string>
+    <string name="ridesharing_seats_left" formatted="false">%d seats left</string>
+    <string name="ridesharing_seat_left" formatted="false">%d seat left</string>
 
     <!-- Font formatting -->
     <string name="default_serif">SERIF</string>

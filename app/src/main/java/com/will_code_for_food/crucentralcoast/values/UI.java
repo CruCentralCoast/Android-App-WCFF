@@ -5,7 +5,7 @@ package com.will_code_for_food.crucentralcoast.values;
  */
 public class UI {
 
-    public static final int SETUP_TITLE_MARGIN = 100;
+    public static final int SETUP_TITLE_MARGIN = 40;
     public static final int SETUP_CAMPUS_WAIT_DURATION = 2500;
     public static final int SETUP_MINISTRY_WAIT_DURATION = 2000;
     public static final int SETUP_TITLE_TRANSLATE_DURATION = 500;

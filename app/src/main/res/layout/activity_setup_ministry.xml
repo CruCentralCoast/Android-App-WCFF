@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context=".SetupMinistryActivity"
     android:id="@+id/setup_ministry_container"
     android:background="@android:color/white">
@@ -26,7 +28,9 @@
             android:layout_height="fill_parent"
             android:id="@+id/setup_ministry_list"
             android:layout_marginTop="130dp"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:divider="@color/colorPrimary_cruGold"
+            android:dividerHeight="4dp"/>
 
     </FrameLayout>
 

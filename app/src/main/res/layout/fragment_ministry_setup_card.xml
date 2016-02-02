@@ -10,25 +10,25 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:scaleX="2"
-        android:scaleY="2"
+        android:scaleX="1"
+        android:scaleY="1"
         android:layout_marginLeft="15dp"
         android:buttonTint="@color/setup_checkbox" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:padding="5dp"
+        android:paddingTop="10dp"
         android:id="@+id/ministry_card_image"
         android:layout_toRightOf="@+id/ministry_setup_chk_box" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:layout_below="@+id/ministry_card_image"
         android:id="@+id/ministry_card_text"
         android:text="This is an event"
-        android:textSize="15dp"
-        android:textAlignment="center" />
+        android:textSize="15sp"
+        android:paddingLeft="20dp"/>
 
 </RelativeLayout>

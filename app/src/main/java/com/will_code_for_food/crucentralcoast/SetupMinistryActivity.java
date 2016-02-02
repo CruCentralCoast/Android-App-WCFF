@@ -47,7 +47,7 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
     private TextView title;
 
     public static Context context;
-    public static Ministry selecetedMinistry;
+    public static Ministry selectedMinistry;
 
     public SetupMinistryActivity() {
         this.selectedCampuses = SetupCampusActivity.selectedCampuses;
@@ -225,7 +225,7 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
                 background.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        selecetedMinistry = ministry;
+                        selectedMinistry = ministry;
                         Intent intent = new Intent(context, MinistryInfoActivity.class);
                         startActivity(intent);
                     }
@@ -234,7 +234,7 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
                 cardImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        selecetedMinistry = ministry;
+                        selectedMinistry = ministry;
                         Intent intent = new Intent(context, MinistryInfoActivity.class);
                         startActivity(intent);
                     }

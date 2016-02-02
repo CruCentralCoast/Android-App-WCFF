@@ -8,6 +8,7 @@
 
     <!-- Cru colors -->
     <color name="colorPrimary_cruGold">#F9B625</color>
+    <color name="colorPrimary_cruGrayLight">#B3ADAF</color>
     <color name="colorPrimary_cruGray">#666062</color>
     <color name="colorSecondary_cruOrange">#DD7D1B</color>
     <color name="colorAccent_cruDeepBlue">#007398</color>

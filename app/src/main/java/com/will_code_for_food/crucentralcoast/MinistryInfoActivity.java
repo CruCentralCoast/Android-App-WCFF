@@ -30,7 +30,7 @@ public class MinistryInfoActivity extends Activity {
         setContentView(R.layout.activity_ministry_info);
 
         context = this;
-        ministry = SetupMinistryActivity.selecetedMinistry;
+        ministry = SetupMinistryActivity.selectedMinistry;
         description = (TextView) findViewById(R.id.ministry_info_description);
         campusesView = (TextView) findViewById(R.id.ministry_info_campuses);
         imageView = (ImageView) findViewById(R.id.ministry_info_image);
@@ -45,9 +45,9 @@ public class MinistryInfoActivity extends Activity {
 
         String campusesText = "";
 
-        if (SetupMinistryActivity.selecetedMinistry != null) {
+        if (SetupMinistryActivity.selectedMinistry != null) {
 
-            ministry = SetupMinistryActivity.selecetedMinistry;
+            ministry = SetupMinistryActivity.selectedMinistry;
 
             //load image
             String imageLabel = ministry.getImage();

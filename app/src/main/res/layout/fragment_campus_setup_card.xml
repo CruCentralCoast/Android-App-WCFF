@@ -1,33 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/campus_setup_card"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <CheckBox
-        android:id="@+id/campus_setup_chk_box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:scaleX="2"
-        android:scaleY="2"
-        android:layout_marginLeft="15dp"
-        android:buttonTint="@color/setup_checkbox" />
-
-    <ImageView
+    <RelativeLayout
+        android:id="@+id/campus_setup_card_under"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:padding="5dp"
-        android:id="@+id/campus_card_image"
-        android:layout_toRightOf="@+id/campus_setup_chk_box"/>
+        android:layout_height="match_parent">
+
+        <CheckBox
+            android:id="@+id/campus_setup_chk_box"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:buttonTint="@color/setup_checkbox"
+            android:scaleX="1"
+            android:scaleY="1" />
+
+        <ImageView
+            android:id="@+id/campus_card_image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_toRightOf="@+id/campus_setup_chk_box"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:id="@+id/campus_card_text"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/campus_card_image"
+            android:paddingLeft="20dp"
+            android:text="This is a campus"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/campus_card_image"
-        android:id="@+id/campus_card_text"
-        android:text="This is a campus"
-        android:textSize="15dp"
-        android:textAlignment="center" />
+        android:layout_width="fill_parent"
+        android:layout_height="190dp"
+        android:id="@+id/campus_setup_card_over"
+        android:background="@color/colorPrimary_cruGrayLight"
+        android:layout_alignBaseline="@+id/campus_setup_card_under"
+        android:alpha=".3"
+        android:text=""/>
 
 </RelativeLayout>

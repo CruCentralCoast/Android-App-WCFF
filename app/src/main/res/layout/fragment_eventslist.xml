@@ -13,10 +13,10 @@
     tools:context=".EventsActivity">
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/list_events"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="top"
         android:divider="@color/colorPrimary_cruGold"
         android:dividerHeight="4dp" />
 

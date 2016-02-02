@@ -3,9 +3,12 @@ package com.will_code_for_food.crucentralcoast;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -38,6 +42,7 @@ import java.util.List;
 public class SetupCampusActivity extends Activity implements android.widget.CompoundButton.OnCheckedChangeListener {
 
     public static List<Campus> selectedCampuses;
+    public Campus selectedCampus;
     private ListView campusList;
     private Button nextButton;
     private LinearLayout screen;
@@ -60,7 +65,7 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
         Campus campus = (Campus) buttonView.getTag();
         CheckBox checkBox = (CheckBox) buttonView;
 
-        if (isChecked) {
+        /*if (isChecked) {
             selectedCampuses.add(campus);
         } else {
             selectedCampuses.remove(campus);
@@ -71,7 +76,7 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
             nextButton.setVisibility(View.VISIBLE);
         } else {
             nextButton.setEnabled(false);
-        }
+        }*/
     }
 
     /**
@@ -195,14 +200,44 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
 
                 campusName = (TextView) convertView.findViewById(R.id.campus_card_text);
                 chkBox = (CheckBox) convertView.findViewById(R.id.campus_setup_chk_box);
+                chkBox.setVisibility(View.INVISIBLE);
                 cardImage = (ImageView) convertView.findViewById(R.id.campus_card_image);
+                final TextView over = (TextView) convertView.findViewById(R.id.campus_setup_card_over);
+                over.setVisibility(View.INVISIBLE);
 
                 chkBox.setOnCheckedChangeListener((SetupCampusActivity) context);
 
-                Campus campus = campusList.get(position);
+                final Campus campus = campusList.get(position);
                 campusName.setText(campus.getName());
                 chkBox.setChecked(false);
                 chkBox.setTag(campus); // associates an individual checkbox with a campus
+
+                final RelativeLayout background = (RelativeLayout) convertView.findViewById(R.id.campus_setup_card);
+
+                background.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectedCampus = campus;
+
+                        if (!selectedCampuses.contains(campus)) {
+                            selectedCampuses.add(campus);
+                            chkBox.setChecked(true);
+                            over.setVisibility(View.VISIBLE);
+                            over.bringToFront();
+                        } else {
+                            selectedCampuses.remove(campus);
+                            chkBox.setChecked(false);
+                            over.setVisibility(View.INVISIBLE);
+                        }
+
+                        if (!selectedCampuses.isEmpty()) {
+                            nextButton.setEnabled(true);
+                            nextButton.setVisibility(View.VISIBLE);
+                        } else {
+                            nextButton.setEnabled(false);
+                        }
+                    }
+                });
 
                 //load the image
                 imageLabel = campus.getImage();

@@ -14,6 +14,7 @@ import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.RideShareActivity;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 
 import java.util.List;
@@ -56,12 +57,24 @@ public class RideCardFactory implements CardFragmentFactory {
             View hold = inflater.inflate(R.layout.fragment_ride_card, parent, false);
 
             TextView driverName = (TextView) hold.findViewById(R.id.card_driver_name);
+            driverName.setText(current.getDriverName());
 
             TextView leaveDate = (TextView) hold.findViewById(R.id.card_ride_leave_date);
+            String text = String.format("Leaving %s on %s", current.getLeaveTime(), current.getLeaveDate());
+            leaveDate.setText(text);
 
             TextView leaveLocation = (TextView) hold.findViewById(R.id.card_ride_leave_location);
+            text = String.format("from %s", "the PAC circle");
+            leaveLocation.setText(text);
 
             TextView seatsLeft = (TextView) hold.findViewById(R.id.card_ride_seats_left);
+            int seats = current.getNumSeats();
+            if (seats == 1) {
+                text = String.format("%d seat left", seats);
+            } else {
+                text = String.format("%d seats left", seats);
+            }
+            seatsLeft.setText(text);
 
             return hold;
         }

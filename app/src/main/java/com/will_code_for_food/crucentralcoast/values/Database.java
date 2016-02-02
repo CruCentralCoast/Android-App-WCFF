@@ -30,7 +30,6 @@ public class Database {
     public static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
     public static final String JSON_KEY_CAMPUS_URL = "url";
-
     public static final String JSON_KEY_MINISTRY_CAMPUSES = "campuses";
 
     public static final String JSON_KEY_MISSION_COST = "cost";
@@ -56,6 +55,8 @@ public class Database {
     public static final String JSON_KEY_RIDE_SEATS = "seats";
     public static final String JSON_KEY_RIDE_DIRECTION = "direction";
     public static final String JSON_KEY_RIDE_GENDER = "gender";
+    public static final String RIDE_TIME_FORMAT = "h:mm a";
+    public static final String RIDE_DATE_FORMAT = "M/d/yy";
 
     public static final String JSON_KEY_USER_NAME = "name";
     public static final String JSON_KEY_USER_PHONE = "phone";

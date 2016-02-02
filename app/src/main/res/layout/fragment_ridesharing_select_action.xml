@@ -12,7 +12,7 @@
     tools:context=".RideShareActivity">
 
     <ImageView
-        android:id="@+id/image_event"
+        android:id="@+id/image_ride_event"
         android:layout_width="fill_parent"
         android:layout_height="150dp"
         android:layout_gravity="center"

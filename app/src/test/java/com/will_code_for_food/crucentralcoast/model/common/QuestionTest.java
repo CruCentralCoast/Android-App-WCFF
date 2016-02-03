@@ -19,6 +19,7 @@ import java.util.List;
  */
 public class QuestionTest extends WCFFUnitTest {
     private final String prompt = "prompt";
+    private final String name = "name";
 
     @Test
     public void testAllQuestionTypes() {
@@ -34,7 +35,8 @@ public class QuestionTest extends WCFFUnitTest {
         Assert.assertFalse( "Valid answer cannot be null (for this test)", valid == null);
         logStep("Testing question type: " + type);
         logInfo("Testing constructor");
-        Question question = new Question(prompt, type);
+        Question question = new Question(name, prompt, type);
+        Assert.assertEquals(name, question.getName());
         Assert.assertEquals(prompt, question.getPrompt());
         Assert.assertEquals(null, question.getAnswer());
         Assert.assertEquals(type.getAnswerType(), question.getAnswerType());
@@ -65,7 +67,7 @@ public class QuestionTest extends WCFFUnitTest {
     @Test
     public void testSubQuestions() {
         newTest("Testing SubQuestions");
-        Question question = new Question(prompt, QuestionType.TRUE_FALSE);
+        Question question = new Question(name, prompt, QuestionType.TRUE_FALSE);
         logStep("New Question");
         Assert.assertFalse(question.isAnswered());
         Assert.assertTrue(question.isEnabled());
@@ -74,8 +76,8 @@ public class QuestionTest extends WCFFUnitTest {
         Assert.assertTrue(question.isAnswered());
 
         logStep("Add SubQuestions");
-        Question question2 = new Question(prompt, QuestionType.TRUE_FALSE);
-        Question question3 = new Question(prompt, QuestionType.TRUE_FALSE);
+        Question question2 = new Question(name, prompt, QuestionType.TRUE_FALSE);
+        Question question3 = new Question(name, prompt, QuestionType.TRUE_FALSE);
         question.addSubquestion(question2);
         question.addSubquestion(question3);
         Assert.assertTrue(question.isAnswered());
@@ -118,7 +120,7 @@ public class QuestionTest extends WCFFUnitTest {
     @Test
     public void testMultiOptionQuestion() {
         newTest("Testing multi-option question");
-        MultiOptionQuestion question = new MultiOptionQuestion(prompt,
+        MultiOptionQuestion question = new MultiOptionQuestion(name, prompt,
                 Arrays.asList(new Object[]{"1", 2, "3"}));
         Assert.assertFalse(question.isAnswered());
         Assert.assertTrue(question.isEnabled());

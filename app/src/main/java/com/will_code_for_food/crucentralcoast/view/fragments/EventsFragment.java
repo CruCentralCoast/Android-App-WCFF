@@ -36,8 +36,8 @@ public class EventsFragment extends CruFragment {
             factory = new EventCardFactory();
         }
 
-        new RetrievalTask<Event>(retriever, factory, new DisplayEventInfoTask(),
-            R.id.list_events, R.string.toast_no_events).execute();
+        new RetrievalTask<Event>(retriever, factory,
+                R.id.list_events, R.string.toast_no_events).execute();
         return hold;
     }
 }

@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Retrieval task gets a list of database objects from a receiver and adds the items to a list.
+ * The adapter, on click listener, and check for including an item
+ * in a list is handled by a CardFactory class.
  * Created by Brian on 1/24/2016.
  */
 public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Void, Void>{
@@ -29,17 +32,15 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
     private List<T> myDBObjects;       // list of relevant ministry objects only
     private Retriever retriever;                    //Database retriever
     private CardFragmentFactory cardFactory;        //Factory to create a card fragment from a json object
-    private AsyncTask<T, ?, ?> onClickTask;
     private int errorMessageId;
     private int listId;
 
-    public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory, AsyncTask onClickTask,
+    public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory,
                          int listId, int errorMessageId) {
         super();
         this.retriever = retriever;
         this.cardFactory = cardFactory;
         this.errorMessageId = errorMessageId;
-        this.onClickTask = onClickTask;
         this.listId = listId;
         currentActivity = (MainActivity) MainActivity.context;
     }

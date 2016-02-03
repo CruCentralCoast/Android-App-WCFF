@@ -1,9 +1,16 @@
 package com.will_code_for_food.crucentralcoast.view.other;
 
+import android.view.View;
+import android.widget.AdapterView;
+
 import com.google.gson.JsonElement;
+import com.will_code_for_food.crucentralcoast.EventsActivity;
+import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.values.Database;
+
+import java.util.List;
 
 /**
  * Created by MasonJStevenson on 2/2/2016.
@@ -25,5 +32,18 @@ public class RideShareEventCardFactory extends EventCardFactory {
 
         //Return false if my ministries are not found
         return false;
+    }
+
+    @Override
+    public AdapterView.OnItemClickListener createCardListener(
+            final MainActivity currentActivity, final List<? extends DatabaseObject> myDBObjects) {
+        return new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Event selectedEvent = (Event) myDBObjects.get(position);
+                EventsActivity.setEvent(selectedEvent);
+                ((EventsActivity)currentActivity).viewRidesharing(view);
+            }
+        };
     }
 }

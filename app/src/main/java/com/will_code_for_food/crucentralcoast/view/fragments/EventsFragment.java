@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.RideShareActivity;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
@@ -14,6 +15,7 @@ import com.will_code_for_food.crucentralcoast.tasks.DisplayEventInfoTask;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
 import com.will_code_for_food.crucentralcoast.view.other.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.other.EventCardFactory;
+import com.will_code_for_food.crucentralcoast.view.other.RideShareEventCardFactory;
 
 /**
  * Created by mallika on 1/19/16.
@@ -26,7 +28,14 @@ public class EventsFragment extends CruFragment {
         View hold = super.onCreateView(inflater, container, savedInstanceState);
 
         Retriever retriever = new SingleRetriever(RetrieverSchema.EVENT);
-        CardFragmentFactory factory = new EventCardFactory();
+        CardFragmentFactory factory;
+
+        if (getParent() instanceof RideShareActivity) {
+            factory = new RideShareEventCardFactory();
+        } else {
+            factory = new EventCardFactory();
+        }
+
         new RetrievalTask<Event>(retriever, factory, new DisplayEventInfoTask(),
             R.id.list_events, R.string.toast_no_events).execute();
         return hold;

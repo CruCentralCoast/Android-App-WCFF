@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
+import com.will_code_for_food.crucentralcoast.view.fragments.SummerMissionFragment;
 
 /**
  * Created by mallika on 1/14/16.
@@ -26,7 +27,7 @@ public class SummerMissionsActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loadFragmentById(R.layout.fragment_summermissions_list, "Missions");
+        loadFragmentById(R.layout.fragment_summermissions_list, "Missions", new SummerMissionFragment(), this);
     }
 
     // Opens the mission's website application in browser

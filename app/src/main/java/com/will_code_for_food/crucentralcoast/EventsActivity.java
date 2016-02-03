@@ -13,12 +13,16 @@ import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Database;
+import com.will_code_for_food.crucentralcoast.view.fragments.EventsFragment;
+import com.will_code_for_food.crucentralcoast.view.fragments.RideShareSelectActionFragment;
 
 /**
  * EventsActivity implements the functionality of the buttons in an Event page
  * Calls asynchronous task LoadEventsTask to load the list of events
  */
 public class EventsActivity extends MainActivity {
+
+    protected String title = "Events";
 
     private static Event event = null;
     private ImageButton calendarButton;
@@ -35,7 +39,7 @@ public class EventsActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loadFragmentById(R.layout.fragment_eventslist, "Events");
+        loadFragmentById(R.layout.fragment_eventslist, title, new EventsFragment(), this);
     }
 
     /**
@@ -75,9 +79,7 @@ public class EventsActivity extends MainActivity {
     // Opens the event's ridesharing page, if one exists
     public void viewRidesharing(View view) {
         if (event.hasRideSharing()) {
-            RideShareActivity.setEvent(event);
-            Intent myIntent = new Intent(this, RideShareActivity.class);
-            startActivity(myIntent);
+            this.loadFragmentById(R.layout.fragment_ridesharing_select_action, event.getName() + " > " + RideShareSelectActionFragment.TITLE, new RideShareSelectActionFragment(), this);
         }
         else {
             Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_rides),

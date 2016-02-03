@@ -13,7 +13,7 @@ public class ResourcesActivity extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFragmentById(R.layout.fragment_resources, "Resources");
+        loadFragmentById(R.layout.fragment_resources, "Resources", null, this);
     }
 
     public void testYoutube(View view) {

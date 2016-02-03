@@ -4,20 +4,27 @@ package com.will_code_for_food.crucentralcoast.view.fragments;
  * Created by mallika on 12/2/15.
  */
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 
 public class CruFragment extends Fragment {
     private int id;
     public String name;
+    private MainActivity parent;
 
-    public CruFragment() {
-        super();
+    public void setParent(MainActivity parent) {
+        this.parent = parent;
+    }
+
+    public MainActivity getParent() {
+        return parent;
     }
 
     @Override

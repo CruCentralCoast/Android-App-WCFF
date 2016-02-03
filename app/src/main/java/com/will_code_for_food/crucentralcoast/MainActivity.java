@@ -1,5 +1,6 @@
 package com.will_code_for_food.crucentralcoast;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -24,8 +25,10 @@ import com.will_code_for_food.crucentralcoast.model.common.messaging.Notifier;
 import com.will_code_for_food.crucentralcoast.tasks.BackgroundSound;
 import com.will_code_for_food.crucentralcoast.model.resources.TypeFaceUtil;
 import com.will_code_for_food.crucentralcoast.view.fragments.CruFragment;
+import com.will_code_for_food.crucentralcoast.view.fragments.EventInfoFragment;
 import com.will_code_for_food.crucentralcoast.view.fragments.EventsFragment;
 import com.will_code_for_food.crucentralcoast.view.fragments.PrefsFragment;
+import com.will_code_for_food.crucentralcoast.view.fragments.RideShareSelectActionFragment;
 import com.will_code_for_food.crucentralcoast.view.fragments.RidesFragment;
 import com.will_code_for_food.crucentralcoast.view.fragments.SummerMissionFragment;
 
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        loadFragmentById(R.layout.fragment_main, "CruCentralCoast");
+        loadFragmentById(R.layout.fragment_main, "CruCentralCoast", null, this);
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(
@@ -166,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 loadId = R.layout.fragment_main;
                 title = "CruCentralCoast";
-                loadFragmentById(loadId, title);
+                loadFragmentById(loadId, title, null, this);
                 break;
         }
 
@@ -174,27 +177,20 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
-    // TODO: 1/19/16 Change Settings fragment so it isn't created only programmatically- use XML! 
-    public void loadFragmentById(int loadId, String newTitle) {
+    // TODO: 1/19/16 Change Settings fragment so it isn't created only programmatically- use XML!
+    // TODO: 2/2/16 Refactor into loadFragmentByID(int, String, Object) so that we can pass objects between fragments
+    // TODO: 2/2/16 Refector to use reflection?
+    public void loadFragmentById(int loadId, String newTitle, Fragment fragment, MainActivity parent) {
         FragmentManager fragmentManager = getFragmentManager();
-        Fragment fragment;
 
-        switch (loadId) {
-            case R.layout.fragment_summermissions_list:
-                fragment = new SummerMissionFragment();
-                break;
-            case R.layout.fragment_eventslist:
-                fragment = new EventsFragment();
-                break;
-            case R.layout.fragment_settings:
-                fragment = new PrefsFragment();
-                break;
-            case R.layout.fragment_ridesharing_select_action:
-                fragment = new RidesFragment();
-                break;
-            default:
-                fragment = new CruFragment();
-                break;
+        //if no associated controller code for this fragment
+        if (fragment == null) {
+            fragment = new CruFragment();
+        }
+
+        // the fragment could be a PrefsFragment, so we have to add this check
+        if (fragment instanceof CruFragment) {
+            ((CruFragment)fragment).setParent(parent);
         }
 
         // Supply index input as an argument.

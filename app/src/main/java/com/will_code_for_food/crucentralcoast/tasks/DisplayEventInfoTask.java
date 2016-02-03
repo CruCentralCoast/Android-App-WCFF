@@ -39,7 +39,7 @@ public class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {
     @Override
     protected Void doInBackground(Event... params) {
         event = params[0];
-        EventsActivity.setEvent(event);
+        //EventsActivity.setEvent(event);
         return null;
     }
 

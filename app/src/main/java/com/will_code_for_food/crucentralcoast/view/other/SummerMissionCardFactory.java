@@ -44,7 +44,7 @@ public class SummerMissionCardFactory implements CardFragmentFactory {
             public void onItemClick (AdapterView < ? > parent, View view,int position, long id){
                 SummerMission selectedMission = (SummerMission) myDBObjects.get(position);
                 currentActivity.loadFragmentById(R.layout.fragment_summermission,
-                        currentActivity.getTitle() + " > " + selectedMission.getName());
+                        currentActivity.getTitle() + " > " + selectedMission.getName(), null, currentActivity);
                 new SummerMissionViewTask().execute(selectedMission);
             }
         } ;

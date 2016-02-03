@@ -16,6 +16,6 @@ public class SettingsActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Display the fragment as the main content.
-        loadFragmentById(R.layout.fragment_settings, "Settings");
+        loadFragmentById(R.layout.fragment_settings, "Settings", new PrefsFragment(), this);
     }
 }

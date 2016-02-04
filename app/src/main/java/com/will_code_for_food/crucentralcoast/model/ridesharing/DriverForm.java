@@ -3,10 +3,14 @@ package com.will_code_for_food.crucentralcoast.model.ridesharing;
 import android.content.res.Resources;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
 import com.will_code_for_food.crucentralcoast.model.common.form.MultiOptionQuestion;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
+import com.will_code_for_food.crucentralcoast.values.Database;
+import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -36,6 +40,10 @@ public class DriverForm extends RiderForm {
         addQuestion(numSeats);
     }
 
+    public void DUMMY_FORM() {
+
+    }
+
     /**
      * Creates a ride from the contents of the form.
      * Returns the new ride, or null if the form was
@@ -57,13 +65,17 @@ public class DriverForm extends RiderForm {
                 dir = RideDirection.TWO_WAY;
             }
 
-            dir.setLeaveTimeFromEvent(
-                    ((GregorianCalendar)leaveTimeFromEvent.getAnswer()).getTimeInMillis());
+            dir.setLeaveTimeFromEvent(((GregorianCalendar) leaveTimeFromEvent.getAnswer()).getTimeInMillis());
             dir.setLeaveTimeToEvent(
                     ((GregorianCalendar)leaveTimeToEvent.getAnswer()).getTimeInMillis());
 
-            return new Ride(event, driver, (int)numSeats.getAnswer(),
-                    (String)locations.getAnswer(), dir);
+            // save to database
+            Ride origRide = new Ride(event, driver, (int) numSeats.getAnswer(),
+                    (String) locations.getAnswer(), dir);
+            Ride ride = new Ride(RestUtil.create(origRide.toJSON(), Database.REST_RIDE));
+            // save to user's rides
+            LocalStorageIO.appendToList(ride.getId(), LocalFiles.USER_RIDES);
+            return ride;
         }
         return null;
     }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="What day would you like to leave for the event."
+        android:id="@+id/departure_date_prompt"
+        android:textSize="15sp"
+        android:padding="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <DatePicker
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/departure_date_picker"
+        android:layout_below="@+id/departure_date_prompt"
+        android:padding="10dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="What time would you like to leave for the event."
+        android:layout_below="@+id/departure_date_picker"
+        android:id="@+id/departure_time_prompt"
+        android:textSize="15sp"
+        android:padding="10dp"/>
+
+    <TimePicker
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/departure_time_picker"
+        android:layout_below="@+id/departure_time_prompt"
+        android:padding="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="What location would you like to leave from for the event."
+        android:id="@+id/leave_location_prompt"
+        android:layout_below="@+id/departure_time_picker"
+        android:textSize="15sp"
+        android:padding="10dp"
+        />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Submit"
+        android:id="@+id/driver_form_submit"
+        android:shadowColor="@color/colorPrimary_cruGrayLight"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

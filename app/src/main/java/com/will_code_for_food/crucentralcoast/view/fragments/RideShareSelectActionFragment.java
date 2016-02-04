@@ -8,14 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.EventsActivity;
-import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.SplashscreenActivity;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.UI;
@@ -74,6 +71,8 @@ public class RideShareSelectActionFragment extends CruFragment {
             @Override
             public void onClick(View v) {
                 //launch with can-drive form
+                getParent().loadFragmentById(R.layout.fragment_ridesharing_driver_form, "Driver Form", new RideShareDriverFormFragment(), getParent());
+
             }
         });
     }

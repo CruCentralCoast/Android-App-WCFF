@@ -71,7 +71,7 @@ public class RideShareSelectActionFragment extends CruFragment {
             @Override
             public void onClick(View v) {
                 //launch with can-drive form
-                getParent().loadFragmentById(R.layout.fragment_ridesharing_driver_form, "Driver Form", null, getParent());
+                getParent().loadFragmentById(R.layout.fragment_ridesharing_driver_form, "Driver Form", new RideShareDriverFormFragment(), getParent());
 
             }
         });

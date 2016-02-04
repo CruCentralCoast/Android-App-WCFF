@@ -16,10 +16,10 @@
 
     <DatePicker
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:id="@+id/departure_date_picker"
         android:layout_below="@+id/departure_date_prompt"
-        android:padding="10dp"/>
+        android:padding="10dp" />
 
 
     <TextView
@@ -33,7 +33,7 @@
 
     <TimePicker
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:id="@+id/departure_time_picker"
         android:layout_below="@+id/departure_time_prompt"
         android:padding="10dp"/>
@@ -52,7 +52,7 @@
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:text="Submit"
-        android:id="@+id/btn_submit"
+        android:id="@+id/driver_form_submit"
         android:shadowColor="@color/colorPrimary_cruGrayLight"
         android:padding="10dp"
         android:layout_alignParentBottom="true"

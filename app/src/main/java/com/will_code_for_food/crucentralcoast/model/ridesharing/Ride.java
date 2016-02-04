@@ -188,7 +188,7 @@ public class Ride extends DatabaseObject {
         thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NAME, new JsonPrimitive(driver.getName()));
         thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NUMBER, new JsonPrimitive(driver.getPhoneNumber()));
         thisObj.add(Database.JSON_KEY_RIDE_GCM, new JsonPrimitive("dummy_key"));
-        thisObj.add(Database.JSON_KEY_RIDE_LOCATION, new JsonPrimitive(location));
+        //thisObj.add(Database.JSON_KEY_RIDE_LOCATION, new JsonPrimitive(location));
         //thisObj.add(Database.JSON_KEY_RIDE_TIME, );
         //thisObj.add(Database.JSON_KEY_RIDE_RADIUS, );
         thisObj.add(Database.JSON_KEY_RIDE_SEATS, new JsonPrimitive(Integer.toString(numSeats)));

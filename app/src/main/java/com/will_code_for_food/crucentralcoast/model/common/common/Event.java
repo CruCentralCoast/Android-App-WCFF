@@ -27,6 +27,11 @@ public class Event extends DatabaseObject {
     private CalendarEvent calendarEvent;
     private ArrayList<String> parentMinistries;
 
+    //for testing...
+    public Event (String id) {
+        super(id);
+    }
+
     public Event(JsonObject json) {
         super(json);
 

@@ -156,16 +156,19 @@ public class RestUtil {
 
                 br.close();
 
-                Log.d("RestUtil.java", sb.toString());
+                //Log.d("RestUtil.java", sb.toString());
+                System.out.println(sb.toString());
 
                 dbObj = parser.parse(sb.toString()).getAsJsonObject().get("post").getAsJsonObject();
 
             }else{
-                Log.d("RestUtil.java", connection.getResponseMessage());
+                //Log.d("RestUtil.java", connection.getResponseMessage());
+                System.out.println(connection.getResponseMessage());
             }
 
         } catch (Exception ex) {
-            Log.e("RestUtil.java", ex.toString());
+            //Log.e("RestUtil.java", ex.toString());
+            System.out.println(ex.toString());
         } finally {
             if (connection != null) {
                 connection.disconnect();

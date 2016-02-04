@@ -39,7 +39,7 @@ import java.util.List;
  * <p/>
  * Controls the campus setup screen that new users will see following the splashscreen.
  */
-public class SetupCampusActivity extends Activity implements android.widget.CompoundButton.OnCheckedChangeListener {
+public class SetupCampusActivity extends Activity {
 
     public static List<Campus> selectedCampuses;
     public Campus selectedCampus;
@@ -55,28 +55,6 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
 
         initComponents();
         translateTitle();
-    }
-
-    /**
-     * Handles checkboxes in the campus cards.
-     */
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Campus campus = (Campus) buttonView.getTag();
-        CheckBox checkBox = (CheckBox) buttonView;
-
-        /*if (isChecked) {
-            selectedCampuses.add(campus);
-        } else {
-            selectedCampuses.remove(campus);
-        }
-
-        if (!selectedCampuses.isEmpty()) {
-            nextButton.setEnabled(true);
-            nextButton.setVisibility(View.VISIBLE);
-        } else {
-            nextButton.setEnabled(false);
-        }*/
     }
 
     /**
@@ -167,7 +145,6 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
         private Context context;
 
         private TextView campusName;
-        private CheckBox chkBox;
 
         private ImageView cardImage;
         private String imageLabel = "";
@@ -199,18 +176,11 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
                 convertView = inflater.inflate(R.layout.fragment_campus_setup_card, null);
 
                 campusName = (TextView) convertView.findViewById(R.id.campus_card_text);
-                chkBox = (CheckBox) convertView.findViewById(R.id.campus_setup_chk_box);
-                chkBox.setVisibility(View.INVISIBLE);
                 cardImage = (ImageView) convertView.findViewById(R.id.campus_card_image);
                 final TextView over = (TextView) convertView.findViewById(R.id.campus_setup_card_over);
                 over.setVisibility(View.INVISIBLE);
-
-                chkBox.setOnCheckedChangeListener((SetupCampusActivity) context);
-
                 final Campus campus = campusList.get(position);
                 campusName.setText(campus.getName());
-                chkBox.setChecked(false);
-                chkBox.setTag(campus); // associates an individual checkbox with a campus
 
                 final RelativeLayout background = (RelativeLayout) convertView.findViewById(R.id.campus_setup_card);
 
@@ -221,12 +191,10 @@ public class SetupCampusActivity extends Activity implements android.widget.Comp
 
                         if (!selectedCampuses.contains(campus)) {
                             selectedCampuses.add(campus);
-                            chkBox.setChecked(true);
                             over.setVisibility(View.VISIBLE);
                             over.bringToFront();
                         } else {
                             selectedCampuses.remove(campus);
-                            chkBox.setChecked(false);
                             over.setVisibility(View.INVISIBLE);
                         }
 

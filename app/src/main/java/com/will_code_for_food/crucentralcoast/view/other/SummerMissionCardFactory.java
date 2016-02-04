@@ -63,9 +63,9 @@ public class SummerMissionCardFactory implements CardFragmentFactory {
             SummerMission current = cards.get(position);
             LayoutInflater inflater = LayoutInflater.from(getContext());
             String imageLabel = current.getImage();
-            View hold = inflater.inflate(R.layout.fragment_event_card, parent, false);
+            View hold = inflater.inflate(R.layout.fragment_summermission_card, parent, false);
 
-            ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
+            ImageView imageView = (ImageView) hold.findViewById(R.id.sm_image);
             if (imageLabel != null && !imageLabel.equals("")) {
                 Picasso.with(SummerMissionsActivity.context).load(imageLabel).fit().into(imageView);
             }
@@ -74,10 +74,10 @@ public class SummerMissionCardFactory implements CardFragmentFactory {
                 imageView.setImageResource(R.drawable.crulogo);
             }
 
-            TextView titleView = (TextView) hold.findViewById(R.id.card_text);
+            TextView titleView = (TextView) hold.findViewById(R.id.sm_text);
             titleView.setText(current.getName());
 
-            TextView dateView = (TextView) hold.findViewById(R.id.card_date);
+            TextView dateView = (TextView) hold.findViewById(R.id.sm_date);
             dateView.setText(current.getMissionDateString());
 
             return hold;

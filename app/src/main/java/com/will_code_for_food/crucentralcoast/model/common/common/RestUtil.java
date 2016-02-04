@@ -1,15 +1,11 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
-import android.content.res.Resources;
 import android.support.v4.util.Pair;
 import android.util.Log;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.will_code_for_food.crucentralcoast.MainActivity;
-import com.will_code_for_food.crucentralcoast.controller.local_io.log.Logger;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.io.BufferedReader;
@@ -96,7 +92,6 @@ public class RestUtil {
             else
                 return parser.parse(toParse).getAsJsonArray();
         } catch (Exception ex) {
-            new Logger().logError(ex.getLocalizedMessage());
             return null;
         }
     }
@@ -125,7 +120,6 @@ public class RestUtil {
                 return parser.parse(toParse).getAsJsonArray();
         } catch (Exception ex) {
             ex.getLocalizedMessage();
-            new Logger().logError(ex.getLocalizedMessage());
             return null;
         }
     }
@@ -156,16 +150,19 @@ public class RestUtil {
 
                 br.close();
 
-                Log.d("RestUtil.java", sb.toString());
+                //Log.d("RestUtil.java", sb.toString());
+                System.out.println(sb.toString());
 
                 dbObj = parser.parse(sb.toString()).getAsJsonObject().get("post").getAsJsonObject();
 
             }else{
-                Log.d("RestUtil.java", connection.getResponseMessage());
+                //Log.d("RestUtil.java", connection.getResponseMessage());
+                System.out.println(connection.getResponseMessage());
             }
 
         } catch (Exception ex) {
-            Log.e("RestUtil.java", ex.toString());
+            //Log.e("RestUtil.java", ex.toString());
+            System.out.println(ex.toString());
         } finally {
             if (connection != null) {
                 connection.disconnect();

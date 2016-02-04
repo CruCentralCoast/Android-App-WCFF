@@ -29,6 +29,8 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.UI;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ import java.util.List;
  * <p/>
  * Controls the ministry setup screen that new users will see following the campus setup screen.
  */
-public class SetupMinistryActivity extends Activity implements android.widget.CompoundButton.OnCheckedChangeListener {
+public class SetupMinistryActivity extends Activity {
 
     private Button finishButton;
     private List<Campus> selectedCampuses;
@@ -62,28 +64,6 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
 
         initComponents();
         translateTitle();
-    }
-
-    /**
-     * Handles checkboxes in the ministry cards.
-     */
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-        Ministry ministry = (Ministry) buttonView.getTag();
-
-        if (isChecked) {
-            selectedMinistries.add(ministry);
-        } else {
-            selectedMinistries.remove(ministry);
-        }
-
-        if (!selectedMinistries.isEmpty()) {
-            finishButton.setEnabled(true);
-            finishButton.setVisibility(View.VISIBLE);
-        } else {
-            finishButton.setEnabled(false);
-        }
     }
 
     /**
@@ -182,7 +162,6 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
         private Context context;
 
         private TextView ministryName;
-        private CheckBox chkBox;
         private ImageView cardImage;
         private String imageLabel = "";
         private RelativeLayout background;
@@ -218,11 +197,15 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
                 convertView = inflater.inflate(R.layout.fragment_ministry_setup_card, null);
 
                 ministryName = (TextView) convertView.findViewById(R.id.ministry_card_text);
-                chkBox = (CheckBox) convertView.findViewById(R.id.ministry_setup_chk_box);
                 cardImage = (ImageView) convertView.findViewById(R.id.ministry_card_image);
                 background = (RelativeLayout) convertView.findViewById(R.id.ministry_setup_card_background);
+                final TextView learnMore = (TextView) convertView.findViewById(R.id.ministry_learn_more);
+                final TextView over = (TextView) convertView.findViewById(R.id.ministry_setup_card_over);
+                over.setVisibility(View.INVISIBLE);
 
-                background.setOnClickListener(new View.OnClickListener() {
+                ministryName.setOnClickListener(getMinistryListener(ministry, over));
+                cardImage.setOnClickListener(getMinistryListener(ministry, over));
+                learnMore.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         selectedMinistry = ministry;
@@ -230,21 +213,8 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
                         startActivity(intent);
                     }
                 });
-
-                cardImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectedMinistry = ministry;
-                        Intent intent = new Intent(context, MinistryInfoActivity.class);
-                        startActivity(intent);
-                    }
-                });
-
-                chkBox.setOnCheckedChangeListener((SetupMinistryActivity) context);
 
                 ministryName.setText(ministry.getName());
-                chkBox.setChecked(false);
-                chkBox.setTag(ministry); //associates a single checkbox with a ministry
 
                 //load image
                 imageLabel = ministry.getImage();
@@ -257,6 +227,32 @@ public class SetupMinistryActivity extends Activity implements android.widget.Co
 
             return convertView;
         }
+    }
+
+    /**
+     * Creates on-click listener for selecting Ministries
+     */
+    private View.OnClickListener getMinistryListener(final Ministry ministry, final TextView over) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!selectedMinistries.contains(ministry)) {
+                    selectedMinistries.add(ministry);
+                    over.setVisibility(View.VISIBLE);
+                    over.bringToFront();
+                } else {
+                    selectedMinistries.remove(ministry);
+                    over.setVisibility(View.INVISIBLE);
+                }
+
+                if (!selectedMinistries.isEmpty()) {
+                    finishButton.setEnabled(true);
+                    finishButton.setVisibility(View.VISIBLE);
+                } else {
+                    finishButton.setEnabled(false);
+                }
+            }
+        };
     }
 
     /**

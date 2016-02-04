@@ -27,8 +27,8 @@ public class ImageDataTest extends TestCase {
         assertEquals("1", imageData.getId());
         assertEquals("0", imageData.getVersion());
         assertEquals("adf4a6", imageData.getSignature());
-        assertEquals(2048, imageData.getWidth());
-        assertEquals(770, imageData.getHeight());
+        assertEquals(2048, (int) imageData.getWidth());
+        assertEquals(770, (int) imageData.getHeight());
         assertEquals("jpg", imageData.getFormat());
         assertEquals("image", imageData.getResourceType());
         assertEquals("http://blahblahblah", imageData.getUrl());

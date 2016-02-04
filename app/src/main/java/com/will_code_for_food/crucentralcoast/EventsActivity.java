@@ -79,7 +79,9 @@ public class EventsActivity extends MainActivity {
     // Opens the event's ridesharing page, if one exists
     public void viewRidesharing(View view) {
         if (event.hasRideSharing()) {
-            this.loadFragmentById(R.layout.fragment_ridesharing_select_action, event.getName() + " > " + RideShareSelectActionFragment.TITLE, new RideShareSelectActionFragment(), this);
+            this.loadFragmentById(R.layout.fragment_ridesharing_select_action,
+                    event.getName() + " > " + RideShareSelectActionFragment.TITLE,
+                    new RideShareSelectActionFragment(), this);
         }
         else {
             Toast.makeText(getApplicationContext(), Util.getString(R.string.toast_no_rides),

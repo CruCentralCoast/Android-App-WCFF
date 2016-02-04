@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ministry_setup_card_background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/ministry_setup_card_background">
+    android:layout_height="match_parent">
 
-    <CheckBox
-        android:id="@+id/ministry_setup_chk_box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:scaleX="1"
-        android:scaleY="1"
-        android:layout_marginLeft="15dp"
-        android:buttonTint="@color/setup_checkbox" />
-
-    <ImageView
+    <RelativeLayout
+        android:id="@+id/ministry_setup_card_under"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:paddingTop="10dp"
-        android:id="@+id/ministry_card_image"
-        android:layout_toRightOf="@+id/ministry_setup_chk_box" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ministry_card_image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:id="@+id/ministry_card_text"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/ministry_card_image"
+            android:paddingLeft="10dp"
+            android:text="This is an event"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:id="@+id/ministry_learn_more"
+            android:layout_below="@+id/ministry_card_image"
+            android:layout_alignEnd="@+id/ministry_card_image"
+            android:layout_alignRight="@+id/ministry_card_image"
+            android:paddingRight="10dp"
+            android:textSize="15sp"
+            android:text="Learn More >"
+            />
+
+    </RelativeLayout>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_below="@+id/ministry_card_image"
-        android:id="@+id/ministry_card_text"
-        android:text="This is an event"
-        android:textSize="15sp"
-        android:paddingLeft="20dp"/>
+        android:id="@+id/ministry_setup_card_over"
+        android:layout_width="fill_parent"
+        android:layout_height="190dp"
+        android:layout_alignBaseline="@+id/ministry_setup_card_under"
+        android:alpha=".3"
+        android:background="@color/colorPrimary_cruGrayLight"
+        android:text="" />
 
 </RelativeLayout>

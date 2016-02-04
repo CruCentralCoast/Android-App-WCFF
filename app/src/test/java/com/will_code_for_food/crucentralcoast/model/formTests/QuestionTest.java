@@ -20,11 +20,12 @@ public class QuestionTest extends WCFFUnitTest {
     public void testAllQuestionTypes() {
         newTest("Question");
         final String prompt = "prompt";
+        final String name = "name";
 
         for (QuestionType type : QuestionType.values()) {
             logStep("Testing question type: " + type);
             logInfo("Testing constructor");
-            Question question = new Question(prompt, type);
+            Question question = new Question(name, prompt, type);
             Assert.assertEquals(prompt, question.getPrompt());
             Assert.assertEquals(null, question.getAnswer());
             Assert.assertEquals(type.getAnswerType(), question.getAnswerType());

@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.values.Database;
@@ -17,6 +18,13 @@ public abstract class DatabaseObject {
 
     private final JsonObject fields;
     private ImageData imageData;
+
+    //for testing...
+    public DatabaseObject(String id) {
+        fields = new JsonObject();
+
+        fields.add(Database.JSON_KEY_COMMON_ID, new JsonPrimitive(id));
+    }
 
     public DatabaseObject(JsonObject obj) {
         fields = obj;

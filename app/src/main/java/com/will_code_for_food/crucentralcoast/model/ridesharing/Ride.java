@@ -175,16 +175,20 @@ public class Ride extends DatabaseObject {
         return direction.hasTimeLeavingFromEvent();
     }
 
+    public JsonObject toJSON() {
+        return Ride.toJSON(eventId, driver, numSeats, location, direction);
+    }
+
     //Example of how to add a new Ride to the database and store it in a ride object for later use:
     // Ride newRide = new Ride(RestUtil.create(Ride.toJSON(event, driver, seats, loc, dir)));
-    public static JsonObject toJSON(final Event event, final User driver, final int numSeats, final String location, final RideDirection direction) {
+    public static JsonObject toJSON(final String eventId, final User driver, final int numSeats, final String location, final RideDirection direction) {
 
         JsonObject thisObj = new JsonObject();
 
         //TODO add missing fields
         //TODO implement gcm key retrieval
 
-        thisObj.add(Database.JSON_KEY_RIDE_EVENT, new JsonPrimitive(event.getId()));
+        thisObj.add(Database.JSON_KEY_RIDE_EVENT, new JsonPrimitive(eventId));
         thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NAME, new JsonPrimitive(driver.getName()));
         thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NUMBER, new JsonPrimitive(driver.getPhoneNumber()));
         thisObj.add(Database.JSON_KEY_RIDE_GCM, new JsonPrimitive("dummy_key"));

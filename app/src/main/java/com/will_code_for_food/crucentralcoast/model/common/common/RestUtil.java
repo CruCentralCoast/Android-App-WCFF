@@ -1,15 +1,11 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
-import android.content.res.Resources;
 import android.support.v4.util.Pair;
 import android.util.Log;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.will_code_for_food.crucentralcoast.MainActivity;
-import com.will_code_for_food.crucentralcoast.controller.local_io.log.Logger;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.io.BufferedReader;
@@ -96,7 +92,6 @@ public class RestUtil {
             else
                 return parser.parse(toParse).getAsJsonArray();
         } catch (Exception ex) {
-            new Logger().logError(ex.getLocalizedMessage());
             return null;
         }
     }
@@ -125,7 +120,6 @@ public class RestUtil {
                 return parser.parse(toParse).getAsJsonArray();
         } catch (Exception ex) {
             ex.getLocalizedMessage();
-            new Logger().logError(ex.getLocalizedMessage());
             return null;
         }
     }

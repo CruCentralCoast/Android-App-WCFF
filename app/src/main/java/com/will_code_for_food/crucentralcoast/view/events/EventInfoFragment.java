@@ -1,12 +1,12 @@
-package com.will_code_for_food.crucentralcoast.view.fragments;
+package com.will_code_for_food.crucentralcoast.view.events;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.will_code_for_food.crucentralcoast.EventsActivity;
 import com.will_code_for_food.crucentralcoast.tasks.DisplayEventInfoTask;
+import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 
 /**
  * Created by MasonJStevenson on 2/2/2016.

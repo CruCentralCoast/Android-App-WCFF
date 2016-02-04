@@ -1,10 +1,9 @@
-package com.will_code_for_food.crucentralcoast.view.other;
+package com.will_code_for_food.crucentralcoast.view.common;
 
-import android.app.Fragment;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
-import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 
 import java.util.List;

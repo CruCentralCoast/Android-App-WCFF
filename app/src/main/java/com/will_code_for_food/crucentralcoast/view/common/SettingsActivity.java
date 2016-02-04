@@ -1,12 +1,10 @@
-package com.will_code_for_food.crucentralcoast;
+package com.will_code_for_food.crucentralcoast.view.common;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
 
-import com.will_code_for_food.crucentralcoast.view.fragments.PrefsFragment;
-
-import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.common.PrefsFragment;
 
 /**
  * Allows the user to change their settings, such as Ministry, Campus, and notifications.

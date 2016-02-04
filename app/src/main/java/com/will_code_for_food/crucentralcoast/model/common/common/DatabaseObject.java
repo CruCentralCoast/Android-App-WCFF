@@ -3,12 +3,7 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.will_code_for_food.crucentralcoast.MainActivity;
-import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.values.Database;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Gavin on 11/12/2015.

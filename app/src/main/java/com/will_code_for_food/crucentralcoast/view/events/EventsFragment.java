@@ -1,4 +1,4 @@
-package com.will_code_for_food.crucentralcoast.view.fragments;
+package com.will_code_for_food.crucentralcoast.view.events;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,16 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.RideShareActivity;
+import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
-import com.will_code_for_food.crucentralcoast.tasks.DisplayEventInfoTask;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
-import com.will_code_for_food.crucentralcoast.view.other.CardFragmentFactory;
-import com.will_code_for_food.crucentralcoast.view.other.EventCardFactory;
-import com.will_code_for_food.crucentralcoast.view.other.RideShareEventCardFactory;
+import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
+import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
+import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareEventCardFactory;
 
 /**
  * Created by mallika on 1/19/16.

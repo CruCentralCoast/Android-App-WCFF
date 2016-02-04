@@ -1,9 +1,8 @@
 package com.will_code_for_food.crucentralcoast.view;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.TextView;
 
-import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 import java.lang.Exception;
 import java.lang.Override;

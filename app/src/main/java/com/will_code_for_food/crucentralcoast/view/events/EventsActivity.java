@@ -1,4 +1,4 @@
-package com.will_code_for_food.crucentralcoast;
+package com.will_code_for_food.crucentralcoast.view.events;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,15 +6,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Database;
-import com.will_code_for_food.crucentralcoast.view.fragments.EventsFragment;
-import com.will_code_for_food.crucentralcoast.view.fragments.RideShareSelectActionFragment;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.events.EventsFragment;
+import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareSelectActionFragment;
 
 /**
  * EventsActivity implements the functionality of the buttons in an Event page

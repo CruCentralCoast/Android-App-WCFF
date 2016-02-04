@@ -1,4 +1,4 @@
-package com.will_code_for_food.crucentralcoast;
+package com.will_code_for_food.crucentralcoast.view.common;
 
 import android.app.Application;
 import android.util.Log;
@@ -8,6 +8,7 @@ import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 import com.parse.SaveCallback;
+import com.will_code_for_food.crucentralcoast.R;
 
 /**
  * Created by Brian on 11/27/2015.

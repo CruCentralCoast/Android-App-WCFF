@@ -1,17 +1,16 @@
-package com.will_code_for_food.crucentralcoast.view.fragments;
+package com.will_code_for_food.crucentralcoast.view.common;
 
 /**
  * Created by mallika on 12/2/15.
  */
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 
 public class CruFragment extends Fragment {

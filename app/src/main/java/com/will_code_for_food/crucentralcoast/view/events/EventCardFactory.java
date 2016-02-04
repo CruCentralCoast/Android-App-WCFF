@@ -1,21 +1,18 @@
-package com.will_code_for_food.crucentralcoast.view.other;
+package com.will_code_for_food.crucentralcoast.view.events;
 
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.google.gson.JsonElement;
-import com.will_code_for_food.crucentralcoast.EventCardAdapter;
-import com.will_code_for_food.crucentralcoast.EventsActivity;
-import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.tasks.DisplayEventInfoTask;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
-import com.will_code_for_food.crucentralcoast.view.fragments.EventInfoFragment;
 
 import java.util.List;
 import java.util.Set;

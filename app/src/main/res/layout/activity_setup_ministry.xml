@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context=".SetupMinistryActivity"
+    tools:context=".view.common.SetupMinistryActivity"
     android:id="@+id/setup_ministry_container"
     android:background="@android:color/white">
     <FrameLayout

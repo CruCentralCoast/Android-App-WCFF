@@ -1,12 +1,14 @@
-package com.will_code_for_food.crucentralcoast;
+package com.will_code_for_food.crucentralcoast.view.summermissions;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
-import com.will_code_for_food.crucentralcoast.view.fragments.SummerMissionFragment;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.summermissions.SummerMissionFragment;
 
 /**
  * Created by mallika on 1/14/16.

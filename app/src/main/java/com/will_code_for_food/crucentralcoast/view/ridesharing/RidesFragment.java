@@ -1,4 +1,4 @@
-package com.will_code_for_food.crucentralcoast.view.fragments;
+package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.app.Activity;
 import android.graphics.Point;
@@ -8,11 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.squareup.picasso.Picasso;
-import com.will_code_for_food.crucentralcoast.EventsActivity;
+import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
@@ -22,8 +21,8 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
 import com.will_code_for_food.crucentralcoast.values.UI;
-import com.will_code_for_food.crucentralcoast.view.other.CardFragmentFactory;
-import com.will_code_for_food.crucentralcoast.view.other.RideCardFactory;
+import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
+import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 
 /**
  * Created by Kayla on 2/1/2016.

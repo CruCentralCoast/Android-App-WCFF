@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.SplashscreenActivity;
+import com.will_code_for_food.crucentralcoast.view.common.SplashscreenActivity;
 import com.will_code_for_food.crucentralcoast.values.Android;
-import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,8 +15,6 @@ import java.util.Set;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.Display;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 /**
  * General utility methods

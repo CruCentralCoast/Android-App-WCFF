@@ -1,4 +1,4 @@
-package com.will_code_for_food.crucentralcoast.view.other;
+package com.will_code_for_food.crucentralcoast.view.summermissions;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,12 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.SummerMissionsActivity;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
 import com.will_code_for_food.crucentralcoast.tasks.SummerMissionViewTask;
+import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 
 import java.util.List;
 

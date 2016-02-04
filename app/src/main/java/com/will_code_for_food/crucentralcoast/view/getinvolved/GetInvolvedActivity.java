@@ -1,9 +1,11 @@
-package com.will_code_for_food.crucentralcoast;
+package com.will_code_for_food.crucentralcoast.view.getinvolved;
 
 import android.os.Bundle;
 import android.view.View;
 
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 /**
  * Created by mallika on 1/14/16.

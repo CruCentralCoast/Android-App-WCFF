@@ -1,4 +1,4 @@
-package com.will_code_for_food.crucentralcoast.view.fragments;
+package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,18 +11,18 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.RideShareActivity;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.values.Database;
+import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 
 /**
  * Created by masonstevenson on 2/4/16.
  */
-public class RideShareDriverFormFragment extends CruFragment{
+public class RideShareDriverFormFragment extends CruFragment {
 
     DatePicker datePicker;
     TimePicker timePicker;

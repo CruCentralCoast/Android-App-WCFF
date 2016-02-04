@@ -1,21 +1,14 @@
 package com.will_code_for_food.crucentralcoast.tasks;
 
-import android.app.Fragment;
 import android.os.AsyncTask;
-import android.support.annotation.MainThread;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.will_code_for_food.crucentralcoast.EventsActivity;
-import com.will_code_for_food.crucentralcoast.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.view.other.CardFragmentFactory;
+import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 
 import java.util.ArrayList;
 import java.util.List;

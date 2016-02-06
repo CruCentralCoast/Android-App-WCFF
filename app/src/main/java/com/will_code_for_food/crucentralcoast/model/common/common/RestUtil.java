@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by Brian on 11/16/2015.
@@ -35,7 +36,7 @@ public class RestUtil {
         return connection;
     }
 
-    private static HttpURLConnection createPostConnection(String from, String body) throws Exception {
+    private static HttpURLConnection createPostConnection(String from, String body, String contentType) throws Exception {
         String dataUrl = DB_URL + from;
 
         URL url = new URL(dataUrl);
@@ -43,7 +44,7 @@ public class RestUtil {
         int timeout = Database.DB_TIMEOUT;
         connection.setConnectTimeout(timeout);
         connection.setRequestMethod(Database.HTTP_REQUEST_METHOD_POST);
-        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Content-Type", contentType);
         connection.setRequestProperty("Accept", "application/json");
 
         connection.setDoOutput(true);
@@ -111,7 +112,7 @@ public class RestUtil {
                 bodyJson.addProperty(field.first, field.second);
 
             HttpURLConnection conn = createPostConnection(tableName
-                    + Database.REST_QUERY_FIND, bodyJson.toString());
+                    + Database.REST_QUERY_FIND, bodyJson.toString(), Database.CONTENT_TYPE_JSON);
             String toParse = request(conn);
 
             if (toParse.equals("!error"))
@@ -136,7 +137,7 @@ public class RestUtil {
         JsonObject dbObj = null;
 
         try {
-            connection = createPostConnection(collectionName + Database.REST_QUERY_CREATE, toSend.toString());
+            connection = createPostConnection(collectionName + Database.REST_QUERY_CREATE, toSend.toString(), Database.CONTENT_TYPE_JSON);
 
             StringBuilder sb = new StringBuilder();
             int HttpResult = connection.getResponseCode();
@@ -175,5 +176,47 @@ public class RestUtil {
     //updates the field of an existing object
     public static void update(String collection, String objId, String field, JsonObject newValue) {
         //TODO get this working
+    }
+
+    private static boolean addDropHelper(String command, String rideId, String passengerId) {
+        HttpURLConnection connection = null;
+        String content = "ride_id=" + rideId + "&passenger_id=" + passengerId;
+        JsonParser parser = new JsonParser();
+        JsonObject dbObj = null;
+        boolean actionSuccessful = false;
+        int HttpResult;
+
+        try {
+            connection = createPostConnection(Database.REST_RIDE + command, content, Database.CONTENT_TYPE_URL_ENCODED);
+
+            HttpResult = connection.getResponseCode();
+
+            if(HttpResult == HttpURLConnection.HTTP_OK){
+                actionSuccessful = true;
+            }else{
+                //Log.d("RestUtil.java", connection.getResponseMessage());
+                System.out.println(connection.getResponseMessage());
+            }
+
+        } catch (Exception ex) {
+            //Log.e("RestUtil.java", ex.toString());
+            System.out.println(ex.toString());
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+
+        return actionSuccessful;
+    }
+
+    //adds a passenger to a ride
+    public static boolean addPassenger(String rideId, String passengerId) {
+        return addDropHelper(Database.REST_QUERY_ADD_PASSENGER, rideId, passengerId);
+    }
+
+    //removes a passenger from a ride
+    public static boolean dropPassenger(String rideId, String passengerId) {
+        return addDropHelper(Database.REST_QUERY_DROP_PASSENGER, rideId, passengerId);
     }
 }

@@ -66,9 +66,14 @@ public class Database {
 
     public static final String HTTP_REQUEST_METHOD_GET = "GET";
     public static final String HTTP_REQUEST_METHOD_POST = "POST";
+    public static final String CONTENT_TYPE_JSON = "application/json";
+    public static final String CONTENT_TYPE_URL_ENCODED = "application/x-www-form-urlencoded";
     public static final String REST_QUERY_GET_ALL = "/list";
     public static final String REST_QUERY_FIND = "/find";
     public static final String REST_QUERY_CREATE = "/create";
+    public static final String REST_QUERY_ADD_PASSENGER = "/addPassenger";
+    public static final String REST_QUERY_DROP_PASSENGER = "/dropPassenger";
+    public static final String REST_QUERY_UPDATE = "/update";
 
     public static final String GOOGLE_MAP = "http://maps.google.co.in/maps?q=";
 }

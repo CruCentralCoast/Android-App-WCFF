@@ -5,7 +5,7 @@ package com.will_code_for_food.crucentralcoast.values;
  */
 public class Database {
 
-    public static final String DB_URL = "http://ec2-52-91-235-48.compute-1.amazonaws.com:3000/api/";
+    public static final String DB_URL = "http://ec2-52-91-235-48.compute-1.amazonaws.com:3001/api/";
     public static final int DB_TIMEOUT = 2000;
 
     public static final String REST_MINISTRY = "ministry";

@@ -6,7 +6,6 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
-import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
 import com.will_code_for_food.crucentralcoast.model.common.form.MultiOptionQuestion;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
 import com.will_code_for_food.crucentralcoast.values.Database;
@@ -52,7 +51,8 @@ public class DriverForm extends RiderForm {
     public Ride createRide() {
         if (isComplete() && isValid()) {
             // TODO create user using user's actual info (from phone)
-            User driver = new User("cru_user", "123-456-7890");
+            String driverName = "cru_driver";
+            String driverNumber = "1234567890";
 
             RideDirection dir;
             if (Resources.getSystem().getString(R.string.ridesharing_one_way_to_event)

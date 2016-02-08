@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
-import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.values.Database;

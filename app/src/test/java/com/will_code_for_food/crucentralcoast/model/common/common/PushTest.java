@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
-import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.values.Database;
@@ -42,7 +41,7 @@ public class PushTest extends TestCase {
     /*
     public void testPushRide() {
         String result;
-        JsonObject myRide = Ride.toJSON("5660ae43adfa94d6d887ca51", new User("obama", "1111111"), "dummy_key", new Location("12345", "CA", "", "123 Main Street", "USA"), "2016-01-01T00:00:00Z", 2.5, 4, RideDirection.TWO_WAY, "male");
+        JsonObject myRide = Ride.toJSON("5660ae43adfa94d6d887ca51", "obama", "1111111", "dummy_key", new Location("12345", "CA", "", "123 Main Street", "USA"), "2016-01-01T00:00:00Z", 2.5, 4, RideDirection.TWO_WAY, "male");
 
         System.out.println("Sending this object:\n" + myRide.toString());
 

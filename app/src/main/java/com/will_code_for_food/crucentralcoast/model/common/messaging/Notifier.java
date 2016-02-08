@@ -4,8 +4,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.support.v4.app.NotificationCompat;
 
-import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
-
 /**
  * Created by Gavin on 11/12/2015.
  */
@@ -17,11 +15,11 @@ public class Notifier {
         curId = 0;
     }
 
-    public boolean notifyUser(User user, NotificationMessage message) {
+    public boolean notifyUser(String gcmKey, NotificationMessage message) {
         // TODO handles the push notification API in the superclass
         return false;
     }
-    public boolean textUser(User user, NotificationMessage message) {
+    public boolean textUser(String phoneNumber, NotificationMessage message) {
         // TODO handles the texting API in the superclass
         return false;
     }

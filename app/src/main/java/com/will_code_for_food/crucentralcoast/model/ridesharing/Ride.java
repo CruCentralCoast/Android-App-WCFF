@@ -11,7 +11,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
-import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.text.DateFormat;
@@ -41,7 +41,7 @@ public class Ride extends DatabaseObject {
     private Integer numSeats;
     private RideDirection direction;
     private String gender;
-    private List<User> riders;
+    private List<Passenger> riders;
 
     /**
      * The inherited constructor, used to build a ride when
@@ -49,7 +49,7 @@ public class Ride extends DatabaseObject {
      */
     public Ride(final JsonObject obj) {
         super(obj);
-        riders = new ArrayList<User>();
+        riders = new ArrayList<Passenger>();
         refreshFields();
     }
 
@@ -106,7 +106,7 @@ public class Ride extends DatabaseObject {
         return getNumSeats() - passengers.size();
     }
 
-    public boolean addRider(final User rider) {
+    public boolean addRider(final Passenger rider) {
         if (!isFull()) {
             riders.add(rider);
         }
@@ -177,7 +177,7 @@ public class Ride extends DatabaseObject {
         return location;
     }
 
-    public List<User> getRiders() {
+    public List<Passenger> getRiders() {
         return riders;
     }
 
@@ -220,7 +220,8 @@ public class Ride extends DatabaseObject {
     // Ride newRide = new Ride(RestUtil.create(Ride.toJSON(event, driver, seats, loc, dir)));
     public static JsonObject toJSON(
             final String eventId,
-            final User driver,
+            final String driverName,
+            final String driverNumber,
             final String gcmKey,
             final Location location,
             final String time,
@@ -233,8 +234,8 @@ public class Ride extends DatabaseObject {
 
         //TODO implement gcm key retrieval
         thisObj.add(Database.JSON_KEY_RIDE_EVENT, new JsonPrimitive(eventId));
-        thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NAME, new JsonPrimitive(driver.getName()));
-        thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NUMBER, new JsonPrimitive(driver.getPhoneNumber()));
+        thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NAME, new JsonPrimitive(driverName));
+        thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NUMBER, new JsonPrimitive(driverNumber));
         thisObj.add(Database.JSON_KEY_RIDE_GCM, new JsonPrimitive(gcmKey));
         thisObj.add(Database.JSON_KEY_RIDE_LOCATION, location.toJSON());
         thisObj.add(Database.JSON_KEY_RIDE_TIME, new JsonPrimitive(time));

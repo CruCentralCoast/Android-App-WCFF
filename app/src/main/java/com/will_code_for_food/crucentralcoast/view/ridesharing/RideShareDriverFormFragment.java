@@ -57,7 +57,7 @@ public class RideShareDriverFormFragment extends CruFragment {
 
         @Override
         protected Void doInBackground(Event... params) {
-            RestUtil.create(Ride.toJSON(selectedEvent.getId(), new User("testDriver", "1234567"), 5, "test", RideDirection.ONE_WAY_TO_EVENT), Database.REST_RIDE);
+            //RestUtil.create(Ride.toJSON(selectedEvent.getId(), new User("testDriver", "1234567"), 5, "test", RideDirection.ONE_WAY_TO_EVENT), Database.REST_RIDE);
             return null;
         }
     }

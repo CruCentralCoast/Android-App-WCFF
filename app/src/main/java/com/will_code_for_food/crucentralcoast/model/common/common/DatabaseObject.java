@@ -11,7 +11,7 @@ import com.will_code_for_food.crucentralcoast.values.Database;
  */
 public abstract class DatabaseObject {
 
-    private final JsonObject fields;
+    private JsonObject fields;
     private ImageData imageData;
 
     //for testing...
@@ -22,6 +22,10 @@ public abstract class DatabaseObject {
     }
 
     public DatabaseObject(JsonObject obj) {
+        update(obj);
+    }
+
+    public void update(JsonObject obj) {
         fields = obj;
 
         if (fields.has(Database.JSON_KEY_COMMON_IMAGE)) {
@@ -39,6 +43,34 @@ public abstract class DatabaseObject {
 
         if (fieldValue != null && fieldValue.isJsonPrimitive()) {
             return fieldValue.getAsString();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Gets a field from this object as a Double. If the field can't be represented as a Double
+     * or if it does not exist, returns null.
+     */
+    public Double getFieldAsDouble(String fieldName) {
+        String field = getFieldAsString(fieldName);
+
+        if (field != null) {
+            return Double.parseDouble(field);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Gets a field from this object as a Integer. If the field can't be represented as a Integer
+     * or if it does not exist, returns null.
+     */
+    public Integer getFieldAsInt(String fieldName) {
+        String field = getFieldAsString(fieldName);
+
+        if (field != null) {
+            return Integer.parseInt(field);
         } else {
             return null;
         }

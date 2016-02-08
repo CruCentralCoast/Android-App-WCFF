@@ -39,13 +39,14 @@ public class PushTest extends TestCase {
         }
     }*/
 
-//    public void testPushRide() {
-//        String result;
-//        JsonObject myRide = Ride.toJSON(new Event("5660ae43adfa94d6d887ca51"), new User("driver 5", "12345"), 5, "", RideDirection.TWO_WAY);
-//
-//        System.out.println(myRide.toString());
-//        result = RestUtil.create(myRide, Database.REST_RIDE).toString();
-//
-//        System.out.println("The database gave the object the following id: " + result);
-//    }
+    /*
+    public void testPushRide() {
+        String result;
+        JsonObject myRide = Ride.toJSON("5660ae43adfa94d6d887ca51", new User("obama", "1111111"), "dummy_key", new Location("12345", "CA", "", "123 Main Street", "USA"), "2016-01-01T00:00:00Z", 2.5, 4, RideDirection.TWO_WAY, "male");
+
+        System.out.println("Sending this object:\n" + myRide.toString());
+
+        result = RestUtil.create(myRide, Database.REST_RIDE).toString();
+        System.out.println("The database gave the object the following id: " + result);
+    }*/
 }

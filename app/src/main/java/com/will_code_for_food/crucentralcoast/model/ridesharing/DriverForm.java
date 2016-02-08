@@ -69,13 +69,15 @@ public class DriverForm extends RiderForm {
             dir.setLeaveTimeToEvent(
                     ((GregorianCalendar)leaveTimeToEvent.getAnswer()).getTimeInMillis());
 
+            //TODO Fix the Ride() creation below
             // save to database
-            Ride origRide = new Ride(event, driver, (int) numSeats.getAnswer(),
-                    (String) locations.getAnswer(), dir);
-            Ride ride = new Ride(RestUtil.create(origRide.toJSON(), Database.REST_RIDE));
+            //Ride origRide = new Ride(event, driver, (int) numSeats.getAnswer(), (String) locations.getAnswer(), dir);
+            //Ride ride = new Ride(RestUtil.create(origRide.toJSON(), Database.REST_RIDE));
+
             // save to user's rides
-            LocalStorageIO.appendToList(ride.getId(), LocalFiles.USER_RIDES);
-            return ride;
+            //LocalStorageIO.appendToList(ride.getId(), LocalFiles.USER_RIDES);
+            //return ride;
+            return null;
         }
         return null;
     }

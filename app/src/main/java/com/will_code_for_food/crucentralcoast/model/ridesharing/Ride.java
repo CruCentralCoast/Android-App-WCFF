@@ -9,6 +9,8 @@ import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.Location;
+import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
@@ -30,10 +32,15 @@ public class Ride extends DatabaseObject {
      * super()
      */
     private String eventId;
-    private User driver;
-    private int numSeats;
+    private String driverName;
+    private String driverNumber;
+    private String gcmId;
+    private Location location;
+    private String time;
+    private Double radius;
+    private Integer numSeats;
     private RideDirection direction;
-    private String location;
+    private String gender;
     private List<User> riders;
 
     /**
@@ -43,13 +50,7 @@ public class Ride extends DatabaseObject {
     public Ride(final JsonObject obj) {
         super(obj);
         riders = new ArrayList<User>();
-
-        // TODO get these from JSON Object (placeholders for now)
-        driver = null;
-        eventId = "";
-        numSeats = 5;
-        direction = RideDirection.ONE_WAY_FROM_EVENT;
-        location = "";
+        refreshFields();
     }
 
     /**
@@ -57,16 +58,32 @@ public class Ride extends DatabaseObject {
      * be converted into a JSON object like the ones stored in
      * the database, and created using the inherited constructor.
      */
-    public Ride(final Event event, final User driver, final int numSeats, final String location,
-                final RideDirection direction) {
+    public Ride(String eventId, String driverName, String driverNumber, String gcmId, Location location, String time, Double radius, Integer numSeats, RideDirection direction, String gender) {
         super(new JsonObject()); // satisfies need to call super
 
-        this.eventId = event.getId();
-        this.driver = driver;
-        this.numSeats = numSeats;
+        this.eventId = eventId;
+        this.driverName = driverName;
+        this.driverNumber = driverNumber;
+        this.gcmId = gcmId;
         this.location = location;
+        this.time = time;
+        this.radius = radius;
+        this.numSeats = numSeats;
         this.direction = direction;
-        riders = new ArrayList<User>();
+        this.gender = gender;
+    }
+
+    public void refreshFields() {
+        eventId = getFieldAsString("event");
+        driverName = getFieldAsString("driverName");
+        driverNumber = getFieldAsString("driverNumber");
+        gcmId = getFieldAsString("gcm_id");
+        location = new Location(getField("location"));
+        time = getFieldAsString("time");
+        radius = getFieldAsDouble("raduis");
+        numSeats = getFieldAsInt("seats");
+        direction = RideDirection.fromString(getFieldAsString("direction"));
+        gender = getFieldAsString("gender");
     }
 
     public boolean isFull() {
@@ -93,7 +110,8 @@ public class Ride extends DatabaseObject {
         if (!isFull()) {
             riders.add(rider);
         }
-        driver.notify(Resources.getSystem().getString(R.string.ridesharing_driver_notification));
+
+        //driver.notify(Resources.getSystem().getString(R.string.ridesharing_driver_notification));
         return false;
     }
 
@@ -101,9 +119,9 @@ public class Ride extends DatabaseObject {
         return getFieldAsString(Database.JSON_KEY_RIDE_EVENT);
     }
 
-    public User getDriver() {
-        return driver;
-    }
+    //public User getDriver() {
+    //    return driver;
+    //}
 
     public String getDriverName() {
         return getFieldAsString(Database.JSON_KEY_RIDE_DRIVER_NAME);
@@ -155,7 +173,7 @@ public class Ride extends DatabaseObject {
         return direction.getLeaveTimeFromEvent();
     }
 
-    public String getLocation() {
+    public Location getLocation() {
         return location;
     }
 
@@ -175,29 +193,56 @@ public class Ride extends DatabaseObject {
         return direction.hasTimeLeavingFromEvent();
     }
 
+    public void addToDb() {
+        this.update(RestUtil.create(this.toJSON(), Database.REST_RIDE)); //updates the JSON object held by the parent class
+        this.refreshFields(); //updates the fields for this class based on the parent class
+    }
+
     public JsonObject toJSON() {
-        return Ride.toJSON(eventId, driver, numSeats, location, direction);
+        JsonObject thisObj = new JsonObject();
+
+        //TODO implement gcm key retrieval
+        thisObj.add(Database.JSON_KEY_RIDE_EVENT, new JsonPrimitive(eventId));
+        thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NAME, new JsonPrimitive(driverName));
+        thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NUMBER, new JsonPrimitive(driverNumber));
+        thisObj.add(Database.JSON_KEY_RIDE_GCM, new JsonPrimitive(gcmId));
+        thisObj.add(Database.JSON_KEY_RIDE_LOCATION, location.toJSON());
+        thisObj.add(Database.JSON_KEY_RIDE_TIME, new JsonPrimitive(time));
+        thisObj.add(Database.JSON_KEY_RIDE_RADIUS, new JsonPrimitive(radius));
+        thisObj.add(Database.JSON_KEY_RIDE_SEATS, new JsonPrimitive(Integer.toString(numSeats)));
+        thisObj.add(Database.JSON_KEY_RIDE_DIRECTION, new JsonPrimitive(direction.toString()));
+        thisObj.add(Database.JSON_KEY_RIDE_GENDER, new JsonPrimitive(gender));
+
+        return thisObj;
     }
 
     //Example of how to add a new Ride to the database and store it in a ride object for later use:
     // Ride newRide = new Ride(RestUtil.create(Ride.toJSON(event, driver, seats, loc, dir)));
-    public static JsonObject toJSON(final String eventId, final User driver, final int numSeats, final String location, final RideDirection direction) {
+    public static JsonObject toJSON(
+            final String eventId,
+            final User driver,
+            final String gcmKey,
+            final Location location,
+            final String time,
+            final double radius,
+            final int numSeats,
+            final RideDirection direction,
+            final String gender) {
 
         JsonObject thisObj = new JsonObject();
 
-        //TODO add missing fields
         //TODO implement gcm key retrieval
-
         thisObj.add(Database.JSON_KEY_RIDE_EVENT, new JsonPrimitive(eventId));
         thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NAME, new JsonPrimitive(driver.getName()));
         thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NUMBER, new JsonPrimitive(driver.getPhoneNumber()));
-        thisObj.add(Database.JSON_KEY_RIDE_GCM, new JsonPrimitive("dummy_key"));
-        //thisObj.add(Database.JSON_KEY_RIDE_LOCATION, new JsonPrimitive(location));
-        //thisObj.add(Database.JSON_KEY_RIDE_TIME, );
-        //thisObj.add(Database.JSON_KEY_RIDE_RADIUS, );
+        thisObj.add(Database.JSON_KEY_RIDE_GCM, new JsonPrimitive(gcmKey));
+        thisObj.add(Database.JSON_KEY_RIDE_LOCATION, location.toJSON());
+        thisObj.add(Database.JSON_KEY_RIDE_TIME, new JsonPrimitive(time));
+        thisObj.add(Database.JSON_KEY_RIDE_RADIUS, new JsonPrimitive(radius));
         thisObj.add(Database.JSON_KEY_RIDE_SEATS, new JsonPrimitive(Integer.toString(numSeats)));
         thisObj.add(Database.JSON_KEY_RIDE_DIRECTION, new JsonPrimitive(direction.toString()));
-        //thisObj.add(Database.JSON_KEY_RIDE_GENDER, );
+        thisObj.add(Database.JSON_KEY_RIDE_GENDER, new JsonPrimitive(gender));
+
         return thisObj;
     }
 }

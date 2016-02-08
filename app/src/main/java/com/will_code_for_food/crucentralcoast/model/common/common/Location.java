@@ -5,6 +5,7 @@ import android.provider.ContactsContract;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.util.HashMap;
@@ -82,5 +83,15 @@ public class Location {
         }
 
         return false;
+    }
+
+    public JsonObject toJSON() {
+        JsonObject thisObj = new JsonObject();
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_POSTCODE, new JsonPrimitive(postcode));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STATE, new JsonPrimitive(state));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_SUBURB, new JsonPrimitive(suburb));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STREET, new JsonPrimitive(street));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_COUNTRY, new JsonPrimitive(country));
+        return thisObj;
     }
 }

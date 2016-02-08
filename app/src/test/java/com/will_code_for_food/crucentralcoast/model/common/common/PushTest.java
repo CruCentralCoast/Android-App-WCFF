@@ -48,4 +48,20 @@ public class PushTest extends TestCase {
         result = RestUtil.create(myRide, Database.REST_RIDE).toString();
         System.out.println("The database gave the object the following id: " + result);
     }*/
+
+    /*
+    public void testUpdate() {
+        String result;
+        JsonObject myRide = new JsonObject();
+        myRide.add("_id", new JsonPrimitive("56b90aa901233bea519f4534"));
+        myRide.add("event", new JsonPrimitive("5660ae43adfa94d6d887ca51"));
+        myRide.add("driverName", new JsonPrimitive("joe biden"));
+        myRide.add("driverNumber", new JsonPrimitive("1111111"));
+        myRide.add("gcm_id", new JsonPrimitive("dummy_key"));
+
+        System.out.println("Sending this object:\n" + myRide.toString());
+
+        result = RestUtil.update(myRide, Database.REST_RIDE).toString();
+        System.out.println("The database gave the object the following id: " + result);
+    }*/
 }

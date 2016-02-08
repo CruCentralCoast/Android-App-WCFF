@@ -125,11 +125,7 @@ public class RestUtil {
         }
     }
 
-    /**
-     * Sends a JSON object to the database, returns the resulting JSON object pulled from the database.
-     * This new JSON object will have an auto-generated _id field.
-     */
-    public static JsonObject create(JsonObject toSend, String collectionName) {
+    private static JsonObject createUpdateHelper(JsonObject toSend, String collectionName, String command) {
 
         HttpURLConnection connection = null;
 
@@ -137,13 +133,13 @@ public class RestUtil {
         JsonObject dbObj = null;
 
         try {
-            connection = createPostConnection(collectionName + Database.REST_QUERY_CREATE, toSend.toString(), Database.CONTENT_TYPE_JSON);
+            connection = createPostConnection(collectionName + command, toSend.toString(), Database.CONTENT_TYPE_JSON);
 
             StringBuilder sb = new StringBuilder();
             int HttpResult = connection.getResponseCode();
 
-            if(HttpResult == HttpURLConnection.HTTP_OK){
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(),"utf-8"));
+            if (HttpResult == HttpURLConnection.HTTP_OK) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
                 String line = null;
                 while ((line = br.readLine()) != null) {
                     sb.append(line + "\n");
@@ -156,7 +152,7 @@ public class RestUtil {
 
                 dbObj = parser.parse(sb.toString()).getAsJsonObject().get("post").getAsJsonObject();
 
-            }else{
+            } else {
                 //Log.d("RestUtil.java", connection.getResponseMessage());
                 System.out.println(connection.getResponseMessage());
             }
@@ -173,9 +169,19 @@ public class RestUtil {
         return dbObj;
     }
 
-    //updates the field of an existing object
-    public static void update(String collection, String objId, String field, JsonObject newValue) {
-        //TODO get this working
+    /**
+     * Sends a JSON object to the database, returns the resulting JSON object pulled from the database.
+     * This new JSON object will have an auto-generated _id field.
+     */
+    public static JsonObject create(JsonObject toSend, String collectionName) {
+        return createUpdateHelper(toSend, collectionName, Database.REST_QUERY_CREATE);
+    }
+
+    /**
+     *  Updates an existing object
+     */
+    public static JsonObject update(JsonObject updatedObject, String collectionName) {
+        return createUpdateHelper(updatedObject, collectionName, Database.REST_QUERY_UPDATE);
     }
 
     private static boolean addDropHelper(String command, String rideId, String passengerId) {

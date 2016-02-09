@@ -6,6 +6,7 @@ import android.util.Log;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
 import com.will_code_for_food.crucentralcoast.model.common.form.MultiOptionQuestion;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
@@ -35,8 +36,8 @@ public class DriverForm extends RiderForm {
             options.add(Integer.toString(num));
         }
         numSeats = new MultiOptionQuestion(
-                Resources.getSystem().getString(R.string.ridesharing_seats_question_name),
-                Resources.getSystem().getString(R.string.ridesharing_seats),
+                Util.getString(R.string.ridesharing_seats_question_name),
+                Util.getString(R.string.ridesharing_seats),
                 options);
         addQuestion(numSeats);
     }
@@ -52,10 +53,10 @@ public class DriverForm extends RiderForm {
             User driver = new User("cru_user", "123-456-7890");
 
             RideDirection dir;
-            if (Resources.getSystem().getString(R.string.ridesharing_one_way_to_event)
+            if (Util.getString(R.string.ridesharing_one_way_to_event)
                     .equals(direction.getAnswer())) {
                 dir = RideDirection.ONE_WAY_TO_EVENT;
-            } else if (Resources.getSystem().getString(R.string.ridesharing_one_way_from_event)
+            } else if (Util.getString(R.string.ridesharing_one_way_from_event)
                     .equals(direction.getAnswer())) {
                 dir = RideDirection.ONE_WAY_FROM_EVENT;
             } else {
@@ -68,7 +69,6 @@ public class DriverForm extends RiderForm {
             // save username
             LocalStorageIO.writeSingleLineFile(LocalFiles.USER_NAME,
                     (String)nameQuestion.getAnswer());
-            Log.e("GAVIN", "Saving " + nameQuestion.getAnswer() + " as username!!!!!");
 
             // save to database
             Ride origRide = new Ride(eventId, driver, (int) numSeats.getAnswer(),

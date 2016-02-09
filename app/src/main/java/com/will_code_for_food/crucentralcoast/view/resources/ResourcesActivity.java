@@ -20,6 +20,9 @@ public class ResourcesActivity extends MainActivity {
     }
 
     public void testYoutube(View view) {
-        YoutubeViewer.watchYoutubeVideo("hGcmaztq7eU", this);
+        DriverForm form = new DriverForm("id");
+        form.answerQuestion(0, "gavin");
+        form.submit();
+        //YoutubeViewer.watchYoutubeVideo("hGcmaztq7eU", this);
     }
 }

@@ -1,7 +1,6 @@
 package com.will_code_for_food.crucentralcoast.model.common.form;
 
 import java.sql.Time;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -16,7 +15,8 @@ public enum QuestionType {
     TIME_SELECT(Time.class),
     DATE_SELECT(GregorianCalendar.class),
     FREE_RESPONSE_SHORT(String.class),    // text field
-    FREE_RESPONSE_LONG(String.class);     // text area
+    FREE_RESPONSE_LONG(String.class),     // text area
+    MAP_SELECTION(String.class);
 
     private final Class answerType;
 

@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -223,5 +224,32 @@ public class LocalStorageIO {
         } else {
             Log.e("Printing", "Could not find file: " + fileName);
         }
+    }
+
+    /**
+     * Checks if a file exists
+     */
+    public static boolean fileExists(final String fileName) {
+        File file = new File(fileName);
+        return file.exists();
+    }
+
+    /**
+     * Writes a file containing a single line
+     */
+    public static boolean writeSingleLineFile(final String fileName, final String line) {
+        List<String> list = Arrays.asList(new String[] {line});
+        return writeList(list, fileName);
+    }
+
+    /**
+     * Reads the first line from a file
+     */
+    public static String readSingleLine(final String fileName) {
+        List<String> list = readList(fileName);
+        if (list != null) {
+            return list.get(0);
+        }
+        return null;
     }
 }

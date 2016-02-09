@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.view.getinvolved.GetInvolvedActivity;
 import com.will_code_for_food.crucentralcoast.R;
@@ -66,11 +67,8 @@ public class MainActivity extends AppCompatActivity {
         loadFragmentById(R.layout.fragment_main, "CruCentralCoast", null, this);
 
         ActionBar bar = getSupportActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(
-                ContextCompat.getColor(context, R.color.colorAccent_cruBrightBlue)));
-        TypeFaceUtil.overrideFont(getApplicationContext(),
-                getResources().getString(R.string.default_serif),
-                getResources().getString(R.string.new_default));
+        bar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context, R.color.colorAccent_cruBrightBlue)));
+        TypeFaceUtil.overrideFont(getApplicationContext(), getResources().getString(R.string.default_serif), getResources().getString(R.string.new_default));
     }
 
     @Override

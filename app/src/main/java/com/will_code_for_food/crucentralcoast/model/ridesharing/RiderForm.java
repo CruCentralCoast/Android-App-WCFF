@@ -1,40 +1,44 @@
 package com.will_code_for_food.crucentralcoast.model.ridesharing;
 
 import android.content.res.Resources;
+import android.util.Log;
 
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.common.form.MultiOptionQuestion;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
 import com.will_code_for_food.crucentralcoast.model.common.form.QuestionType;
+import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * The form that user's fill out when looking for a ride to an event.
  */
 public class RiderForm extends Form {
-    protected final Event event;
+    protected final String eventId;
+    protected final Question nameQuestion;
     protected final Question leaveDayToEvent;
     protected final Question leaveTimeToEvent;
     protected final MultiOptionQuestion direction;
     protected final Question leaveDayFromEvent;
     protected final Question leaveTimeFromEvent;
-    // TODO probably make locations a map-selection question (doesn't exist yet)
     protected final Question locations;
 
     /**
      * Creates a form for riders to fill out to find a ride.
      * Must provide a list of possible locations to leave from
      * for the dropdown.
-     *      TODO maybe replace this dropdown with a location selector (Google maps)
      */
-    public RiderForm(final Event event, final List<Object> possibleLeaveLocations) {
+    public RiderForm(final String eventId) {
         super();
-        this.event = event;
+        this.eventId = eventId;
+        nameQuestion = new Question(
+                Resources.getSystem().getString(R.string.ridesharing_username),
+                Resources.getSystem().getString(R.string.ridesharing_username_question_name),
+                QuestionType.FREE_RESPONSE_SHORT);
         leaveDayToEvent = new Question(
                 Resources.getSystem().getString(R.string.ridesharing_choose_day_question_name),
                 Resources.getSystem().getString(R.string.ridesharing_choose_day),
@@ -61,11 +65,21 @@ public class RiderForm extends Form {
         direction.addSubquestion(leaveDayFromEvent);
         direction.addSubquestion(leaveDayFromEvent);
 
-        locations = new MultiOptionQuestion(
+        locations = new Question(
                 Resources.getSystem().getString(R.string.ridesharing_location_question_name),
                 Resources.getSystem().getString(R.string.ridesharing_location),
-                possibleLeaveLocations);
+                QuestionType.MAP_SELECTION);
 
+        // auto-fill name if possible
+        String userName = LocalStorageIO.readSingleLine(LocalFiles.USER_NAME);
+        if (userName != null) {
+            nameQuestion.answerQuestion(userName);
+            Log.e("GAVIN", "Autofilling username: " + userName);
+        } else {
+            Log.e("GAVIN", "Could not find username");
+        }
+
+        addQuestion(nameQuestion);
         addQuestion(leaveDayFromEvent);
         addQuestion(leaveTimeFromEvent);
         addQuestion(direction);
@@ -90,4 +104,5 @@ public class RiderForm extends Form {
         // TODO actually check user input for validity
         return FormValidationResult.VALID;
     }
+
 }

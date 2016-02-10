@@ -74,16 +74,16 @@ public class Ride extends DatabaseObject {
     }
 
     public void refreshFields() {
-        eventId = getFieldAsString("event");
-        driverName = getFieldAsString("driverName");
-        driverNumber = getFieldAsString("driverNumber");
-        gcmId = getFieldAsString("gcm_id");
-        location = (getField("location") != null) ? new Location(getField("location")) : null;
-        time = getFieldAsString("time");
-        radius = getFieldAsDouble("raduis");
-        numSeats = getFieldAsInt("seats");
-        direction = RideDirection.fromString(getFieldAsString("direction"));
-        gender = getFieldAsString("gender");
+        eventId = getFieldAsString(Database.JSON_KEY_RIDE_EVENT);
+        driverName = getFieldAsString(Database.JSON_KEY_RIDE_DRIVER_NAME);
+        driverNumber = getFieldAsString(Database.JSON_KEY_RIDE_DRIVER_NUMBER);
+        gcmId = getFieldAsString(Database.JSON_KEY_RIDE_GCM);
+        location = (getField(Database.JSON_KEY_RIDE_LOCATION) != null) ? new Location(getField(Database.JSON_KEY_RIDE_LOCATION)) : null;
+        time = getFieldAsString(Database.JSON_KEY_RIDE_TIME);
+        radius = getFieldAsDouble(Database.JSON_KEY_RIDE_RADIUS);
+        numSeats = getFieldAsInt(Database.JSON_KEY_RIDE_SEATS);
+        direction = RideDirection.fromString(getFieldAsString(Database.JSON_KEY_RIDE_DIRECTION));
+        gender = getFieldAsString(Database.JSON_KEY_RIDE_GENDER);
     }
 
     public boolean isFull() {

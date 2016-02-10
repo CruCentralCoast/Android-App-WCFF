@@ -31,6 +31,7 @@ public class Ride extends DatabaseObject {
      * constructor to satisfy the need to call
      * super()
      */
+
     private String eventId;
     private String driverName;
     private String driverNumber;
@@ -196,6 +197,70 @@ public class Ride extends DatabaseObject {
     public void addToDb() {
         this.update(RestUtil.create(this.toJSON(), Database.REST_RIDE)); //updates the JSON object held by the parent class
         this.refreshFields(); //updates the fields for this class based on the parent class
+    }
+
+    public RideDirection getDirection() {
+        return direction;
+    }
+
+    public void setDirection(RideDirection direction) {
+        this.direction = direction;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
+    }
+
+    public void setDriverNumber(String driverNumber) {
+        this.driverNumber = driverNumber;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    public String getGcmId() {
+        return gcmId;
+    }
+
+    public void setGcmId(String gcmId) {
+        this.gcmId = gcmId;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setNumSeats(Integer numSeats) {
+        this.numSeats = numSeats;
+    }
+
+    public Double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(Double radius) {
+        this.radius = radius;
+    }
+
+    public void setRiders(List<Passenger> riders) {
+        this.riders = riders;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public JsonObject toJSON() {

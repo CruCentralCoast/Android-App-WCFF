@@ -5,6 +5,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
+import java.util.Map.Entry;
+import java.util.Set;
+
 /**
  * Created by Gavin on 11/12/2015.
  * Updated by Mason on 11/22/2015
@@ -49,6 +52,10 @@ public abstract class DatabaseObject {
      */
     public JsonElement getField(String fieldName) {
         return fields.get(fieldName);
+    }
+
+    public Set<Entry<String, JsonElement>> getJsonEntrySet() {
+        return fields.entrySet();
     }
 
     public String getId() {

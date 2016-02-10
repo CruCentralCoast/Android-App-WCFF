@@ -78,7 +78,7 @@ public class Ride extends DatabaseObject {
         driverName = getFieldAsString("driverName");
         driverNumber = getFieldAsString("driverNumber");
         gcmId = getFieldAsString("gcm_id");
-        location = new Location(getField("location"));
+        location = (getField("location") != null) ? new Location(getField("location")) : null;
         time = getFieldAsString("time");
         radius = getFieldAsDouble("raduis");
         numSeats = getFieldAsInt("seats");

@@ -19,17 +19,38 @@ import java.util.List;
  */
 public class SingleRetriever<T extends DatabaseObject> implements Retriever {
     private RetrieverSchema schema;
+    private boolean testMode = false;
 
     public RetrieverSchema getSchema() {
         return schema;
     }
 
-    public SingleRetriever(RetrieverSchema rSchema)
-    {
+    public SingleRetriever(RetrieverSchema rSchema) {
         schema = rSchema;
     }
 
-    public List<T> getAll() {
+    public SingleRetriever(RetrieverSchema rSchema, boolean testMode) {
+        schema = rSchema;
+        this.testMode = testMode;
+    }
+
+    public Content<T> getAll() {
+
+        Content<T> content;
+
+        if (testMode) {
+            return getTestContent();
+        } else if ((content = getLiveContent()) != null) {
+            return content;
+        } else {
+            return getCachedContent();
+        }
+    }
+
+    /**
+     * Tries to get content from the database, returns null if the database was unreachable.
+     */
+    private Content<T> getLiveContent() {
         JsonArray json;
         List<T> objects = new ArrayList<T>();
 
@@ -49,9 +70,19 @@ public class SingleRetriever<T extends DatabaseObject> implements Retriever {
                 T dbObject = getObjectFromJson(jsonElement, constructor);
                 objects.add(dbObject);
             }
-        }
 
-        return objects;
+            return new Content<T>(objects, ContentType.LIVE);
+        } else {
+            return null;
+        }
+    }
+
+    private Content<T> getCachedContent() {
+        return new Content<T>(null, ContentType.CACHED);
+    }
+
+    private Content getTestContent() {
+        return new Content<T>(null, ContentType.TEST);
     }
 
     private T getObjectFromJson(JsonElement jsonElement, Constructor constructor)

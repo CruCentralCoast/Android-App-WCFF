@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 
 import java.util.List;
@@ -21,9 +22,9 @@ public class EventCardAdapter extends ArrayAdapter<Event> {
 
     List<Event> cards;
 
-    public EventCardAdapter(Context context, int resource, List<Event> objects) {
-        super(context, resource, objects);
-        cards = objects;
+    public EventCardAdapter(Context context, int resource, Content<Event> content) {
+        super(context, resource, content.getObjects());
+        cards = content.getObjects();
     }
 
     @Override

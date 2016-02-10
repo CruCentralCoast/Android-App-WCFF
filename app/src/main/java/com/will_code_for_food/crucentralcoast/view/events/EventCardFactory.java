@@ -5,6 +5,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.google.gson.JsonElement;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
@@ -51,19 +52,19 @@ public class EventCardFactory implements CardFragmentFactory<Event> {
     }
 
     @Override
-    public ArrayAdapter createAdapter(List<Event> cardFragments) {
+    public ArrayAdapter createAdapter(Content<Event> cardFragments) {
         return new EventCardAdapter(MainActivity.context,
                 android.R.layout.simple_list_item_1, cardFragments);
     }
 
     @Override
     public AdapterView.OnItemClickListener createCardListener(
-            final MainActivity currentActivity, final List<? extends DatabaseObject> myDBObjects)
+            final MainActivity currentActivity, final Content<? extends DatabaseObject> myDBObjects)
     {
         return new AdapterView.OnItemClickListener () {
             @Override
             public void onItemClick (AdapterView < ? > parent, View view,int position, long id){
-                Event selectedEvent = (Event) myDBObjects.get(position);
+                Event selectedEvent = (Event) myDBObjects.getObjects().get(position);
                 currentActivity.loadFragmentById(R.layout.fragment_event,
                         currentActivity.getTitle() + " > " + selectedEvent.getName(), new EventInfoFragment(), currentActivity);
                 EventsActivity.setEvent(selectedEvent);

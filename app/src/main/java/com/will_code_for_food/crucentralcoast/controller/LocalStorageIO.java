@@ -3,7 +3,9 @@ package com.will_code_for_food.crucentralcoast.controller;
 import android.content.Context;
 import android.util.Log;
 
-import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Cache;
+import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 import java.io.BufferedReader;
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -252,5 +255,63 @@ public class LocalStorageIO {
             return list.get(0);
         }
         return null;
+    }
+
+    /**
+     * Caches a list of database objects to a file, specified by the cache
+     */
+    public static boolean cacheDatabaseObjects(final Cache cache,
+                                               final List<DatabaseObject> list) {
+        List<String> stringList = new ArrayList<>();
+        for (DatabaseObject obj : list) {
+            for (Map.Entry entry : obj.getJsonEntrySet()) {
+                stringList.add(entry.getKey() + HASHMAP_DELIMITER + entry.getValue());
+            }
+            stringList.add("");
+        }
+        return writeList(stringList, cache.fname);
+    }
+
+    /**
+     * Gets cached data from a cache, or null if there was an error
+     */
+    public static List<DatabaseObject> getCachedData(final Cache cache) {
+        List<String> stringList = readList(cache.fname);
+        List<DatabaseObject> objects = new ArrayList<>();
+        if (stringList != null) {
+            // get constructor for the type of cached object
+            Constructor<?> constructor = null;
+            try {
+                constructor = cache.objectType.getConstructor(JsonObject.class);
+            } catch (NoSuchMethodException ex) {
+                Log.e("Cache Error", "Could not get JSON constructor for " + cache.objectType);
+            } finally {
+                if (constructor == null) {
+                    Log.e("Cache Error", "Error getting constructor for " + cache.objectType);
+                    return null;
+                }
+            }
+            JsonObject json = new JsonObject();
+            // create objects
+            for (String string : stringList) {
+                if (string.length() > 0) {
+                    // add fields to current object
+                    String[] line = string.split(HASHMAP_DELIMITER);
+                    json.addProperty(line[0], line[1]);
+                } else {
+                    // object finished
+                    try {
+                        objects.add((DatabaseObject) constructor.newInstance(json));
+                    } catch (Exception ex) {
+                        Log.e("Cache Error", "Could not create " + cache.objectType + " object");
+                    }
+                    json = new JsonObject();
+                }
+            }
+            return objects;
+        } else {
+            Log.e("Cache Error", "Could not read from cache " + cache);
+            return null;
+        }
     }
 }

@@ -1,11 +1,13 @@
 package com.will_code_for_food.crucentralcoast.model.ridesharing;
 
 import android.content.res.Resources;
+import android.util.Log;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
-import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
 import com.will_code_for_food.crucentralcoast.model.common.form.MultiOptionQuestion;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
 import com.will_code_for_food.crucentralcoast.values.Database;
@@ -13,7 +15,6 @@ import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * The form that user's fill out when looking for a ride to an event.
@@ -28,19 +29,17 @@ public class DriverForm extends RiderForm {
      * for the dropdown.
      *      TODO maybe replace this dropdown with a location selector (Google maps)
      */
-    public DriverForm(final Event event, final List<Object> possibleLeaveLocations) {
-        super(event, possibleLeaveLocations);
+    public DriverForm(final String eventId) {
+        super(eventId);
         ArrayList<Object> options = new ArrayList<Object>();
         for (int num = 1; num <= maxNumSeats; num++) {
             options.add(Integer.toString(num));
         }
-        numSeats = new MultiOptionQuestion("number of seats", Resources.getSystem().getString(
-                R.string.ridesharing_seats), options);
+        numSeats = new MultiOptionQuestion(
+                Util.getString(R.string.ridesharing_seats_question_name),
+                Util.getString(R.string.ridesharing_seats),
+                options);
         addQuestion(numSeats);
-    }
-
-    public void DUMMY_FORM() {
-
     }
 
     /**
@@ -48,17 +47,17 @@ public class DriverForm extends RiderForm {
      * Returns the new ride, or null if the form was
      * filled out incompletely or with errors.
      */
-    public Ride createRide() {
+    public Ride submit() {
         if (isComplete() && isValid()) {
             // TODO create user using user's actual info (from phone)
             String driverName = "cru_driver";
             String driverNumber = "1234567890";
 
             RideDirection dir;
-            if (Resources.getSystem().getString(R.string.ridesharing_one_way_to_event)
+            if (Util.getString(R.string.ridesharing_one_way_to_event)
                     .equals(direction.getAnswer())) {
                 dir = RideDirection.ONE_WAY_TO_EVENT;
-            } else if (Resources.getSystem().getString(R.string.ridesharing_one_way_from_event)
+            } else if (Util.getString(R.string.ridesharing_one_way_from_event)
                     .equals(direction.getAnswer())) {
                 dir = RideDirection.ONE_WAY_FROM_EVENT;
             } else {
@@ -66,8 +65,11 @@ public class DriverForm extends RiderForm {
             }
 
             dir.setLeaveTimeFromEvent(((GregorianCalendar) leaveTimeFromEvent.getAnswer()).getTimeInMillis());
-            dir.setLeaveTimeToEvent(
-                    ((GregorianCalendar)leaveTimeToEvent.getAnswer()).getTimeInMillis());
+            dir.setLeaveTimeToEvent(((GregorianCalendar)
+                    leaveTimeToEvent.getAnswer()).getTimeInMillis());
+            // save username
+            LocalStorageIO.writeSingleLineFile(LocalFiles.USER_NAME,
+                    (String)nameQuestion.getAnswer());
 
             //TODO Fix the Ride() creation below
             // save to database

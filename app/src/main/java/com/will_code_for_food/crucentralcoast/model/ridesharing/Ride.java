@@ -57,11 +57,11 @@ public class Ride extends DatabaseObject {
      * be converted into a JSON object like the ones stored in
      * the database, and created using the inherited constructor.
      */
-    public Ride(final Event event, final User driver, final int numSeats, final String location,
+    public Ride(final String eventId, final User driver, final int numSeats, final String location,
                 final RideDirection direction) {
         super(new JsonObject()); // satisfies need to call super
 
-        this.eventId = event.getId();
+        this.eventId = eventId;
         this.driver = driver;
         this.numSeats = numSeats;
         this.location = location;

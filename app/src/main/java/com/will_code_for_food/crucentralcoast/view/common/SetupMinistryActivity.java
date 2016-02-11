@@ -271,7 +271,7 @@ public class SetupMinistryActivity extends Activity {
         protected Void doInBackground(Void... params) {
 
             Retriever retriever = new SingleRetriever<>(RetrieverSchema.MINISTRY);
-            ministries = (List<Ministry>) retriever.getAll();
+            ministries = (List<Ministry>) retriever.getAll().getObjects();
 
             //Filter the ministry list based on the selected campuses from the previous screen.
             for (Ministry ministry : ministries) {

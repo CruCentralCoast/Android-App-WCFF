@@ -233,7 +233,7 @@ public class SetupCampusActivity extends Activity {
         protected Void doInBackground(Void... params) {
 
             Retriever retriever = new SingleRetriever<>(RetrieverSchema.CAMPUS);
-            campuses = (ArrayList<Campus>) (List<?>) retriever.getAll();
+            campuses = (ArrayList<Campus>) (List<?>) retriever.getAll().getObjects();
 
             return null;
         }

@@ -36,8 +36,9 @@ public class RideCardFactory implements CardFragmentFactory {
 
         // Filter for the event that was chosen
         //TODO: filter based on time leaving, 1/2-way, etc.
+        // TODO use the RideSorter class!
         if (event == null ||
-                (ride.getNumAvailableSeats() > 0 && event.getId().equals(ride.getEventId()))) {
+                ((!ride.isFullFromEvent() || !ride.isFullToEvent()) && event.getId().equals(ride.getEventId()))) {
             return true;
         }
 
@@ -82,7 +83,8 @@ public class RideCardFactory implements CardFragmentFactory {
             leaveLocation.setText(text);
 
             TextView seatsLeft = (TextView) hold.findViewById(R.id.card_ride_seats_left);
-            int seats = current.getNumAvailableSeats();
+            // TODO this is not the way we should be calculating number of seats left
+            int seats = current.getNumAvailableSeatsFromEvent() + current.getNumAvailableSeatsToEvent();
             if (seats == 1) {
                 text = String.format(Util.getString(R.string.ridesharing_seat_left), seats);
             } else {

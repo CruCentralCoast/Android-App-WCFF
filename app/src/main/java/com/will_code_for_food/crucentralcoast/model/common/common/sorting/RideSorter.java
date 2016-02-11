@@ -29,7 +29,8 @@ public class RideSorter {
             for (Ride ride : list) {
                 if (givenRide.isToEvent() && ride.isToEvent()) {
                     filteredList.add(ride);
-                }else if (ride.isFromEvent()) {
+                }
+                if (givenRide.isFromEvent() && ride.isFromEvent()) {
                     filteredList.add(ride);
                 }
             }

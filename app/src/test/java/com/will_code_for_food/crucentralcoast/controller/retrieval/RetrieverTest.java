@@ -29,7 +29,7 @@ public class RetrieverTest extends ActivityInstrumentationTestCase2{
     @Test
     public void testRetriever() throws Exception {
         SingleRetriever retriever = new SingleRetriever(RetrieverSchema.CAMPUS);
-        List<DatabaseObject> objects = retriever.getAll();
+        List<DatabaseObject> objects = retriever.getAll().getObjects();
         assertNotNull(objects);
         assertFalse(objects.isEmpty());
     }

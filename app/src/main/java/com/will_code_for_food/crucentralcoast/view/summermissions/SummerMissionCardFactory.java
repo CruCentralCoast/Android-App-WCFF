@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
@@ -31,18 +32,18 @@ public class SummerMissionCardFactory implements CardFragmentFactory {
     }
 
     @Override
-    public ArrayAdapter createAdapter(List cardObjects) {
+    public ArrayAdapter createAdapter(Content cardObjects) {
         return new SummerMissionAdapter(SummerMissionsActivity.context,
                 android.R.layout.simple_list_item_1, cardObjects);
     }
 
     @Override
     public AdapterView.OnItemClickListener createCardListener(
-            final MainActivity currentActivity, final List myDBObjects) {
+            final MainActivity currentActivity, final Content myDBObjects) {
         return new AdapterView.OnItemClickListener () {
             @Override
             public void onItemClick (AdapterView < ? > parent, View view,int position, long id){
-                SummerMission selectedMission = (SummerMission) myDBObjects.get(position);
+                SummerMission selectedMission = (SummerMission) myDBObjects.getObjects().get(position);
                 currentActivity.loadFragmentById(R.layout.fragment_summermission,
                         currentActivity.getTitle() + " > " + selectedMission.getName(), null, currentActivity);
                 new SummerMissionViewTask().execute(selectedMission);
@@ -53,9 +54,9 @@ public class SummerMissionCardFactory implements CardFragmentFactory {
 
     private class SummerMissionAdapter extends ArrayAdapter<SummerMission>{
 
-        public SummerMissionAdapter(Context context, int resource, List objects) {
-            super(context, resource, objects);
-            cards = objects;
+        public SummerMissionAdapter(Context context, int resource, Content content) {
+            super(context, resource, content.getObjects());
+            cards = content.getObjects();
         }
 
         @Override

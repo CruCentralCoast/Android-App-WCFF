@@ -5,6 +5,7 @@ import android.provider.ContactsContract;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.util.HashMap;
@@ -37,12 +38,27 @@ public class Location {
         if (locElement.isJsonObject()) {
             fields = locElement.getAsJsonObject();
 
-            postcode = fields.get(Database.JSON_KEY_COMMON_LOCATION_POSTCODE).getAsString();
-            state = fields.get(Database.JSON_KEY_COMMON_LOCATION_STATE).getAsString();
-            suburb = fields.get(Database.JSON_KEY_COMMON_LOCATION_SUBURB).getAsString();
-            street = fields.get(Database.JSON_KEY_COMMON_LOCATION_STREET).getAsString();
-            country = fields.get(Database.JSON_KEY_COMMON_LOCATION_COUNTRY).getAsString();
+            postcode = getFieldAsString(Database.JSON_KEY_COMMON_LOCATION_POSTCODE);
+            state = getFieldAsString(Database.JSON_KEY_COMMON_LOCATION_STATE);
+            suburb = getFieldAsString(Database.JSON_KEY_COMMON_LOCATION_SUBURB);
+            street = getFieldAsString(Database.JSON_KEY_COMMON_LOCATION_STREET);
+            country = getFieldAsString(Database.JSON_KEY_COMMON_LOCATION_COUNTRY);
 
+        }
+    }
+
+    /**
+     * Gets a field from this object as a String. If the field can't be represented as a String
+     * or if it does not exist, returns null.
+     */
+    public String getFieldAsString(String fieldName) {
+
+        JsonElement fieldValue = fields.get(fieldName);
+
+        if (fieldValue != null && fieldValue.isJsonPrimitive()) {
+            return fieldValue.getAsString();
+        } else {
+            return null;
         }
     }
 
@@ -82,5 +98,15 @@ public class Location {
         }
 
         return false;
+    }
+
+    public JsonObject toJSON() {
+        JsonObject thisObj = new JsonObject();
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_POSTCODE, new JsonPrimitive(postcode));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STATE, new JsonPrimitive(state));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_SUBURB, new JsonPrimitive(suburb));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STREET, new JsonPrimitive(street));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_COUNTRY, new JsonPrimitive(country));
+        return thisObj;
     }
 }

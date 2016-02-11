@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
+import com.will_code_for_food.crucentralcoast.model.common.common.Location;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.model.common.common.users.User;
 import com.will_code_for_food.crucentralcoast.model.common.form.MultiOptionQuestion;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
 import com.will_code_for_food.crucentralcoast.values.Database;
@@ -50,7 +50,8 @@ public class DriverForm extends RiderForm {
     public Ride submit() {
         if (isComplete() && isValid()) {
             // TODO create user using user's actual info (from phone)
-            User driver = new User("cru_user", "123-456-7890");
+            String driverName = "cru_driver";
+            String driverNumber = "1234567890";
 
             RideDirection dir;
             if (Util.getString(R.string.ridesharing_one_way_to_event)
@@ -68,12 +69,13 @@ public class DriverForm extends RiderForm {
                     leaveTimeToEvent.getAnswer()).getTimeInMillis());
             // save username
             LocalStorageIO.writeSingleLineFile(LocalFiles.USER_NAME,
-                    (String)nameQuestion.getAnswer());
+                    (String) nameQuestion.getAnswer());
 
+            //TODO Fill in with real data
             // save to database
-            Ride origRide = new Ride(eventId, driver, (int) numSeats.getAnswer(),
-                    (String) locations.getAnswer(), dir);
+            Ride origRide = new Ride(eventId, driverName, driverNumber, "dummy_gcm_id", new Location("12345", "CA", "", "123 Main Street", "USA"), "2016-01-01T00:00:00Z", 1.0, (int) numSeats.getAnswer(), dir, "male");
             Ride ride = new Ride(RestUtil.create(origRide.toJSON(), Database.REST_RIDE));
+
             // save to user's rides
             LocalStorageIO.appendToList(ride.getId(), LocalFiles.USER_RIDES);
             return ride;

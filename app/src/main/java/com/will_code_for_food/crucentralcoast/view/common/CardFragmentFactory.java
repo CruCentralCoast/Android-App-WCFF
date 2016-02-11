@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast.view.common;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface CardFragmentFactory <T extends DatabaseObject> {
     public boolean include(DatabaseObject object);
-    public ArrayAdapter createAdapter(List<T> cardObjects);
+    public ArrayAdapter createAdapter(Content<T> cardObjects);
     public AdapterView.OnItemClickListener createCardListener(
-            final MainActivity currentActivity, final List<? extends DatabaseObject> myDBObjects);
+            final MainActivity currentActivity, final Content<? extends DatabaseObject> myDBObjects);
 }

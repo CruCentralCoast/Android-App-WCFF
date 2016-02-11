@@ -97,7 +97,7 @@ public class PrefsFragment extends PreferenceFragment
         @Override
         protected List<Ministry> doInBackground(Void... params) {
             Retriever retriever = new SingleRetriever<Ministry>(RetrieverSchema.MINISTRY);
-            return retriever.getAll();
+            return retriever.getAll().getObjects();
         }
 
         @Override
@@ -137,7 +137,7 @@ public class PrefsFragment extends PreferenceFragment
         @Override
         protected List<Campus> doInBackground(Void... params) {
             Retriever retriever = new SingleRetriever<Ministry>(RetrieverSchema.CAMPUS);
-            return retriever.getAll();
+            return retriever.getAll().getObjects();
         }
 
         @Override

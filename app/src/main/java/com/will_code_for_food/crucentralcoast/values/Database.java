@@ -49,7 +49,7 @@ public class Database {
     public static final String JSON_KEY_RIDE_DRIVER_NAME = "driverName";
     public static final String JSON_KEY_RIDE_DRIVER_NUMBER = "driverNumber";
     public static final String JSON_KEY_RIDE_PASSENGERS = "passengers";
-    public static final String JSON_KEY_RIDE_GCM = "gcmAPIKey";
+    public static final String JSON_KEY_RIDE_GCM = "gcm_id";
     public static final String JSON_KEY_RIDE_LOCATION = "location";
     public static final String JSON_KEY_RIDE_TIME = "time";
     public static final String JSON_KEY_RIDE_RADIUS ="radius";

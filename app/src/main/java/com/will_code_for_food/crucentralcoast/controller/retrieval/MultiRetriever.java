@@ -33,13 +33,31 @@ public final class MultiRetriever implements Retriever {
     }
 
     @Override
-    public List<? extends DatabaseObject> getAll() {
+    public Content<? extends DatabaseObject> getAll() {
         List<? extends DatabaseObject> objects = new ArrayList();
+        boolean containsCached = false;
+        boolean containsTest = false;
+        Content content;
+
         for (Retriever ret : retrievers) {
             if (ret != null) {
-                objects.addAll(ret.getAll());
+                content = ret.getAll();
+                objects.addAll(content.getObjects());
+
+                if (content.getType() == ContentType.CACHED) {
+                    containsCached = true;
+                } else if (content.getType() == ContentType.TEST) {
+                    containsTest = true;
+                }
             }
         }
-        return objects;
+
+        if (containsCached) {
+            return new Content(objects, ContentType.CACHED); //may contain some live content
+        } else if (containsTest){
+            return new Content(objects, ContentType.TEST); //may contain some live content
+        } else {
+            return new Content(objects, ContentType.LIVE); //only returns LIVE if there is no cached or test content
+        }
     }
 }

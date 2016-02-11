@@ -29,7 +29,7 @@ public class PushUtil {
         new AsyncTask<Void, Void, List<Ministry>>(){
             protected List<Ministry> doInBackground(Void... params) {
                 Retriever retriever = new SingleRetriever<Ministry>(RetrieverSchema.MINISTRY);
-                return retriever.getAll();
+                return retriever.getAll().getObjects();
             }
 
             @Override
@@ -49,7 +49,7 @@ public class PushUtil {
         new AsyncTask<Void, Void, List<Ministry>>(){
             protected List<Ministry> doInBackground(Void... params) {
                 Retriever retriever = new SingleRetriever<Ministry>(RetrieverSchema.MINISTRY);
-                return retriever.getAll();
+                return retriever.getAll().getObjects();
             }
 
             @Override
@@ -69,7 +69,7 @@ public class PushUtil {
         new AsyncTask<Void, Void, List<Ministry>>(){
             protected List<Ministry> doInBackground(Void... params) {
                 Retriever retriever = new SingleRetriever<Ministry>(RetrieverSchema.MINISTRY);
-                return retriever.getAll();
+                return retriever.getAll().getObjects();
             }
 
             @Override

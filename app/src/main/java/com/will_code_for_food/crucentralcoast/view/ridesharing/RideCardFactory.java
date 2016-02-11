@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
@@ -44,21 +45,21 @@ public class RideCardFactory implements CardFragmentFactory {
     }
 
     @Override
-    public ArrayAdapter createAdapter(List cardObjects) {
+    public ArrayAdapter createAdapter(Content cardObjects) {
         return new RideAdapter(RideShareActivity.context,
                 android.R.layout.simple_list_item_1, cardObjects);
     }
 
     @Override
-    public AdapterView.OnItemClickListener createCardListener(MainActivity currentActivity, List myDBObjects) {
+    public AdapterView.OnItemClickListener createCardListener(MainActivity currentActivity, Content myDBObjects) {
         return null;
     }
 
     private class RideAdapter extends ArrayAdapter<Ride> {
 
-        public RideAdapter(Context context, int resource, List objects) {
-            super(context, resource, objects);
-            cards = objects;
+        public RideAdapter(Context context, int resource, Content content) {
+            super(context, resource, content.getObjects());
+            cards = content.getObjects();
         }
 
         @Override

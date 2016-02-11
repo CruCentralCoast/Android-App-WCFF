@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
@@ -22,7 +23,7 @@ import java.util.List;
 public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Void, Void>{
     private List<T> dbObjects;         // list of all events in database
     private MainActivity currentActivity;           // reference to the activity running this task
-    private List<T> myDBObjects;       // list of relevant ministry objects only
+    private Content<T> myDBObjects;       // list of relevant ministry objects only
     private Retriever retriever;                    //Database retriever
     private CardFragmentFactory cardFactory;        //Factory to create a card fragment from a json object
     private int errorMessageId;
@@ -40,15 +41,19 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
 
     @Override
     protected Void doInBackground(Void... params) {
-        dbObjects = retriever.getAll();
-        myDBObjects = new ArrayList<T>();
+        Content dbContent = retriever.getAll();
+        ArrayList<T> filteredObjects = new ArrayList<T>();
+
+        dbObjects = dbContent.getObjects();
 
 
         for (T object : dbObjects) {
             if (cardFactory.include(object)) {
-                myDBObjects.add(object);
+                filteredObjects.add(object);
             }
         }
+
+        myDBObjects = new Content<T>(filteredObjects, dbContent.getType());
 
         return null;
     }
@@ -57,7 +62,7 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         ListView list = (ListView) currentActivity.findViewById(listId);
-        if ((myDBObjects != null) && (!myDBObjects.isEmpty())) {
+        if ((myDBObjects != null) && (myDBObjects.getObjects() != null) && (!myDBObjects.getObjects().isEmpty())) {
             list.setAdapter(cardFactory.createAdapter(myDBObjects));
             list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, myDBObjects));
         }else {

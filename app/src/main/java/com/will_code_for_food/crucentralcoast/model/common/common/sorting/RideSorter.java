@@ -41,7 +41,7 @@ public class RideSorter {
     }
 
     private static class RideComparator implements Comparator<Ride> {
-        private static final int HOUR = 3600000; // TODO verify
+        private static final int HOUR = 60 * 60 * 1000;
         private final Ride givenRide;
 
         public RideComparator(final Ride ride) {

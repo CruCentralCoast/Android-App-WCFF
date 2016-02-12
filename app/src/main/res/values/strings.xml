@@ -66,4 +66,10 @@
     <string name="form_past_date">You gave a time for \'%s\' that\'s in the past!</string>
     <string name="form_future_date">You gave a time for \'%s\' that\'s in the future!</string>
     <string name="form_generic_error">Your answer to \'%s\' is invalid</string>
+
+    <!-- Log in form -->
+    <string name="login_user">Enter your username</string>
+    <string name="login_user_question_name">username</string>
+    <string name="login_pass">Enter your password (case sensitive)</string>
+    <string name="login_pass_question_name">password</string>
 </resources>

@@ -150,7 +150,7 @@ public class LocalStorageIO {
             return null;
         }
         for (String line : list) {
-            String[] split = line.split(HASHMAP_DELIMITER);
+            String[] split = line.split("\\" + HASHMAP_DELIMITER);
             map.put(split[0], split[1]);
         }
         return map;

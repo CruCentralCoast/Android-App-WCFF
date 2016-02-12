@@ -17,24 +17,23 @@
 
         <TextView
             android:id="@+id/ministry_card_text"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/ministry_card_image"
             android:paddingLeft="10dp"
-            android:text="This is an event"
+            android:text=""
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/ministry_learn_more"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:id="@+id/ministry_learn_more"
-            android:layout_below="@+id/ministry_card_image"
             android:layout_alignEnd="@+id/ministry_card_image"
             android:layout_alignRight="@+id/ministry_card_image"
+            android:layout_below="@+id/ministry_card_image"
             android:paddingRight="10dp"
-            android:textSize="15sp"
             android:text="Learn More >"
-            />
+            android:textSize="15sp" />
 
     </RelativeLayout>
 

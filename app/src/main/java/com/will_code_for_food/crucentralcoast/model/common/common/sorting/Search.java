@@ -2,10 +2,12 @@ package com.will_code_for_food.crucentralcoast.model.common.common.sorting;
 
 import android.util.Log;
 
+import com.google.gson.JsonArray;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 /**
@@ -25,10 +27,10 @@ public class Search {
             }
         }
         for (DatabaseObject obj : list) {
-            for (Entry entry : obj.getJsonEntrySet()) {
-                Log.e("ENTRY VALUE", entry.getKey() + " : " + entry.getValue());
+            Map<String, JsonArray> map = obj.getJsonEntrySet();
+            for (String key : map.keySet()) {
                 if (!searchList.contains(obj) &&
-                        entry.getValue().toString().toLowerCase().contains(query.toLowerCase())) {
+                        map.get(key).toString().toLowerCase().contains(query.toLowerCase())) {
                     searchList.add(obj);
                 }
             }

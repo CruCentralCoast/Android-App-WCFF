@@ -56,7 +56,6 @@ public enum RideDirection {
     public String toString() { return directionString; }
 
     public static RideDirection fromString (String directionString){
-
         if (directionString != null) {
             if (directionString.equals("from")) {
                 return ONE_WAY_FROM_EVENT;

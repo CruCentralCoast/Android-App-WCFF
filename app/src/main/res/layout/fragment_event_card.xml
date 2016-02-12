@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <ImageView
+        android:id="@+id/card_image"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:paddingTop="10dp"
-        android:src="@drawable/crulogo"
-        android:id="@+id/card_image"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_below="@+id/card_image"
-        android:id="@+id/card_text"
-        android:text="This is an event"
-        android:textSize="15sp"
-        android:paddingLeft="10dp" />
+        android:src="@drawable/crulogo" />
 
-    <TextView
+    <ImageView
+        android:id="@+id/card_car_image"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_below="@+id/card_image"
+        android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/card_image"
         android:layout_alignRight="@+id/card_image"
-        android:id="@+id/card_date"
+        android:layout_alignTop="@+id/card_image"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:src="@drawable/car_no" />
+
+    <TextView
+        android:id="@+id/card_text"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/card_image"
+        android:paddingLeft="10dp"
         android:text="This is an event"
-        android:textSize="15sp"
-        android:paddingRight="10dp" />
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/card_date"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignEnd="@+id/card_image"
+        android:layout_alignRight="@+id/card_image"
+        android:layout_below="@+id/card_image"
+        android:paddingRight="10dp"
+        android:text="This is an event"
+        android:textSize="15sp" />
 </RelativeLayout>

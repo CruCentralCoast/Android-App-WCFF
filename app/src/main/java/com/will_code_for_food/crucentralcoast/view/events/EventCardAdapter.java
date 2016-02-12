@@ -36,8 +36,7 @@ public class EventCardAdapter extends ArrayAdapter<Event> {
         ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
         if (imageLabel != null && !imageLabel.equals("")) {
             Picasso.with(EventsActivity.context).load(imageLabel).fit().into(imageView);
-        }
-        else {
+        } else {
             System.out.println("Image is this: " + imageLabel);
             imageView.setImageResource(R.drawable.crulogo);
         }
@@ -45,7 +44,11 @@ public class EventCardAdapter extends ArrayAdapter<Event> {
         titleView.setText(current.getName());
         TextView dateView = (TextView) hold.findViewById(R.id.card_date);
         dateView.setText(current.getEventDate());
+        ImageView carView = (ImageView) hold.findViewById(R.id.card_car_image);
 
+        if (!current.hasRideSharing()) {
+            carView.setVisibility(View.INVISIBLE);
+        }
         return hold;
     }
 }

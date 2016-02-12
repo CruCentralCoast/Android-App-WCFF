@@ -1,14 +1,12 @@
 package com.will_code_for_food.crucentralcoast.model.ridesharing;
 
-import android.content.res.Resources;
+import android.util.Log;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
-import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
@@ -42,7 +40,9 @@ public class Ride extends DatabaseObject {
     private Integer numSeats;
     private RideDirection direction;
     private String gender;
-    private List<Passenger> riders;
+
+    private List<Passenger> ridersToEvent;
+    private List<Passenger> ridersFromEvent;
 
     /**
      * The inherited constructor, used to build a ride when
@@ -50,7 +50,8 @@ public class Ride extends DatabaseObject {
      */
     public Ride(final JsonObject obj) {
         super(obj);
-        riders = new ArrayList<Passenger>();
+        ridersToEvent = new ArrayList<>();
+        ridersFromEvent = new ArrayList<>();
         refreshFields();
     }
 
@@ -72,9 +73,15 @@ public class Ride extends DatabaseObject {
         this.numSeats = numSeats;
         this.direction = direction;
         this.gender = gender;
+
+        if (this.direction == null) {
+            Log.e("Ride Error", "Given NULL ride direction. Setting as default.");
+            this.direction = RideDirection.ONE_WAY_TO_EVENT;
+        }
     }
 
     public void refreshFields() {
+        // TODO need to update BOTH passenger lists
         eventId = getFieldAsString(Database.JSON_KEY_RIDE_EVENT);
         driverName = getFieldAsString(Database.JSON_KEY_RIDE_DRIVER_NAME);
         driverNumber = getFieldAsString(Database.JSON_KEY_RIDE_DRIVER_NUMBER);
@@ -85,10 +92,28 @@ public class Ride extends DatabaseObject {
         numSeats = getFieldAsInt(Database.JSON_KEY_RIDE_SEATS);
         direction = RideDirection.fromString(getFieldAsString(Database.JSON_KEY_RIDE_DIRECTION));
         gender = getFieldAsString(Database.JSON_KEY_RIDE_GENDER);
+
+        // TODO this keeps happening, and is a problem
+        if (direction == null) {
+            Log.e("Ride Error", "Could not get direction from the database. Setting as default.");
+            direction = RideDirection.ONE_WAY_TO_EVENT;
+        }
     }
 
-    public boolean isFull() {
-        return getNumAvailableSeats() > 0;
+    public boolean isFullToEvent() {
+        if (isToEvent()) {
+            return getNumAvailableSeatsToEvent() > 0;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean isFullFromEvent() {
+        if (isFromEvent()) {
+            return getNumAvailableSeatsFromEvent() > 0;
+        } else {
+            return true;
+        }
     }
 
     public int getNumSeats() {
@@ -102,27 +127,42 @@ public class Ride extends DatabaseObject {
         return numSeats;
     }
 
-    public int getNumAvailableSeats() {
-        JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
-        return getNumSeats() - passengers.size();
+    public int getNumAvailableSeatsToEvent() {
+        //JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
+        return getNumSeats() - ridersToEvent.size();
     }
 
-    public boolean addRider(final Passenger rider) {
-        if (!isFull()) {
-            riders.add(rider);
+    public int getNumAvailableSeatsFromEvent() {
+        //JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
+        return getNumSeats() - ridersFromEvent.size();
+    }
+
+    public boolean addRiderToEvent(final Passenger rider) {
+        if (!isFullToEvent()) {
+            ridersToEvent.add(rider);
         }
 
         //driver.notify(Resources.getSystem().getString(R.string.ridesharing_driver_notification));
         return false;
     }
 
+    public boolean addRiderFromEvent(final Passenger rider) {
+        if (!isFullFromEvent()) {
+            ridersFromEvent.add(rider);
+        }
+
+        //driver.notify(Resources.getSystem().getString(R.string.ridesharing_driver_notification));
+        return false;
+    }
+
+    public void addRiderTwoWay(final Passenger rider) {
+        addRiderFromEvent(rider);
+        addRiderToEvent(rider);
+    }
+
     public String getEventId() {
         return getFieldAsString(Database.JSON_KEY_RIDE_EVENT);
     }
-
-    //public User getDriver() {
-    //    return driver;
-    //}
 
     public String getDriverName() {
         return getFieldAsString(Database.JSON_KEY_RIDE_DRIVER_NAME);
@@ -178,8 +218,12 @@ public class Ride extends DatabaseObject {
         return location;
     }
 
-    public List<Passenger> getRiders() {
-        return riders;
+    public List<Passenger> getRidersToEvent() {
+        return ridersToEvent;
+    }
+
+    public List<Passenger> getRidersFromEvent() {
+        return ridersFromEvent;
     }
 
     public boolean isTwoWay() {
@@ -251,8 +295,12 @@ public class Ride extends DatabaseObject {
         this.radius = radius;
     }
 
-    public void setRiders(List<Passenger> riders) {
-        this.riders = riders;
+    public void setRidersToEvent(List<Passenger> riders) {
+        this.ridersToEvent = riders;
+    }
+
+    public void setRidersFromEvent(List<Passenger> riders) {
+        this.ridersFromEvent = riders;
     }
 
     public String getTime() {

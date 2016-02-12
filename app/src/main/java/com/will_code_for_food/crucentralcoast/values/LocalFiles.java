@@ -6,4 +6,5 @@ package com.will_code_for_food.crucentralcoast.values;
 public class LocalFiles {
     public static final String USER_RIDES = "my-saved-rides";
     public static final String USER_NAME = "entered-username";
+    public static final String CREDENTIALS = "log-in-credentials";
 }

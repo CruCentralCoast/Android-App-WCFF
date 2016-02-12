@@ -3,7 +3,9 @@ package com.will_code_for_food.crucentralcoast.controller;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Cache;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
@@ -242,7 +244,7 @@ public class LocalStorageIO {
      * Writes a file containing a single line
      */
     public static boolean writeSingleLineFile(final String fileName, final String line) {
-        List<String> list = Arrays.asList(new String[] {line});
+        List<String> list = Arrays.asList(new String[]{line});
         return writeList(list, fileName);
     }
 
@@ -264,8 +266,9 @@ public class LocalStorageIO {
                                                final List<DatabaseObject> list) {
         List<String> stringList = new ArrayList<>();
         for (DatabaseObject obj : list) {
-            for (Map.Entry entry : obj.getJsonEntrySet()) {
-                stringList.add(entry.getKey() + HASHMAP_DELIMITER + entry.getValue());
+            HashMap<String, JsonArray> map = obj.getJsonEntrySet();
+            for (String key : map.keySet()) {
+                stringList.add(key + HASHMAP_DELIMITER + map.get(key));
             }
             stringList.add("");
         }
@@ -296,8 +299,8 @@ public class LocalStorageIO {
             for (String string : stringList) {
                 if (string.length() > 0) {
                     // add fields to current object
-                    String[] line = string.split(HASHMAP_DELIMITER);
-                    json.addProperty(line[0], line[1]);
+                    String[] line = string.split("\\" + HASHMAP_DELIMITER);
+                    json.add(line[0], new JsonParser().parse(line[1]));
                 } else {
                     // object finished
                     try {

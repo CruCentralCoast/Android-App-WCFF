@@ -1,12 +1,13 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
+import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  * Created by Gavin on 11/12/2015.
@@ -54,8 +55,12 @@ public abstract class DatabaseObject {
         return fields.get(fieldName);
     }
 
-    public Set<Entry<String, JsonElement>> getJsonEntrySet() {
-        return fields.entrySet();
+    public HashMap<String, JsonArray> getJsonEntrySet() {
+        HashMap<String, JsonArray> map = new HashMap<>();
+        for (Entry<String, JsonElement> entry : fields.entrySet()) {
+            map.put(entry.getKey(), entry.getValue().getAsJsonArray());
+        }
+        return map;
     }
 
     public String getId() {

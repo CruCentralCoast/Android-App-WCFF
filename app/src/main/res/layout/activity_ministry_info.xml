@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin">
 
     <ImageView
+        android:id="@+id/ministry_info_image"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:id="@+id/ministry_info_image"
-        android:src="@drawable/cru_logo_default"
         android:layout_marginTop="20dp"
-         />
+        android:src="@drawable/cru_logo_default" />
 
     <View
+        android:id="@+id/ministry_info_divider"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:id="@+id/ministry_info_divider"
         android:layout_below="@+id/ministry_info_image"
         android:background="@color/colorPrimary_cruGold"
-        android:paddingTop="10dp"/>
+        android:paddingTop="10dp" />
 
     <TextView
+        android:id="@+id/ministry_info_campuses"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/ministry_info_divider"
+        android:paddingTop="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent_cruBrightBlue"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/ministry_info_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="This is a ministry."
-        android:id="@+id/ministry_info_description"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/ministry_info_divider"
-        android:background="@drawable/stroke_bg"
-        android:padding="10dp"
-        android:textAlignment="center"/>
+        android:layout_below="@+id/ministry_info_campuses"
+        android:paddingTop="10dp"
+        android:text=""
+        android:textAlignment="center" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ministry_info_campuses"
-        android:layout_below="@+id/ministry_info_description"
-        android:textAlignment="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/stroke_bg"
-        android:padding="10dp"/>
 
 </RelativeLayout>

@@ -87,10 +87,14 @@ public abstract class DatabaseObject {
         return fields.get(fieldName);
     }
 
-    public HashMap<String, JsonArray> getJsonEntrySet() {
-        HashMap<String, JsonArray> map = new HashMap<>();
+    public HashMap<String, JsonElement> getJsonEntrySet() {
+        HashMap<String, JsonElement> map = new HashMap<>();
         for (Entry<String, JsonElement> entry : fields.entrySet()) {
-            map.put(entry.getKey(), entry.getValue().getAsJsonArray());
+            if (entry.getValue().isJsonArray()) {
+                map.put(entry.getKey(), entry.getValue().getAsJsonArray());
+            } else {
+                map.put(entry.getKey(), entry.getValue());
+            }
         }
         return map;
     }

@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.R;
@@ -241,7 +242,6 @@ public class SetupCampusActivity extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
             campusList.setAdapter(new CampusAdapter(campuses, parent));
         }
     }

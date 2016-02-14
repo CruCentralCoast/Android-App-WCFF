@@ -1,8 +1,11 @@
 package com.will_code_for_food.crucentralcoast.controller.retrieval;
 
+import android.util.Log;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 
@@ -41,8 +44,10 @@ public class SingleRetriever<T extends DatabaseObject> implements Retriever {
         if (testMode) {
             return getTestContent();
         } else if ((content = getLiveContent()) != null) {
+            Log.e("RETREIVAL", "getting live content");
             return content;
         } else {
+            Log.e("RETREIVAL", "getting cached content");
             return getCachedContent();
         }
     }
@@ -71,18 +76,33 @@ public class SingleRetriever<T extends DatabaseObject> implements Retriever {
                 objects.add(dbObject);
             }
 
-            return new Content<T>(objects, ContentType.LIVE);
+            // cache new live data
+            Cache cache = Cache.getCacheForObjectType(schema.getObjClass());
+            if (cache != null) {
+                new CacheTool<T>().cache(cache, objects);
+            }
+
+            return new Content<>(objects, ContentType.LIVE);
         } else {
             return null;
         }
     }
 
+    /**
+     * Tries to get cached data of the correct type, returns null if there
+     * was an error or if there was no cached data
+     */
     private Content<T> getCachedContent() {
-        return new Content<T>(null, ContentType.CACHED);
+        Cache cache = Cache.getCacheForObjectType(schema.getObjClass());
+        if (cache != null) {
+            return new CacheTool<T>().uncache(cache);
+        } else {
+            return new Content<>(null, ContentType.CACHED);
+        }
     }
 
-    private Content getTestContent() {
-        return new Content<T>(null, ContentType.TEST);
+    private Content<T> getTestContent() {
+        return new Content<>(null, ContentType.TEST);
     }
 
     private T getObjectFromJson(JsonElement jsonElement, Constructor constructor)

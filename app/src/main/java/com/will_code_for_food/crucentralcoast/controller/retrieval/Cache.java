@@ -17,4 +17,13 @@ public enum Cache {
         this.fname = fname;
         this.objectType = type;
     }
+
+    public static Cache getCacheForObjectType(Class objType) {
+        for (Cache cache : values()) {
+            if (cache.objectType == objType) {
+                return cache;
+            }
+        }
+        return null;
+    }
 }

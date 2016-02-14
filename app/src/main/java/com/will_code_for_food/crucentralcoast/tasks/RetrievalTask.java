@@ -1,6 +1,7 @@
 package com.will_code_for_food.crucentralcoast.tasks;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -42,19 +43,21 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
     @Override
     protected Void doInBackground(Void... params) {
         Content dbContent = retriever.getAll();
-        ArrayList<T> filteredObjects = new ArrayList<T>();
+        if (dbContent != null) {
+            ArrayList<T> filteredObjects = new ArrayList<T>();
 
-        dbObjects = dbContent.getObjects();
+            dbObjects = dbContent.getObjects();
 
-
-        for (T object : dbObjects) {
-            if (cardFactory.include(object)) {
-                filteredObjects.add(object);
+            for (T object : dbObjects) {
+                if (cardFactory.include(object)) {
+                    filteredObjects.add(object);
+                }
             }
+
+            myDBObjects = new Content<>(filteredObjects, dbContent.getType());
+        } else {
+            Log.e("Retrieval", "Unable to retrieve any data");
         }
-
-        myDBObjects = new Content<T>(filteredObjects, dbContent.getType());
-
         return null;
     }
 

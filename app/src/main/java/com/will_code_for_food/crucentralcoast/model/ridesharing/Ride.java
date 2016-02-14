@@ -102,7 +102,7 @@ public class Ride extends DatabaseObject {
 
     public boolean isFullToEvent() {
         if (isToEvent()) {
-            return getNumAvailableSeatsToEvent() > 0;
+            return getNumAvailableSeatsToEvent() == 0;
         } else {
             return true;
         }
@@ -110,7 +110,7 @@ public class Ride extends DatabaseObject {
 
     public boolean isFullFromEvent() {
         if (isFromEvent()) {
-            return getNumAvailableSeatsFromEvent() > 0;
+            return getNumAvailableSeatsFromEvent() == 0;
         } else {
             return true;
         }
@@ -128,7 +128,7 @@ public class Ride extends DatabaseObject {
     }
 
     public int getNumAvailableSeatsToEvent() {
-        //JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
+        //JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray()
         return getNumSeats() - ridersToEvent.size();
     }
 

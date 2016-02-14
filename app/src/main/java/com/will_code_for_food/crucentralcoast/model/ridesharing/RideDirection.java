@@ -58,11 +58,11 @@ public enum RideDirection {
     public static RideDirection fromString (String directionString){
         if (directionString != null) {
             if (directionString.equals("from")) {
-                return ONE_WAY_FROM_EVENT;
+                return RideDirection.ONE_WAY_FROM_EVENT;
             } else if (directionString.equals("to")) {
-                return ONE_WAY_TO_EVENT;
+                return RideDirection.ONE_WAY_TO_EVENT;
             } else {
-                return TWO_WAY;
+                return RideDirection.TWO_WAY;
             }
         } else {
             return null;

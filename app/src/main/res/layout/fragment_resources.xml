@@ -84,9 +84,27 @@
     </LinearLayout>
 
     <Button
-        android:layout_width="fill_parent"
+        android:id="@+id/button_videos"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="viewVideos"
-        android:text="Temporary Video Button" />
+        android:text="TEMPORARY VIDEO BUTTON"/>
+    <Button
+        android:id="@+id/button_articles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_videos"
+        android:onClick="viewArticles"
+        android:text="TEMPORARY RESOURCE BUTTON"/>
+    
+    <!--
+    <ListView
+        android:id="@+id/list_resources"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:divider="@color/colorPrimary_cruGold"
+        android:dividerHeight="4dp" />
+    -->
 
 </RelativeLayout>

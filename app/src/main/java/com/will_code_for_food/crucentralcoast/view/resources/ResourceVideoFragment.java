@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,7 +31,7 @@ public class ResourceVideoFragment extends CruFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
-        new LoadVideosTask().execute();
+        new LoadVideosTask(new ArrayList<Video>()).execute();
         return fragmentView;
     }
 
@@ -38,13 +39,16 @@ public class ResourceVideoFragment extends CruFragment {
      * Loads a list of videos from the Cru YT channel and displays them in cards
      */
     private class LoadVideosTask extends AsyncTask<Void, Void, Void> {
+
         private List<Video> videos;
         private MainActivity currentActivity;
         private CardFragmentFactory cardFactory;
+        // used for scrolling pagination
+        private int firstItem, visibleItems, totalItems;
 
-        public LoadVideosTask() {
+        public LoadVideosTask(List<Video> myVideos) {
             super();
-            videos = new ArrayList<>();
+            videos = myVideos;
             currentActivity = (MainActivity) MainActivity.context;
             cardFactory = new VideoCardFactory();
         }
@@ -52,6 +56,7 @@ public class ResourceVideoFragment extends CruFragment {
         @Override
         protected Void doInBackground(Void... params) {
 
+            // Load a list of 10 videos
             JsonArray videoArray = RestUtil.getVideos(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS);
             for (int i = 0; i < videoArray.size(); i++) {
                 videos.add(new Video(videoArray.get(i).getAsJsonObject()));
@@ -64,9 +69,26 @@ public class ResourceVideoFragment extends CruFragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             ListView list = (ListView) currentActivity.findViewById(R.id.list_youtube);
+
             if ((videos != null) && (!videos.isEmpty())) {
                 list.setAdapter(cardFactory.createAdapter(videos));
                 list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, videos));
+                list.setOnScrollListener(new AbsListView.OnScrollListener() {
+                    @Override
+                    public void onScroll(AbsListView view,
+                                         int first, int visible, int total) {
+                        firstItem = first;
+                        visibleItems = visible;
+                        totalItems = total;
+                    }
+                    @Override
+                    public void onScrollStateChanged(AbsListView view, int scrollState) {
+                        final int lastItem = firstItem + visibleItems;
+                        if (lastItem == totalItems && scrollState == SCROLL_STATE_IDLE) {
+                            //new LoadVideosTask(videos).execute();
+                        }
+                    }
+                });
             } else {
                 //String errorMessage = Util.getString(errorMessageId);
                 //Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();

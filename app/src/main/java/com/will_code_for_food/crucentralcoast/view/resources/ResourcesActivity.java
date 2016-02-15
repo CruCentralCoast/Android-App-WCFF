@@ -27,11 +27,18 @@ public class ResourcesActivity extends MainActivity {
     }
 
     /**
-     * Displays the Cru YouTube videos in a new screen
+     * Displays the Cru YouTube videos in a list
      */
     public void viewVideos(View view) {
         loadFragmentById(R.layout.fragment_resources_youtube_list, video_title,
                 new ResourceVideoFragment(), this);
+    }
+
+    /**
+     * Displays the Cru articles in a list
+     */
+    public void viewArticles(View view) {
+
     }
 
     /**

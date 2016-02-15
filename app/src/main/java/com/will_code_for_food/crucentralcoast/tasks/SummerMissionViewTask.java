@@ -37,13 +37,8 @@ public class SummerMissionViewTask extends AsyncTask<SummerMission, Void, Void> 
 
         // Setup UI elements
         ImageView header = (ImageView) currentActivity.findViewById(R.id.image_mission);
-        Point scaledSize = Util.scaledImageSize(currentActivity, UI.IMAGE_HEADER_LENGTH_RATIO, UI.IMAGE_HEADER_HEIGHT_RATIO);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(scaledSize.x, scaledSize.y);
-        header.setLayoutParams(layoutParams);
-
         if (mission.getImage() != null && mission.getImage() != "") {
-            Picasso.with(currentActivity).load(mission.getImage()).resize(scaledSize.x, scaledSize.y)
-                    .onlyScaleDown().placeholder(R.drawable.transparent).into(header);
+            Picasso.with(currentActivity).load(mission.getImage()).fit().into(header);
         }
 
         TextView date = (TextView) currentActivity.findViewById(R.id.text_mission_date);

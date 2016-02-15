@@ -11,6 +11,9 @@ public class UI {
     public static final int SETUP_TITLE_TRANSLATE_DURATION = 500;
     public static final int SETUP_SPLASHSCREEN_WAIT_DURATION = 3000;
 
-    public static final double IMAGE_HEADER_HEIGHT_RATIO = 0.2;
-    public static final double IMAGE_HEADER_LENGTH_RATIO = 1.0;
+    public static final String CRU_FACEBOOK_LINK = "https://www.facebook.com/SloCrusade/";
+    public static final String CRU_TWITTER_LINK = "https://twitter.com/crucentralcoast";
+    public static final String CRU_INSTAGRAM_LINK = "https://www.instagram.com/crucentralcoast/";
+    public static final String CRU_YOUTUBE_LINK = "https://www.youtube.com/user/slocrusade";
+    public static final String CRU_YOUTUBE_USER = "slocrusade";
 }

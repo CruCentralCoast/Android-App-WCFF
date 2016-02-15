@@ -43,7 +43,6 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
         dbObjects = retriever.getAll();
         myDBObjects = new ArrayList<T>();
 
-
         for (T object : dbObjects) {
             if (cardFactory.include(object)) {
                 myDBObjects.add(object);
@@ -60,7 +59,7 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
         if ((myDBObjects != null) && (!myDBObjects.isEmpty())) {
             list.setAdapter(cardFactory.createAdapter(myDBObjects));
             list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, myDBObjects));
-        }else {
+        } else {
             String errorMessage = Util.getString(errorMessageId);
             Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
         }

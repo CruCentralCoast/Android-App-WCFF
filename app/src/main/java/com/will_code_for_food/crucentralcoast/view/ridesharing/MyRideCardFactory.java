@@ -8,41 +8,34 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
-import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
-import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
-import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
+import com.will_code_for_food.crucentralcoast.values.LocalFiles;
+import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 import java.util.List;
 
 /**
- * Created by Kayla on 1/31/2016.
+ * Created by Brian on 2/15/2016.
  */
-public class RideCardFactory implements CardFragmentFactory {
-    private List<Ride> cards;
-    private Event event;
+public class MyRideCardFactory implements CardFragmentFactory {
+    private List<String> myRides;
+    List<Ride> cards;
 
-    public RideCardFactory() {
-        event = EventsActivity.getEvent();
+    public MyRideCardFactory(){
+        myRides = LocalStorageIO.readList(LocalFiles.USER_RIDES);
     }
 
     @Override
     public boolean include(DatabaseObject object) {
-        Ride ride = (Ride) object;
-
-        // Filter for the event that was chosen
-        //TODO: filter based on time leaving, 1/2-way, etc.
-        // TODO use the RideSorter class!
-
-        if (event != null && event.getId().equals(ride.getEventId()) && (!ride.isFullFromEvent() || !ride.isFullToEvent())) {
+        if (myRides != null && myRides.contains(object.getId()))
             return true;
-        }
-
         return false;
     }
 

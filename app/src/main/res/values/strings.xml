@@ -35,6 +35,7 @@
     <string name="ridesharing_leaving_location" formatted="false">from %s</string>
     <string name="ridesharing_seats_left" formatted="false">%d seats left</string>
     <string name="ridesharing_seat_left" formatted="false">%d seat left</string>
+    <string name="ridesharing_header" formatted="false">Ride Sharing Events</string>
 
     <!-- Font formatting -->
     <string name="default_serif">SERIF</string>

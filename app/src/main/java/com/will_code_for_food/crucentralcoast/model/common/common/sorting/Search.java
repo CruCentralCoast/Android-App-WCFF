@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast.model.common.common.sorting;
 import android.util.Log;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class Search {
             }
         }
         for (DatabaseObject obj : list) {
-            Map<String, JsonArray> map = obj.getJsonEntrySet();
+            Map<String, JsonElement> map = obj.getJsonEntrySet();
             for (String key : map.keySet()) {
                 if (!searchList.contains(obj) &&
                         map.get(key).toString().toLowerCase().contains(query.toLowerCase())) {

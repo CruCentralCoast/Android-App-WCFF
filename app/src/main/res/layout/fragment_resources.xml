@@ -1,19 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="center_horizontal"
-    tools:context=".view.resources.ResourcesActivity">
+    android:focusable="false"
+    tools:context=".view.resources.ResourcesActivity" >
+
+    <!-- Button Bar -->
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/stroke_bg" >
+        <!-- Facebook Link -->
+        <ImageButton
+            android:id="@+id/button_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:background="@null"
+            android:onClick="openFacebook"
+            android:src="@drawable/facebook2" />
+        <!-- Twitter Link -->
+        <ImageButton
+            android:id="@+id/button_twitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:background="@null"
+            android:onClick="openTwitter"
+            android:src="@drawable/twitter" />
+        <!-- YouTube Link -->
+        <ImageButton
+            android:id="@+id/button_youtube"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:background="@null"
+            android:onClick="openYoutube"
+            android:src="@drawable/youtube" />
+        <!-- Instagram Link -->
+        <ImageButton
+            android:id="@+id/button_instagram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:background="@null"
+            android:onClick="openInstagram"
+            android:src="@drawable/instagram" />
+    </LinearLayout>
 
     <Button
-        android:id="@+id/youtube_button"
-        android:layout_width="wrap_content"
+        android:id="@+id/button_videos"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
-        android:onClick="testYoutube"
-        android:text="Test YouTube" />
+        android:onClick="viewVideos"
+        android:text="TEMPORARY VIDEO BUTTON"/>
+    <Button
+        android:id="@+id/button_articles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_videos"
+        android:onClick="viewArticles"
+        android:text="TEMPORARY RESOURCE BUTTON"/>
+    
+    <!--
+    <ListView
+        android:id="@+id/list_resources"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:divider="@color/colorPrimary_cruGold"
+        android:dividerHeight="4dp" />
+    -->
 
-</LinearLayout>
+</RelativeLayout>

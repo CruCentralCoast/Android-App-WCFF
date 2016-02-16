@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.controller.retrieval;
 
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,28 +10,24 @@ import java.util.List;
  *
  * Wrapper class for content loaded from the database or otherwise.
  */
-public class Content<T extends DatabaseObject> {
-    private List<T> objects;
+public class Content<T extends DatabaseObject> extends ArrayList<T> {
+    //private List<T> objects;
     private ContentType type;
 
     public Content(List<T> objects, ContentType type) {
-        this.objects = objects;
+        //this.objects = objects;
+        this.addAll(objects);
         this.type = type;
     }
 
+    /**
+     * DEPRECATED
+     */
     public List<T> getObjects() {
-        return objects;
-    }
-
-    public void setObjects(List<T> objects) {
-        this.objects = objects;
+        return this;
     }
 
     public ContentType getType() {
         return type;
-    }
-
-    public void setType(ContentType type) {
-        this.type = type;
     }
 }

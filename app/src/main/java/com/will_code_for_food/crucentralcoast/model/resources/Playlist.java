@@ -17,7 +17,6 @@ import java.util.List;
 public class Playlist extends DatabaseObject {
 
     private JsonObject fields; // holds the fields
-    private String prevPage;   // holds the prev page token
     private String nextPage;   // holds the next page token
 
     private List<Video> videoList;
@@ -26,7 +25,6 @@ public class Playlist extends DatabaseObject {
     public Playlist(JsonObject jsonObject) {
         super(jsonObject);
         fields = jsonObject;
-        prevPage = getPrevPage();
         nextPage = getNextPage();
 
         JsonArray videos = fields.get(Android.YOUTUBE_JSON_LIST).getAsJsonArray();
@@ -35,12 +33,6 @@ public class Playlist extends DatabaseObject {
             videoList.add(new Video(videos.get(i).getAsJsonObject()));
         }
         videoContent = new Content<>(videoList, ContentType.LIVE);
-    }
-
-    public String getPrevPage() {
-        if (fields.get(Android.YOUTUBE_JSON_PREVPAGE) != null)
-            return fields.get(Android.YOUTUBE_JSON_PREVPAGE).getAsString();
-        return "";
     }
 
     public String getNextPage() {
@@ -66,7 +58,6 @@ public class Playlist extends DatabaseObject {
             if (newPlaylist != null) {
                 fields = newPlaylist.fields;
                 nextPage = newPlaylist.getNextPage();
-                prevPage = newPlaylist.getPrevPage();
                 videoList.addAll(newPlaylist.getVideoList());
                 videoContent = new Content<>(videoList, ContentType.LIVE);
             }

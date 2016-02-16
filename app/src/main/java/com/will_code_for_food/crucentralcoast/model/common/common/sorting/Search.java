@@ -27,6 +27,7 @@ public class Search {
             }
         }
         for (DatabaseObject obj : list) {
+            /*
             Map<String, JsonArray> map = obj.getJsonEntrySet();
             for (String key : map.keySet()) {
                 if (!searchList.contains(obj) &&
@@ -34,6 +35,7 @@ public class Search {
                     searchList.add(obj);
                 }
             }
+            */
         }
         return searchList;
     }

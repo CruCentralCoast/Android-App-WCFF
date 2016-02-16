@@ -15,5 +15,4 @@ public class UI {
     public static final String CRU_TWITTER_LINK = "https://twitter.com/crucentralcoast";
     public static final String CRU_INSTAGRAM_LINK = "https://www.instagram.com/crucentralcoast/";
     public static final String CRU_YOUTUBE_LINK = "https://www.youtube.com/user/slocrusade";
-    public static final String CRU_YOUTUBE_USER = "slocrusade";
 }

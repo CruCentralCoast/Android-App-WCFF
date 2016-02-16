@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
@@ -97,7 +98,7 @@ public class RestUtil {
         }
     }
 
-    public static JsonArray getVideos(String url) {
+    public static Playlist getPlaylist(String url) {
         try {
             JsonParser parser = new JsonParser();
             HttpURLConnection conn = createGetConnection(url, "");
@@ -108,8 +109,7 @@ public class RestUtil {
             }
             else {
                 JsonElement videoElement = parser.parse(toParse);
-                JsonArray videoArray = videoElement.getAsJsonObject().get(Android.YOUTUBE_JSON_LIST).getAsJsonArray();
-                return videoArray;
+                return new Playlist(videoElement.getAsJsonObject());
             }
         } catch (Exception e) {
             return null;

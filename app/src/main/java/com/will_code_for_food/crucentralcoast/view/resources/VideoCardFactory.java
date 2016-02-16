@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
@@ -32,18 +33,18 @@ public class VideoCardFactory implements CardFragmentFactory {
     }
 
     @Override
-    public ArrayAdapter createAdapter(List cardObjects) {
+    public ArrayAdapter createAdapter(Content cardObjects) {
         return new VideoAdapter(ResourcesActivity.context,
                 android.R.layout.simple_list_item_1, cardObjects);
     }
 
     @Override
     public AdapterView.OnItemClickListener createCardListener(
-            final MainActivity currentActivity, final List myDBObjects) {
+            final MainActivity currentActivity, final Content myDBObjects) {
         return new AdapterView.OnItemClickListener () {
             @Override
             public void onItemClick (AdapterView < ? > parent, View view,int position, long id){
-                Video selectedVideo = (Video) myDBObjects.get(position);
+                Video selectedVideo = (Video) myDBObjects.getObjects().get(position);
                 YoutubeViewer.watchYoutubeVideo(selectedVideo.getId(), currentActivity);
             }
         } ;
@@ -51,9 +52,9 @@ public class VideoCardFactory implements CardFragmentFactory {
 
     private class VideoAdapter extends ArrayAdapter<Video> {
 
-        public VideoAdapter(Context context, int resource, List objects) {
-            super(context, resource, objects);
-            cards = objects;
+        public VideoAdapter(Context context, int resource, Content content) {
+            super(context, resource, content.getObjects());
+            cards = content.getObjects();
         }
 
         @Override

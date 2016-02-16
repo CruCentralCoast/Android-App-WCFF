@@ -1,6 +1,7 @@
 package com.will_code_for_food.crucentralcoast.model.resources;
 
 import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
@@ -12,12 +13,12 @@ import java.util.Date;
  * Video represents a YouTube video loaded from a Json query
  * Used to retrieve information needed to play and display the YouTube video
  */
-public class Video extends Resource {
+public class Video extends DatabaseObject {
 
     private JsonObject fields;
 
     public Video (JsonObject json) {
-        super();
+        super(json);
         fields = json;
     }
 

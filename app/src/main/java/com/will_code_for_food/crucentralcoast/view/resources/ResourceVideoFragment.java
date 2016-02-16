@@ -11,7 +11,11 @@ import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.UI;
@@ -31,7 +35,7 @@ public class ResourceVideoFragment extends CruFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
-        new LoadVideosTask(new ArrayList<Video>()).execute();
+        new LoadVideosTask().execute();
         return fragmentView;
     }
 
@@ -40,27 +44,26 @@ public class ResourceVideoFragment extends CruFragment {
      */
     private class LoadVideosTask extends AsyncTask<Void, Void, Void> {
 
+        private Playlist videoPlaylist;
         private List<Video> videos;
         private MainActivity currentActivity;
         private CardFragmentFactory cardFactory;
+        private ListView list;
+
         // used for scrolling pagination
         private int firstItem, visibleItems, totalItems;
 
-        public LoadVideosTask(List<Video> myVideos) {
+        public LoadVideosTask() {
             super();
-            videos = myVideos;
             currentActivity = (MainActivity) MainActivity.context;
             cardFactory = new VideoCardFactory();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-
-            // Load a list of 10 videos
-            JsonArray videoArray = RestUtil.getVideos(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS);
-            for (int i = 0; i < videoArray.size(); i++) {
-                videos.add(new Video(videoArray.get(i).getAsJsonObject()));
-            }
+            // Load the videos from YouTube
+            videoPlaylist = RestUtil.getPlaylist(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS);
+            videos = videoPlaylist.getVideoList();
 
             return null;
         }
@@ -68,11 +71,12 @@ public class ResourceVideoFragment extends CruFragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            ListView list = (ListView) currentActivity.findViewById(R.id.list_youtube);
+            list = (ListView) currentActivity.findViewById(R.id.list_youtube);
 
             if ((videos != null) && (!videos.isEmpty())) {
-                list.setAdapter(cardFactory.createAdapter(videos));
-                list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, videos));
+                final Content<Video> videoContent = videoPlaylist.getVideoContent();
+                list.setAdapter(cardFactory.createAdapter(videoContent));
+                list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, videoContent));
                 list.setOnScrollListener(new AbsListView.OnScrollListener() {
                     @Override
                     public void onScroll(AbsListView view,
@@ -85,14 +89,32 @@ public class ResourceVideoFragment extends CruFragment {
                     public void onScrollStateChanged(AbsListView view, int scrollState) {
                         final int lastItem = firstItem + visibleItems;
                         if (lastItem == totalItems && scrollState == SCROLL_STATE_IDLE) {
-                            //new LoadVideosTask(videos).execute();
+                            try {
+                                videoPlaylist = new UpdatePlaylist().execute(videoPlaylist).get();
+                                final Content<Video> videoContent = videoPlaylist.getVideoContent();
+                                list.setAdapter(cardFactory.createAdapter(videoContent));
+                                list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, videoContent));
+                                list.setSelection(firstItem);
+                            } catch (Exception e) {
+                                String errorMessage = Util.getString(R.string.toast_no_videos);
+                                Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 });
             } else {
-                //String errorMessage = Util.getString(errorMessageId);
-                //Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+                String errorMessage = Util.getString(R.string.toast_no_videos);
+                Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    private class UpdatePlaylist extends AsyncTask<Playlist, Void, Playlist> {
+        @Override
+        protected Playlist doInBackground(Playlist... params) {
+            Playlist playlist = params[0];
+            playlist.loadNextPage();
+            return playlist;
         }
     }
 }

@@ -33,9 +33,7 @@ public class RidesFragment extends CruFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
-
         viewAvailableRides();
-
         return fragmentView;
     }
 
@@ -54,7 +52,6 @@ public class RidesFragment extends CruFragment {
 
     // Sets up and loads the image for the event into the image header
     private class SetEventHeader extends AsyncTask<Void, Void, Void> {
-
         Activity parent;
         Event event;
 
@@ -68,15 +65,9 @@ public class RidesFragment extends CruFragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
             ImageView imageView = (ImageView) parent.findViewById(R.id.image_ride_event);
-            Point scaledSize = Util.scaledImageSize(parent, UI.IMAGE_HEADER_LENGTH_RATIO, UI.IMAGE_HEADER_HEIGHT_RATIO);
             if (event != null && event.getImage() != null && event.getImage() != "") {
-                Picasso.with(parent).load(event.getImage()).resize(scaledSize.x, scaledSize.y)
-                        .onlyScaleDown().placeholder(R.drawable.transparent).into(imageView);
-            } else {
-                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(scaledSize.x, scaledSize.y);
-                imageView.setLayoutParams(layoutParams);
+                Picasso.with(parent).load(event.getImage()).fit().into(imageView);
             }
         }
     }

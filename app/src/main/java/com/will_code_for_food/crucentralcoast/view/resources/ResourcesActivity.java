@@ -42,7 +42,7 @@ public class ResourcesActivity extends MainActivity {
      * Displays the Cru YouTube videos in a list
      */
     public void viewVideos(View view) {
-        loadFragmentById(R.layout.fragment_resources_youtube_list, video_title,
+        loadFragmentById(R.layout.fragment_card_list, video_title,
                 new ResourceVideoFragment(), this);
     }
 
@@ -50,7 +50,8 @@ public class ResourcesActivity extends MainActivity {
      * Displays the Cru articles in a list
      */
     public void viewArticles(View view) {
-        new ArticleTask(this).execute();
+        loadFragmentById(R.layout.fragment_card_list, article_title,
+                new ResourceArticleFragment(), this);
     }
 
     /**

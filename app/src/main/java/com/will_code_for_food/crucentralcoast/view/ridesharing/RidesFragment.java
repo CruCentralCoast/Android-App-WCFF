@@ -47,7 +47,7 @@ public class RidesFragment extends CruFragment {
         CardFragmentFactory factory = new RideCardFactory();
         //TODO: callback task for selecting a ride (currently null)
         new RetrievalTask<Ride>(retriever, factory,
-                R.id.list_rides, R.string.toast_no_rides).execute();
+                R.string.toast_no_rides).execute();
     }
 
     // Sets up and loads the image for the event into the image header

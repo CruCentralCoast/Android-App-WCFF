@@ -38,7 +38,7 @@ public class EventsActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loadFragmentById(R.layout.fragment_event_list, title, new EventsFragment(), this);
+        loadFragmentById(R.layout.fragment_card_list, title, new EventsFragment(), this);
     }
 
     /**

@@ -61,7 +61,8 @@ public class PrefsFragment extends PreferenceFragment
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 Authenticator.logOut();
-                Toast.makeText(parent, "You have been logged out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(parent, Util.getString(R.string.logout_message),
+                        Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

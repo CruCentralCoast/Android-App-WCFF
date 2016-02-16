@@ -77,10 +77,4 @@ public class ResourcesActivity extends MainActivity {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(UI.CRU_INSTAGRAM_LINK));
         startActivity(browserIntent);
     }
-
-    public void testYoutube(View view) {
-        DriverForm form = new DriverForm("id");
-        form.answerQuestion(0, "gavin");
-        form.submit();
-    }
 }

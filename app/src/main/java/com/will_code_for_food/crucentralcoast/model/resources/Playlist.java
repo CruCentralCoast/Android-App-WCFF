@@ -16,9 +16,9 @@ import java.util.List;
  */
 public class Playlist extends DatabaseObject {
 
-    private JsonObject fields;      // holds the fields
-    private String prevPage = "";   // holds the prev page token
-    private String nextPage = "";   // holds the next page token
+    private JsonObject fields; // holds the fields
+    private String prevPage;   // holds the prev page token
+    private String nextPage;   // holds the next page token
 
     private List<Video> videoList;
     private Content<Video> videoContent;
@@ -63,18 +63,13 @@ public class Playlist extends DatabaseObject {
             String page = Android.YOUTUBE_QUERY_PAGE + nextPage;
             Playlist newPlaylist = RestUtil.getPlaylist(query + page);
 
-            System.out.println("Loading from: " + query + page);
-
             if (newPlaylist != null) {
-                System.out.println("YAAAAAAAY");
                 fields = newPlaylist.fields;
                 nextPage = newPlaylist.getNextPage();
                 prevPage = newPlaylist.getPrevPage();
                 videoList.addAll(newPlaylist.getVideoList());
                 videoContent.setObjects(videoList);
             }
-            else
-                System.out.println("WHYYYYYYYY");
         }
     }
 }

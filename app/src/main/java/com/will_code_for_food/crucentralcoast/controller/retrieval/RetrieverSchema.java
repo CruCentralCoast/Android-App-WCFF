@@ -18,8 +18,7 @@ public enum RetrieverSchema {
     MINISTRY (Ministry.class, Database.REST_MINISTRY),
     EVENT (Event.class, Database.REST_EVENT),
     SUMMER_MISSION (SummerMission.class, Database.REST_SUMMER_MISSION),
-    RIDE (Ride.class, Database.REST_RIDE),
-    VIDEO (Video.class, null);
+    RIDE (Ride.class, Database.REST_RIDE);
 
     public Class<? extends DatabaseObject> getObjClass() {
         return objClass;

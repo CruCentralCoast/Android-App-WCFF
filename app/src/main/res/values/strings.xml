@@ -24,6 +24,7 @@
     <string name="toast_no_map">No location for this event</string>
     <string name="toast_no_events">Could not load events</string>
     <string name="toast_no_summer_missions">Could not load summer missions</string>
+    <string name="toast_no_videos">Could not load YouTube videos</string>
 
     <!--    Preferences     -->
     <string name="settings_event_notifications">Receive Event Notifications</string>

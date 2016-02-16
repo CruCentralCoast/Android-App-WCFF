@@ -61,10 +61,8 @@ public class ResourceVideoFragment extends CruFragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            // Load the videos from YouTube
             videoPlaylist = RestUtil.getPlaylist(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS);
             videos = videoPlaylist.getVideoList();
-
             return null;
         }
 
@@ -109,6 +107,9 @@ public class ResourceVideoFragment extends CruFragment {
         }
     }
 
+    /**
+     * Update the videos in the existing playlist by loading more
+     */
     private class UpdatePlaylist extends AsyncTask<Playlist, Void, Playlist> {
         @Override
         protected Playlist doInBackground(Playlist... params) {

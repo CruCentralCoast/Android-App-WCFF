@@ -68,7 +68,7 @@ public class Playlist extends DatabaseObject {
                 nextPage = newPlaylist.getNextPage();
                 prevPage = newPlaylist.getPrevPage();
                 videoList.addAll(newPlaylist.getVideoList());
-                videoContent.setObjects(videoList);
+                videoContent = new Content<>(videoList, ContentType.LIVE);
             }
         }
     }

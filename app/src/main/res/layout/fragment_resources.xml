@@ -16,4 +16,13 @@
         android:onClick="testYoutube"
         android:text="Test YouTube" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Article"
+        android:id="@+id/btn_test_article"
+        android:layout_gravity="center_horizontal"
+        android:nestedScrollingEnabled="false"
+        android:onClick="testArticle" />
+
 </LinearLayout>

@@ -2,7 +2,6 @@ package com.will_code_for_food.crucentralcoast.controller.retrieval;
 
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
 import com.will_code_for_food.crucentralcoast.model.common.common.*;
-import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.values.Database;
 

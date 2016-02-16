@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.view.resources;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,10 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.controller.authentication.Authenticator;
 import com.will_code_for_food.crucentralcoast.controller.authentication.Credentials;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
 import com.will_code_for_food.crucentralcoast.values.LocalFiles;
@@ -24,6 +29,8 @@ public class ResourcesActivity extends MainActivity {
     protected String title = "Resources";
     protected String video_title = title + " > Videos";
     protected String article_title = title + " > Articles";
+
+    public static Resource selectedResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +50,7 @@ public class ResourcesActivity extends MainActivity {
      * Displays the Cru articles in a list
      */
     public void viewArticles(View view) {
-
+        new ArticleTask(this).execute();
     }
 
     /**
@@ -76,5 +83,32 @@ public class ResourcesActivity extends MainActivity {
     public void openInstagram(View view) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(UI.CRU_INSTAGRAM_LINK));
         startActivity(browserIntent);
+    }
+    
+    //TODO delete this and use RetrievalTask/ResourceCardFactory
+    private class ArticleTask extends AsyncTask<Void, Void, Void> {
+
+        MainActivity parent;
+
+        public ArticleTask(MainActivity parent) {
+            this.parent = parent;
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            SingleRetriever<Resource> retriever = new SingleRetriever<Resource>(RetrieverSchema.RESOURCE);
+            Content<Resource> resOjbects = retriever.getAll();
+
+            if (!resOjbects.isEmpty()) {
+                selectedResource = resOjbects.get(0);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            loadFragmentById(R.layout.fragment_article, article_title, new ViewArticleFragment(), parent);
+        }
     }
 }

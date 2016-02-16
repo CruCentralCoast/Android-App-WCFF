@@ -39,7 +39,7 @@
 
     <!-- List of Ride Cards -->
     <ListView
-        android:id="@+id/list_rides"
+        android:id="@+id/list_cards"
         android:layout_below="@id/image_ride_event"
         android:layout_above="@id/button_next_rides"
         android:layout_width="match_parent"

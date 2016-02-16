@@ -68,8 +68,10 @@
     <string name="form_generic_error">Your answer to \'%s\' is invalid</string>
 
     <!-- Log in form -->
+    <string name="login_title">Log In</string>
     <string name="login_user">Enter your username</string>
     <string name="login_user_question_name">username</string>
     <string name="login_pass">Enter your password (case sensitive)</string>
     <string name="login_pass_question_name">password</string>
+    <string name="login_invalid_cred">This username and password combo is incorrect</string>
 </resources>

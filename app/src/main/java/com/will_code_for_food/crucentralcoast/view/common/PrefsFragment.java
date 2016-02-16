@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.authentication.Authenticator;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
@@ -42,7 +44,27 @@ public class PrefsFragment extends PreferenceFragment
 
         MultiSelectListPreference campusPref = (MultiSelectListPreference) findPreference(Android.PREF_CAMPUSES);
 
-        Preference clearPref = (Preference) findPreference(Android.PREF_CLEAR);
+        Preference clearPref = findPreference(Android.PREF_CLEAR);
+
+        clearPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                getPreferenceManager().getSharedPreferences().edit().clear().commit();
+                reload();
+                PushUtil.clearPushChannels();
+                return false;
+            }
+        });
+
+        Preference logoutPref = findPreference(Android.PREF_LOGOUT);
+        logoutPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Authenticator.logOut();
+                Toast.makeText(parent, "You have been logged out", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
 
         clearPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override

@@ -1,5 +1,7 @@
 package com.will_code_for_food.crucentralcoast.model.common.form;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public abstract class Form {
      * Creates a form.
      */
     public Form() {
-        questions = new ArrayList<Question>();
+        questions = new ArrayList<>();
     }
 
     public void addQuestion(final Question question) {
@@ -72,6 +74,7 @@ public abstract class Form {
             if (question.isRequired() && !question.isAnswered()) {
                 result = FormValidationResult.ERROR_INCOMPLETE;
                 result.setDefaultMessageQuestion(question);
+                return result;
             }
         }
         return result;

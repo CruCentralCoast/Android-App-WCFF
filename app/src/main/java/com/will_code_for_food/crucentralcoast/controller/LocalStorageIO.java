@@ -10,6 +10,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.Cache;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 import java.io.BufferedReader;
@@ -40,13 +41,12 @@ public class LocalStorageIO {
      * the file if it already exists.
      */
     public static boolean writeList(final List<String> list, final String fileName) {
-        OutputStreamWriter writer = null;
         File path = MainActivity.context.getFilesDir();
         File file = new File(path, fileName);
         try {
             file.createNewFile();
-            writer = new OutputStreamWriter(
-                    MainActivity.context.openFileOutput(fileName, Context.MODE_PRIVATE));
+            OutputStreamWriter writer = new OutputStreamWriter(
+                    Util.getContext().openFileOutput(fileName, Context.MODE_PRIVATE));
             for (String string : list) {
                 writer.write(string + "\n");
             }
@@ -215,8 +215,7 @@ public class LocalStorageIO {
      * Deletes a file from internal storage
      */
     public static boolean deleteFile(final String fileName) {
-        File file = new File(fileName);
-        return file.delete();
+        return Util.getContext().deleteFile(fileName);
     }
 
     /**
@@ -238,8 +237,7 @@ public class LocalStorageIO {
      * Checks if a file exists
      */
     public static boolean fileExists(final String fileName) {
-        File file = new File(fileName);
-        return file.exists();
+        return readList(fileName) != null;
     }
 
     /**

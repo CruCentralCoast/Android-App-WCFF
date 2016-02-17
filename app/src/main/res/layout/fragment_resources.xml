@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:gravity="center_horizontal"
-    android:focusable="false"
-    tools:context=".view.resources.ResourcesActivity" >
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:gravity="center_horizontal"
+                android:focusable="false"
+                tools:context=".view.resources.ResourcesActivity" >
 
     <!-- Button Bar -->
     <LinearLayout
@@ -96,7 +96,14 @@
         android:layout_below="@id/button_videos"
         android:onClick="viewArticles"
         android:text="TEMPORARY RESOURCE BUTTON"/>
-    
+    <Button
+        android:id="@+id/leader_resources_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_articles"
+        android:onClick="clickLeaderResources"
+        android:text="Leader Resources"/>
+
     <!--
     <ListView
         android:id="@+id/list_resources"

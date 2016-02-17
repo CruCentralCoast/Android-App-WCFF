@@ -45,7 +45,7 @@ public class SummerMissionFragment extends CruFragment {
     private void refreshMissionsList() {
         Retriever retriever = new SingleRetriever<SummerMission>(RetrieverSchema.SUMMER_MISSION);
         CardFragmentFactory factory = new SummerMissionCardFactory();
-        new RetrievalTask<SummerMission>(retriever, factory, R.id.list_summer_missions,
+        new RetrievalTask<SummerMission>(retriever, factory,
                 R.string.toast_no_summer_missions, new AsyncResponse(getParent()) {
             @Override
             protected void otherProcessing() {

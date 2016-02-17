@@ -22,24 +22,35 @@ import android.view.Display;
 public class Util {
 
     /**
+     * Gets a string resource using the given context
+     */
+    public static String getString(final Context ctxt, final int resId) {
+        return ctxt.getString(resId);
+    }
+
+    /**
      * Gets a string resource using MainActivity.java's context.
      */
-    public static String getString(int resId) {
-        return SplashscreenActivity.context.getString(resId);
+    public static String getString(final int resId) {
+        return getString(SplashscreenActivity.context, resId);
     }
 
     /**
      * Gets an int resource using MainActivity.java's context.
      */
-    public static int getInt(int resId) {
+    public static int getInt(final int resId) {
         return Integer.parseInt(getString(resId));
     }
 
     /**
      * Gets a double resource using MainActivity.java's context.
      */
-    public static double getDouble(int resId) {
+    public static double getDouble(final int resId) {
         return Double.parseDouble(getString(resId));
+    }
+
+    public static Context getContext() {
+        return SplashscreenActivity.context;
     }
 
     /**
@@ -90,7 +101,7 @@ public class Util {
     }
 
     // Clears a set
-    public static void clearSet(String key) {
+    public static void clearSet(final String key) {
         Context context = MainActivity.context;
         String preferences_file = Util.getString(R.string.preferences_file);
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);

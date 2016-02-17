@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
@@ -32,19 +33,18 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
     private AsyncResponse response;
 
     public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory,
-                         int listId, int errorMessageId, AsyncResponse response) {
+                         int errorMessageId, AsyncResponse response) {
         super();
         this.retriever = retriever;
         this.cardFactory = cardFactory;
         this.errorMessageId = errorMessageId;
-        this.listId = listId;
         currentActivity = (MainActivity) MainActivity.context;
         this.response = response;
     }
 
     public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory,
-                         int listId, int errorMessageId) {
-        this(retriever, cardFactory, listId, errorMessageId, null);
+                         int errorMessageId) {
+        this(retriever, cardFactory, errorMessageId, null);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        ListView list = (ListView) currentActivity.findViewById(listId);
+        ListView list = (ListView) currentActivity.findViewById(R.id.list_cards);
         if ((myDBObjects != null) && (myDBObjects.getObjects() != null) && (!myDBObjects.getObjects().isEmpty())) {
             list.setAdapter(cardFactory.createAdapter(myDBObjects));
             list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, myDBObjects));

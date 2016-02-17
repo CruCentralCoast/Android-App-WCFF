@@ -54,7 +54,7 @@ public class EventsFragment extends CruFragment {
             factory = new EventCardFactory();
         }
 
-        new RetrievalTask<Event>(retriever, factory, R.id.list_events, R.string.toast_no_events,
+        new RetrievalTask<Event>(retriever, factory, R.string.toast_no_events,
                 new AsyncResponse(getParent()) {
             @Override
             public void otherProcessing() {

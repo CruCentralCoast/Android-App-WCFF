@@ -56,10 +56,11 @@ public class RidesFragment extends CruFragment {
     //TODO: user first needs to fill out form
     public void viewAvailableRides() {
         new SetEventHeader().execute();
+
         Retriever retriever = new SingleRetriever<Ride>(RetrieverSchema.RIDE);
         CardFragmentFactory factory = new RideCardFactory();
         //TODO: callback task for selecting a ride (currently null)
-        new RetrievalTask<Ride>(retriever, factory, R.id.list_rides, R.string.toast_no_rides,
+        new RetrievalTask<Ride>(retriever, factory, R.string.toast_no_rides,
                 new AsyncResponse(getParent()) {
             @Override
             public void otherProcessing() {

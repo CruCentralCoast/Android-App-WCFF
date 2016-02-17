@@ -22,7 +22,7 @@ public class Question {
         this.type = type;
         this.answer = null;
         this.enabled = true;
-        this.subquestions = new ArrayList<Question>();
+        this.subquestions = new ArrayList<>();
         this.required = true;
     }
 

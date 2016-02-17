@@ -26,7 +26,7 @@ public class SummerMissionFragment extends CruFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View hold = super.onCreateView(inflater, container, savedInstanceState);
-        layout = (SwipeRefreshLayout) hold.findViewById(R.id.missions_layout);
+        layout = (SwipeRefreshLayout) hold.findViewById(R.id.card_refresh_layout);
         refreshMissionsList();
         return hold;
     }

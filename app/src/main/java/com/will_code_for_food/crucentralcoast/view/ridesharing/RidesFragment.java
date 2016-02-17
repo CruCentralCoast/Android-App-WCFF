@@ -37,7 +37,7 @@ public class RidesFragment extends CruFragment {
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
         viewAvailableRides();
-        layout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.rides_layout);
+        layout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.card_refresh_layout);
         return fragmentView;
     }
 

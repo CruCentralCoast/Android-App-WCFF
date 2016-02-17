@@ -28,7 +28,7 @@ public class EventsFragment extends CruFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View hold = super.onCreateView(inflater, container, savedInstanceState);
-        layout = (SwipeRefreshLayout) hold.findViewById(R.id.events_layout);
+        layout = (SwipeRefreshLayout) hold.findViewById(R.id.card_refresh_layout);
         refreshList();
         return hold;
     }

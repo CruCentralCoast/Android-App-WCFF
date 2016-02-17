@@ -33,7 +33,7 @@ public class MyRidesFragment extends CruFragment {
             @Override
             public void onClick(View view) {
                 MainActivity activity = (MainActivity) getActivity();
-                activity.loadFragmentById(R.layout.fragment_eventslist,
+                activity.loadFragmentById(R.layout.fragment_card_list,
                         Util.getString(R.string.ridesharing_header), new EventsFragment(),
                         activity);
             }
@@ -42,7 +42,7 @@ public class MyRidesFragment extends CruFragment {
         Retriever retriever = new SingleRetriever<Ride>(RetrieverSchema.RIDE);
         CardFragmentFactory factory = new MyRideCardFactory();
         new RetrievalTask<Ride>(retriever, factory,
-                R.id.list_my_rides, R.string.toast_no_rides).execute();
+                R.string.toast_no_my_rides).execute();
 
         return fragmentView;
     }

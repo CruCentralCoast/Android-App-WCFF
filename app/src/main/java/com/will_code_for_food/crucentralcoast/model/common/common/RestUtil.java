@@ -109,7 +109,7 @@ public class RestUtil {
             }
             else {
                 JsonElement videoElement = parser.parse(toParse);
-                return new Playlist(videoElement.getAsJsonObject());
+                return new Playlist(videoElement.getAsJsonObject(), url);
             }
         } catch (Exception e) {
             return null;

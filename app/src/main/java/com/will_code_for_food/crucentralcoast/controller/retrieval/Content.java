@@ -16,7 +16,9 @@ public class Content<T extends DatabaseObject> extends ArrayList<T> {
 
     public Content(List<T> objects, ContentType type) {
         //this.objects = objects;
-        this.addAll(objects);
+        if (objects != null) {
+            addAll(objects);
+        }
         this.type = type;
     }
 

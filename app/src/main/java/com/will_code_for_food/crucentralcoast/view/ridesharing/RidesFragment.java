@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.squareup.picasso.Picasso;
+import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
@@ -28,26 +30,43 @@ import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
  * Created by Kayla on 2/1/2016.
  */
 public class RidesFragment extends CruFragment {
+    SwipeRefreshLayout layout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
         viewAvailableRides();
+        layout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.ridelist_layout);
         return fragmentView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                viewAvailableRides();
+            }
+        });
     }
 
     // Takes the user to the list of rides for the event
     //TODO: user first needs to fill out form
     public void viewAvailableRides() {
-
         new SetEventHeader().execute();
 
         Retriever retriever = new SingleRetriever<Ride>(RetrieverSchema.RIDE);
         CardFragmentFactory factory = new RideCardFactory();
         //TODO: callback task for selecting a ride (currently null)
-        new RetrievalTask<Ride>(retriever, factory,
-                R.id.list_rides, R.string.toast_no_rides).execute();
+        new RetrievalTask<Ride>(retriever, factory, R.string.toast_no_rides,
+                new AsyncResponse(getParent()) {
+            @Override
+            public void otherProcessing() {
+                layout.setRefreshing(false);
+            }
+        }).execute();
     }
 
     // Sets up and loads the image for the event into the image header
@@ -57,7 +76,7 @@ public class RidesFragment extends CruFragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            parent = (Activity) getParent();
+            parent = getParent();
             event = EventsActivity.getEvent();
             return null;
         }

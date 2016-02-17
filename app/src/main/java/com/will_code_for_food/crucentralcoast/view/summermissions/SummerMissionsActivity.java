@@ -28,7 +28,7 @@ public class SummerMissionsActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loadFragmentById(R.layout.fragment_summermission_list, "Missions", new SummerMissionFragment(), this);
+        loadFragmentById(R.layout.fragment_card_list, "Missions", new SummerMissionFragment(), this);
     }
 
     // Opens the mission's website application in browser

@@ -19,6 +19,10 @@
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
 
+    <!-- Search -->
+    <string name="search_title">Search</string>
+    <string name="search_hint">Search: </string>
+
     <!-- Toast Messages -->
     <string name="toast_calendar_added">Added event to calendar</string>
     <string name="toast_calendar_removed">Removed event from calendar</string>
@@ -28,6 +32,7 @@
     <string name="toast_no_events">Could not load events</string>
     <string name="toast_no_summer_missions">Could not load summer missions</string>
     <string name="toast_no_videos">Could not load YouTube videos</string>
+    <string name="toast_no_articles">Could not load article resources</string>
 
     <!--    Preferences     -->
     <string name="settings_event_notifications">Receive Event Notifications</string>
@@ -72,8 +77,13 @@
     <string name="form_generic_error">Your answer to \'%s\' is invalid</string>
 
     <!-- Log in form -->
+    <string name="login_title">Log In</string>
     <string name="login_user">Enter your username</string>
     <string name="login_user_question_name">username</string>
     <string name="login_pass">Enter your password (case sensitive)</string>
     <string name="login_pass_question_name">password</string>
+
+    <string name="cached_data_msg">No internet connection! This is old data!</string>
+    <string name="login_invalid_cred">This username and password combo is incorrect</string>
+    <string name="logout_message">You have been logged out</string>
 </resources>

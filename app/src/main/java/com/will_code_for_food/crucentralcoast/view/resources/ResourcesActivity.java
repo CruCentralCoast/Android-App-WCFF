@@ -1,56 +1,86 @@
 package com.will_code_for_food.crucentralcoast.view.resources;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Toast;
+import android.content.Intent;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.controller.authentication.Authenticator;
 import com.will_code_for_food.crucentralcoast.controller.authentication.Credentials;
+import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
+import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
+import com.will_code_for_food.crucentralcoast.values.LocalFiles;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+
+import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
+import com.will_code_for_food.crucentralcoast.values.LocalFiles;
+import com.will_code_for_food.crucentralcoast.values.UI;
+
+import com.will_code_for_food.crucentralcoast.controller.authentication.Credentials;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
-import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
-import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
-import com.will_code_for_food.crucentralcoast.values.LocalFiles;
-import com.will_code_for_food.crucentralcoast.values.UI;
-import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 
 /**
- * Displays the UI for resources, including videos and articles
+ * Created by mallika on 1/14/16.
  */
 public class ResourcesActivity extends MainActivity {
-
     protected String title = "Resources";
     protected String video_title = title + " > Videos";
     protected String article_title = title + " > Articles";
 
     public static Resource selectedResource;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFragmentById(R.layout.fragment_resources, title, null, this);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && Authenticator.isUserLoggedIn()) {
+            goToLeaderResources();
+        }
+    }
+
+    public void clickLeaderResources(View view) {
+        if (!Authenticator.isUserLoggedIn() && !Authenticator.logIn()) {
+            startActivityForResult(new Intent(this, LogInActivity.class), 1);
+        } else {
+            goToLeaderResources();
+        }
+    }
+
+    private void goToLeaderResources() {
+        // TODO actually show leader resources
+        Toast.makeText(context, "Show leader resources...", Toast.LENGTH_LONG).show();
+    }
+
     /**
      * Displays the Cru YouTube videos in a list
      */
     public void viewVideos(View view) {
-        loadFragmentById(R.layout.fragment_resources_youtube_list, video_title,
-                new ResourceVideoFragment(), this);
+        loadFragmentById(R.layout.fragment_card_list, video_title, new ResourceVideoFragment(), this);
     }
 
     /**
      * Displays the Cru articles in a list
      */
     public void viewArticles(View view) {
-        new ArticleTask(this).execute();
+        loadFragmentById(R.layout.fragment_card_list, article_title,
+                new ResourceArticleFragment(), this);
     }
 
     /**

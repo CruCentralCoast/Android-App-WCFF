@@ -11,6 +11,7 @@ public class Android {
     public static final String PREF_MINISTRIES = "pref_ministries";
     public static final String PREF_SETUP_COMPLETE = "setup_complete";
     public static final String PREF_CLEAR = "pref_clear";
+    public static final String PREF_LOGOUT = "pref_logout";
 
     // YOUTUBE
     public static final String YOUTUBE_USERNAME = "slocrusade";
@@ -25,7 +26,8 @@ public class Android {
     public static final String YOUTUBE_JSON_TITLE = "title";
     public static final String YOUTUBE_JSON_DESCRIPTION = "description";
     public static final String YOUTUBE_JSON_RESOURCE = "resourceId";
-    public static final String YOUTUBE_JSON_ID = "videoId";
+    public static final String YOUTUBE_JSON_ID = "id";
+    public static final String YOUTUBE_JSON_VIDEO_ID = "videoId";
     public static final String YOUTUBE_JSON_THUMBNAIL = "thumbnails";
     public static final String YOUTUBE_JSON_THUMBNAIL_DEFAULT = "default";
     public static final String YOUTUBE_JSON_THUMBNAIL_URL = "url";
@@ -53,4 +55,10 @@ public class Android {
                     "&playlistId=UUe-RJ-3Q3tUqJciItiZmjdg" +
                     "&maxResults=10" +
                     "&key=AIzaSyDx-YHJnv8FcLKlzgpD99ZpfLDjICRRFNI";
+    public static final String YOUTUBE_QUERY_SLOCRUSADE_SEARCH =
+            "https://www.googleapis.com/youtube/v3/" +
+                    "search?part=snippet" +
+                    "&key=AIzaSyDx-YHJnv8FcLKlzgpD99ZpfLDjICRRFNI" +
+                    "&maxResults=10&channelId=UCe-RJ-3Q3tUqJciItiZmjdg" +
+                    "&q=";
 }

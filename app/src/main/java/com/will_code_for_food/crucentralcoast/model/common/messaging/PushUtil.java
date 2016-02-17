@@ -26,56 +26,45 @@ import java.util.Set;
  */
 public class PushUtil {
     public static final String TOPICS = "/topics/";
+    public static RegistrationIntentService regService;
     private static String gcmId;
 
     /**
-     * Subscribe to a ministry's push channel
-     * @param ministryId
+     * Subscribe to a push channel
+     * @param channelName
      */
-    public static void subscribe(final String ministryId){
-        new AsyncTask<Void, Void, List<Ministry>>(){
-            GcmPubSub subber = GcmPubSub.getInstance(MainActivity.context);
+    public static void subscribe(final String channelName){
+        new AsyncTask<Void, Void, Void>(){
+            GcmPubSub subber = GcmPubSub.getInstance(regService);
 
-            protected List<Ministry> doInBackground(Void... params) {
-                Retriever retriever = new SingleRetriever<Ministry>(RetrieverSchema.MINISTRY);
-                return retriever.getAll().getObjects();
-            }
+            protected Void doInBackground(Void... params) {
+                try {
+                    subber.subscribe(getGCMId(), TOPICS +  channelName, null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-            @Override
-            protected void onPostExecute(List<Ministry> ministries) {
-                for (Ministry ministry : ministries)
-                    if (ministry.getId().equals(ministryId))
-                        try {
-                            subber.subscribe(getGCMId(), TOPICS +  ministry.getId(), null);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                return null;
             }
         }.execute();
     }
 
     /**
      * Unsubscribe from a ministry's push channel
-     * @param ministryId
+     * @param channelName
      */
-    public static void unsubscribe(final String ministryId){
-        new AsyncTask<Void, Void, List<Ministry>>(){
-            GcmPubSub subber = GcmPubSub.getInstance(MainActivity.context);
+    public static void unsubscribe(final String channelName){
+        new AsyncTask<Void, Void, Void>(){
+            GcmPubSub subber = GcmPubSub.getInstance(regService);
 
-            protected List<Ministry> doInBackground(Void... params) {
-                Retriever retriever = new SingleRetriever<Ministry>(RetrieverSchema.MINISTRY);
-                return retriever.getAll().getObjects();
-            }
+            protected Void doInBackground(Void... params) {
+                try {
+                    subber.unsubscribe(getGCMId(), TOPICS + channelName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-            @Override
-            protected void onPostExecute(List<Ministry> ministries) {
-                for (Ministry ministry : ministries)
-                    if (ministry.getId().equals(ministryId))
-                        try {
-                            subber.unsubscribe(getGCMId(), TOPICS + ministry.getId());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                return null;
             }
         }.execute();
     }
@@ -85,16 +74,22 @@ public class PushUtil {
      */
     public static void clearPushChannels()
     {
-        new AsyncTask<Void, Void, List<Ministry>>(){
-            protected List<Ministry> doInBackground(Void... params) {
+        new AsyncTask<Void, Void, Void>(){
+            protected Void doInBackground(Void... params) {
                 Retriever retriever = new SingleRetriever<Ministry>(RetrieverSchema.MINISTRY);
-                return retriever.getAll().getObjects();
-            }
+                List<Ministry> ministries = retriever.getAll().getObjects();
 
-            @Override
-            protected void onPostExecute(List<Ministry> ministries) {
-                for (Ministry ministry : ministries)
-                    ParsePush.unsubscribeInBackground(ministry.getName().replaceAll("\\s",""));
+                try {
+                    GcmPubSub subber = GcmPubSub.getInstance(MainActivity.context);
+
+                    //Unsubscribe from all ministries
+                    for (Ministry ministry : ministries)
+                        subber.unsubscribe(getGCMId(), TOPICS + ministry.getId());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
             }
         }.execute();
     }
@@ -102,7 +97,7 @@ public class PushUtil {
     public static String getGCMId()
     {
         if (gcmId == null || gcmId.isEmpty()){
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(new RegistrationIntentService());
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(regService);
             gcmId = prefs.getString(RegistrationIntentService.GCM_ID, "");
         }
         return gcmId;

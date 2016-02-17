@@ -75,12 +75,12 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
         if ((myDBObjects != null) && (myDBObjects.getObjects() != null) && (!myDBObjects.getObjects().isEmpty())) {
             list.setAdapter(cardFactory.createAdapter(myDBObjects));
             list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, myDBObjects));
-        }else {
+        } else {
             String errorMessage = Util.getString(errorMessageId);
             Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
         }
         if (response != null) {
-            response.processFinish(myDBObjects != null ? myDBObjects.getType() : null);
+            response.processFinish(myDBObjects);
         }
     }
 }

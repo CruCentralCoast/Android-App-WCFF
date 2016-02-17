@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 
@@ -18,8 +19,8 @@ public abstract class AsyncResponse {
         this.context = context;
     }
 
-    public final void processFinish(ContentType type) {
-        if (type == ContentType.CACHED) {
+    public final void processFinish(Content content) {
+        if (content != null && content.getType() == ContentType.CACHED && content.size() > 0) {
             Toast.makeText(context, Util.getString(R.string.cached_data_msg),
                     Toast.LENGTH_SHORT).show();
         }

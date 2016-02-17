@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void newActivity(Class newClass) {
         Intent intent = new Intent(this, newClass);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }
 }

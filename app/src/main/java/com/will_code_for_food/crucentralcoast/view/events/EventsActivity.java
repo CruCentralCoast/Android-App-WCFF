@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast.view.events;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -13,7 +14,6 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
-import com.will_code_for_food.crucentralcoast.view.events.EventsFragment;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareSelectActionFragment;
 
 /**
@@ -38,8 +38,7 @@ public class EventsActivity extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        loadFragmentById(R.layout.fragment_eventslist, title, new EventsFragment(), this);
+        loadFragmentById(R.layout.fragment_card_list, title, new EventsFragment(), this);
     }
 
     /**
@@ -52,7 +51,7 @@ public class EventsActivity extends MainActivity {
         if (event.isInCalendarAlready()) {
             calendarButton.setImageResource(R.drawable.calendar_added);
         } else {
-            calendarButton.setImageResource(R.drawable.calendar_add2);
+            calendarButton.setImageResource(R.drawable.calendar_add);
         }
     }
     
@@ -63,7 +62,7 @@ public class EventsActivity extends MainActivity {
                 event.deleteFromCalendar(this);
                 Toast.makeText(getApplicationContext(),
                         Util.getString(R.string.toast_calendar_removed), Toast.LENGTH_LONG).show();
-                calendarButton.setImageResource(R.drawable.calendar_add2);
+                calendarButton.setImageResource(R.drawable.calendar_add);
             } else {
                 event.saveToCalendar(this);
                 Toast.makeText(getApplicationContext(),

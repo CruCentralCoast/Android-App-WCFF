@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.tasks;
 
 import android.graphics.Point;
 import android.os.AsyncTask;
+import android.view.Display;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,21 +40,14 @@ public class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {
 
         // Display the header image of the event
         ImageView imageView = (ImageView)currentActivity.findViewById(R.id.image_event);
-        Point scaledSize = Util.scaledImageSize(currentActivity, UI.IMAGE_HEADER_LENGTH_RATIO, UI.IMAGE_HEADER_HEIGHT_RATIO);
         if (event.getImage() != null && event.getImage() != "") {
-            Picasso.with(currentActivity).load(event.getImage()).resize(scaledSize.x, scaledSize.y)
-                    .onlyScaleDown().placeholder(R.drawable.transparent).into(imageView);
-        }
-        else {
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(scaledSize.x, scaledSize.y);
-            imageView.setLayoutParams(layoutParams);
+            Picasso.with(currentActivity).load(event.getImage()).fit().into(imageView);
         }
         System.out.println("Find assets: " + currentActivity.getApplication().getAssets());
 
         // Display the location of the event
         TextView locationLabel = (TextView)currentActivity.findViewById(R.id.text_event_location);
         locationLabel.setText(event.getEventLocation());
-
         // Grey out button to note no chosen location
         if (!event.hasLocation()) {
             ImageButton mapButton = (ImageButton)currentActivity.findViewById(R.id.button_map);

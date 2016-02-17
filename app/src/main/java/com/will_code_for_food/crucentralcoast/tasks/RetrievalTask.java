@@ -29,15 +29,22 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
     private CardFragmentFactory cardFactory;        //Factory to create a card fragment from a json object
     private int errorMessageId;
     private int listId;
+    private AsyncResponse response;
 
     public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory,
-                         int listId, int errorMessageId) {
+                         int listId, int errorMessageId, AsyncResponse response) {
         super();
         this.retriever = retriever;
         this.cardFactory = cardFactory;
         this.errorMessageId = errorMessageId;
         this.listId = listId;
         currentActivity = (MainActivity) MainActivity.context;
+        this.response = response;
+    }
+
+    public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory,
+                         int listId, int errorMessageId) {
+        this(retriever, cardFactory, listId, errorMessageId, null);
     }
 
     @Override
@@ -71,6 +78,9 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
         }else {
             String errorMessage = Util.getString(errorMessageId);
             Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+        }
+        if (response != null) {
+            response.processFinish(myDBObjects != null ? myDBObjects.getType() : null);
         }
     }
 }

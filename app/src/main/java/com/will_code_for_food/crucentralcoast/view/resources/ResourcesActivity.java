@@ -85,31 +85,4 @@ public class ResourcesActivity extends MainActivity {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(UI.CRU_INSTAGRAM_LINK));
         startActivity(browserIntent);
     }
-    
-    //TODO delete this and use RetrievalTask/ResourceCardFactory
-    private class ArticleTask extends AsyncTask<Void, Void, Void> {
-
-        MainActivity parent;
-
-        public ArticleTask(MainActivity parent) {
-            this.parent = parent;
-        }
-        @Override
-        protected Void doInBackground(Void... params) {
-            SingleRetriever<Resource> retriever = new SingleRetriever<Resource>(RetrieverSchema.RESOURCE);
-            Content<Resource> resOjbects = retriever.getAll();
-
-            if (!resOjbects.isEmpty()) {
-                selectedResource = resOjbects.get(0);
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            loadFragmentById(R.layout.fragment_article, article_title, new ViewArticleFragment(), parent);
-        }
-    }
 }

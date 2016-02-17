@@ -2,4 +2,137 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@string/ridesharing_username"
+                android:id="@+id/name_prompt"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:padding="10dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:id="@+id/name_prompt_input"
+                android:layout_below="@+id/name_prompt"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/ridesharing_choose_day"
+                android:id="@+id/departure_date_prompt"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/name_prompt_input"
+                android:padding="10dp"/>
+
+            <DatePicker
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:id="@+id/departure_date_picker"
+                android:layout_below="@+id/departure_date_prompt"
+                android:padding="10dp"
+                android:datePickerMode="calendar"
+                android:headerBackground="@color/colorAccent_cruBrightBlue"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/ridesharing_choose_time"
+                android:layout_below="@+id/departure_date_picker"
+                android:id="@+id/departure_time_prompt"
+                android:textSize="15sp"
+                android:padding="10dp"/>
+
+            <TimePicker
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:timePickerMode="clock"
+                android:id="@+id/departure_time_picker"
+                android:layout_below="@+id/departure_time_prompt"
+                android:padding="10dp"
+                android:headerBackground="@color/colorAccent_cruBrightBlue"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/ridesharing_location"
+                android:id="@+id/leave_location_prompt"
+                android:layout_below="@+id/departure_time_picker"
+                android:textSize="15sp"
+                android:padding="10dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/List_of_Locations"
+                android:layout_below="@+id/leave_location_prompt"
+                android:textSize="15sp" />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@string/ridesharing_one_way_to_event"
+                android:id="@+id/One_Way_To_Checkbox"
+                android:layout_below="@+id/List_of_Locations"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@string/ridesharing_one_way_from_event"
+                android:id="@+id/One_Way_From_Checkbox"
+                android:layout_below="@+id/One_Way_To_Checkbox"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@string/ridesharing_two_way"
+                android:id="@+id/Two_Way_Checkbox"
+                android:layout_below="@+id/One_Way_From_Checkbox"
+                />
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="@string/cancel"
+                android:id="@+id/driver_form_cancel"
+                android:shadowColor="@color/colorPrimary_cruGrayLight"
+                android:layout_below="@+id/Two_Way_Checkbox"
+                android:padding="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp" />
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="@string/submit"
+                android:id="@+id/driver_form_submit"
+                android:layout_below="@+id/leave_location_prompt"
+                android:shadowColor="@color/colorPrimary_cruGrayLight"
+                android:padding="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp" />
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

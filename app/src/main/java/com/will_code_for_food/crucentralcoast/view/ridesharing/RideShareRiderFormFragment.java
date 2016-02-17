@@ -14,18 +14,16 @@ import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
-import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
-import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
-import com.will_code_for_food.crucentralcoast.values.Database;
+import com.will_code_for_food.crucentralcoast.model.ridesharing.RiderForm;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 
 /**
- * Created by masonstevenson on 2/4/16.
+ * Created by ShelliCrispen on 2/16/16.
  */
-public class RideShareDriverFormFragment extends CruFragment {
+public class RideShareRiderFormFragment extends CruFragment{
 
     DatePicker datePicker;
     TimePicker timePicker;
@@ -34,7 +32,6 @@ public class RideShareDriverFormFragment extends CruFragment {
     CheckBox oneWayTo;
     CheckBox oneWayFrom;
     CheckBox twoWay;
-    EditText numberofSeats;
     Event selectedEvent;
     RideShareActivity parent;
     Button submitButton;
@@ -57,7 +54,6 @@ public class RideShareDriverFormFragment extends CruFragment {
         oneWayTo = (CheckBox) fragmentView.findViewById(R.id.One_Way_To_Checkbox);
         oneWayFrom = (CheckBox) fragmentView.findViewById(R.id.One_Way_From_Checkbox);
         twoWay = (CheckBox) fragmentView.findViewById(R.id.Two_Way_Checkbox);
-        numberofSeats = (EditText) fragmentView.findViewById(R.id.number_of_seats);
         submitButton = (Button) fragmentView.findViewById(R.id.driver_form_submit);
         cancelButton = (Button) fragmentView.findViewById(R.id.driver_form_cancel);
 
@@ -100,7 +96,7 @@ public class RideShareDriverFormFragment extends CruFragment {
             @Override
             public void onClick(View v) {
                 new DisplayEventInfoTask().execute();
-                DriverForm form = new DriverForm(selectedEvent.getId());
+                RiderForm form = new RiderForm(selectedEvent.getId());
                 if (name.getText().length() > 0) {
                     form.answerQuestion(0, name.getText().toString());
                 }
@@ -108,9 +104,10 @@ public class RideShareDriverFormFragment extends CruFragment {
                 if (datePicker.getCalendarView().getDate() != 0){
                     form.answerQuestion(1, datePicker.getCalendarView().getDate());
                 }
+
                 //timepicker
                 form.answerQuestion(2, 0);
-                
+
                 if (direction != null){
                     form.answerQuestion(3, direction);
                 }
@@ -119,12 +116,9 @@ public class RideShareDriverFormFragment extends CruFragment {
                     form.answerQuestion(4, locations.getText().toString());
                 }
 
-                if (numberofSeats.getText().length() > 0){
-                    form.answerQuestion(5, Integer.parseInt(numberofSeats.getText().toString()));
-                }
                 FormValidationResult result = form.isFinishedDetailed();
                 if (result == FormValidationResult.VALID) {
-                    form.submit();
+                    //submit
                     Toast.makeText(parent, "ride added", Toast.LENGTH_SHORT);
                 } else {
                     result.getMessage();

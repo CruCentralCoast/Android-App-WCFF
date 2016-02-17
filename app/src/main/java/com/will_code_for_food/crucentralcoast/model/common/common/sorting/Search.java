@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -28,7 +29,7 @@ public class Search {
             }
         }
         for (DatabaseObject obj : list) {
-            Map<String, JsonElement> map = obj.getJsonEntrySet();
+            HashMap<String, JsonElement> map = obj.getJsonEntrySet();
             for (String key : map.keySet()) {
                 if (!searchList.contains(obj) &&
                         map.get(key).toString().toLowerCase().contains(query.toLowerCase())) {

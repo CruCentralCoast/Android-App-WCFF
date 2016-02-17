@@ -21,8 +21,8 @@ public class Credentials {
      * Creates credentials from given strings
      */
     public Credentials(final String username, final String password) {
-        this.username = username.toLowerCase();
-        this.password = password;
+        this.username = username.toLowerCase().trim();
+        this.password = password.trim();
     }
 
     /**

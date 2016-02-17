@@ -33,13 +33,13 @@
     <ImageView
         android:id="@+id/image_ride_event"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="125dp"
         android:layout_gravity="center"
-        android:src="@drawable/crulogo" />
+        android:src="@drawable/cru_logo_default" />
 
     <!-- List of Ride Cards -->
     <ListView
-        android:id="@+id/list_rides"
+        android:id="@+id/list_cards"
         android:layout_below="@id/image_ride_event"
         android:layout_above="@id/button_next_rides"
         android:layout_width="match_parent"

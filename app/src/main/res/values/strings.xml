@@ -75,6 +75,8 @@
     <string name="login_user_question_name">username</string>
     <string name="login_pass">Enter your password (case sensitive)</string>
     <string name="login_pass_question_name">password</string>
+
+    <string name="cached_data_msg">No internet connection! This is old data!</string>
     <string name="login_invalid_cred">This username and password combo is incorrect</string>
     <string name="logout_message">You have been logged out</string>
 </resources>

@@ -38,7 +38,6 @@ public class SingleRetriever<T extends DatabaseObject> implements Retriever {
     }
 
     public Content<T> getAll() {
-
         Content<T> content;
 
         if (testMode) {

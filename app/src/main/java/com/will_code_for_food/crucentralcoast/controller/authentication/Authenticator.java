@@ -1,5 +1,8 @@
 package com.will_code_for_food.crucentralcoast.controller.authentication;
 
+import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
+import com.will_code_for_food.crucentralcoast.values.LocalFiles;
+
 /**
  * Logs in users and checks whether or not the user is logged in
  */
@@ -18,6 +21,9 @@ public class Authenticator {
      */
     public static void logOut() {
         loggedIn = false;
+        if (LocalStorageIO.fileExists(LocalFiles.CREDENTIALS)) {
+            LocalStorageIO.deleteFile(LocalFiles.CREDENTIALS);
+        }
     }
 
     /**

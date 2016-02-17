@@ -69,7 +69,7 @@ public class ResourceVideoFragment extends CruFragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            list = (ListView) currentActivity.findViewById(R.id.list_youtube);
+            list = (ListView) currentActivity.findViewById(R.id.list_cards);
 
             if ((videos != null) && (!videos.isEmpty())) {
                 final Content<Video> videoContent = videoPlaylist.getVideoContent();

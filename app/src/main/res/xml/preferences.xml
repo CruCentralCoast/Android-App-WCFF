@@ -14,6 +14,10 @@
         <MultiSelectListPreference
             android:key="pref_ministries"
             android:title="Select Ministries"/>
+        <Preference
+            android:key="pref_logout"
+            android:title="Log Out"
+            android:summary="(Community Group Leaders Only)"/>
         <CheckBoxPreference
             android:key="setup_complete"
             android:title="Initial Setup Complete"

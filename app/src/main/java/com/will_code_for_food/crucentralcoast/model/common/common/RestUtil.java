@@ -7,6 +7,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
+import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
@@ -27,10 +29,9 @@ import java.net.URLEncoder;
 public class RestUtil {
     private static final String DB_URL = Database.DB_URL;
 
-    private static HttpURLConnection createGetConnection(String from) throws Exception {
-        String dataUrl = DB_URL + from;
+    private static HttpURLConnection createGetConnection(String dbUrl, String from) throws Exception {
+        String dataUrl = dbUrl + from;
         URL url = new URL(dataUrl);
-        ;
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int timeout = Database.DB_TIMEOUT;
         connection.setConnectTimeout(timeout);
@@ -86,7 +87,7 @@ public class RestUtil {
     public static JsonArray get(String tableName) {
         JsonParser parser = new JsonParser();
         try {
-            HttpURLConnection conn = createGetConnection(tableName
+            HttpURLConnection conn = createGetConnection(DB_URL, tableName
                     + Database.REST_QUERY_GET_ALL);
             String toParse = request(conn);
 
@@ -95,6 +96,24 @@ public class RestUtil {
             else
                 return parser.parse(toParse).getAsJsonArray();
         } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public static Playlist getPlaylist(String url) {
+        try {
+            JsonParser parser = new JsonParser();
+            HttpURLConnection conn = createGetConnection(url, "");
+            String toParse = request(conn);
+
+            if (toParse.equals("!error")) {
+                return null;
+            }
+            else {
+                JsonElement videoElement = parser.parse(toParse);
+                return new Playlist(videoElement.getAsJsonObject(), url);
+            }
+        } catch (Exception e) {
             return null;
         }
     }
@@ -201,7 +220,7 @@ public class RestUtil {
 
             if(HttpResult == HttpURLConnection.HTTP_OK){
                 actionSuccessful = true;
-            }else{
+            } else{
                 //Log.d("RestUtil.java", connection.getResponseMessage());
                 System.out.println(connection.getResponseMessage());
             }

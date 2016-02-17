@@ -49,7 +49,6 @@ public class SummerMissionCardFactory implements CardFragmentFactory {
                 new SummerMissionViewTask().execute(selectedMission);
             }
         } ;
-
     }
 
     private class SummerMissionAdapter extends ArrayAdapter<SummerMission>{

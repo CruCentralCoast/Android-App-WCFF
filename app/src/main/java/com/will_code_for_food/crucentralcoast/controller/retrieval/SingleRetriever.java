@@ -38,16 +38,15 @@ public class SingleRetriever<T extends DatabaseObject> implements Retriever {
     }
 
     public Content<T> getAll() {
-
         Content<T> content;
 
         if (testMode) {
             return getTestContent();
         } else if ((content = getLiveContent()) != null) {
-            Log.e("RETREIVAL", "getting live content");
+            Log.e("RETRIEVAL", "getting live content");
             return content;
         } else {
-            Log.e("RETREIVAL", "getting cached content");
+            Log.e("RETRIEVAL", "getting cached content");
             return getCachedContent();
         }
     }

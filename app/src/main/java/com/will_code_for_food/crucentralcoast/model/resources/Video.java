@@ -38,8 +38,18 @@ public class Video extends DatabaseObject {
 
     // The video id of the video
     public String getId() {
-        JsonObject resourceId = getSnippet().get(Android.YOUTUBE_JSON_RESOURCE).getAsJsonObject();
-        return resourceId.get(Android.YOUTUBE_JSON_ID).getAsString();
+        JsonObject resourceId;
+        String id = "";
+
+        if (getSnippet().get(Android.YOUTUBE_JSON_RESOURCE) != null) {
+            resourceId = getSnippet().get(Android.YOUTUBE_JSON_RESOURCE).getAsJsonObject();
+            id = resourceId.get(Android.YOUTUBE_JSON_VIDEO_ID).getAsString();
+        } else if (fields.get(Android.YOUTUBE_JSON_ID) != null) {
+            resourceId = fields.get(Android.YOUTUBE_JSON_ID).getAsJsonObject();
+            id = resourceId.get(Android.YOUTUBE_JSON_VIDEO_ID).getAsString();
+        }
+
+        return id;
     }
 
     // The date the video was uploaded

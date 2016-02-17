@@ -4,8 +4,10 @@ import android.support.v4.util.Pair;
 import android.util.Log;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.io.BufferedReader;
@@ -224,5 +226,29 @@ public class RestUtil {
     //removes a passenger from a ride
     public static boolean dropPassenger(String rideId, String passengerId) {
         return addDropHelper(Database.REST_QUERY_DROP_PASSENGER, rideId, passengerId);
+    }
+
+    /**
+     * Returns a passenger objects based on a person's phone number,
+     * or null if none was found
+     */
+    public static Passenger getPassenger(String phoneNum) {
+        JsonArray passengers = RestUtil.get(Database.REST_PASSENGER);
+        Passenger tempPassenger = null;
+        Passenger passenger = null;
+
+
+        //get the latest Passenger object with that phone number
+        if (passengers != null) {
+            for (JsonElement tempElement : passengers) {
+                tempPassenger = new Passenger(tempElement.getAsJsonObject());
+
+                if (tempPassenger.getPhoneNumber().equals(phoneNum)) {
+                    passenger = tempPassenger;
+                }
+            }
+        }
+
+        return passenger;
     }
 }

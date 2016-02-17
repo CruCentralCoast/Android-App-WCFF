@@ -33,6 +33,7 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         String phoneNum;
         JsonObject result;
+        Passenger passenger;
 
         try {
             //get this phone number
@@ -43,11 +44,20 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
             phoneNum = "EMULATOR";
         }
 
-        //push passenger into db
-        result = RestUtil.create(Passenger.toJSON(passengerName, phoneNum, "dummy_id", directionPreference), Database.REST_PASSENGER);
+        //try to find passenger in db
+        passenger = RestUtil.getPassenger(phoneNum);
+
+        //if passenger doesn't exist
+        if (passenger == null) {
+            //push new passenger into db
+            result = RestUtil.create(Passenger.toJSON(passengerName, phoneNum, "dummy_id", directionPreference), Database.REST_PASSENGER);
+        } else {
+            //update existing passenger
+            result = RestUtil.update(Passenger.toJSON(passenger.getId(), passengerName, phoneNum, "dummy_id", directionPreference), Database.REST_PASSENGER);
+        }
 
         //update ride
-        if ((result != null) && (RestUtil.addPassenger(ride.getId(), new Passenger(result).getId()))) {
+        if ((result != null) && ((ride.hasPassenger(new Passenger(result).getId())) || (RestUtil.addPassenger(ride.getId(), new Passenger(result).getId())))) {
             //TODO: Notify driver
 
             parent.runOnUiThread(new Runnable() {
@@ -72,4 +82,6 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
     }
+
+
 }

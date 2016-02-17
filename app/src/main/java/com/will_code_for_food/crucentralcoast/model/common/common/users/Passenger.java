@@ -3,12 +3,16 @@ package com.will_code_for_food.crucentralcoast.model.common.common.users;
 import android.graphics.Path;
 import android.provider.ContactsContract;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.values.Database;
+
+import java.util.ArrayList;
 
 /**
  * Created by Gavin on 11/12/2015.
@@ -76,6 +80,13 @@ public class Passenger extends DatabaseObject{
         thisObj.add(Database.JSON_KEY_USER_PHONE, new JsonPrimitive(phone));
         thisObj.add(Database.JSON_KEY_USER_GCM, new JsonPrimitive(gcm_id));
         thisObj.add(Database.JSON_KEY_USER_DIRECTION, new JsonPrimitive(direction));
+
+        return thisObj;
+    }
+
+    public static JsonObject toJSON(String id, String name, String phone, String gcm_id, String direction) {
+        JsonObject thisObj = toJSON(name, phone, gcm_id, direction);
+        thisObj.add(Database.JSON_KEY_COMMON_ID, new JsonPrimitive(id));
 
         return thisObj;
     }

@@ -16,6 +16,10 @@
     <string name="button_need_ride">Need a ride?</string>
     <string name="button_make_ride">I can drive!</string>
 
+    <!-- Search -->
+    <string name="search_title">Search</string>
+    <string name="search_hint">Search: </string>
+
     <!-- Toast Messages -->
     <string name="toast_calendar_added">Added event to calendar</string>
     <string name="toast_calendar_removed">Removed event from calendar</string>

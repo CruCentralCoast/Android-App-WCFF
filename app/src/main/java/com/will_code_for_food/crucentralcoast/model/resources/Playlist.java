@@ -16,14 +16,16 @@ import java.util.List;
  */
 public class Playlist extends DatabaseObject {
 
+    private String baseUrl;    // base url to load videos from
     private JsonObject fields; // holds the fields
     private String nextPage;   // holds the next page token
 
     private List<Video> videoList;
     private Content<Video> videoContent;
 
-    public Playlist(JsonObject jsonObject) {
+    public Playlist(JsonObject jsonObject, String url) {
         super(jsonObject);
+        baseUrl = url;
         fields = jsonObject;
         nextPage = getNextPage();
 
@@ -51,7 +53,7 @@ public class Playlist extends DatabaseObject {
 
     public void loadNextPage() {
         if (nextPage != "") {
-            String query = Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS;
+            String query = baseUrl;
             String page = Android.YOUTUBE_QUERY_PAGE + nextPage;
             Playlist newPlaylist = RestUtil.getPlaylist(query + page);
 

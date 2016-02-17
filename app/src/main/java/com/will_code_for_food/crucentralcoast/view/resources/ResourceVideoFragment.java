@@ -1,12 +1,24 @@
 package com.will_code_for_food.crucentralcoast.view.resources;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
@@ -29,20 +41,47 @@ import java.util.List;
 /**
  * Created by Kayla on 2/11/2016.
  */
-public class ResourceVideoFragment extends CruFragment {
+public class ResourceVideoFragment extends CruFragment implements TextView.OnEditorActionListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
-        new LoadVideosTask().execute();
+        setHasOptionsMenu(true);
+        new LoadVideosTask().execute(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS);
         return fragmentView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.options_menu, menu);
+        menu.findItem(R.id.search).setActionView(R.layout.action_search);
+        EditText search = (EditText)menu.findItem(R.id.search).getActionView().findViewById(R.id.text);
+        search.setOnEditorActionListener(this);
+        search.setImeActionLabel("Search", KeyEvent.KEYCODE_ENTER);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.search) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (event == null || event.getAction() == KeyEvent.KEYCODE_ENTER) {
+            new LoadVideosTask().execute(Android.YOUTUBE_QUERY_SLOCRUSADE_SEARCH + v.getText());
+        }
+        return true;
     }
 
     /**
      * Loads a list of videos from the Cru YT channel and displays them in cards
      */
-    private class LoadVideosTask extends AsyncTask<Void, Void, Void> {
+    private class LoadVideosTask extends AsyncTask<String, Void, Void> {
 
         private Playlist videoPlaylist;
         private List<Video> videos;
@@ -60,8 +99,8 @@ public class ResourceVideoFragment extends CruFragment {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            videoPlaylist = RestUtil.getPlaylist(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS);
+        protected Void doInBackground(String... queryUrl) {
+            videoPlaylist = RestUtil.getPlaylist(queryUrl[0]);
             videos = videoPlaylist.getVideoList();
             return null;
         }

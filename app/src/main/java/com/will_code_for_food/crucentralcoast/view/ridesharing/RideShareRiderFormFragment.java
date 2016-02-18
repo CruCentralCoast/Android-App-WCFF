@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -32,9 +33,9 @@ public class RideShareRiderFormFragment extends CruFragment{
     TimePicker timePicker;
     EditText name;
     EditText locations;
-    CheckBox oneWayTo;
-    CheckBox oneWayFrom;
-    CheckBox twoWay;
+    RadioButton oneWayTo;
+    RadioButton oneWayFrom;
+    RadioButton twoWay;
     Event selectedEvent;
     RideShareActivity parent;
     Button submitButton;
@@ -55,36 +56,11 @@ public class RideShareRiderFormFragment extends CruFragment{
         datePicker = (DatePicker) fragmentView.findViewById(R.id.departure_date_picker);
         timePicker = (TimePicker) fragmentView.findViewById(R.id.departure_time_picker);
         locations = (EditText) fragmentView.findViewById(R.id.list_of_locations);
-        oneWayTo = (CheckBox) fragmentView.findViewById(R.id.One_Way_To_Checkbox);
-        oneWayFrom = (CheckBox) fragmentView.findViewById(R.id.One_Way_From_Checkbox);
-        twoWay = (CheckBox) fragmentView.findViewById(R.id.Two_Way_Checkbox);
+        oneWayTo = (RadioButton) fragmentView.findViewById(R.id.One_Way_To_Checkbox);
+        oneWayFrom = (RadioButton) fragmentView.findViewById(R.id.One_Way_From_Checkbox);
+        twoWay = (RadioButton) fragmentView.findViewById(R.id.Two_Way_Checkbox);
         submitButton = (Button) fragmentView.findViewById(R.id.driver_form_submit);
         cancelButton = (Button) fragmentView.findViewById(R.id.driver_form_cancel);
-
-        /*boolean checked = ((CheckBox) fragmentView).isChecked();
-        switch(fragmentView.getId()) {
-            case R.id.One_Way_From_Checkbox:
-                if (checked) {
-                    oneWayTo.setChecked(false);
-                    twoWay.setChecked(false);
-                    direction = RideDirection.ONE_WAY_FROM_EVENT;
-                }
-                break;
-            case R.id.One_Way_To_Checkbox:
-                if (checked) {
-                    oneWayFrom.setChecked(false);
-                    twoWay.setChecked(false);
-                    direction = RideDirection.ONE_WAY_TO_EVENT;
-                }
-                break;
-            case R.id.Two_Way_Checkbox:
-                if (checked) {
-                    oneWayTo.setChecked(false);
-                    oneWayFrom.setChecked(false);
-                    direction = RideDirection.TWO_WAY;
-                }
-                break;
-        }*/
 
         datePicker.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -112,7 +88,21 @@ public class RideShareRiderFormFragment extends CruFragment{
             }
         });
 
-
+        oneWayFrom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                direction = RideDirection.ONE_WAY_FROM_EVENT;
+            }});
+        oneWayTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                direction = RideDirection.ONE_WAY_TO_EVENT;
+            }});
+        twoWay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                direction = RideDirection.TWO_WAY;
+            }});
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,36 +118,35 @@ public class RideShareRiderFormFragment extends CruFragment{
             public void onClick(View v) {
                 new DisplayEventInfoTask().execute();
                 RiderForm form = new RiderForm(selectedEvent.getId());
-                if (name.getText().length() > 0) {
+                if (name.getText() != null) {
                     form.answerQuestion(0, name.getText().toString());
                 }
-                if (datePicker.getCalendarView().getDate() != 0){
+                if (date != 0){
                     form.answerQuestion(1, date);
                 }
-                if (time > 0){
+                if (time != 0){
                     form.answerQuestion(2, time);
                 }
                 if (direction != null){
                     form.answerQuestion(3, direction);
                 }
-
-                if (locations.getText().length() > 0) {
+                if (locations.getText() != null) {
                     form.answerQuestion(4, locations.getText().toString());
                 }
-
                 FormValidationResult result = form.isFinishedDetailed();
                 if (result == FormValidationResult.VALID) {
                     //submit
-                    Toast.makeText(parent, "ride added", Toast.LENGTH_SHORT);
+                    Toast.makeText(parent, "Rider Form Submitted", Toast.LENGTH_SHORT);
                 } else {
-                    result.getMessage(null);
+                    result.getMessage(parent);
                 }
-                //System.out.println("Submit clicked!");
+                System.out.println("Submit clicked!");
             }
         });
 
         return fragmentView;
     }
+
 
     private class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {
 

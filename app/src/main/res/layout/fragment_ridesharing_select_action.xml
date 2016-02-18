@@ -26,10 +26,18 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="60dp"
+        android:text="@string/button_ride_list"
+        android:id="@+id/btn_ride_list"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:text="@string/button_need_ride"
         android:id="@+id/btn_need_a_ride"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60dp" />
+        android:layout_marginTop="30dp" />
 
     <Button
         android:layout_width="200dp"
@@ -37,5 +45,6 @@
         android:text="@string/button_make_ride"
         android:id="@+id/btn_i_can_drive"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="30dp" />
+
 </LinearLayout>

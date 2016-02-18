@@ -15,6 +15,9 @@
     <string name="button_next">Next &gt;</string>
     <string name="button_need_ride">Need a ride?</string>
     <string name="button_make_ride">I can drive!</string>
+    <string name="button_ride_list">View Ride List</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Search -->
     <string name="search_title">Search</string>
@@ -49,7 +52,7 @@
     <string name="new_default">FreigSanProLiglt.otf</string>
 
     <!-- Ridesharing Forms -->
-    <string name="ridesharing_username">Name</string>
+    <string name="ridesharing_username">Please Enter Your Name</string>
     <string name="ridesharing_username_question_name">name</string>
     <string name="ridesharing_choose_day">What day would you like to leave for the event?</string>
     <string name="ridesharing_choose_day_question_name">departure date</string>

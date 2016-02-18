@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
@@ -76,14 +78,12 @@ public class MyRideCardFactory implements CardFragmentFactory {
                     "the PAC circle"); // use dummy value for now
             leaveLocation.setText(text);
 
+            //TODO: Make this not use the same card
             TextView seatsLeft = (TextView) hold.findViewById(R.id.card_ride_seats_left);
-            // TODO this is not the way we should be calculating number of seats left
-            int seats = current.getNumAvailableSeatsFromEvent() + current.getNumAvailableSeatsToEvent();
-            if (seats == 1) {
-                text = String.format(Util.getString(R.string.ridesharing_seat_left), seats);
-            } else {
-                text = String.format(Util.getString(R.string.ridesharing_seats_left), seats);
-            }
+            List<Event> events = new SingleRetriever<Event>(RetrieverSchema.EVENT).getAll();
+            for (Event e : events)
+                if (e.getId().equals(current.getEventId()))
+                    text = e.getName();
             seatsLeft.setText(text);
 
             return hold;

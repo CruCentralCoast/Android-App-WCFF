@@ -33,7 +33,7 @@ public class RideCardFactory implements CardFragmentFactory {
 
     public RideCardFactory(MainActivity parent) {
         this.parent = parent;
-        event = RideShareActivity.getEvent();
+        event = EventsActivity.getEvent();
     }
 
     @Override

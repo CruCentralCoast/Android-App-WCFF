@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast.controller.retrieval;
 import android.util.Log;
 
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.sorting.DatabaseObjectSorter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,6 +55,9 @@ public final class MultiRetriever implements Retriever {
                 }
             }
         }
+
+        //Broken, currently
+        objects = DatabaseObjectSorter.sortByDate(objects);
 
         if (containsCached) {
             return new Content(objects, ContentType.CACHED); //may contain some live content

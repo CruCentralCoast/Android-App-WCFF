@@ -19,6 +19,7 @@ import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
  * Created by MasonJStevenson on 2/1/2016.
  */
 public class RideShareSelectActionFragment extends CruFragment {
+    private Button btnRideList;
     private Button btnNeedRide;
     private Button btnCanDrive;
     private ImageView imageView;
@@ -54,10 +55,20 @@ public class RideShareSelectActionFragment extends CruFragment {
     }
 
     private void initButtons() {
-        btnNeedRide.setOnClickListener(new View.OnClickListener() {
+        btnRideList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getParent().loadFragmentById(R.layout.fragment_ride_list, "Rides", new RidesFragment(), getParent());
+
+            }
+        });
+
+        btnNeedRide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //getParent().loadFragmentById(R.layout.fragment_rideslist, "Rides", new RidesFragment(), getParent());
+                getParent().loadFragmentById(R.layout.fragment_ridesharing_rider_form, "Rider Form", new RideShareDriverFormFragment(), getParent());
+
             }
         });
 
@@ -66,7 +77,9 @@ public class RideShareSelectActionFragment extends CruFragment {
             public void onClick(View v) {
                 //launch with can-drive form
                 getParent().loadFragmentById(R.layout.fragment_ridesharing_driver_form, "Driver Form", new RideShareDriverFormFragment(), getParent());
+
             }
         });
     }
+
 }

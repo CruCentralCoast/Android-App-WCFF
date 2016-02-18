@@ -36,6 +36,7 @@ public class RideShareSelectActionFragment extends CruFragment {
 
         btnNeedRide = (Button) fragmentView.findViewById(R.id.btn_need_a_ride);
         btnCanDrive = (Button) fragmentView.findViewById(R.id.btn_i_can_drive);
+        btnRideList = (Button) fragmentView.findViewById(R.id.btn_ride_list);
         imageView = (ImageView) fragmentView.findViewById(R.id.rideshare_select_action_image);
         event = EventsActivity.getEvent();
         dateText = (TextView) fragmentView.findViewById(R.id.ridesharing_select_action_date);

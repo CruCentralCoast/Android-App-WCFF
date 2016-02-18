@@ -57,7 +57,7 @@ public class RideShareDriverFormFragment extends CruFragment {
         selectedEvent = parent.getEvent();
         name = (EditText) fragmentView.findViewById(R.id.name_prompt_input);
         datePicker = (DatePicker) fragmentView.findViewById(R.id.departure_date_picker);
-        datePicker.getCalendarView().setDate(0);
+        //datePicker.getCalendarView().setDate(0);
         timePicker = (TimePicker) fragmentView.findViewById(R.id.departure_time_picker);
         locations = (EditText) fragmentView.findViewById(R.id.list_of_locations);
         oneWayTo = (CheckBox) fragmentView.findViewById(R.id.One_Way_To_Checkbox);
@@ -67,7 +67,7 @@ public class RideShareDriverFormFragment extends CruFragment {
         submitButton = (Button) fragmentView.findViewById(R.id.driver_form_submit);
         cancelButton = (Button) fragmentView.findViewById(R.id.driver_form_cancel);
 
-        boolean checked = ((CheckBox) fragmentView).isChecked();
+        /*boolean checked = ((CheckBox) fragmentView).isChecked();
         switch(fragmentView.getId()) {
             case R.id.One_Way_From_Checkbox:
                 if (checked) {
@@ -90,7 +90,7 @@ public class RideShareDriverFormFragment extends CruFragment {
                     direction = RideDirection.TWO_WAY;
                 }
                 break;
-        }
+        }*/
 
         datePicker.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -114,7 +114,7 @@ public class RideShareDriverFormFragment extends CruFragment {
                         timePicker.getCurrentHour(),
                         timePicker.getCurrentMinute());
 
-                time = calendar.getTimeInMillis();
+                time = timeCal.getTimeInMillis();
             }
         });
 

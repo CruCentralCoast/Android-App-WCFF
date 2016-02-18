@@ -90,6 +90,9 @@ public class LocalStorageIO {
      * Adds a string to the end of a file
      */
     public static boolean appendToList(final String data, final String fileName) {
+        if (!fileExists(fileName))
+            return writeSingleLineFile(fileName, data);
+
         List<String> list = readList(fileName);
         if (list != null) {
             list.add(data);
@@ -102,6 +105,9 @@ public class LocalStorageIO {
      * Adds a list of strings to the end of a file
      */
     public static boolean appendToList(final List<String> data, final String fileName) {
+        if (!fileExists(fileName))
+            return writeList(data, fileName);
+
         List<String> list = readList(fileName);
         if (list != null) {
             list.addAll(data);

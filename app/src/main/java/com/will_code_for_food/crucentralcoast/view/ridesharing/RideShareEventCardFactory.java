@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.google.gson.JsonElement;
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
@@ -44,7 +45,9 @@ public class RideShareEventCardFactory extends EventCardFactory {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Event selectedEvent = (Event) myDBObjects.getObjects().get(position);
                 EventsActivity.setEvent(selectedEvent);
-                ((EventsActivity)currentActivity).viewRidesharing(view);
+                currentActivity.loadFragmentById(R.layout.fragment_ridesharing_select_action,
+                        selectedEvent.getName() + " > " + RideShareSelectActionFragment.TITLE,
+                        new RideShareSelectActionFragment(), currentActivity);
             }
         };
     }

@@ -78,7 +78,7 @@ public class MyRideCardFactory implements CardFragmentFactory {
             ArrayList<Ride> rides = new SingleRetriever<Ride>(RetrieverSchema.RIDE).getAll();
 
             for (Ride ride : rides) {
-                if (ride.hasPassenger(me.getId())) {
+                if (me != null && ride.hasPassenger(me.getId())) {
                     myRides.add(ride.getId());
                 }
             }

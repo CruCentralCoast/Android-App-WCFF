@@ -1,12 +1,15 @@
 package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
@@ -26,9 +29,11 @@ import java.util.List;
 public class RideCardFactory implements CardFragmentFactory {
     private List<Ride> cards;
     private Event event;
+    private MainActivity parent;
 
-    public RideCardFactory() {
-        event = EventsActivity.getEvent();
+    public RideCardFactory(MainActivity parent) {
+        this.parent = parent;
+        event = RideShareActivity.getEvent();
     }
 
     @Override
@@ -48,7 +53,7 @@ public class RideCardFactory implements CardFragmentFactory {
 
     @Override
     public ArrayAdapter createAdapter(Content cardObjects) {
-        return new RideAdapter(RideShareActivity.context,
+        return new RideAdapter(parent,
                 android.R.layout.simple_list_item_1, cardObjects);
     }
 
@@ -59,29 +64,76 @@ public class RideCardFactory implements CardFragmentFactory {
 
     private class RideAdapter extends ArrayAdapter<Ride> {
 
+        Ride current;
+        Context context;
+
         public RideAdapter(Context context, int resource, Content content) {
-            super(context, resource, content.getObjects());
-            cards = content.getObjects();
+            super(context, resource, content);
+            cards = content;
+            this.context = context;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return getCount();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
-            Ride current = cards.get(position);
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            View hold = inflater.inflate(R.layout.fragment_ride_card, parent, false);
 
+            if (convertView == null) {
+                current = cards.get(position);
+                //LayoutInflater inflater = LayoutInflater.from(getContext());
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View hold = inflater.inflate(R.layout.fragment_ride_card, parent, false);
+
+                setDriverName(hold);
+                setLeaveDate(hold);
+                setLeaveLocation(hold);
+                setSeatsLeft(hold);
+
+                createListener(hold, position);
+
+                return hold;
+            }
+
+            return convertView;
+        }
+
+        private void setDriverName(View hold) {
             TextView driverName = (TextView) hold.findViewById(R.id.card_driver_name);
             driverName.setText(current.getDriverName());
+        }
+
+        private void setLeaveDate(View hold) {
+            String text;
 
             TextView leaveDate = (TextView) hold.findViewById(R.id.card_ride_leave_date);
-            String text = String.format(Util.getString(R.string.ridesharing_leaving_date),
+            text = String.format(Util.getString(R.string.ridesharing_leaving_date),
                     current.getLeaveTime(), current.getLeaveDate());
             leaveDate.setText(text);
+        }
+
+        private void setLeaveLocation (View hold) {
+            String text;
+            String location = current.getLocation().getStreet();
+
+            if (location == null) {
+                location = "unknown";
+            }
 
             TextView leaveLocation = (TextView) hold.findViewById(R.id.card_ride_leave_location);
-            text = String.format(Util.getString(R.string.ridesharing_leaving_location),
-                    "the PAC circle"); // use dummy value for now
+            text = String.format(Util.getString(R.string.ridesharing_leaving_location), location);
             leaveLocation.setText(text);
+        }
+
+        private void setSeatsLeft(View hold) {
+            String text;
 
             TextView seatsLeft = (TextView) hold.findViewById(R.id.card_ride_seats_left);
             // TODO this is not the way we should be calculating number of seats left
@@ -92,8 +144,27 @@ public class RideCardFactory implements CardFragmentFactory {
                 text = String.format(Util.getString(R.string.ridesharing_seats_left), seats);
             }
             seatsLeft.setText(text);
+        }
 
-            return hold;
+        private void createListener(View hold, int position) {
+
+            RelativeLayout background = (RelativeLayout) hold.findViewById(R.id.fragment_ride_card);
+            background.setOnClickListener(new RideClickListener(current));
+        }
+
+        private class RideClickListener implements View.OnClickListener {
+
+            Ride ride;
+
+            public RideClickListener(Ride ride) {
+                this.ride = ride;
+            }
+
+            @Override
+            public void onClick(View v) {
+                RideShareActivity.setRide(ride);
+                parent.loadFragmentById(R.layout.fragment_ride_info, ride.getDriverName() + "'s Ride", new RideInfoFragment(), parent);
+            }
         }
     }
 }

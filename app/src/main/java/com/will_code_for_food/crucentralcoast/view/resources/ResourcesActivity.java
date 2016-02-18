@@ -2,6 +2,8 @@ package com.will_code_for_food.crucentralcoast.view.resources;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Toast;
 import android.content.Intent;
@@ -42,21 +44,21 @@ public class ResourcesActivity extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFragmentById(R.layout.fragment_resources, "Resources", null, this);
-    }
-
-    public void clickLeaderResources(View view) {
-        if (!Authenticator.isUserLoggedIn() && !Authenticator.logIn()) {
-            startActivityForResult(new Intent(this, LogInActivity.class), 1);
-        } else {
-            goToLeaderResources();
-        }
+        loadFragmentById(R.layout.fragment_resources, title, null, this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && Authenticator.isUserLoggedIn()) {
+            goToLeaderResources();
+        }
+    }
+
+    public void clickLeaderResources(View view) {
+        if (!Authenticator.isUserLoggedIn() && !Authenticator.logIn()) {
+            startActivityForResult(new Intent(this, LogInActivity.class), 1);
+        } else {
             goToLeaderResources();
         }
     }

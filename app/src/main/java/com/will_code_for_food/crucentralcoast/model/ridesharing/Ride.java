@@ -41,6 +41,8 @@ public class Ride extends DatabaseObject {
     private RideDirection direction;
     private String gender;
 
+
+    private List<String> riderIds;
     private List<Passenger> ridersToEvent;
     private List<Passenger> ridersFromEvent;
 
@@ -52,6 +54,7 @@ public class Ride extends DatabaseObject {
         super(obj);
         ridersToEvent = new ArrayList<>();
         ridersFromEvent = new ArrayList<>();
+        riderIds = new ArrayList<String>();
         refreshFields();
     }
 
@@ -92,6 +95,10 @@ public class Ride extends DatabaseObject {
         numSeats = getFieldAsInt(Database.JSON_KEY_RIDE_SEATS);
         direction = RideDirection.fromString(getFieldAsString(Database.JSON_KEY_RIDE_DIRECTION));
         gender = getFieldAsString(Database.JSON_KEY_RIDE_GENDER);
+
+        for (JsonElement passenger : getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray()) {
+            riderIds.add(passenger.getAsString());
+        }
 
         // TODO this keeps happening, and is a problem
         if (direction == null) {
@@ -158,6 +165,13 @@ public class Ride extends DatabaseObject {
     public void addRiderTwoWay(final Passenger rider) {
         addRiderFromEvent(rider);
         addRiderToEvent(rider);
+    }
+
+    /**
+     * Checks this ride for a particular passenger with phone number phoneNum
+     */
+    public boolean hasPassenger(String id) {
+        return riderIds.contains(id);
     }
 
     public String getEventId() {

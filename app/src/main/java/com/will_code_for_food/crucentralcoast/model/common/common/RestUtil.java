@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.values.Android;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.io.BufferedReader;
@@ -22,6 +23,7 @@ import java.net.URLEncoder;
 /**
  * Created by Brian on 11/16/2015.
  * Updated by Mason on 11/22/2015.
+ * <p/>
  * Communicates with the REST api to retrieve DatabaseObjects from the database.
  */
 public class RestUtil {
@@ -109,7 +111,7 @@ public class RestUtil {
             }
             else {
                 JsonElement videoElement = parser.parse(toParse);
-                return new Playlist(videoElement.getAsJsonObject());
+                return new Playlist(videoElement.getAsJsonObject(), url);
             }
         } catch (Exception e) {
             return null;
@@ -243,5 +245,29 @@ public class RestUtil {
     //removes a passenger from a ride
     public static boolean dropPassenger(String rideId, String passengerId) {
         return addDropHelper(Database.REST_QUERY_DROP_PASSENGER, rideId, passengerId);
+    }
+
+    /**
+     * Returns a passenger objects based on a person's phone number,
+     * or null if none was found
+     */
+    public static Passenger getPassenger(String phoneNum) {
+        JsonArray passengers = RestUtil.get(Database.REST_PASSENGER);
+        Passenger tempPassenger = null;
+        Passenger passenger = null;
+
+
+        //get the latest Passenger object with that phone number
+        if (passengers != null) {
+            for (JsonElement tempElement : passengers) {
+                tempPassenger = new Passenger(tempElement.getAsJsonObject());
+
+                if (tempPassenger.getPhoneNumber().equals(phoneNum)) {
+                    passenger = tempPassenger;
+                }
+            }
+        }
+
+        return passenger;
     }
 }

@@ -16,6 +16,10 @@
     <string name="button_need_ride">Need a ride?</string>
     <string name="button_make_ride">I can drive!</string>
 
+    <!-- Search -->
+    <string name="search_title">Search</string>
+    <string name="search_hint">Search: </string>
+
     <!-- Toast Messages -->
     <string name="toast_calendar_added">Added event to calendar</string>
     <string name="toast_calendar_removed">Removed event from calendar</string>
@@ -77,6 +81,8 @@
     <string name="login_user_question_name">username</string>
     <string name="login_pass">Enter your password (case sensitive)</string>
     <string name="login_pass_question_name">password</string>
+
+    <string name="cached_data_msg">No internet connection! This is old data!</string>
     <string name="login_invalid_cred">This username and password combo is incorrect</string>
     <string name="logout_message">You have been logged out</string>
 </resources>

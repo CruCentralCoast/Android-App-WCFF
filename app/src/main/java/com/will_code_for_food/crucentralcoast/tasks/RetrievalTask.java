@@ -29,13 +29,22 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
     private Retriever retriever;                    //Database retriever
     private CardFragmentFactory cardFactory;        //Factory to create a card fragment from a json object
     private int errorMessageId;
+    private int listId;
+    private AsyncResponse response;
 
-    public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory, int errorMessageId) {
+    public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory,
+                         int errorMessageId, AsyncResponse response) {
         super();
         this.retriever = retriever;
         this.cardFactory = cardFactory;
         this.errorMessageId = errorMessageId;
         currentActivity = (MainActivity) MainActivity.context;
+        this.response = response;
+    }
+
+    public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory,
+                         int errorMessageId) {
+        this(retriever, cardFactory, errorMessageId, null);
     }
 
     @Override
@@ -66,9 +75,12 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
         if ((myDBObjects != null) && (myDBObjects.getObjects() != null) && (!myDBObjects.getObjects().isEmpty())) {
             list.setAdapter(cardFactory.createAdapter(myDBObjects));
             list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, myDBObjects));
-        }else {
+        } else {
             String errorMessage = Util.getString(errorMessageId);
             Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+        }
+        if (response != null) {
+            response.processFinish(myDBObjects);
         }
     }
 }

@@ -25,6 +25,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSche
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.model.common.messaging.RegistrationIntentService;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.UI;
 
@@ -52,6 +53,9 @@ public class SetupCampusActivity extends Activity {
 
         initComponents();
         translateTitle();
+
+        Intent intent = new Intent(this, RegistrationIntentService.class);
+        startService(intent);
     }
 
     /**

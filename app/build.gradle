@@ -32,5 +32,8 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile group:'com.squareup.picasso', name:'picasso', version:'2.5.0'
     compile files('libs/gson-2.4.jar')
+    compile "com.google.android.gms:play-services:8.4.0"
     androidTestCompile 'junit:junit:4.12'
+    compile "com.google.android.gms:play-services:8.4.0"
+    apply plugin: 'com.google.gms.google-services'
 }

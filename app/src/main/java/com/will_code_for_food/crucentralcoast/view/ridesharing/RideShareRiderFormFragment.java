@@ -70,8 +70,8 @@ public class RideShareRiderFormFragment extends CruFragment{
                 calendar = new GregorianCalendar(datePicker.getYear(),
                         datePicker.getMonth(),
                         datePicker.getDayOfMonth(),
-                        timePicker.getCurrentHour(),
-                        timePicker.getCurrentMinute());
+                        0,
+                        0);
 
                 date = calendar.getTimeInMillis();
             }});

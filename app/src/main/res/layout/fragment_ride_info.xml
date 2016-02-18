@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top|center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/ride_info_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:textSize="25sp"
+        android:padding="5dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@+id/ride_info_title"
+        android:background="@color/colorPrimary_cruGold"
+        android:paddingTop="10dp"
+        android:id="@+id/ride_info_div1"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_below="@+id/ride_info_div1"
+        android:text="New Text"
+        android:id="@+id/ride_info_driver"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"
+        android:padding="5dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@+id/ride_info_driver"
+        android:background="@color/colorPrimary_cruGold"
+        android:paddingTop="10dp"
+        android:id="@+id/ride_info_div2"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="130dp"
+        android:layout_below="@+id/ride_info_div2"
+        android:text="New Text"
+        android:id="@+id/ride_info_main"
+        android:layout_centerHorizontal="true"
+        android:textSize="15sp"
+        android:padding="5dp"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Join Ride"
+        android:id="@+id/ride_info_join"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary_cruGold"/>
+
+</RelativeLayout>

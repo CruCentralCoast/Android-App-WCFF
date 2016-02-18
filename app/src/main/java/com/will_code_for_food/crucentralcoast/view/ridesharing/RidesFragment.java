@@ -58,7 +58,7 @@ public class RidesFragment extends CruFragment {
         new SetEventHeader().execute();
 
         Retriever retriever = new SingleRetriever<Ride>(RetrieverSchema.RIDE);
-        CardFragmentFactory factory = new RideCardFactory();
+        CardFragmentFactory factory = new RideCardFactory(getParent());
         //TODO: callback task for selecting a ride (currently null)
         new RetrievalTask<Ride>(retriever, factory, R.string.toast_no_rides,
                 new AsyncResponse(getParent()) {

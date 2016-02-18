@@ -37,6 +37,10 @@ public abstract class DatabaseObject {
         }
     }
 
+    public void setField(String key, JsonElement element) {
+        fields.add(key, element);
+    }
+
     /**
      * Gets a field from this object as a String. If the field can't be represented as a String
      * or if it does not exist, returns null.

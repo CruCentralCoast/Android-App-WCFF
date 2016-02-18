@@ -66,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        loadFragmentById(R.layout.fragment_main, "CruCentralCoast", null, this);
+        loadFragmentById(R.layout.fragment_card_list, "CruCentralCoast", new FeedFragment(), this);
+        //loadFragmentById(R.layout.fragment_main, "CruCentralCoast", null, this);
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context, R.color.colorAccent_cruBrightBlue)));

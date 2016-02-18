@@ -73,8 +73,13 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
         super.onPostExecute(aVoid);
         ListView list = (ListView) currentActivity.findViewById(R.id.list_cards);
         if ((myDBObjects != null) && (myDBObjects.getObjects() != null) && (!myDBObjects.getObjects().isEmpty())) {
-            list.setAdapter(cardFactory.createAdapter(myDBObjects));
-            list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, myDBObjects));
+
+            //for some reason, list is null when switching from the main feed to resources or get involved.
+            //adding this check stops the app from crashing
+            if (list != null) {
+                list.setAdapter(cardFactory.createAdapter(myDBObjects));
+                list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, myDBObjects));
+            }
         } else {
             String errorMessage = Util.getString(errorMessageId);
             Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();

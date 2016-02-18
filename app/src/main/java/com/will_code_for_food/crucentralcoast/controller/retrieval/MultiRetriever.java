@@ -1,5 +1,7 @@
 package com.will_code_for_food.crucentralcoast.controller.retrieval;
 
+import android.util.Log;
+
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 
 import java.util.ArrayList;
@@ -42,7 +44,8 @@ public final class MultiRetriever implements Retriever {
         for (Retriever ret : retrievers) {
             if (ret != null) {
                 content = ret.getAll();
-                objects.addAll(content.getObjects());
+                //Log.i("MultiRetriever", "content size: " + content.size());
+                         objects.addAll(content.getObjects());
 
                 if (content.getType() == ContentType.CACHED) {
                     containsCached = true;
@@ -57,6 +60,7 @@ public final class MultiRetriever implements Retriever {
         } else if (containsTest){
             return new Content(objects, ContentType.TEST); //may contain some live content
         } else {
+            //Log.i("MultiRetriever", "Multi retriever got " + objects.size() + " objects");
             return new Content(objects, ContentType.LIVE); //only returns LIVE if there is no cached or test content
         }
     }

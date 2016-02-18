@@ -220,13 +220,13 @@ public class RestUtil {
 
             if(HttpResult == HttpURLConnection.HTTP_OK){
                 actionSuccessful = true;
+                Log.d("RestUtil.java", connection.getResponseMessage());
             } else{
-                //Log.d("RestUtil.java", connection.getResponseMessage());
-                System.out.println(connection.getResponseMessage());
+                Log.d("RestUtil.java", connection.getResponseMessage());
             }
 
         } catch (Exception ex) {
-            //Log.e("RestUtil.java", ex.toString());
+            Log.e("RestUtil.java", ex.toString());
             System.out.println(ex.toString());
         } finally {
             if (connection != null) {
@@ -239,11 +239,13 @@ public class RestUtil {
 
     //adds a passenger to a ride
     public static boolean addPassenger(String rideId, String passengerId) {
+        Log.i("RestUtil", "adding passenger " + passengerId + " to ride " + rideId);
         return addDropHelper(Database.REST_QUERY_ADD_PASSENGER, rideId, passengerId);
     }
 
     //removes a passenger from a ride
     public static boolean dropPassenger(String rideId, String passengerId) {
+        Log.i("RestUtil", "dropping passenger " + passengerId + " from ride " + rideId);
         return addDropHelper(Database.REST_QUERY_DROP_PASSENGER, rideId, passengerId);
     }
 

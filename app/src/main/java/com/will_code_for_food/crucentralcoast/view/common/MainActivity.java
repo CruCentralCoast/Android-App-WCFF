@@ -1,5 +1,6 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
+import android.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -197,6 +198,34 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .addToBackStack(null)
+                .commit();
+
+        titleStack.push(getTitle().toString());
+        setTitle(newTitle);
+    }
+
+    //TODO: this is duplicate code
+    public void refreshFragment(int loadId, String newTitle, Fragment fragment, MainActivity parent) {
+        FragmentManager fragmentManager = getFragmentManager();
+
+        //if no associated controller code for this fragment
+        if (fragment == null) {
+            fragment = new CruFragment();
+        }
+
+        // the fragment could be a PrefsFragment, so we have to add this check
+        if (fragment instanceof CruFragment) {
+            ((CruFragment)fragment).setParent(parent);
+        }
+
+        // Supply index input as an argument.
+        Bundle args = new Bundle();
+        args.putInt("id", loadId);
+        args.putString("name", newTitle);
+        fragment.setArguments(args);
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, fragment)
                 .commit();
 
         titleStack.push(getTitle().toString());

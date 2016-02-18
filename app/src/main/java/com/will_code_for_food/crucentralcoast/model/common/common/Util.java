@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import android.graphics.Point;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Display;
 
@@ -177,5 +178,20 @@ public class Util {
         int newHeight = (int)(height_screen * heightRatio);
 
         return new Point(newWidth, newHeight);
+    }
+
+    public static String getPhoneNum() {
+        String phoneNum;
+
+        try {
+            //get this phone number
+            TelephonyManager tMgr = (TelephonyManager) SplashscreenActivity.context.getSystemService(Context.TELEPHONY_SERVICE);
+            phoneNum = tMgr.getLine1Number();
+        } catch (java.lang.SecurityException e) {
+            //triggered if emulator is in use
+            phoneNum = "EMULATOR";
+        }
+
+        return phoneNum;
     }
 }

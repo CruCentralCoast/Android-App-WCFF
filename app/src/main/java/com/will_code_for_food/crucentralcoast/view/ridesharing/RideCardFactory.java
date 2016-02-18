@@ -59,6 +59,7 @@ public class RideCardFactory implements CardFragmentFactory {
 
     @Override
     public AdapterView.OnItemClickListener createCardListener(MainActivity currentActivity, Content myDBObjects) {
+        //TODO: use this instead of the other listener below
         return null;
     }
 
@@ -147,7 +148,6 @@ public class RideCardFactory implements CardFragmentFactory {
         }
 
         private void createListener(View hold, int position) {
-
             RelativeLayout background = (RelativeLayout) hold.findViewById(R.id.fragment_ride_card);
             background.setOnClickListener(new RideClickListener(current));
         }

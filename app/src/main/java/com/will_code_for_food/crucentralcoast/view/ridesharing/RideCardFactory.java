@@ -19,6 +19,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
+import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class RideCardFactory implements CardFragmentFactory {
 
     public RideCardFactory(MainActivity parent) {
         this.parent = parent;
-        event = RideShareActivity.getEvent();
+        event = EventsActivity.getEvent();
     }
 
     @Override

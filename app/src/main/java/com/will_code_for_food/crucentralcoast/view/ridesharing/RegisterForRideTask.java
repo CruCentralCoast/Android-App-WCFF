@@ -6,10 +6,12 @@ import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.values.Database;
+import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 /**
@@ -74,6 +76,8 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
                 }
             });
         }
+
+        LocalStorageIO.appendToList(ride.getId(), LocalFiles.USER_RIDES);
 
         return null;
     }

@@ -27,6 +27,7 @@
     <string name="toast_calendar_added">Added event to calendar</string>
     <string name="toast_calendar_removed">Removed event from calendar</string>
     <string name="toast_no_rides">Ridesharing is not available for this event</string>
+    <string name="toast_no_my_rides">You currently have no rides</string>
     <string name="toast_no_facebook">No Facebook page for this event</string>
     <string name="toast_no_map">No location for this event</string>
     <string name="toast_no_events">Could not load events</string>
@@ -44,6 +45,7 @@
     <string name="ridesharing_leaving_location" formatted="false">from %s</string>
     <string name="ridesharing_seats_left" formatted="false">%d seats left</string>
     <string name="ridesharing_seat_left" formatted="false">%d seat left</string>
+    <string name="ridesharing_header" formatted="false">Ride Sharing Events</string>
 
     <!-- Font formatting -->
     <string name="default_serif">SERIF</string>

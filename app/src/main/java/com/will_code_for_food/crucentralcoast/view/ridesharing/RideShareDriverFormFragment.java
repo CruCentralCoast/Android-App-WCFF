@@ -22,6 +22,7 @@ import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
+import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -55,7 +56,7 @@ public class RideShareDriverFormFragment extends CruFragment {
         final View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
         parent = (RideShareActivity) getParent();
-        selectedEvent = parent.getEvent();
+        selectedEvent = EventsActivity.getEvent();
         name = (EditText) fragmentView.findViewById(R.id.name_prompt_input);
         datePicker = (DatePicker) fragmentView.findViewById(R.id.departure_date_picker);
         timePicker = (TimePicker) fragmentView.findViewById(R.id.departure_time_picker);

@@ -20,6 +20,9 @@ import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RiderForm;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  * Created by ShelliCrispen on 2/16/16.
  */
@@ -37,7 +40,9 @@ public class RideShareRiderFormFragment extends CruFragment{
     Button submitButton;
     Button cancelButton;
     RideDirection direction = null;
-
+    Calendar calendar;
+    long time;
+    long date;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,6 +87,33 @@ public class RideShareRiderFormFragment extends CruFragment{
                 break;
         }
 
+        datePicker.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                calendar = new GregorianCalendar(datePicker.getYear(),
+                        datePicker.getMonth(),
+                        datePicker.getDayOfMonth(),
+                        timePicker.getCurrentHour(),
+                        timePicker.getCurrentMinute());
+
+                date = calendar.getTimeInMillis();
+            }});
+
+        timePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar timeCal = new GregorianCalendar(0,
+                        0,
+                        0,
+                        timePicker.getCurrentHour(),
+                        timePicker.getCurrentMinute());
+
+                time = calendar.getTimeInMillis();
+            }
+        });
+
+
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,14 +132,12 @@ public class RideShareRiderFormFragment extends CruFragment{
                 if (name.getText().length() > 0) {
                     form.answerQuestion(0, name.getText().toString());
                 }
-
                 if (datePicker.getCalendarView().getDate() != 0){
-                    form.answerQuestion(1, datePicker.getCalendarView().getDate());
+                    form.answerQuestion(1, date);
                 }
-
-                //timepicker
-                form.answerQuestion(2, 0);
-
+                if (time > 0){
+                    form.answerQuestion(2, time);
+                }
                 if (direction != null){
                     form.answerQuestion(3, direction);
                 }
@@ -121,7 +151,7 @@ public class RideShareRiderFormFragment extends CruFragment{
                     //submit
                     Toast.makeText(parent, "ride added", Toast.LENGTH_SHORT);
                 } else {
-                    result.getMessage();
+                    result.getMessage(null);
                 }
                 //System.out.println("Submit clicked!");
             }

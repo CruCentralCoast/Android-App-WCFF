@@ -22,6 +22,9 @@ import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  * Created by masonstevenson on 2/4/16.
  */
@@ -40,6 +43,9 @@ public class RideShareDriverFormFragment extends CruFragment {
     Button submitButton;
     Button cancelButton;
     RideDirection direction = null;
+    Calendar calendar;
+    long time;
+    long date;
 
 
     @Override
@@ -86,6 +92,31 @@ public class RideShareDriverFormFragment extends CruFragment {
                 break;
         }
 
+        datePicker.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                calendar = new GregorianCalendar(datePicker.getYear(),
+                        datePicker.getMonth(),
+                        datePicker.getDayOfMonth(),
+                        0,
+                        0);
+
+                date = calendar.getTimeInMillis();
+            }});
+
+        timePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar timeCal = new GregorianCalendar(0,
+                        0,
+                        0,
+                        timePicker.getCurrentHour(),
+                        timePicker.getCurrentMinute());
+
+                time = calendar.getTimeInMillis();
+            }
+        });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,13 +135,12 @@ public class RideShareDriverFormFragment extends CruFragment {
                 if (name.getText().length() > 0) {
                     form.answerQuestion(0, name.getText().toString());
                 }
-
                 if (datePicker.getCalendarView().getDate() != 0){
-                    form.answerQuestion(1, datePicker.getCalendarView().getDate());
+                    form.answerQuestion(1, date);
                 }
-                //timepicker
-                form.answerQuestion(2, 0);
-                
+                if (time > 0){
+                    form.answerQuestion(2, time);
+                }
                 if (direction != null){
                     form.answerQuestion(3, direction);
                 }
@@ -127,9 +157,10 @@ public class RideShareDriverFormFragment extends CruFragment {
                     form.submit();
                     Toast.makeText(parent, "ride added", Toast.LENGTH_SHORT);
                 } else {
-                    result.getMessage();
+                    //not sure if this works but not sure what to put there.
+                    result.getMessage(null);
                 }
-                //System.out.println("Submit clicked!");
+                System.out.println("Submit clicked!");
             }
         });
 

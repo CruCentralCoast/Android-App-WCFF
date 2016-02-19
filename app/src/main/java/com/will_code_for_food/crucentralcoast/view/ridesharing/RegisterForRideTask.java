@@ -6,6 +6,7 @@ import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
@@ -59,12 +60,18 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
         }
 
         //update ride
+
+        if ((ride.hasPassenger(new Passenger(result).getId()))) {
+            System.out.println("Ride has passenger");
+        }
+
         if ((result != null) && ((ride.hasPassenger(new Passenger(result).getId())) || (RestUtil.addPassenger(ride.getId(), new Passenger(result).getId())))) {
             //TODO: Notify driver
 
             parent.runOnUiThread(new Runnable() {
                 public void run() {
-                    Toast.makeText(parent, "You have been added as a passenger", Toast.LENGTH_LONG).show();
+                    Toast.makeText(parent, "Ride Joined", Toast.LENGTH_SHORT).show();
+                    parent.loadFragmentById(R.layout.fragment_my_rides_list, "My Rides", new MyRidesFragment(), parent);
                 }
             });
 
@@ -72,7 +79,7 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
         } else {
             parent.runOnUiThread(new Runnable() {
                 public void run() {
-                    Toast.makeText(parent, "Error", Toast.LENGTH_LONG).show();
+                    Toast.makeText(parent, "Error", Toast.LENGTH_SHORT).show();
                 }
             });
         }

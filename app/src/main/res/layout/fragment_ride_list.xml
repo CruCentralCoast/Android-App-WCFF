@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/ridelist_layout"
@@ -42,15 +42,20 @@
             android:src="@drawable/cru_logo_default" />
 
         <!-- List of Ride Cards -->
-        <ListView
-            android:id="@+id/list_cards"
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_below="@id/image_ride_event"
             android:layout_above="@id/button_next_rides"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:divider="@color/colorPrimary_cruGold"
-            android:dividerHeight="4dp" />
+            android:id="@+id/ridelist_swipe">
+            <ListView
+                android:id="@+id/list_cards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:divider="@color/colorPrimary_cruGold"
+                android:dividerHeight="4dp" />
+        </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 
-</android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

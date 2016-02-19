@@ -1,6 +1,7 @@
 package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,15 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSche
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +35,10 @@ public class MyRideCardFactory implements CardFragmentFactory {
     List<Ride> cards;
 
     public MyRideCardFactory(){
-        myRides = LocalStorageIO.readList(LocalFiles.USER_RIDES);
+        // myRides = LocalStorageIO.readList(LocalFiles.USER_RIDES); BROKEN
+        myRides = new ArrayList<String>();
+        new getMyRides().execute();
+
     }
 
     @Override
@@ -48,8 +55,36 @@ public class MyRideCardFactory implements CardFragmentFactory {
     }
 
     @Override
-    public AdapterView.OnItemClickListener createCardListener(MainActivity currentActivity, Content myDBObjects) {
-        return null;
+    public AdapterView.OnItemClickListener createCardListener(final MainActivity currentActivity, final Content myDBObjects) {
+
+        return new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Ride ride = (Ride) myDBObjects.get(position);
+
+                //load ride info
+                RideShareActivity.setRide(ride);
+                currentActivity.loadFragmentById(R.layout.fragment_ride_info, ride.getDriverName() + "'s Ride", new RideInfoFragment(), currentActivity);
+            }
+        };
+    }
+
+    private class getMyRides extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Passenger me = RestUtil.getPassenger(Util.getPhoneNum());
+            ArrayList<Ride> rides = new SingleRetriever<Ride>(RetrieverSchema.RIDE).getAll();
+
+            for (Ride ride : rides) {
+                if (me != null && ride.hasPassenger(me.getId())) {
+                    myRides.add(ride.getId());
+                }
+            }
+
+            return null;
+        }
     }
 
     private class RideAdapter extends ArrayAdapter<Ride> {

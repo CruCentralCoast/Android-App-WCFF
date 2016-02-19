@@ -1,5 +1,6 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
+import android.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private Stack<String> titleStack;
     public static Context context;
+    private static boolean doFeedLoad = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        loadFragmentById(R.layout.fragment_main, "CruCentralCoast", null, this);
+        if (doFeedLoad) {
+            loadFragmentById(R.layout.fragment_card_list, "CruCentralCoast", new FeedFragment(), this); //Uncomment this for feed main screen
+            //loadFragmentById(R.layout.fragment_main, "CruCentralCoast", null, this); //Uncomment this for original main screen
+        }
+
+        doFeedLoad = true;
+
+
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context, R.color.colorAccent_cruBrightBlue)));
@@ -106,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] osArray = {"Events", "Resources", "Summer Missions", "Get Involved",
+        String[] osArray = {"Home", "Events", "Resources", "Summer Missions", "Get Involved",
                 "Ride Share", "Settings"};
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
@@ -143,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         switch (viewText) {
+            case "Home":
+                loadFragmentById(R.layout.fragment_card_list, "CruCentralCoast", new FeedFragment(), this);
+                break;
             case "Events":
                 newActivity(EventsActivity.class);
                 break;
@@ -204,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newActivity(Class newClass) {
+        doFeedLoad = false;
         Intent intent = new Intent(this, newClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);

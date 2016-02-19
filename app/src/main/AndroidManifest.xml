@@ -30,7 +30,7 @@
         android:name=".view.common.MyApplication"
         android:theme="@style/AppTheme" >
 
-        <activity android:name=".view.common.SplashscreenActivity" >
+        <activity android:name=".view.common.SplashscreenActivity" android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -46,7 +46,7 @@
         <activity android:name=".view.common.MinistryInfoActivity" >
         </activity>
 
-        <activity android:name=".view.common.MainActivity" >
+        <activity android:name=".view.common.MainActivity" android:screenOrientation="portrait" >
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

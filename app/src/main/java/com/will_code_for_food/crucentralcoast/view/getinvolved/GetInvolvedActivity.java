@@ -17,16 +17,15 @@ public class GetInvolvedActivity extends MainActivity {
         loadFragmentById(R.layout.fragment_get_involved, "Get Involved", null, this);
     }
 
-    public void testSMS(View view) {
-        //test event for SMS
-        SMSHandler.sendSMS(this);
-    }
-
     public void viewMinistryTeams(View view){
         loadFragmentById(R.layout.fragment_card_list, "Get Involved", new MinistryTeamFragment(), this);
     }
 
     public void viewJoinCommunityGroup(View view){
+
+    }
+
+    public void joinMinistryTeam(View view){
 
     }
 }

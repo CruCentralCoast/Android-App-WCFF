@@ -10,6 +10,7 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
@@ -44,8 +45,8 @@ public class MinistryTeamFragment extends CruFragment {
     }
 
     private void refreshMinistryTeamList() {
-        Retriever retriever = new SingleRetriever<SummerMission>(RetrieverSchema.SUMMER_MISSION);
-        CardFragmentFactory factory = new SummerMissionCardFactory();
+        Retriever retriever = new SingleRetriever<MinistryTeam>(RetrieverSchema.MINISTRY_TEAM);
+        CardFragmentFactory factory = new MinistryTeamCardFactory();
         new RetrievalTask<SummerMission>(retriever, factory,
                 R.string.toast_no_ministry_teams, new AsyncResponse(getParent()) {
             @Override

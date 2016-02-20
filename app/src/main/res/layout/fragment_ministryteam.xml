@@ -19,9 +19,9 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_alignParentBottom="true"
-        android:text="@string/button_apply"
+        android:text="@string/button_signup"
         android:backgroundTint="@color/colorPrimary_cruGold"
-        android:onClick="applyToMission" />
+        android:onClick="joinMinistryTeam" />
 
     <ScrollView
         android:layout_width="fill_parent"

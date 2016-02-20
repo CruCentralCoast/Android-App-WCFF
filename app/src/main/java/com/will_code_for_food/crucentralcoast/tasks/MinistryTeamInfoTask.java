@@ -18,7 +18,7 @@ public class MinistryTeamInfoTask extends AsyncTask<MinistryTeam, Void, Void> {
     MinistryTeam ministryTeam;
 
     public MinistryTeamInfoTask() {
-        currentActivity = (GetInvolvedActivity) SummerMissionsActivity.context;
+        currentActivity = (GetInvolvedActivity) GetInvolvedActivity.context;
     }
 
     @Override
@@ -37,8 +37,8 @@ public class MinistryTeamInfoTask extends AsyncTask<MinistryTeam, Void, Void> {
             Picasso.with(currentActivity).load(ministryTeam.getImage()).fit().into(header);
         }
 
-        TextView cost = (TextView) currentActivity.findViewById(R.id.text_ministry_team_name);
-        cost.setText(ministryTeam.getName());
+        TextView name = (TextView) currentActivity.findViewById(R.id.text_ministry_team_name);
+        name.setText(ministryTeam.getName());
 
         TextView description = (TextView) currentActivity.findViewById(R.id.text_ministry_team_description);
         description.setText(ministryTeam.getDescription());

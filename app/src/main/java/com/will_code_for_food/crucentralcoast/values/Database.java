@@ -15,6 +15,7 @@ public class Database {
     public static final String REST_RIDE = "ride";
     public static final String REST_PASSENGER = "passenger";
     public static final String REST_RESOURCE = "resource";
+    public static final String MINISTRY_TEAM = "ministryteam";
 
     public static final String JSON_KEY_COMMON_ID = "_id";
     public static final String JSON_KEY_COMMON_IMAGE = "image";

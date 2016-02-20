@@ -21,4 +21,12 @@ public class GetInvolvedActivity extends MainActivity {
         //test event for SMS
         SMSHandler.sendSMS(this);
     }
+
+    public void viewMinistryTeams(View view){
+        loadFragmentById(R.layout.fragment_card_list, "Get Involved", new MinistryTeamFragment(), this);
+    }
+
+    public void viewJoinCommunityGroup(View view){
+
+    }
 }

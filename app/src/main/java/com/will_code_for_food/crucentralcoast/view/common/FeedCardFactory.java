@@ -23,7 +23,7 @@ public class FeedCardFactory implements CardFragmentFactory<DatabaseObject> {
     }
 
     @Override
-    public AdapterView.OnItemClickListener createCardListener(MainActivity currentActivity, Content<? extends DatabaseObject> myDBObjects) {
+    public AdapterView.OnItemClickListener createCardListener(MainActivity currentActivity, Content<DatabaseObject> myDBObjects) {
         return null;
     }
 }

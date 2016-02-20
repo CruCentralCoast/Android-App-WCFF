@@ -34,6 +34,7 @@
     <string name="toast_no_summer_missions">Could not load summer missions</string>
     <string name="toast_no_videos">Could not load YouTube videos</string>
     <string name="toast_no_articles">Could not load article resources</string>
+    <string name="toast_no_ministry_teams">Could not load ministry teams</string>
 
     <!--    Preferences     -->
     <string name="settings_event_notifications">Receive Event Notifications</string>

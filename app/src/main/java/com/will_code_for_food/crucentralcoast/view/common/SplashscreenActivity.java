@@ -37,25 +37,29 @@ public class SplashscreenActivity extends Activity {
         DBObjectLoader.loadAll();
 
         screen = (FrameLayout) findViewById(R.id.splashscreen_content);
-        run();
+        loadContent();
     }
 
     /**
      * Defines behavior of splashscreen
      */
-    private void run() {
+    private void loadContent() {
         final Handler handler = new Handler();
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
-                //Finish splash activity so user cant go back to it.
-                finish();
+                if (DBObjectLoader.finishedLoading()) {
+                    //Finish splash activity so user cant go back to it.
+                    finish();
 
-                //Apply splash exit (fade out) and main entry (fade in) animation transitions.
-                overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
+                    //Apply splash exit (fade out) and main entry (fade in) animation transitions.
+                    overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
 
-                launchApp();
+                    launchApp();
+                } else {
+                    loadContent();
+                }
             }
         };
 
@@ -70,7 +74,7 @@ public class SplashscreenActivity extends Activity {
             }
         });
 
-        handler.postDelayed(runnable, UI.SETUP_SPLASHSCREEN_WAIT_DURATION);
+        handler.postDelayed(runnable, UI.SETUP_SPLASHSCREEN_POLL_DURATION);
     }
 
     /**

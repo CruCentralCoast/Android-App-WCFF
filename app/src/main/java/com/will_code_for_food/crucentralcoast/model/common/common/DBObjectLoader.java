@@ -32,11 +32,14 @@ import java.util.concurrent.TimeoutException;
 public class DBObjectLoader {
 
     private static ConcurrentHashMap<String, Content> data;
+    private static final int OBJECTS_TO_LOAD = 6;
+    private static int loadCount = 0;
 
     /**
      * Loads all objects. Doesn't wait for them to finish loading.
      */
     public static void loadAll() {
+        loadCount = 0;
         loadEvents();
         loadCampuses();
         loadMinistries();
@@ -50,12 +53,20 @@ public class DBObjectLoader {
      * @param waitTime The amount of time to wait for each object in milliseconds;
      */
     public static void loadAll(long waitTime) {
+        loadCount = 0;
         loadEvents(waitTime);
         loadCampuses(waitTime);
         loadMinistries(waitTime);
         loadRides(waitTime);
         loadResources(waitTime);
         //TODO: loadVideos(waitTime);
+    }
+
+    /**
+     * Returns true if all database objects have loaded.
+     */
+    public static boolean finishedLoading() {
+        return loadCount == OBJECTS_TO_LOAD;
     }
 
     /**
@@ -198,11 +209,9 @@ public class DBObjectLoader {
     }
 
     private static class GetOjbectTask<T extends DatabaseObject> extends AsyncTask<Void, Void, Void> {
-        static int count = 0;
 
         RetrieverSchema schema;
         String key;
-        int id = count++;
 
         public GetOjbectTask(RetrieverSchema schema, String key) {
             this.schema = schema;
@@ -213,7 +222,7 @@ public class DBObjectLoader {
         protected Void doInBackground(Void... params) {
             initData();
 
-            Log.i("DBObjectLoader", "(" + id + ") Getting objects of type [" + key + "] from database");
+            Log.i("DBObjectLoader", "Getting objects of type [" + key + "] from database");
             data.put(key, new SingleRetriever<T>(schema).getAll());
             return null;
         }
@@ -222,7 +231,8 @@ public class DBObjectLoader {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            Log.i("DBObjectLoader", "(" + id + ") Finished getting objects of type [" + key + "] from database");
+            loadCount++;
+            Log.i("DBObjectLoader", "Finished getting objects of type [" + key + "] from database (loadCount is: " + loadCount + ")");
         }
     }
 
@@ -245,7 +255,9 @@ public class DBObjectLoader {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Log.i("DBObjectLoader", "Finished getting videos from youtube");
+
+            loadCount++;
+            Log.i("DBObjectLoader", "Finished getting videos from youtube (loadCount is: " + loadCount + ")");
         }
     }
 }

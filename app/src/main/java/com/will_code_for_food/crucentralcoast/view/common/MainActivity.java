@@ -187,8 +187,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO: 1/19/16 Change Settings fragment so it isn't created only programmatically- use XML!
-    // TODO: 2/2/16 Refactor into loadFragmentByID(int, String, Object) so that we can pass objects between fragments
-    // TODO: 2/2/16 Refector to use reflection?
     public void loadFragmentById(int loadId, String newTitle, Fragment fragment, MainActivity parent) {
         FragmentManager fragmentManager = getFragmentManager();
 

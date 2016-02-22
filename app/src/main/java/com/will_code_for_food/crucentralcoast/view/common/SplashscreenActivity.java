@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.UI;
@@ -33,8 +34,9 @@ public class SplashscreenActivity extends Activity {
 
         context = this;
 
-        screen = (FrameLayout) findViewById(R.id.splashscreen_content);
+        DBObjectLoader.loadAll();
 
+        screen = (FrameLayout) findViewById(R.id.splashscreen_content);
         run();
     }
 

@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
+import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
@@ -29,7 +31,7 @@ public class EventsFragment extends CruFragment {
                              Bundle savedInstanceState) {
         View hold = super.onCreateView(inflater, container, savedInstanceState);
         layout = (SwipeRefreshLayout) hold.findViewById(R.id.card_refresh_layout);
-        refreshList();
+        loadList();
         return hold;
     }
 
@@ -44,8 +46,17 @@ public class EventsFragment extends CruFragment {
         });
     }
 
+    private void loadList() {
+        SingleMemoryRetriever retriever = new SingleMemoryRetriever(Database.REST_EVENT);
+        populateList(retriever);
+    }
+
     private void refreshList() {
         Retriever retriever = new SingleRetriever(RetrieverSchema.EVENT);
+        populateList(retriever);
+    }
+
+    private void populateList(Retriever retriever) {
         CardFragmentFactory factory;
 
         if (getParent() instanceof RideShareActivity) {
@@ -56,10 +67,10 @@ public class EventsFragment extends CruFragment {
 
         new RetrievalTask<Event>(retriever, factory, R.string.toast_no_events,
                 new AsyncResponse(getParent()) {
-            @Override
-            public void otherProcessing() {
-                layout.setRefreshing(false);
-            }
-        }).execute();
+                    @Override
+                    public void otherProcessing() {
+                        layout.setRefreshing(false);
+                    }
+                }).execute();
     }
 }

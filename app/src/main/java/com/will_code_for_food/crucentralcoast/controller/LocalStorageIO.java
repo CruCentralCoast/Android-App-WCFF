@@ -250,7 +250,7 @@ public class LocalStorageIO {
      * Writes a file containing a single line
      */
     public static boolean writeSingleLineFile(final String fileName, final String line) {
-        List<String> list = Arrays.asList(new String[]{line});
+        List<String> list = Arrays.asList(line);
         return writeList(list, fileName);
     }
 

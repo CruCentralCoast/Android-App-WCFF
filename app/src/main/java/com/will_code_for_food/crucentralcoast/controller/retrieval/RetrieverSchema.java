@@ -32,7 +32,7 @@ public enum RetrieverSchema {
     private final Class<? extends DatabaseObject> objClass;
     private final String tableName;
 
-    private RetrieverSchema(Class<? extends DatabaseObject> objClass, String tableName) {
+    RetrieverSchema(Class<? extends DatabaseObject> objClass, String tableName) {
         this.objClass = objClass;
         this.tableName = tableName;
     }

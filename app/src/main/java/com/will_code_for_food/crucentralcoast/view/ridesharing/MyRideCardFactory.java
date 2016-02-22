@@ -43,9 +43,7 @@ public class MyRideCardFactory implements CardFragmentFactory {
 
     @Override
     public boolean include(DatabaseObject object) {
-        if (myRides != null && myRides.contains(object.getId()))
-            return true;
-        return false;
+        return myRides != null && myRides.contains(object.getId());
     }
 
     @Override

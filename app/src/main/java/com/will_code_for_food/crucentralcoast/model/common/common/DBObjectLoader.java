@@ -32,7 +32,7 @@ import java.util.concurrent.TimeoutException;
 public class DBObjectLoader {
 
     private static ConcurrentHashMap<String, Content> data;
-    private static final int OBJECTS_TO_LOAD = 6;
+    private static final int OBJECTS_TO_LOAD = 7;
     private static int loadCount = 0;
 
     /**
@@ -45,6 +45,7 @@ public class DBObjectLoader {
         loadMinistries();
         loadRides();
         loadResources();
+        loadSummerMissions();
         loadVideos();
     }
 
@@ -59,6 +60,7 @@ public class DBObjectLoader {
         loadMinistries(waitTime);
         loadRides(waitTime);
         loadResources(waitTime);
+        loadSummerMissions(waitTime);
         //TODO: loadVideos(waitTime);
     }
 
@@ -152,6 +154,23 @@ public class DBObjectLoader {
      */
     public static boolean loadResources(long waitTime) {
         return loadDelayed(RetrieverSchema.RESOURCE, Database.REST_RESOURCE, waitTime);
+    }
+
+    /**
+     * Loads summer missions. Doesn't wait for them to finish loading.
+     */
+    public static void loadSummerMissions() {
+        Log.i("DBObjectLoader", "Loading summer missions");
+        new GetOjbectTask<Resource>(RetrieverSchema.SUMMER_MISSION, Database.REST_SUMMER_MISSION).execute();
+    }
+
+    /**
+     * Loads summer missions. Waits for them to finish loading.
+     *
+     * @param waitTime maximum wait time in milliseconds
+     */
+    public static boolean loadSummerMissions(long waitTime) {
+        return loadDelayed(RetrieverSchema.SUMMER_MISSION, Database.REST_SUMMER_MISSION, waitTime);
     }
 
     /**

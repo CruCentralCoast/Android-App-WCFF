@@ -26,7 +26,7 @@ public class Passenger extends DatabaseObject{
     public Passenger(JsonObject obj) {
         super(obj);
 
-        refreshFields();;
+        refreshFields();
     }
 
     public Passenger(final String name, final String number, String gcmId, RideDirection direction) {

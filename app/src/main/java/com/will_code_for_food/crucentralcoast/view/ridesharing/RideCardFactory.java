@@ -44,11 +44,8 @@ public class RideCardFactory implements CardFragmentFactory {
         //TODO: filter based on time leaving, 1/2-way, etc.
         // TODO use the RideSorter class!
 
-        if (event != null && event.getId().equals(ride.getEventId()) && (!ride.isFullFromEvent() || !ride.isFullToEvent())) {
-            return true;
-        }
+        return event != null && event.getId().equals(ride.getEventId()) && (!ride.isFullFromEvent() || !ride.isFullToEvent());
 
-        return false;
     }
 
     @Override

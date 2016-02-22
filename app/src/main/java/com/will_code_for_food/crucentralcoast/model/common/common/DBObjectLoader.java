@@ -1,15 +1,22 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
+import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
+import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +31,7 @@ import java.util.concurrent.TimeoutException;
  */
 public class DBObjectLoader {
 
-    private static ConcurrentHashMap<String, ArrayList> data;
+    private static ConcurrentHashMap<String, Content> data;
 
     /**
      * Loads all objects. Doesn't wait for them to finish loading.
@@ -35,6 +42,7 @@ public class DBObjectLoader {
         loadMinistries();
         loadRides();
         loadResources();
+        loadVideos();
     }
 
     /**
@@ -47,12 +55,14 @@ public class DBObjectLoader {
         loadMinistries(waitTime);
         loadRides(waitTime);
         loadResources(waitTime);
+        //TODO: loadVideos(waitTime);
     }
 
     /**
      * Loads events. Doesn't wait for them to finish loading.
      */
     public static void loadEvents() {
+        Log.i("DBObjectLoader", "Loading events");
         new GetOjbectTask<Event>(RetrieverSchema.EVENT, Database.REST_EVENT).execute();
     }
 
@@ -69,6 +79,7 @@ public class DBObjectLoader {
      * Loads ministries. Doesn't wait for them to finish loading.
      */
     public static void loadMinistries() {
+        Log.i("DBObjectLoader", "Loading ministries");
         new GetOjbectTask<Ministry>(RetrieverSchema.MINISTRY, Database.REST_MINISTRY).execute();
     }
 
@@ -85,6 +96,7 @@ public class DBObjectLoader {
      * Loads rides. Doesn't wait for them to finish loading.
      */
     public static void loadRides() {
+        Log.i("DBObjectLoader", "Loading rides");
         new GetOjbectTask<Ride>(RetrieverSchema.RIDE, Database.REST_RIDE).execute();
     }
 
@@ -101,6 +113,7 @@ public class DBObjectLoader {
      * Loads campuses. Doesn't wait for them to finish loading.
      */
     public static void loadCampuses() {
+        Log.i("DBObjectLoader", "Loading campuses");
         new GetOjbectTask<Campus>(RetrieverSchema.CAMPUS, Database.REST_CAMPUS).execute();
     }
 
@@ -117,7 +130,8 @@ public class DBObjectLoader {
      * Loads resources. Doesn't wait for them to finish loading.
      */
     public static void loadResources() {
-        new GetOjbectTask<Resource>(RetrieverSchema.RESOURCE, Database.REST_RESOURCE);
+        Log.i("DBObjectLoader", "Loading resources");
+        new GetOjbectTask<Resource>(RetrieverSchema.RESOURCE, Database.REST_RESOURCE).execute();
     }
 
     /**
@@ -129,33 +143,46 @@ public class DBObjectLoader {
         return loadDelayed(RetrieverSchema.RESOURCE, Database.REST_RESOURCE, waitTime);
     }
 
+    /**
+     * Loads youtube videos.
+     */
+    public static void loadVideos() {
+        new GetVideoTask().execute();
+    }
+
     public static ArrayList<Event> getEvents() {
         initData();
-        return (ArrayList<Event>) data.get(Database.REST_EVENT);
+        return (Content<Event>) data.get(Database.REST_EVENT);
     }
 
     public static ArrayList<Ministry> getMinistries() {
-        return (ArrayList<Ministry>) data.get(Database.REST_MINISTRY);
+        return (Content<Ministry>) data.get(Database.REST_MINISTRY);
     }
 
     public static ArrayList<Ride> getRides() {
         initData();
-        return (ArrayList<Ride>) data.get(Database.REST_RIDE);
+        return (Content<Ride>) data.get(Database.REST_RIDE);
     }
 
     public static ArrayList<Campus> getCampuses() {
         initData();
-        return (ArrayList<Campus>) data.get(Database.REST_CAMPUS);
+        return (Content<Campus>) data.get(Database.REST_CAMPUS);
     }
 
     public static ArrayList<Resource> getResources() {
         initData();
-        return (ArrayList<Resource>) data.get(Database.REST_RESOURCE);
+        return (Content<Resource>) data.get(Database.REST_RESOURCE);
+    }
+
+    public static Content get(String key) {
+        initData();
+        return data.get(key);
     }
 
     private static void initData() {
         if (data == null) {
-            data = new ConcurrentHashMap<String, ArrayList>();
+            Log.i("DBObjectLoader", "data was null");
+            data = new ConcurrentHashMap<String, Content>();
         }
     }
 
@@ -171,9 +198,11 @@ public class DBObjectLoader {
     }
 
     private static class GetOjbectTask<T extends DatabaseObject> extends AsyncTask<Void, Void, Void> {
+        static int count = 0;
 
         RetrieverSchema schema;
         String key;
+        int id = count++;
 
         public GetOjbectTask(RetrieverSchema schema, String key) {
             this.schema = schema;
@@ -184,8 +213,39 @@ public class DBObjectLoader {
         protected Void doInBackground(Void... params) {
             initData();
 
+            Log.i("DBObjectLoader", "(" + id + ") Getting objects of type [" + key + "] from database");
             data.put(key, new SingleRetriever<T>(schema).getAll());
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            Log.i("DBObjectLoader", "(" + id + ") Finished getting objects of type [" + key + "] from database");
+        }
+    }
+
+    private static class GetVideoTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Playlist videoPlaylist;
+            List<Video> videos;
+
+            Log.i("DBObjectLoader", "Getting videos from youtube");
+
+            videoPlaylist = RestUtil.getPlaylist(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS);
+            videos = videoPlaylist.getVideoList();
+
+            data.put(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS, new Content<Video>(videos, ContentType.LIVE));
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Log.i("DBObjectLoader", "Finished getting videos from youtube");
         }
     }
 }

@@ -167,6 +167,7 @@ public class DBObjectLoader {
     }
 
     public static ArrayList<Ministry> getMinistries() {
+        initData();
         return (Content<Ministry>) data.get(Database.REST_MINISTRY);
     }
 

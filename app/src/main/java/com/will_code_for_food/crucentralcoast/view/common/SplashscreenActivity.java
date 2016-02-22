@@ -64,15 +64,18 @@ public class SplashscreenActivity extends Activity {
         };
 
         //makes the pause on this screen skippable.
-        screen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handler.removeCallbacks(runnable);
+        //you aren't allowed to skip the splashscreen on the initial setup, because it crashes the app.
+        if (Util.loadBool(Android.PREF_SETUP_COMPLETE)) {
+            screen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handler.removeCallbacks(runnable);
 
-                finish();
-                launchApp();
-            }
-        });
+                    finish();
+                    launchApp();
+                }
+            });
+        }
 
         handler.postDelayed(runnable, UI.SETUP_SPLASHSCREEN_POLL_DURATION);
     }

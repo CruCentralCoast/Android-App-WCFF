@@ -54,12 +54,14 @@ public class ResourcesFragment extends CruFragment {
             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> p, View view, int position, long id) {
+                    ResourcesActivity activity = (ResourcesActivity)getActivity();
+
                     if (position == 0) {
-                        ((ResourcesActivity)getActivity()).viewVideos();
+                        activity.viewVideos();
                     } else if (position == 1) {
-                        ((ResourcesActivity)getActivity()).viewArticles();
+                        activity.viewArticles();
                     } else {
-                        ((ResourcesActivity)getActivity()).viewLeaderResources();
+                        activity.viewLeaderResources();
                     }
                 }
             });

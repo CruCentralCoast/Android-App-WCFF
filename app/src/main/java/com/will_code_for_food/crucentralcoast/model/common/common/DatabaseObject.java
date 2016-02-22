@@ -142,7 +142,7 @@ public abstract class DatabaseObject {
 
         //for comparing ids directly
         else if (other instanceof String) {
-            return this.getId().equals((String) other);
+            return this.getId().equals(other);
         }
 
         return false;

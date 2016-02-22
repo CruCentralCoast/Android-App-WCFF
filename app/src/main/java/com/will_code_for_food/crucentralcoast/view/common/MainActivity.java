@@ -85,10 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return false;
+        return mDrawerToggle.onOptionsItemSelected(item);
     }
 
     @Override
@@ -155,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (viewText) {
             case "Home":
-                loadFragmentById(R.layout.fragment_card_list, "CruCentralCoast", new FeedFragment(), this);
+                loadFragmentById(R.layout.fragment_card_list, "Feed", new FeedFragment(), this);
                 break;
             case "Events":
                 newActivity(EventsActivity.class);

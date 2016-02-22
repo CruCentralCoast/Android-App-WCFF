@@ -1,33 +1,21 @@
 package com.will_code_for_food.crucentralcoast.view.resources;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Toast;
 import android.content.Intent;
 
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.controller.authentication.Authenticator;
-import com.will_code_for_food.crucentralcoast.controller.authentication.Credentials;
-import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
-import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
-import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
-import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
-import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 import com.will_code_for_food.crucentralcoast.values.UI;
 
-import com.will_code_for_food.crucentralcoast.controller.authentication.Credentials;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -44,7 +32,7 @@ public class ResourcesActivity extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFragmentById(R.layout.fragment_resources, title, null, this);
+        loadFragmentById(R.layout.fragment_resources, title, new ResourcesFragment(), this);
     }
 
     @Override
@@ -55,7 +43,22 @@ public class ResourcesActivity extends MainActivity {
         }
     }
 
-    public void clickLeaderResources(View view) {
+    /**
+     * Displays the Cru YouTube videos in a list
+     */
+    public void viewVideos() {
+        loadFragmentById(R.layout.fragment_card_list, video_title, new ResourceVideoFragment(), this);
+    }
+
+    /**
+     * Displays the Cru articles in a list
+     */
+    public void viewArticles() {
+        loadFragmentById(R.layout.fragment_card_list, article_title,
+                new ResourceArticleFragment(), this);
+    }
+
+    public void viewLeaderResources() {
         if (!Authenticator.isUserLoggedIn() && !Authenticator.logIn()) {
             startActivityForResult(new Intent(this, LogInActivity.class), 1);
         } else {
@@ -66,21 +69,6 @@ public class ResourcesActivity extends MainActivity {
     private void goToLeaderResources() {
         // TODO actually show leader resources
         Toast.makeText(context, "Show leader resources...", Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * Displays the Cru YouTube videos in a list
-     */
-    public void viewVideos(View view) {
-        loadFragmentById(R.layout.fragment_card_list, video_title, new ResourceVideoFragment(), this);
-    }
-
-    /**
-     * Displays the Cru articles in a list
-     */
-    public void viewArticles(View view) {
-        loadFragmentById(R.layout.fragment_card_list, article_title,
-                new ResourceArticleFragment(), this);
     }
 
     /**
@@ -114,7 +102,8 @@ public class ResourcesActivity extends MainActivity {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(UI.CRU_INSTAGRAM_LINK));
         startActivity(browserIntent);
     }
-    
+
+
     //TODO delete this and use RetrievalTask/ResourceCardFactory
     private class ArticleTask extends AsyncTask<Void, Void, Void> {
 
@@ -123,6 +112,7 @@ public class ResourcesActivity extends MainActivity {
         public ArticleTask(MainActivity parent) {
             this.parent = parent;
         }
+
         @Override
         protected Void doInBackground(Void... params) {
             SingleRetriever<Resource> retriever = new SingleRetriever<Resource>(RetrieverSchema.RESOURCE);

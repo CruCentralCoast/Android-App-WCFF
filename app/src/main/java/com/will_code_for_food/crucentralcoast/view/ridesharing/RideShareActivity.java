@@ -2,10 +2,6 @@ package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
@@ -13,8 +9,6 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriev
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
-import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
-import com.will_code_for_food.crucentralcoast.view.events.EventsFragment;
 
 import java.util.ArrayList;
 

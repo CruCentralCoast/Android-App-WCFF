@@ -7,6 +7,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.VideoRetriever;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
@@ -243,7 +244,11 @@ public class DBObjectLoader {
             initData();
 
             Log.i("DBObjectLoader", "Getting objects of type [" + key + "] from database");
-            data.put(key, new SingleRetriever<T>(schema).getAll());
+            Content<T> content = new SingleRetriever<T>(schema).getAll();
+
+            if (content != null) {
+                data.put(key, content);
+            }
             return null;
         }
 
@@ -261,14 +266,13 @@ public class DBObjectLoader {
         @Override
         protected Void doInBackground(Void... params) {
             Playlist videoPlaylist;
-            List<Video> videos;
+            List<Video> videos = null;
+            VideoRetriever retriever = new VideoRetriever();
 
             Log.i("DBObjectLoader", "Getting videos from youtube");
 
-            videoPlaylist = RestUtil.getPlaylist(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS);
-            videos = videoPlaylist.getVideoList();
+            data.put(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS, retriever.getAll());
 
-            data.put(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS, new Content<Video>(videos, ContentType.LIVE));
             return null;
         }
 

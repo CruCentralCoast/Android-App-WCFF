@@ -65,7 +65,7 @@ public class LocalStorageIO {
     public static List<String> readList(final String fileName) {
         List<String> list = new ArrayList<>();
         try {
-            InputStream inputStream = MainActivity.context.openFileInput(fileName);
+            InputStream inputStream = SplashscreenActivity.context.openFileInput(fileName);
 
             if ( inputStream != null ) {
                 InputStreamReader inReader = new InputStreamReader(inputStream);

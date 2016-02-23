@@ -42,7 +42,7 @@ public class SingleRetriever<T extends DatabaseObject> implements Retriever {
 
         if (testMode) {
             return getTestContent();
-        } else if ((content = getLiveContent()) != null) {
+        } else if ((content = getLiveContent()).getType() == ContentType.LIVE) {
             Log.e("RETRIEVAL", "getting live content");
             return content;
         } else {
@@ -83,7 +83,7 @@ public class SingleRetriever<T extends DatabaseObject> implements Retriever {
 
             return new Content<>(objects, ContentType.LIVE);
         } else {
-            return null;
+            return new Content<T>(new ArrayList<T>(), ContentType.CACHED);
         }
     }
 

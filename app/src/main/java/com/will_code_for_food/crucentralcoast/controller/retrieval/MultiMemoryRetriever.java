@@ -29,7 +29,7 @@ public class MultiMemoryRetriever implements Retriever {
             if (key != null) {
                 content = DBObjectLoader.get(key);
                 //Log.i("MultiRetriever", "content size: " + content.size());
-                objects.addAll(content.getObjects());
+                objects.addAll(content);
 
                 if (content.getType() == ContentType.CACHED) {
                     containsCached = true;

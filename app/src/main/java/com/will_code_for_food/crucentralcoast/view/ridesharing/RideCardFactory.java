@@ -55,9 +55,16 @@ public class RideCardFactory implements CardFragmentFactory {
     }
 
     @Override
-    public AdapterView.OnItemClickListener createCardListener(MainActivity currentActivity, Content myDBObjects) {
-        //TODO: use this instead of the other listener below
-        return null;
+    public AdapterView.OnItemClickListener createCardListener(final MainActivity currentActivity, final Content myDBObjects) {
+        return new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Ride ride = (Ride) myDBObjects.get(position);
+                RideShareActivity.setRide(ride);
+                currentActivity.loadFragmentById(R.layout.fragment_ride_info, ride.getDriverName() + "'s Ride", new RideInfoFragment(), currentActivity);
+            }
+        };
     }
 
     private class RideAdapter extends ArrayAdapter<Ride> {
@@ -94,8 +101,6 @@ public class RideCardFactory implements CardFragmentFactory {
                 setLeaveDate(hold);
                 setLeaveLocation(hold);
                 setSeatsLeft(hold);
-
-                createListener(hold, position);
 
                 return hold;
             }
@@ -142,26 +147,6 @@ public class RideCardFactory implements CardFragmentFactory {
                 text = String.format(Util.getString(R.string.ridesharing_seats_left), seats);
             }
             seatsLeft.setText(text);
-        }
-
-        private void createListener(View hold, int position) {
-            RelativeLayout background = (RelativeLayout) hold.findViewById(R.id.fragment_ride_card);
-            background.setOnClickListener(new RideClickListener(current));
-        }
-
-        private class RideClickListener implements View.OnClickListener {
-
-            Ride ride;
-
-            public RideClickListener(Ride ride) {
-                this.ride = ride;
-            }
-
-            @Override
-            public void onClick(View v) {
-                RideShareActivity.setRide(ride);
-                parent.loadFragmentById(R.layout.fragment_ride_info, ride.getDriverName() + "'s Ride", new RideInfoFragment(), parent);
-            }
         }
     }
 }

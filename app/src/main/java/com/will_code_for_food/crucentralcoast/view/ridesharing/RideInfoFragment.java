@@ -51,8 +51,8 @@ public class RideInfoFragment extends CruFragment {
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
-        ride = RideShareActivity.getRide();
-        event = RideShareActivity.getEvent(ride);
+        ride = (Ride) RideShareActivity.getRide();
+        event = (Event) RideShareActivity.getEvent(ride);
 
         title = (TextView) fragmentView.findViewById(R.id.ride_info_title);
         driver = (TextView) fragmentView.findViewById(R.id.ride_info_driver);

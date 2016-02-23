@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.MultiMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.MultiRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
@@ -16,6 +17,8 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.VideoRetrieve
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
+import com.will_code_for_food.crucentralcoast.values.Android;
+import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.events.EventCardFactory;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareEventCardFactory;
@@ -33,7 +36,8 @@ public class FeedFragment extends CruFragment {
                              Bundle savedInstanceState) {
         View hold = super.onCreateView(inflater, container, savedInstanceState);
         layout = (SwipeRefreshLayout) hold.findViewById(R.id.card_refresh_layout);
-        refreshList();
+        loadList();
+        //refreshList();
         return hold;
     }
 
@@ -46,6 +50,29 @@ public class FeedFragment extends CruFragment {
                 refreshList();
             }
         });
+    }
+
+    /**
+     * Gets objects loaded at application start.
+     */
+    private void loadList() {
+        Log.i("FeedFragment", "Loading feed for the first time");
+
+        ArrayList<String> keyList = new ArrayList<String>();
+        keyList.add(Database.REST_EVENT);
+        keyList.add(Database.REST_RESOURCE);
+        keyList.add(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS);
+
+        MultiMemoryRetriever retriever = new MultiMemoryRetriever(keyList);
+        CardFragmentFactory factory = new FeedCardFactory();
+
+        new RetrievalTask<Event>(retriever, factory, R.string.toast_no_events,
+                new AsyncResponse(getParent()) {
+                    @Override
+                    public void otherProcessing() {
+                        layout.setRefreshing(false);
+                    }
+                }).execute();
     }
 
     private void refreshList() {

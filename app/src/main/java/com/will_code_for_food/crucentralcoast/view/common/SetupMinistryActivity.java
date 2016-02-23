@@ -23,6 +23,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.PushUtil;
@@ -273,8 +274,9 @@ public class SetupMinistryActivity extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
 
-            Retriever retriever = new SingleRetriever<>(RetrieverSchema.MINISTRY);
-            ministries = (List<Ministry>) retriever.getAll().getObjects();
+            //Retriever retriever = new SingleRetriever<>(RetrieverSchema.MINISTRY);
+            //ministries = (List<Ministry>) retriever.getAll().getObjects();
+            ministries = DBObjectLoader.getMinistries();
 
             //Filter the ministry list based on the selected campuses from the previous screen.
             for (Ministry ministry : ministries) {

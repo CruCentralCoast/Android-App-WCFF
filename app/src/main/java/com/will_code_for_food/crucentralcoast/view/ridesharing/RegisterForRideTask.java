@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.values.Database;
@@ -38,14 +39,7 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
         JsonObject result;
         Passenger passenger;
 
-        try {
-            //get this phone number
-            TelephonyManager tMgr = (TelephonyManager) parent.getSystemService(Context.TELEPHONY_SERVICE);
-            phoneNum = tMgr.getLine1Number();
-        } catch (java.lang.SecurityException e) {
-            //triggered if emulator is in use
-            phoneNum = "EMULATOR";
-        }
+        phoneNum = Util.getPhoneNum();
 
         //try to find passenger in db
         passenger = RestUtil.getPassenger(phoneNum);
@@ -60,7 +54,6 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
         }
 
         //update ride
-
         if ((ride.hasPassenger(new Passenger(result).getId()))) {
             System.out.println("Ride has passenger");
         }
@@ -93,6 +86,4 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
     }
-
-
 }

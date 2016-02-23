@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center_horizontal"
+    android:focusable="false"
+    tools:context=".view.summermissions.SummerMissionsActivity" >
+
+    <Button
+        android:id="@+id/button_apply_mission"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true"
+        android:text="@string/button_signup"
+        android:backgroundTint="@color/colorPrimary_cruGold"
+        android:onClick="joinMinistryTeam" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_above="@id/button_apply_mission"
+        android:gravity="center" >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <!-- Image header -->
+            <ImageView
+                android:id="@+id/image_ministry_team"
+                android:layout_width="fill_parent"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                android:src="@drawable/cru_logo_default" />
+            <!-- Name -->
+            <TextView
+                android:id="@+id/text_ministry_team_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
+                android:layout_marginBottom="2dip"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="#000" />
+            <!-- Description -->
+            <TextView
+                android:id="@+id/text_ministry_team_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stroke_bg"
+                android:autoLink="web"
+                android:textColor="@color/colorPrimary_cruGray"
+                android:padding="20dip" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -34,7 +34,7 @@ public class EventCardFactory implements CardFragmentFactory<Event> {
     }
 
     @Override
-    public boolean include(DatabaseObject object) {
+    public boolean include(Event object) {
         JsonElement ministriesObject = object.getField(Database.JSON_KEY_EVENT_MINISTRIES);
 
         //Go through all ministries for the event and see if the user is subscribed
@@ -59,7 +59,7 @@ public class EventCardFactory implements CardFragmentFactory<Event> {
 
     @Override
     public AdapterView.OnItemClickListener createCardListener(
-            final MainActivity currentActivity, final Content<? extends DatabaseObject> myDBObjects)
+            final MainActivity currentActivity, final Content<Event> myDBObjects)
     {
         return new AdapterView.OnItemClickListener () {
             @Override

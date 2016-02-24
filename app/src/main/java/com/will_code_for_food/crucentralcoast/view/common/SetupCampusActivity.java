@@ -24,6 +24,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.RegistrationIntentService;
 import com.will_code_for_food.crucentralcoast.values.Android;
@@ -84,7 +85,9 @@ public class SetupCampusActivity extends Activity {
             }
         });
 
-        new SetupCampusTask(this).execute();
+        ArrayList<Campus> campuses = DBObjectLoader.getCampuses();
+        campusList.setAdapter(new CampusAdapter(campuses, this));
+        //new SetupCampusTask(this).execute();
     }
 
     /**

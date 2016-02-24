@@ -12,6 +12,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.common.SplashscreenActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -41,7 +42,7 @@ public class LocalStorageIO {
      * the file if it already exists.
      */
     public static boolean writeList(final List<String> list, final String fileName) {
-        File path = MainActivity.context.getFilesDir();
+        File path = SplashscreenActivity.context.getFilesDir();
         File file = new File(path, fileName);
         try {
             file.createNewFile();
@@ -64,7 +65,7 @@ public class LocalStorageIO {
     public static List<String> readList(final String fileName) {
         List<String> list = new ArrayList<>();
         try {
-            InputStream inputStream = MainActivity.context.openFileInput(fileName);
+            InputStream inputStream = SplashscreenActivity.context.openFileInput(fileName);
 
             if ( inputStream != null ) {
                 InputStreamReader inReader = new InputStreamReader(inputStream);

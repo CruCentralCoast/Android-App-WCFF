@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.UI;
@@ -33,42 +34,50 @@ public class SplashscreenActivity extends Activity {
 
         context = this;
 
-        screen = (FrameLayout) findViewById(R.id.splashscreen_content);
+        DBObjectLoader.loadAll();
 
-        run();
+        screen = (FrameLayout) findViewById(R.id.splashscreen_content);
+        loadContent();
     }
 
     /**
      * Defines behavior of splashscreen
      */
-    private void run() {
+    private void loadContent() {
         final Handler handler = new Handler();
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
-                //Finish splash activity so user cant go back to it.
-                finish();
+                if (DBObjectLoader.finishedLoading()) {
+                    //Finish splash activity so user cant go back to it.
+                    finish();
 
-                //Apply splash exit (fade out) and main entry (fade in) animation transitions.
-                overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
+                    //Apply splash exit (fade out) and main entry (fade in) animation transitions.
+                    overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
 
-                launchApp();
+                    launchApp();
+                } else {
+                    loadContent();
+                }
             }
         };
 
         //makes the pause on this screen skippable.
-        screen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handler.removeCallbacks(runnable);
+        //you aren't allowed to skip the splashscreen on the initial setup, because it crashes the app.
+        if (Util.loadBool(Android.PREF_SETUP_COMPLETE)) {
+            screen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handler.removeCallbacks(runnable);
 
-                finish();
-                launchApp();
-            }
-        });
+                    finish();
+                    launchApp();
+                }
+            });
+        }
 
-        handler.postDelayed(runnable, UI.SETUP_SPLASHSCREEN_WAIT_DURATION);
+        handler.postDelayed(runnable, UI.SETUP_SPLASHSCREEN_POLL_DURATION);
     }
 
     /**

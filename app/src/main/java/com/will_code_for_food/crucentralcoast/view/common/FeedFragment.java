@@ -3,9 +3,13 @@ package com.will_code_for_food.crucentralcoast.view.common;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.MultiMemoryRetriever;
@@ -32,12 +36,12 @@ public class FeedFragment extends CruFragment {
     SwipeRefreshLayout layout;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View hold = super.onCreateView(inflater, container, savedInstanceState);
+        setHasOptionsMenu(true);
+
         layout = (SwipeRefreshLayout) hold.findViewById(R.id.card_refresh_layout);
         loadList();
-        //refreshList();
         return hold;
     }
 
@@ -50,6 +54,18 @@ public class FeedFragment extends CruFragment {
                 refreshList();
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.options_menu, menu);
+        menu.findItem(R.id.search).setActionView(R.layout.action_search);
+        menu.findItem(R.id.sort).setActionView(R.layout.action_sort);
+        EditText search = (EditText)menu.findItem(R.id.search).getActionView().findViewById(R.id.text);
+
+        //search.setOnEditorActionListener(this);
+        search.setImeActionLabel("Search", KeyEvent.KEYCODE_ENTER);
     }
 
     /**

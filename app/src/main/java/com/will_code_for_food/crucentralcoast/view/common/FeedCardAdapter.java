@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
+import com.will_code_for_food.crucentralcoast.view.events.EventInfoFragment;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.view.resources.ResourcesActivity;
 import com.will_code_for_food.crucentralcoast.view.summermissions.SummerMissionsActivity;
@@ -36,21 +38,18 @@ public class FeedCardAdapter extends ArrayAdapter<DatabaseObject> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         DatabaseObject current = cards.get(position);
+        View view = null;
 
         if (current instanceof Event) {
-            return getEventView((Event) current, parent);
-        }
-
-        if (current instanceof Resource) {
-            return getArticleView((Resource) current, parent);
-        }
-
-        if (current instanceof Video) {
-            return getVideoView((Video) current, parent);
+            view =  getEventView((Event) current, parent);
+        }else if (current instanceof Resource) {
+            view =  getArticleView((Resource) current, parent);
+        }else if (current instanceof Video) {
+            view =  getVideoView((Video) current, parent);
         }
 
         Log.e("FeedCardAdapter", "Expected valid db object. Got: " + current.getClass().toString());
-        return null;
+        return view;
     }
 
     private View getVideoView(Video current, ViewGroup parent) {

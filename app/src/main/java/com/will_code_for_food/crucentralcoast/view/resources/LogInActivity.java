@@ -11,6 +11,7 @@ import com.will_code_for_food.crucentralcoast.controller.authentication.LogInFor
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
+import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResultType;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 import java.util.List;

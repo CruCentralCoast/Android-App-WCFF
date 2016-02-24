@@ -1,5 +1,7 @@
 package com.will_code_for_food.crucentralcoast.model.common.form;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +38,13 @@ public abstract class Form {
     /**
      * Answers a question on the form.
      */
-    public void answerQuestion(final int index, final Object answer) {
-        questions.get(index).answerQuestion(answer);
+    public boolean answerQuestion(final int index, final Object answer) {
+        Log.i("Answering", index + " : " + questions.get(index).getName() + " = " + answer);
+        if (index < questions.size()) {
+            questions.get(index).answerQuestion(answer);
+            return true;
+        }
+        return false;
     }
 
     public Question getQuestion(final int index) {
@@ -76,7 +83,7 @@ public abstract class Form {
             return true;
         }
         for (FormValidationResult result : list) {
-            if (result != FormValidationResult.VALID) {
+            if (result.type != FormValidationResultType.VALID) {
                 return false;
             }
         }
@@ -95,12 +102,10 @@ public abstract class Form {
      * a form validation result for more information
      */
     public List<FormValidationResult> isCompleteDetailed() {
-        List<FormValidationResult> results = new ArrayList<FormValidationResult>();
+        List<FormValidationResult> results = new ArrayList<>();
         for (Question question : questions) {
             if (question.isRequired() && !question.isAnswered()) {
-                FormValidationResult result = FormValidationResult.ERROR_INCOMPLETE;
-                result.setDefaultMessageQuestion(question);
-                results.add(result);
+                results.add(new FormValidationResult(FormValidationResultType.ERROR_INCOMPLETE, question));
             }
         }
         return results;
@@ -123,4 +128,14 @@ public abstract class Form {
      * Submits the form, returns success/failure
      */
     public abstract boolean submit();
+
+    /**
+     * Prints the form to the logger (for debugging)
+     */
+    public void print() {
+        Log.i("FORM", "Printing form...");
+        for (Question question : questions) {
+            Log.i("Quesiton", question.getPrompt() + " -> " + question.getAnswer());
+        }
+    }
 }

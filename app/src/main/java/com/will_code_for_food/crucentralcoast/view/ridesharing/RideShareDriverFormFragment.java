@@ -2,11 +2,11 @@ package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -15,18 +15,16 @@ import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
-import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
-import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
+import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResultType;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
-import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
-import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -34,7 +32,7 @@ import java.util.List;
  * Created by masonstevenson on 2/4/16.
  */
 public class RideShareDriverFormFragment extends CruFragment {
-    Form form;
+    private DriverForm form;
     DatePicker datePicker;
     TimePicker timePicker;
     EditText name;
@@ -71,6 +69,11 @@ public class RideShareDriverFormFragment extends CruFragment {
         cancelButton = (Button) fragmentView.findViewById(R.id.driver_form_cancel);
 
         form = new DriverForm(selectedEvent.getId());
+        form.print();
+
+        if (form.getQuestion(0).isAnswered()) {
+            name.setText((String) form.getQuestion(0).getAnswer());
+        }
 
         datePicker.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -127,38 +130,48 @@ public class RideShareDriverFormFragment extends CruFragment {
             @Override
             public void onClick(View v) {
                 new DisplayEventInfoTask().execute();
-                if (name.getText() != null) {
+                if (hasValidTextInput(name)) {
                     form.answerQuestion(0, name.getText().toString());
                 }
-                if (date != 0){
-                    form.answerQuestion(1, date);
-                }
-                if (time != 0){
-                    form.answerQuestion(2, time);
-                }
+                // set time
+                Calendar cal =
+                        new GregorianCalendar(datePicker.getYear(),
+                                datePicker.getMonth(), datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute());
+                form.answerQuestion(1, cal);
+
                 if (direction != null){
-                    form.answerQuestion(3, direction);
+                    form.answerQuestion(2, direction);
                 }
-                if (locations.getText() != null) {
-                    form.answerQuestion(4, locations.getText().toString());
+                if (hasValidTextInput(locations)) {
+                    form.answerQuestion(3, locations.getText().toString());
                 }
-                if (numberofSeats.getText() != null){
-                    form.answerQuestion(5, Integer.parseInt(numberofSeats.getText().toString()));
+                if (hasValidTextInput(numberofSeats)){
+                    Log.e("INPUT", "number of seats: " + Integer.parseInt(numberofSeats.getText().toString()));
+                    form.answerQuestion(4, Integer.parseInt(numberofSeats.getText().toString()));
                 }
                 if (form.isFinished()) {
-                    Toast.makeText(parent, "Submitted Driver Form", Toast.LENGTH_SHORT);
+                    Toast.makeText(parent, "Submitted Driver Form", Toast.LENGTH_SHORT).show();
                     form.submit();
                 } else {
                     // error
+                    Toast.makeText(parent, "Error!", Toast.LENGTH_SHORT).show();
+                    form.print();
                     List<FormValidationResult> results = form.isFinishedDetailed();
+                    // TODO these are all the errors returned by the form validation
+                    // TODO I don't know how best to translate the form's results to show in the UI (change it however you want or let me know and I will)
                     for(FormValidationResult result : results) {
-                        Toast.makeText(parent, result.getMessage(parent), Toast.LENGTH_SHORT);
+                        Log.e("Form Error:", result.getMessage(parent));
                     }
                 }
             }
         });
 
         return fragmentView;
+    }
+
+    private boolean hasValidTextInput(final EditText e) {
+        return e.getText() != null && e.getText().toString().length() > 0;
     }
 
     private class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {

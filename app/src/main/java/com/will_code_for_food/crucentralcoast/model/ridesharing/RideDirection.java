@@ -1,5 +1,7 @@
 package com.will_code_for_food.crucentralcoast.model.ridesharing;
 
+import java.util.Calendar;
+
 /**
  * Created by Gavin on 1/24/2016.
  */
@@ -12,8 +14,8 @@ public enum RideDirection {
     private final boolean hasTimeLeavingFromEvent;
     private final String directionString;
 
-    private Long leaveTimeToEvent = null;
-    private Long leaveTimeFromEvent = null;
+    private Calendar leaveTimeToEvent = null;
+    private Calendar leaveTimeFromEvent = null;
 
     RideDirection(final boolean hasTimeLeavingToEvent, final boolean hasTimeLeavingFromEvent, final String directionString) {
         this.hasTimeLeavingFromEvent = hasTimeLeavingFromEvent;
@@ -21,7 +23,7 @@ public enum RideDirection {
         this.directionString = directionString;
     }
 
-    public boolean setLeaveTimeToEvent(Long leaveTime) {
+    public boolean setLeaveTimeToEvent(final Calendar leaveTime) {
         if (hasTimeLeavingToEvent && leaveTimeToEvent == null) {
             leaveTimeToEvent = leaveTime;
             return true;
@@ -29,7 +31,7 @@ public enum RideDirection {
         return false;
     }
 
-    public boolean setLeaveTimeFromEvent(Long leaveTime) {
+    public boolean setLeaveTimeFromEvent(final Calendar leaveTime) {
         if (hasTimeLeavingFromEvent && leaveTimeFromEvent == null) {
             leaveTimeFromEvent = leaveTime;
             return true;
@@ -37,11 +39,11 @@ public enum RideDirection {
         return false;
     }
 
-    public Long getLeaveTimeToEvent() {
+    public Calendar getLeaveTimeToEvent() {
         return leaveTimeToEvent;
     }
 
-    public Long getLeaveTimeFromEvent() {
+    public Calendar getLeaveTimeFromEvent() {
         return leaveTimeFromEvent;
     }
 

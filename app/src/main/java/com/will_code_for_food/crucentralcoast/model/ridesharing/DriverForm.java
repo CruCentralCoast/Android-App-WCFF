@@ -7,6 +7,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.form.MultiOptionQuestion;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
+import com.will_code_for_food.crucentralcoast.model.common.form.QuestionType;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 
@@ -17,7 +18,6 @@ import java.util.GregorianCalendar;
  * The form that user's fill out when looking for a ride to an event.
  */
 public class DriverForm extends RiderForm {
-    public static final int maxNumSeats = 10; // upper limit of dropdown options
     private final Question numSeats;
 
     /**
@@ -28,14 +28,10 @@ public class DriverForm extends RiderForm {
      */
     public DriverForm(final String eventId) {
         super(eventId);
-        ArrayList<Object> options = new ArrayList<Object>();
-        for (int num = 1; num <= maxNumSeats; num++) {
-            options.add(Integer.toString(num));
-        }
-        numSeats = new MultiOptionQuestion(
+        numSeats = new Question(
                 Util.getString(R.string.ridesharing_seats_question_name),
                 Util.getString(R.string.ridesharing_seats),
-                options);
+                QuestionType.NUMBER_SELECT);
         addQuestion(numSeats);
     }
 
@@ -61,16 +57,15 @@ public class DriverForm extends RiderForm {
                 dir = RideDirection.TWO_WAY;
             }
 
-            dir.setLeaveTimeFromEvent(((GregorianCalendar) leaveTimeFromEvent.getAnswer()).getTimeInMillis());
-            dir.setLeaveTimeToEvent(((GregorianCalendar)
-                    leaveTimeToEvent.getAnswer()).getTimeInMillis());
+            dir.setLeaveTimeFromEvent((GregorianCalendar) leaveTimeFromEvent.getAnswer());
+            dir.setLeaveTimeToEvent((GregorianCalendar) leaveTimeToEvent.getAnswer());
             // save username
             LocalStorageIO.writeSingleLineFile(LocalFiles.USER_NAME,
                     (String) nameQuestion.getAnswer());
 
             //TODO Fill in with real data
             // save to database
-            Ride origRide = new Ride(eventId, driverName, driverNumber, "dummy_gcm_id", new Location("12345", "CA", "", "123 Main Street", "USA"), "2016-01-01T00:00:00Z", 1.0, (int) numSeats.getAnswer(), dir, "male");
+            Ride origRide = new Ride(eventId, driverName, driverNumber, "dummy_gcm_id", new Location("12345", "CA", "", "123 Main Street", "USA"), 1.0, (int) numSeats.getAnswer(), dir, "male");
             Ride ride = new Ride(RestUtil.create(origRide.toJSON(), Database.REST_RIDE));
 
             // save to user's rides

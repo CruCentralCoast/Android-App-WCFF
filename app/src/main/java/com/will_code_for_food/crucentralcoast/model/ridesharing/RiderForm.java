@@ -1,8 +1,5 @@
 package com.will_code_for_food.crucentralcoast.model.ridesharing;
 
-import android.content.res.Resources;
-import android.util.Log;
-
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
@@ -23,12 +20,10 @@ import java.util.List;
 public class RiderForm extends Form {
     protected final String eventId;
     protected final Question nameQuestion;
-    protected final Question leaveDayToEvent;
     protected final Question leaveTimeToEvent;
     protected final MultiOptionQuestion direction;
-    protected final Question leaveDayFromEvent;
     protected final Question leaveTimeFromEvent;
-    protected final Question locations;
+    protected final Question location;
 
     /**
      * Creates a form for riders to fill out to find a ride.
@@ -39,36 +34,23 @@ public class RiderForm extends Form {
         super();
         this.eventId = eventId;
         nameQuestion = new Question(
-                Util.getString(R.string.ridesharing_username),
                 Util.getString(R.string.ridesharing_username_question_name),
+                Util.getString(R.string.ridesharing_username),
                 QuestionType.FREE_RESPONSE_SHORT);
-        leaveDayToEvent = new Question(
-                Util.getString(R.string.ridesharing_choose_day_question_name),
-                Util.getString(R.string.ridesharing_choose_day),
-                QuestionType.DATE_SELECT);
         leaveTimeToEvent = new Question(
                 Util.getString(R.string.ridesharing_choose_time_question_name),
                 Util.getString(R.string.ridesharing_choose_time), QuestionType.TIME_SELECT);
         direction = new MultiOptionQuestion(
                 Util.getString(R.string.ridesharing_choose_type_question_name),
                 Util.getString(R.string.ridesharing_choose_type),
-                Arrays.asList(new Object[]{
-                        Util.getString(R.string.ridesharing_one_way_to_event),
-                        Util.getString(R.string.ridesharing_one_way_from_event),
-                        Util.getString(R.string.ridesharing_two_way)
-                }));
-        leaveDayFromEvent = new Question(
-                Util.getString(R.string.ridesharing_two_way_date_question_name),
-                Util.getString(R.string.ridesharing_two_way_date),
-                QuestionType.DATE_SELECT);
+                Arrays.asList((Object[])RideDirection.values()));
         leaveTimeFromEvent = new Question(
                 Util.getString(R.string.ridesharing_two_way_time_question_name),
                 Util.getString(R.string.ridesharing_two_way_time),
                 QuestionType.TIME_SELECT);
-        direction.addSubquestion(leaveDayFromEvent);
-        direction.addSubquestion(leaveDayFromEvent);
+        direction.addSubquestion(leaveTimeFromEvent);
 
-        locations = new Question(
+        location = new Question(
                 Util.getString(R.string.ridesharing_location_question_name),
                 Util.getString(R.string.ridesharing_location),
                 QuestionType.MAP_SELECTION);
@@ -77,21 +59,20 @@ public class RiderForm extends Form {
         String userName = LocalStorageIO.readSingleLine(LocalFiles.USER_NAME);
         if (userName != null) {
             nameQuestion.answerQuestion(userName);
-            Log.e("GAVIN", "Autofilling username: " + userName);
-        } else {
-            Log.e("GAVIN", "Could not find username");
         }
 
         addQuestion(nameQuestion);
-        addQuestion(leaveDayFromEvent);
-        addQuestion(leaveTimeFromEvent);
+        addQuestion(leaveTimeToEvent);
         addQuestion(direction);
-        addQuestion(locations);
+        addQuestion(location);
     }
 
     @Override
-    public void answerQuestion(final int index, final Object answer) {
-        super.answerQuestion(index, answer);
+    public boolean answerQuestion(final int index, final Object answer) {
+        boolean ret = super.answerQuestion(index, answer);
+        if (!ret) {
+            return false;
+        }
         Question question = getQuestions().get(index);
         // enables subquestions if two-way is selected
         if (question.getPrompt().equals(Util.getString(
@@ -101,15 +82,21 @@ public class RiderForm extends Form {
                 sub.setRequired(true);
             }
         }
+        return true;
     }
 
     public List<FormValidationResult> isValidDetailed() {
         // TODO actually check user input for validity
-        return new ArrayList<FormValidationResult>();
+        return new ArrayList<>();
     }
 
     public boolean submit() {
-        // signs up for a ride
-        return true;
+        if (isFinished()) {
+            // TODO add rider to ride
+            LocalStorageIO.writeSingleLineFile(LocalFiles.USER_NAME,
+                    nameQuestion.getAnswer().toString());
+            return true;
+        }
+        return false;
     }
 }

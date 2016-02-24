@@ -12,6 +12,8 @@ import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.view.events.EventInfoFragment;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
+import com.will_code_for_food.crucentralcoast.view.resources.ResourcesActivity;
+import com.will_code_for_food.crucentralcoast.view.resources.ViewArticleFragment;
 
 /**
  * Created by MasonJStevenson on 2/18/2016.
@@ -43,7 +45,7 @@ public class FeedCardFactory implements CardFragmentFactory<DatabaseObject> {
                 if (obj instanceof Event) {
                     eventClicked((Event) obj, currentActivity);
                 } else if (obj instanceof Resource) {
-                    //do nothing
+                    resourceClicked((Resource) obj, currentActivity);
                 } else if (obj instanceof Video) {
                     //do nothing
                 }
@@ -54,5 +56,10 @@ public class FeedCardFactory implements CardFragmentFactory<DatabaseObject> {
     private void eventClicked(Event selectedEvent, MainActivity currentActivity) {
         EventsActivity.setEvent(selectedEvent);
         currentActivity.loadFragmentById(R.layout.fragment_event, currentActivity.getTitle() + " > " + selectedEvent.getName(), new EventInfoFragment(), currentActivity);
+    }
+
+    private void resourceClicked(Resource selectedResource, MainActivity currentActivity) {
+        ResourcesActivity.selectedResource = selectedResource;
+        currentActivity.loadFragmentById(R.layout.fragment_article, currentActivity.getTitle() + " > " + ResourcesActivity.selectedResource.getTitle(), new ViewArticleFragment(), currentActivity);
     }
 }

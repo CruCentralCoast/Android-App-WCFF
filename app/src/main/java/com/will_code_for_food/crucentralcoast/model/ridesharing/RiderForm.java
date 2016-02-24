@@ -13,7 +13,9 @@ import com.will_code_for_food.crucentralcoast.model.common.form.Question;
 import com.will_code_for_food.crucentralcoast.model.common.form.QuestionType;
 import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * The form that user's fill out when looking for a ride to an event.
@@ -93,7 +95,6 @@ public class RiderForm extends Form {
         Question question = getQuestions().get(index);
         // enables subquestions if two-way is selected
         if (question.getPrompt().equals(Util.getString(
-
                 R.string.ridesharing_two_way))) {
             for (Question sub : question.getSubquestions()) {
                 sub.setEnabled((boolean) answer == true);
@@ -102,9 +103,13 @@ public class RiderForm extends Form {
         }
     }
 
-    public FormValidationResult isValidDetailed() {
+    public List<FormValidationResult> isValidDetailed() {
         // TODO actually check user input for validity
-        return FormValidationResult.VALID;
+        return new ArrayList<FormValidationResult>();
     }
 
+    public boolean submit() {
+        // signs up for a ride
+        return true;
+    }
 }

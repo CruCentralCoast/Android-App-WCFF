@@ -12,6 +12,9 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+
+import java.util.List;
+
 /**
  * Asks the user for log in information.
  */
@@ -37,13 +40,15 @@ public class LogInActivity extends MainActivity {
             form.answerQuestion(1, password);
         }
 
-        FormValidationResult result = form.isFinishedDetailed();
-
-        if (result == FormValidationResult.VALID) {
+        if (form.isFinished() && form.submit()) {
             setResult(RESULT_OK, new Intent());
             finish();
         } else {
-            Toast.makeText(view.getContext(), result.getMessage(view.getContext()), Toast.LENGTH_SHORT).show();
+            List<FormValidationResult> results = form.isFinishedDetailed();
+            for (FormValidationResult result : results) {
+                // TODO show errors in GUI
+                Toast.makeText(view.getContext(), result.getMessage(view.getContext()), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

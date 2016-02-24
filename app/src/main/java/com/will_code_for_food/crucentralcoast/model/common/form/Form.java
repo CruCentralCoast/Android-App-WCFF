@@ -1,7 +1,5 @@
 package com.will_code_for_food.crucentralcoast.model.common.form;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +21,19 @@ public abstract class Form {
     }
 
     /**
+     * Searches the form for a question whose name matches the given question.
+     * Returns the index in the form, or -1 if the form does not contain the question.
+     */
+    public int getQuestionIndex(final Question question) {
+        for (int ndx = 0; ndx < questions.size(); ndx++) {
+            if (questions.get(ndx).getName().equals(question.getName())) {
+                return ndx;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * Answers a question on the form.
      */
     public void answerQuestion(final int index, final Object answer) {
@@ -41,55 +52,75 @@ public abstract class Form {
      * Checks if a form is complete and valid
      */
     public boolean isFinished() {
-        return isFinishedDetailed() == FormValidationResult.VALID;
+        return isListValid(isFinishedDetailed());
     }
 
     /**
      * Gives detailed information on whether or not a
      * form is complete and valid
      */
-    public FormValidationResult isFinishedDetailed() {
-        FormValidationResult result;
+    public List<FormValidationResult> isFinishedDetailed() {
+        List<FormValidationResult> result;
         result = isCompleteDetailed();
-        if (result == FormValidationResult.VALID) {
+        if (isListValid(result)) {
             result = isValidDetailed();
         }
         return result;
+    }
+
+    private boolean isListValid(final List<FormValidationResult> list) {
+        if (list == null) {
+            return false;
+        }
+        if (list.isEmpty()) {
+            return true;
+        }
+        for (FormValidationResult result : list) {
+            if (result != FormValidationResult.VALID) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
      * Checks if every question has been answered
      */
     public boolean isComplete() {
-        return isCompleteDetailed() == FormValidationResult.VALID;
+        return isListValid(isCompleteDetailed());
     }
 
     /**
      * Checks if every question has been answered, returns
      * a form validation result for more information
      */
-    public FormValidationResult isCompleteDetailed() {
-        FormValidationResult result = FormValidationResult.VALID;
+    public List<FormValidationResult> isCompleteDetailed() {
+        List<FormValidationResult> results = new ArrayList<FormValidationResult>();
         for (Question question : questions) {
             if (question.isRequired() && !question.isAnswered()) {
-                result = FormValidationResult.ERROR_INCOMPLETE;
+                FormValidationResult result = FormValidationResult.ERROR_INCOMPLETE;
                 result.setDefaultMessageQuestion(question);
-                return result;
+                results.add(result);
             }
         }
-        return result;
+        return results;
     }
 
     /**
      * Returns whether or not all of the questions on the form are valid.
      */
     public boolean isValid() {
-        return isValidDetailed() == FormValidationResult.VALID;
+        return isListValid(isValidDetailed());
     }
 
     /**
      * Returns whether or not all of the questions on the form are valid.
      * Returns a form validation result for more information.
      */
-    public abstract FormValidationResult isValidDetailed();
+    public abstract List<FormValidationResult> isValidDetailed();
+
+    /**
+     * Submits the form, returns success/failure
+     */
+    public abstract boolean submit();
 }

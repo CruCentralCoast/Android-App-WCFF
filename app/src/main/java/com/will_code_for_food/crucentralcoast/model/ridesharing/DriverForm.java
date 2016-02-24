@@ -1,8 +1,5 @@
 package com.will_code_for_food.crucentralcoast.model.ridesharing;
 
-import android.content.res.Resources;
-import android.util.Log;
-
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
@@ -47,7 +44,7 @@ public class DriverForm extends RiderForm {
      * Returns the new ride, or null if the form was
      * filled out incompletely or with errors.
      */
-    public Ride submit() {
+    public boolean submit() {
         if (isComplete() && isValid()) {
             // TODO create user using user's actual info (from phone)
             String driverName = "cru_driver";
@@ -78,8 +75,8 @@ public class DriverForm extends RiderForm {
 
             // save to user's rides
             LocalStorageIO.appendToList(ride.getId(), LocalFiles.USER_RIDES);
-            return ride;
+            return true;
         }
-        return null;
+        return false;
     }
 }

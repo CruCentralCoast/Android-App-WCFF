@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
+import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
@@ -26,12 +27,13 @@ import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * Created by masonstevenson on 2/4/16.
  */
 public class RideShareDriverFormFragment extends CruFragment {
-
+    Form form;
     DatePicker datePicker;
     TimePicker timePicker;
     EditText name;
@@ -48,7 +50,6 @@ public class RideShareDriverFormFragment extends CruFragment {
     Calendar calendar;
     long time;
     long date;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +68,8 @@ public class RideShareDriverFormFragment extends CruFragment {
         numberofSeats = (EditText) fragmentView.findViewById(R.id.number_of_seats);
         submitButton = (Button) fragmentView.findViewById(R.id.driver_form_submit);
         cancelButton = (Button) fragmentView.findViewById(R.id.driver_form_cancel);
+
+        form = new DriverForm(selectedEvent.getId());
 
         datePicker.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -123,7 +126,6 @@ public class RideShareDriverFormFragment extends CruFragment {
             @Override
             public void onClick(View v) {
                 new DisplayEventInfoTask().execute();
-                DriverForm form = new DriverForm(selectedEvent.getId());
                 if (name.getText() != null) {
                     form.answerQuestion(0, name.getText().toString());
                 }
@@ -142,14 +144,16 @@ public class RideShareDriverFormFragment extends CruFragment {
                 if (numberofSeats.getText() != null){
                     form.answerQuestion(5, Integer.parseInt(numberofSeats.getText().toString()));
                 }
-                FormValidationResult result = form.isFinishedDetailed();
-                if (result == FormValidationResult.VALID) {
+                if (form.isFinished()) {
+                    Toast.makeText(parent, "Submitted Driver Form", Toast.LENGTH_SHORT);
                     form.submit();
                 } else {
-                    //not sure if this works but not sure what to put there.
-                    result.getMessage(parent);
+                    // error
+                    List<FormValidationResult> results = form.isFinishedDetailed();
+                    for(FormValidationResult result : results) {
+                        Toast.makeText(parent, result.getMessage(parent), Toast.LENGTH_SHORT);
+                    }
                 }
-                Toast.makeText(parent, "Submitted Driver Form", Toast.LENGTH_SHORT);
             }
         });
 

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
@@ -24,12 +25,13 @@ import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * Created by ShelliCrispen on 2/16/16.
  */
 public class RideShareRiderFormFragment extends CruFragment{
-
+    Form form;
     DatePicker datePicker;
     TimePicker timePicker;
     EditText name;
@@ -62,6 +64,8 @@ public class RideShareRiderFormFragment extends CruFragment{
         twoWay = (RadioButton) fragmentView.findViewById(R.id.Two_Way_Checkbox);
         submitButton = (Button) fragmentView.findViewById(R.id.driver_form_submit);
         cancelButton = (Button) fragmentView.findViewById(R.id.driver_form_cancel);
+
+        form = new RiderForm(selectedEvent.getId());
 
         datePicker.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -118,7 +122,6 @@ public class RideShareRiderFormFragment extends CruFragment{
             @Override
             public void onClick(View v) {
                 new DisplayEventInfoTask().execute();
-                RiderForm form = new RiderForm(selectedEvent.getId());
                 if (name.getText() != null) {
                     form.answerQuestion(0, name.getText().toString());
                 }
@@ -134,14 +137,17 @@ public class RideShareRiderFormFragment extends CruFragment{
                 if (locations.getText() != null) {
                     form.answerQuestion(4, locations.getText().toString());
                 }
-                FormValidationResult result = form.isFinishedDetailed();
-                if (result == FormValidationResult.VALID) {
+                if (form.isFinished()) {
                     //submit
                     Toast.makeText(parent, "Rider Form Submitted", Toast.LENGTH_SHORT);
+                    form.submit();
                 } else {
-                    result.getMessage(parent);
+                    // error
+                    List<FormValidationResult> results = form.isFinishedDetailed();
+                    for(FormValidationResult result : results) {
+                        Toast.makeText(parent, result.getMessage(parent), Toast.LENGTH_SHORT);
+                    }
                 }
-                System.out.println("Submit clicked!");
             }
         });
 

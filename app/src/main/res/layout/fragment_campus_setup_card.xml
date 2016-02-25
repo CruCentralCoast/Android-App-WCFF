@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/campus_setup_card"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:drawable/dialog_holo_light_frame">
 
     <RelativeLayout
         android:id="@+id/campus_setup_card_under"
@@ -27,12 +28,12 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/campus_setup_card_over"
         android:layout_width="fill_parent"
         android:layout_height="190dp"
-        android:id="@+id/campus_setup_card_over"
-        android:background="@color/colorPrimary_cruGrayLight"
         android:layout_alignBaseline="@+id/campus_setup_card_under"
         android:alpha=".3"
-        android:text=""/>
+        android:background="@color/colorPrimary_cruGrayLight"
+        android:text="" />
 
 </RelativeLayout>

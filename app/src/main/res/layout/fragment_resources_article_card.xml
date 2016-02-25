@@ -4,29 +4,16 @@
     android:layout_height="match_parent"
     android:background="@android:drawable/dialog_holo_light_frame">
 
-    <!-- Video Thumbnail -->
     <ImageView
         android:id="@+id/card_image"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp" />
+        android:layout_height="150dp" />
 
-    <!-- Video Name -->
     <TextView
-        android:id="@+id/card_video_name"
+        android:id="@+id/card_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/card_image"
-        android:paddingLeft="10dp"
-        android:textSize="15sp" />
-
-    <!-- Video Upload Date -->
-    <TextView
-        android:id="@+id/card_video_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/card_video_name"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:textSize="15sp" />

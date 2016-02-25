@@ -9,6 +9,9 @@ import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationRe
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
 import com.will_code_for_food.crucentralcoast.model.common.form.QuestionType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple log-in form that can be used whenever the user has to log in
  */
@@ -30,14 +33,11 @@ public class LogInForm extends Form {
         addQuestion(password);
     }
 
-    @Override
-    public FormValidationResult isValidDetailed() {
-        if (Authenticator.logIn((String) username.getAnswer(), (String) password.getAnswer())) {
-            return FormValidationResult.VALID;
-        } else {
-            FormValidationResult result = FormValidationResult.ERROR_CUSTOM;
-            result.setNewMessage(R.string.login_invalid_cred);
-            return FormValidationResult.ERROR_CUSTOM;
-        }
+    public List<FormValidationResult> isValidDetailed() {
+        return new ArrayList<>();
+    }
+
+    public boolean submit() {
+        return Authenticator.logIn((String) username.getAnswer(), (String) password.getAnswer());
     }
 }

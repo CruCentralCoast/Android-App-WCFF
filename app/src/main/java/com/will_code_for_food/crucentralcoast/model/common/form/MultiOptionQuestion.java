@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class MultiOptionQuestion extends Question {
     private List<Object> options;
+    private Object selection;
 
     public MultiOptionQuestion(final String name, final String prompt, final List<Object> options) {
         super(name, prompt, QuestionType.MULTI_OPTION_SELECT);
@@ -18,10 +19,16 @@ public class MultiOptionQuestion extends Question {
     @Override
     public boolean answerQuestion(final Object answer) {
         if (options.contains(answer) || answer == null) {
-            return super.answerQuestion(answer);
+            selection = answer;
+            return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public Object getAnswer() {
+        return selection;
     }
 
     public void answerQuestionByIndex(final int index) {

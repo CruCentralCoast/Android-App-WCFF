@@ -23,10 +23,28 @@ public abstract class Form {
     }
 
     /**
+     * Searches the form for a question whose name matches the given question.
+     * Returns the index in the form, or -1 if the form does not contain the question.
+     */
+    public int getQuestionIndex(final Question question) {
+        for (int ndx = 0; ndx < questions.size(); ndx++) {
+            if (questions.get(ndx).getName().equals(question.getName())) {
+                return ndx;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * Answers a question on the form.
      */
-    public void answerQuestion(final int index, final Object answer) {
-        questions.get(index).answerQuestion(answer);
+    public boolean answerQuestion(final int index, final Object answer) {
+        if (index < questions.size()) {
+            Log.i("Answering", index + " : " + questions.get(index).getName() + " = " + answer);
+            questions.get(index).answerQuestion(answer);
+            return true;
+        }
+        return false;
     }
 
     public Question getQuestion(final int index) {
@@ -41,55 +59,83 @@ public abstract class Form {
      * Checks if a form is complete and valid
      */
     public boolean isFinished() {
-        return isFinishedDetailed() == FormValidationResult.VALID;
+        return isListValid(isFinishedDetailed());
     }
 
     /**
      * Gives detailed information on whether or not a
      * form is complete and valid
      */
-    public FormValidationResult isFinishedDetailed() {
-        FormValidationResult result;
+    public List<FormValidationResult> isFinishedDetailed() {
+        List<FormValidationResult> result;
         result = isCompleteDetailed();
-        if (result == FormValidationResult.VALID) {
+        if (isListValid(result)) {
             result = isValidDetailed();
         }
         return result;
+    }
+
+    private boolean isListValid(final List<FormValidationResult> list) {
+        if (list == null) {
+            return false;
+        }
+        if (list.isEmpty()) {
+            return true;
+        }
+        for (FormValidationResult result : list) {
+            if (result.type != FormValidationResultType.VALID) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
      * Checks if every question has been answered
      */
     public boolean isComplete() {
-        return isCompleteDetailed() == FormValidationResult.VALID;
+        return isListValid(isCompleteDetailed());
     }
 
     /**
      * Checks if every question has been answered, returns
      * a form validation result for more information
      */
-    public FormValidationResult isCompleteDetailed() {
-        FormValidationResult result = FormValidationResult.VALID;
+    public List<FormValidationResult> isCompleteDetailed() {
+        List<FormValidationResult> results = new ArrayList<>();
         for (Question question : questions) {
             if (question.isRequired() && !question.isAnswered()) {
-                result = FormValidationResult.ERROR_INCOMPLETE;
-                result.setDefaultMessageQuestion(question);
-                return result;
+                results.add(new FormValidationResult(FormValidationResultType.ERROR_INCOMPLETE, question));
             }
         }
-        return result;
+        return results;
     }
 
     /**
      * Returns whether or not all of the questions on the form are valid.
      */
     public boolean isValid() {
-        return isValidDetailed() == FormValidationResult.VALID;
+        return isListValid(isValidDetailed());
     }
 
     /**
      * Returns whether or not all of the questions on the form are valid.
      * Returns a form validation result for more information.
      */
-    public abstract FormValidationResult isValidDetailed();
+    public abstract List<FormValidationResult> isValidDetailed();
+
+    /**
+     * Submits the form, returns success/failure
+     */
+    public abstract boolean submit();
+
+    /**
+     * Prints the form to the logger (for debugging)
+     */
+    public void print() {
+        Log.i("FORM", "Printing form...");
+        for (Question question : questions) {
+            Log.i("Quesiton", question.getPrompt() + " -> " + question.getAnswer());
+        }
+    }
 }

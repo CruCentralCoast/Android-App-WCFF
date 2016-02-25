@@ -1,6 +1,5 @@
 package com.will_code_for_food.crucentralcoast.model.common.form;
 
-import java.sql.Time;
 import java.util.GregorianCalendar;
 
 /**
@@ -12,11 +11,12 @@ import java.util.GregorianCalendar;
 public enum QuestionType {
     TRUE_FALSE(Boolean.class),
     MULTI_OPTION_SELECT(Object.class),
-    TIME_SELECT(Time.class),
-    DATE_SELECT(GregorianCalendar.class),
+    TIME_SELECT(GregorianCalendar.class),
     FREE_RESPONSE_SHORT(String.class),    // text field
     FREE_RESPONSE_LONG(String.class),     // text area
-    MAP_SELECTION(String.class);
+    NUMBER_SELECT(Integer.class),
+    MAP_SELECTION(String.class),
+    OTHER(Object.class);
 
     private final Class answerType;
 

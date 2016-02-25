@@ -39,8 +39,8 @@ public abstract class Form {
      * Answers a question on the form.
      */
     public boolean answerQuestion(final int index, final Object answer) {
-        Log.i("Answering", index + " : " + questions.get(index).getName() + " = " + answer);
         if (index < questions.size()) {
+            Log.i("Answering", index + " : " + questions.get(index).getName() + " = " + answer);
             questions.get(index).answerQuestion(answer);
             return true;
         }

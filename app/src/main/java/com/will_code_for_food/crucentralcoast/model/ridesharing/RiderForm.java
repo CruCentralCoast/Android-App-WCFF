@@ -2,7 +2,9 @@ package com.will_code_for_food.crucentralcoast.model.ridesharing;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.common.form.MultiOptionQuestion;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
@@ -20,6 +22,8 @@ import java.util.List;
 public class RiderForm extends Form {
     protected final String eventId;
     protected final Question nameQuestion;
+    protected final Question numberQuestion;
+    protected final MultiOptionQuestion genderQuestion;
     protected final Question leaveTimeToEvent;
     protected final MultiOptionQuestion direction;
     protected final Question leaveTimeFromEvent;
@@ -37,13 +41,23 @@ public class RiderForm extends Form {
                 Util.getString(R.string.ridesharing_username_question_name),
                 Util.getString(R.string.ridesharing_username),
                 QuestionType.FREE_RESPONSE_SHORT);
+        numberQuestion = new Question(
+                Util.getString(R.string.ridesharing_number_question_name),
+                Util.getString(R.string.ridesharing_number),
+                QuestionType.FREE_RESPONSE_SHORT);
+        genderQuestion = new MultiOptionQuestion(
+                Util.getString(R.string.ridesharing_choose_gender_question_name),
+                Util.getString(R.string.ridesharing_choose_gender),
+                Arrays.asList((Object[]) Gender.values()));
+        genderQuestion.answerQuestion(Gender.getUsersGender());
+
         leaveTimeToEvent = new Question(
                 Util.getString(R.string.ridesharing_choose_time_question_name),
                 Util.getString(R.string.ridesharing_choose_time), QuestionType.TIME_SELECT);
         direction = new MultiOptionQuestion(
                 Util.getString(R.string.ridesharing_choose_type_question_name),
                 Util.getString(R.string.ridesharing_choose_type),
-                Arrays.asList((Object[])RideDirection.values()));
+                Arrays.asList((Object[]) RideDirection.values()));
         leaveTimeFromEvent = new Question(
                 Util.getString(R.string.ridesharing_two_way_time_question_name),
                 Util.getString(R.string.ridesharing_two_way_time),
@@ -62,6 +76,8 @@ public class RiderForm extends Form {
         }
 
         addQuestion(nameQuestion);
+        addQuestion(numberQuestion);
+        addQuestion(genderQuestion);
         addQuestion(leaveTimeToEvent);
         addQuestion(direction);
         addQuestion(location);
@@ -78,7 +94,7 @@ public class RiderForm extends Form {
         if (question.getPrompt().equals(Util.getString(
                 R.string.ridesharing_two_way))) {
             for (Question sub : question.getSubquestions()) {
-                sub.setEnabled((boolean) answer == true);
+                sub.setEnabled((boolean) answer);
                 sub.setRequired(true);
             }
         }

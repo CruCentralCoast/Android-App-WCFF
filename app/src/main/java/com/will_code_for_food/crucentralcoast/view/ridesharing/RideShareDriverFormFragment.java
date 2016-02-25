@@ -14,7 +14,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResultType;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
@@ -36,6 +38,7 @@ public class RideShareDriverFormFragment extends CruFragment {
     DatePicker datePicker;
     TimePicker timePicker;
     EditText name;
+    EditText number;
     EditText locations;
     RadioButton oneWayTo;
     RadioButton oneWayFrom;
@@ -46,9 +49,10 @@ public class RideShareDriverFormFragment extends CruFragment {
     Button submitButton;
     Button cancelButton;
     RideDirection direction = null;
-    Calendar calendar;
-    long time;
-    long date;
+
+    RadioButton male;
+    RadioButton female;
+    Gender gender;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +62,9 @@ public class RideShareDriverFormFragment extends CruFragment {
         parent = getParent();
         selectedEvent = EventsActivity.getEvent();
         name = (EditText) fragmentView.findViewById(R.id.name_prompt_input);
+        number = (EditText) fragmentView.findViewById(R.id.number_prompt_input);
+        male = (RadioButton) fragmentView.findViewById(R.id.male);
+        female = (RadioButton) fragmentView.findViewById(R.id.female);
         datePicker = (DatePicker) fragmentView.findViewById(R.id.departure_date_picker);
         timePicker = (TimePicker) fragmentView.findViewById(R.id.departure_time_picker);
         locations = (EditText) fragmentView.findViewById(R.id.list_of_locations);
@@ -71,35 +78,33 @@ public class RideShareDriverFormFragment extends CruFragment {
         form = new DriverForm(selectedEvent.getId());
         form.print();
 
+        // auto-fill name
         if (form.getQuestion(0).isAnswered()) {
             name.setText((String) form.getQuestion(0).getAnswer());
         }
 
-        datePicker.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
+        // auto-fill number if possible
+        String number_str = PhoneNumberAccessor.getUserPhoneNumber(parent);
+        if (number_str != null) {
+            form.getQuestion(1).answerQuestion(number_str);
+            number.setText(number_str);
+        }
 
-                calendar = new GregorianCalendar(datePicker.getYear(),
-                        datePicker.getMonth(),
-                        datePicker.getDayOfMonth(),
-                        0,
-                        0);
-
-                date = calendar.getTimeInMillis();
-            }});
-
-        timePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar timeCal = new GregorianCalendar(0,
-                        0,
-                        0,
-                        timePicker.getCurrentHour(),
-                        timePicker.getCurrentMinute());
-
-                time = timeCal.getTimeInMillis();
+        // auto-fill gender
+        if (form.getQuestion(2).isAnswered()) {
+            Gender userGender = (Gender) form.getQuestion(2).getAnswer();
+            switch (userGender) {
+                case MALE:
+                    male.setSelected(true);
+                    break;
+                case FEMALE:
+                    female.setSelected(true);
+                    break;
+                default:
+                    // default is male (could be decline to state or something)
+                    male.setSelected(true);
             }
-        });
+        }
 
         oneWayFrom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,10 +122,21 @@ public class RideShareDriverFormFragment extends CruFragment {
                 direction = RideDirection.TWO_WAY;
             }});
 
+        male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gender = Gender.MALE;
+            }});
+        female.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gender = Gender.FEMALE;
+            }});
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(parent, "ride canceled", Toast.LENGTH_SHORT);
+                Toast.makeText(parent, "ride canceled", Toast.LENGTH_SHORT).show();
                 //Go back to previous fragment
                 //System.out.println("Submit clicked!");
             }
@@ -133,22 +149,24 @@ public class RideShareDriverFormFragment extends CruFragment {
                 if (hasValidTextInput(name)) {
                     form.answerQuestion(0, name.getText().toString());
                 }
+                if (gender != null){
+                    form.answerQuestion(2, gender);
+                }
                 // set time
                 Calendar cal =
                         new GregorianCalendar(datePicker.getYear(),
                                 datePicker.getMonth(), datePicker.getDayOfMonth(),
                                 timePicker.getCurrentHour(), timePicker.getCurrentMinute());
-                form.answerQuestion(1, cal);
+                form.answerQuestion(3, cal);
 
                 if (direction != null){
-                    form.answerQuestion(2, direction);
+                    form.answerQuestion(4, direction);
                 }
                 if (hasValidTextInput(locations)) {
-                    form.answerQuestion(3, locations.getText().toString());
+                    form.answerQuestion(5, locations.getText().toString());
                 }
                 if (hasValidTextInput(numberofSeats)){
-                    Log.e("INPUT", "number of seats: " + Integer.parseInt(numberofSeats.getText().toString()));
-                    form.answerQuestion(4, Integer.parseInt(numberofSeats.getText().toString()));
+                    form.answerQuestion(6, Integer.parseInt(numberofSeats.getText().toString()));
                 }
                 if (form.isFinished()) {
                     Toast.makeText(parent, "Submitted Driver Form", Toast.LENGTH_SHORT).show();

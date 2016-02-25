@@ -73,7 +73,7 @@ public class FeedCardAdapter extends ArrayAdapter<DatabaseObject> {
     private View getArticleView(Resource current, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         String imageLabel = current.getImage();
-        View hold = inflater.inflate(R.layout.fragment_resources_card, parent, false);
+        View hold = inflater.inflate(R.layout.fragment_resources_article_card, parent, false);
 
         ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
         if (imageLabel != null && !imageLabel.equals("")) {

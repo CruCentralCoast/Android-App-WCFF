@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         if (doFeedLoad) {
-            loadFragmentById(R.layout.fragment_card_list, "CruCentralCoast", new FeedFragment(), this); //Uncomment this for feed main screen
+            loadFragmentById(R.layout.fragment_card_list, "Home", new FeedFragment(), this); //Uncomment this for feed main screen
             //loadFragmentById(R.layout.fragment_main, "CruCentralCoast", null, this); //Uncomment this for original main screen
         }
 
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (viewText) {
             case "Home":
-                loadFragmentById(R.layout.fragment_card_list, "Feed", new FeedFragment(), this);
+                loadFragmentById(R.layout.fragment_card_list, "Home", new FeedFragment(), this);
                 break;
             case "Events":
                 newActivity(EventsActivity.class);

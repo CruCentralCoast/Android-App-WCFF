@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ridelist_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ridelist_layout"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:focusable="false"
+    android:gravity="center_horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:gravity="center_horizontal"
-    android:focusable="false"
     tools:context=".view.ridesharing.RideShareActivity">
 
     <RelativeLayout
@@ -21,9 +21,10 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:text="@string/button_prev" />
+
         <Button
             android:id="@+id/button_next_rides"
             android:layout_width="wrap_content"
@@ -43,18 +44,17 @@
 
         <!-- List of Ride Cards -->
         <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/ridelist_swipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/image_ride_event"
             android:layout_above="@id/button_next_rides"
-            android:id="@+id/ridelist_swipe">
+            android:layout_below="@id/image_ride_event">
+
             <ListView
                 android:id="@+id/list_cards"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:divider="@color/colorPrimary_cruGold"
-                android:dividerHeight="4dp" />
+                android:layout_gravity="center_horizontal" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 

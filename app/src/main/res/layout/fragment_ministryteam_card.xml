@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:drawable/dialog_holo_light_frame">
+
     <ImageView
+        android:id="@+id/mt_image"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:paddingTop="10dp"
-        android:src="@drawable/crulogo"
-        android:id="@+id/mt_image"/>
+        android:src="@drawable/crulogo" />
+
     <TextView
+        android:id="@+id/mt_text"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_below="@+id/mt_image"
-        android:id="@+id/mt_text"
+        android:paddingLeft="10dp"
         android:text="This is ministry team"
-        android:textSize="15sp"
-        android:paddingLeft="10dp" />
+        android:textSize="15sp" />
 </RelativeLayout>

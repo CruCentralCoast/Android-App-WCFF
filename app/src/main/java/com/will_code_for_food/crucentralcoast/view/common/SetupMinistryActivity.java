@@ -220,7 +220,7 @@ public class SetupMinistryActivity extends Activity {
                 //load image
                 imageLabel = ministry.getImage();
                 if (imageLabel != null && !imageLabel.equals("")) {
-                    Picasso.with(this.getContext()).load(imageLabel).fit().into(cardImage);
+                    Picasso.with(this.getContext()).load(imageLabel).fit().centerInside().into(cardImage);
                 } else {
                     cardImage.setImageResource(R.drawable.cru_logo_default);
                 }

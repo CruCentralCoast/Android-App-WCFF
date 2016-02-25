@@ -25,11 +25,11 @@ public class Passenger extends DatabaseObject{
 
     public Passenger(JsonObject obj) {
         super(obj);
-
         refreshFields();
     }
 
-    public Passenger(final String name, final String number, String gcmId, RideDirection direction) {
+    public Passenger(final String name, final String number, final String gcmId,
+                     final RideDirection direction) {
         super(new JsonObject());
         this.name = name;
         this.number= number;
@@ -38,9 +38,9 @@ public class Passenger extends DatabaseObject{
     }
 
     public void refreshFields() {
-        this.name = getFieldAsString("name");
-        this.number = getFieldAsString("phone");
-        this.gcmId = getFieldAsString("gcm_id");
+        this.name = getFieldAsString(Database.JSON_KEY_USER_NAME);
+        this.number = getFieldAsString(Database.JSON_KEY_USER_PHONE);
+        this.gcmId = getFieldAsString(Database.JSON_KEY_USER_GCM);
         this.direction = RideDirection.fromString(getFieldAsString("direction"));
     }
 

@@ -77,10 +77,12 @@ public class RideSorter {
         private Long getTimeDiffFromGiven(Ride ride) {
             long diff = 0;
             if (ride.isToEvent()) {
-                diff += Math.abs(ride.getLeaveTimeToEvent() - givenRide.getLeaveTimeToEvent());
+                diff += Math.abs(ride.getLeaveTimeToEvent().getTimeInMillis() -
+                        givenRide.getLeaveTimeToEvent().getTimeInMillis());
             }
             if (ride.isFromEvent()) {
-                diff += Math.abs(ride.getLeaveTimeFromEvent() - givenRide.getLeaveTimeFromEvent());
+                diff += Math.abs(ride.getLeaveTimeFromEvent().getTimeInMillis() -
+                        givenRide.getLeaveTimeFromEvent().getTimeInMillis());
             }
             return diff;
         }

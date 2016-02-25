@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:drawable/dialog_holo_light_frame">
 
     <ImageView
         android:id="@+id/card_image"
@@ -25,20 +25,24 @@
     <TextView
         android:id="@+id/card_text"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/card_image"
+        android:paddingBottom="10dp"
         android:paddingLeft="10dp"
+        android:paddingTop="10dp"
         android:text="This is an event"
         android:textSize="15sp" />
 
     <TextView
         android:id="@+id/card_date"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/card_image"
         android:layout_alignRight="@+id/card_image"
         android:layout_below="@+id/card_image"
+        android:paddingBottom="10dp"
         android:paddingRight="10dp"
+        android:paddingTop="10dp"
         android:text="This is an event"
         android:textSize="15sp" />
 </RelativeLayout>

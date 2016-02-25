@@ -16,7 +16,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -35,11 +37,11 @@ public class Ride extends DatabaseObject {
     private String driverNumber;
     private String gcmId;
     private Location location;
-    private String time;
     private Double radius;
     private Integer numSeats;
     private RideDirection direction;
     private String gender;
+    private String time;
 
 
     private List<String> riderIds;
@@ -54,7 +56,7 @@ public class Ride extends DatabaseObject {
         super(obj);
         ridersToEvent = new ArrayList<>();
         ridersFromEvent = new ArrayList<>();
-        riderIds = new ArrayList<String>();
+        riderIds = new ArrayList<>();
         refreshFields();
     }
 
@@ -63,7 +65,7 @@ public class Ride extends DatabaseObject {
      * be converted into a JSON object like the ones stored in
      * the database, and created using the inherited constructor.
      */
-    public Ride(String eventId, String driverName, String driverNumber, String gcmId, Location location, String time, Double radius, Integer numSeats, RideDirection direction, String gender) {
+    public Ride(String eventId, String driverName, String driverNumber, String gcmId, Location location, Double radius, Integer numSeats, RideDirection direction, String gender) {
         super(new JsonObject()); // satisfies need to call super
 
         this.eventId = eventId;
@@ -71,7 +73,6 @@ public class Ride extends DatabaseObject {
         this.driverNumber = driverNumber;
         this.gcmId = gcmId;
         this.location = location;
-        this.time = time;
         this.radius = radius;
         this.numSeats = numSeats;
         this.direction = direction;
@@ -80,7 +81,10 @@ public class Ride extends DatabaseObject {
         if (this.direction == null) {
             Log.e("Ride Error", "Given NULL ride direction. Setting as default.");
             this.direction = RideDirection.ONE_WAY_TO_EVENT;
+            this.direction.setLeaveTimeFromEvent(Calendar.getInstance());
         }
+        SimpleDateFormat f = new SimpleDateFormat(Database.ISO_FORMAT);
+        this.time = f.format(direction.getLeaveTimeToEvent().getTime());
     }
 
     public void refreshFields() {
@@ -220,11 +224,11 @@ public class Ride extends DatabaseObject {
         return rideDate;
     }
 
-    public Long getLeaveTimeToEvent() {
+    public Calendar getLeaveTimeToEvent() {
         return direction.getLeaveTimeToEvent();
     }
 
-    public Long getLeaveTimeFromEvent() {
+    public Calendar getLeaveTimeFromEvent() {
         return direction.getLeaveTimeFromEvent();
     }
 

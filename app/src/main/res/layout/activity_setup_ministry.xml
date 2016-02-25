@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/setup_ministry_container"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context=".view.common.SetupMinistryActivity"
-    android:id="@+id/setup_ministry_container"
-    android:background="@android:color/white">
+    tools:context=".view.common.SetupMinistryActivity">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
         <TextView
+            android:id="@+id/question_ministry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome to Cru.\nHere are our Ministries:"
-            android:id="@+id/question_ministry"
             android:layout_gravity="center"
-            android:textSize="@dimen/question_get_campus"
+            android:text="Welcome to Cru.\nHere are our Ministries:"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary_cruGray" />
+            android:textColor="@color/colorPrimary_cruGray"
+            android:textSize="@dimen/question_get_campus" />
 
         <ListView
+            android:id="@+id/setup_ministry_list"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/setup_ministry_list"
-            android:layout_marginTop="130dp"
             android:layout_gravity="right"
-            android:divider="@color/colorPrimary_cruGold"
-            android:dividerHeight="4dp"/>
+            android:layout_marginTop="130dp" />
 
     </FrameLayout>
 
     <Button
+        android:id="@+id/setup_ministry_next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="finish"
-        android:id="@+id/setup_ministry_next_button"
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/setup_next_button" />
+        android:backgroundTint="@color/setup_next_button"
+        android:text="finish" />
 </LinearLayout>

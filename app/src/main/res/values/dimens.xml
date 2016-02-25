@@ -1,7 +1,7 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">5dp</dimen>
+    <dimen name="activity_vertical_margin">15dp</dimen>
     <dimen name="welcome_size">16pt</dimen>
     <dimen name="question_get_campus">12pt</dimen>
     <dimen name="setup_question_padding_top">100dp</dimen>

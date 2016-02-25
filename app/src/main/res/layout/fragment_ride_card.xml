@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_ride_card"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:id="@+id/fragment_ride_card"
-    android:background="@android:color/white">
+    android:background="@android:drawable/dialog_holo_light_frame">
 
     <!-- Driver Info -->
     <ImageView
         android:id="@+id/image_car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
         android:src="@drawable/car_no" />
+
     <TextView
         android:id="@+id/card_driver_name"
-        android:layout_toRightOf="@id/image_car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
-        android:textSize="20dp"
-        android:textColor="#000" />
+        android:layout_toRightOf="@id/image_car"
+        android:textColor="#000"
+        android:textSize="20dp" />
 
     <!-- Ride Info -->
     <TextView
@@ -36,15 +37,17 @@
         android:layout_alignParentRight="true"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip" />
+
     <TextView
         android:id="@+id/card_ride_leave_location"
-        android:layout_below="@id/card_ride_leave_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_below="@id/card_ride_leave_date"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip" />
+
     <TextView
         android:id="@+id/card_ride_seats_left"
         android:layout_width="wrap_content"

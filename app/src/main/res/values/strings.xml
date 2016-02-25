@@ -56,6 +56,8 @@
     <!-- Ridesharing Forms -->
     <string name="ridesharing_username">Please Enter Your Name</string>
     <string name="ridesharing_username_question_name">name</string>
+    <string name="ridesharing_number">Please Enter Your Phone Number</string>
+    <string name="ridesharing_number_question_name">phone number</string>
     <string name="ridesharing_choose_day">What day would you like to leave for the event?</string>
     <string name="ridesharing_choose_day_question_name">departure date</string>
     <string name="ridesharing_choose_time">When would you like to leave for the event?</string>
@@ -71,6 +73,8 @@
     <string name="ridesharing_location_question_name">leave location</string>
     <string name="ridesharing_seats">How many seats are available? Don\'t include yourself!</string>
     <string name="ridesharing_seats_question_name">number of seats</string>
+    <string name="ridesharing_choose_gender">Gender</string>
+    <string name="ridesharing_choose_gender_question_name">gender</string>
     <string name="ridesharing_choose_type">What kind of ride?</string>
     <string name="ridesharing_choose_type_question_name">ride type</string>
     <string name="form_valid">Form is valid!</string>
@@ -79,6 +83,9 @@
     <string name="form_past_date">You gave a time for \'%s\' that\'s in the past!</string>
     <string name="form_future_date">You gave a time for \'%s\' that\'s in the future!</string>
     <string name="form_generic_error">Your answer to \'%s\' is invalid</string>
+
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
 
     <!-- Log in form -->
     <string name="login_title">Log In</string>

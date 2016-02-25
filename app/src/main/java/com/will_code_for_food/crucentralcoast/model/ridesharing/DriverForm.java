@@ -79,8 +79,8 @@ public class DriverForm extends RiderForm {
             // save to user's rides
             if (ride != null) {
                 LocalStorageIO.appendToList(ride.getId(), LocalFiles.USER_RIDES);
+                return true;
             }
-            return true;
         }
         return false;
     }

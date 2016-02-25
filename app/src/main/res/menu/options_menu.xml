@@ -8,10 +8,22 @@
         android:icon="@drawable/ic_search_black_24dp"
         android:actionLayout="@layout/action_search"
         app:showAsAction="collapseActionView|ifRoom" />
+
     <item
         android:id="@+id/sort"
-        android:title="sort"
+        android:title="Sort"
         android:icon="@drawable/ic_sort_black_24dp"
-        android:actionLayout="@layout/action_sort"
-        app:showAsAction="collapseActionView|ifRoom" />
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:title="Newest"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:title="Oldest"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:title="Type"
+                app:showAsAction="ifRoom"/>
+        </menu>
+    </item>
 </menu>

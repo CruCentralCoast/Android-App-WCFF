@@ -1,15 +1,19 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.MultiMemoryRetriever;
@@ -34,6 +38,7 @@ import java.util.ArrayList;
  */
 public class FeedFragment extends CruFragment {
     SwipeRefreshLayout layout;
+    MenuItem sortItem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,12 +65,53 @@ public class FeedFragment extends CruFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.options_menu, menu);
-        menu.findItem(R.id.search).setActionView(R.layout.action_search);
-        menu.findItem(R.id.sort).setActionView(R.layout.action_sort);
+        MenuItem searchItem = menu.findItem(R.id.search);
+        sortItem = menu.findItem(R.id.sort);
+
+        searchItem.setActionView(R.layout.action_search);
+        //menu.findItem(R.id.sort).setActionView(R.layout.action_sort);
+
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                sortItem.setVisible(false);
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                sortItem.setVisible(true);
+                return true;
+            }
+        });
+
         EditText search = (EditText)menu.findItem(R.id.search).getActionView().findViewById(R.id.text);
+        //Spinner sortOptions = (Spinner) menu.findItem(R.id.sort).getActionView().findViewById(R.id.sort_spinner);
+
+        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getParent(), R.array.sort_options, android.R.layout.simple_spinner_item);
+
+
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //sortOptions.setAdapter(adapter);
 
         //search.setOnEditorActionListener(this);
         search.setImeActionLabel("Search", KeyEvent.KEYCODE_ENTER);
+    }
+
+    /*
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.search) {
+            sortItem.setVisible(false);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }*/
+
+    @Override
+    public void onOptionsMenuClosed(Menu menu) {
+        sortItem.setVisible(true);
+        super.onOptionsMenuClosed(menu);
     }
 
     /**

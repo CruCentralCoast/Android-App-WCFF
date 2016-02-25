@@ -46,9 +46,10 @@ public class FeedCardAdapter extends ArrayAdapter<DatabaseObject> {
             view =  getArticleView((Resource) current, parent);
         }else if (current instanceof Video) {
             view =  getVideoView((Video) current, parent);
+        } else {
+            Log.e("FeedCardAdapter", "Expected valid db object. Got: " + current.getClass().toString());
         }
 
-        Log.e("FeedCardAdapter", "Expected valid db object. Got: " + current.getClass().toString());
         return view;
     }
 

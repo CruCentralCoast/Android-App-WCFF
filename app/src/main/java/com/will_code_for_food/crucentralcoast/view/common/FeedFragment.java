@@ -96,13 +96,6 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
         });
 
         search = (EditText)menu.findItem(R.id.search).getActionView().findViewById(R.id.text);
-        //Spinner sortOptions = (Spinner) menu.findItem(R.id.sort).getActionView().findViewById(R.id.sort_spinner);
-
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getParent(), R.array.sort_options, android.R.layout.simple_spinner_item);
-
-
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //sortOptions.setAdapter(adapter);
 
         search.setOnEditorActionListener(this);
         search.setImeActionLabel("Search", KeyEvent.KEYCODE_ENTER);

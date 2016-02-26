@@ -1,5 +1,6 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,9 +12,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.MultiMemoryRetriever;
@@ -36,9 +40,11 @@ import java.util.ArrayList;
 /**
  * Created by MasonJStevenson on 2/18/2016.
  */
-public class FeedFragment extends CruFragment {
+public class FeedFragment extends CruFragment implements TextView.OnEditorActionListener {
     SwipeRefreshLayout layout;
     MenuItem sortItem;
+    ListView listView;
+    EditText search;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +52,8 @@ public class FeedFragment extends CruFragment {
         setHasOptionsMenu(true);
 
         layout = (SwipeRefreshLayout) hold.findViewById(R.id.card_refresh_layout);
+        listView = (ListView) hold.findViewById(R.id.list_cards);
+
         loadList();
         return hold;
     }
@@ -80,12 +88,14 @@ public class FeedFragment extends CruFragment {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
+                ((FeedCardAdapter) listView.getAdapter()).clearSearch();
+                search.setText("");
                 sortItem.setVisible(true);
                 return true;
             }
         });
 
-        EditText search = (EditText)menu.findItem(R.id.search).getActionView().findViewById(R.id.text);
+        search = (EditText)menu.findItem(R.id.search).getActionView().findViewById(R.id.text);
         //Spinner sortOptions = (Spinner) menu.findItem(R.id.sort).getActionView().findViewById(R.id.sort_spinner);
 
         //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getParent(), R.array.sort_options, android.R.layout.simple_spinner_item);
@@ -94,24 +104,38 @@ public class FeedFragment extends CruFragment {
         //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //sortOptions.setAdapter(adapter);
 
-        //search.setOnEditorActionListener(this);
+        search.setOnEditorActionListener(this);
         search.setImeActionLabel("Search", KeyEvent.KEYCODE_ENTER);
     }
 
-    /*
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.search) {
-            sortItem.setVisible(false);
-            return true;
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (event == null || event.getAction() == KeyEvent.KEYCODE_ENTER) {
+            ((FeedCardAdapter) listView.getAdapter()).search(v.getText().toString());
+
+            InputMethodManager imm = (InputMethodManager) getParent().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(listView.getWindowToken(), 0);
         }
-        return super.onOptionsItemSelected(item);
-    }*/
+        return true;
+    }
 
     @Override
-    public void onOptionsMenuClosed(Menu menu) {
-        sortItem.setVisible(true);
-        super.onOptionsMenuClosed(menu);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.sort_newest) {
+            Log.i("FeedFragment", "sorting by newest");
+            ((FeedCardAdapter) listView.getAdapter()).sortByNewest();
+            return true;
+        } else if (item.getItemId() == R.id.sort_oldest) {
+            Log.i("FeedFragment", "sorting by oldest");
+            ((FeedCardAdapter) listView.getAdapter()).sortByOldest();
+            return true;
+        } else if (item.getItemId() == R.id.sort_type) {
+            Log.i("FeedFragment", "sorting by type");
+            ((FeedCardAdapter) listView.getAdapter()).sortByType();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     /**

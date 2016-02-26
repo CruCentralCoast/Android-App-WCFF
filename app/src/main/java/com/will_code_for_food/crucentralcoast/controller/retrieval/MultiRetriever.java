@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.sorting.DatabaseObjectSorter;
+import com.will_code_for_food.crucentralcoast.model.common.common.sorting.SortMethod;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,8 +57,7 @@ public final class MultiRetriever implements Retriever {
             }
         }
 
-        //Broken, currently
-        objects = DatabaseObjectSorter.sortByDate(objects);
+        DatabaseObjectSorter.sortByDate(objects, SortMethod.DESCENDING);
 
         if (containsCached) {
             return new Content(objects, ContentType.CACHED); //may contain some live content

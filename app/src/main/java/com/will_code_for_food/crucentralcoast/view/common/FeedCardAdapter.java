@@ -15,6 +15,8 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.sorting.DatabaseObjectSorter;
+import com.will_code_for_food.crucentralcoast.model.common.common.sorting.SortMethod;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.view.events.EventInfoFragment;
@@ -28,11 +30,18 @@ import java.util.List;
  * Created by MasonJStevenson on 2/18/2016.
  */
 public class FeedCardAdapter extends ArrayAdapter<DatabaseObject> {
-    List<DatabaseObject> cards;
+    Content<? extends DatabaseObject> cards;
+    Content<? extends DatabaseObject> cardsTemp;
 
     public FeedCardAdapter(Context context, int resource, Content<DatabaseObject> content) {
-        super(context, resource, content.getObjects());
-        cards = content.getObjects();
+        super(context, resource, content);
+        cards = content;
+        cardsTemp = cards;
+    }
+
+    @Override
+    public int getCount() {
+        return cards != null? cards.size() : 0;
     }
 
     @Override
@@ -51,6 +60,33 @@ public class FeedCardAdapter extends ArrayAdapter<DatabaseObject> {
         }
 
         return view;
+    }
+
+    public void search(String phrase) {
+        cardsTemp = cards;
+        cards = DatabaseObjectSorter.filterByName(cards, phrase);
+        this.notifyDataSetChanged();
+    }
+
+    public void clearSearch() {
+        Log.i("FeedCardAdapter", "clearing search");
+        cards = cardsTemp;
+        this.notifyDataSetChanged();
+    }
+
+    public void sortByNewest() {
+        DatabaseObjectSorter.sortByDate(cards, SortMethod.DESCENDING);
+        this.notifyDataSetChanged();
+    }
+
+    public void sortByOldest() {
+        DatabaseObjectSorter.sortByDate(cards, SortMethod.ASCENDING);
+        this.notifyDataSetChanged();
+    }
+
+    public void sortByType() {
+        DatabaseObjectSorter.sortFeedObjectsByType(cards, SortMethod.DESCENDING);
+        this.notifyDataSetChanged();
     }
 
     private View getVideoView(Video current, ViewGroup parent) {

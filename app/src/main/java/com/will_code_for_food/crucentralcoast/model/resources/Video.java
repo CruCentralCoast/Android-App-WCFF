@@ -26,6 +26,12 @@ public class Video extends DatabaseObject {
         return fields.get(Android.YOUTUBE_JSON_SNIPPET).getAsJsonObject();
     }
 
+    //for compatibility
+    @Override
+    public String getName() {
+        return getTitle();
+    }
+
     // The title of the video
     public String getTitle() {
         return getSnippet().get(Android.YOUTUBE_JSON_TITLE).getAsString();

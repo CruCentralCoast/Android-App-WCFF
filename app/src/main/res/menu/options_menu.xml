@@ -16,12 +16,15 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
+                android:id="@+id/sort_newest"
                 android:title="Newest"
                 app:showAsAction="ifRoom"/>
             <item
+                android:id="@+id/sort_oldest"
                 android:title="Oldest"
                 app:showAsAction="ifRoom"/>
             <item
+                android:id="@+id/sort_type"
                 android:title="Type"
                 app:showAsAction="ifRoom"/>
         </menu>

@@ -1,9 +1,11 @@
 package com.will_code_for_food.crucentralcoast.model.resources;
 
 import com.google.gson.JsonObject;
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
-import com.will_code_for_food.crucentralcoast.values.Android;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Database;
+import com.will_code_for_food.crucentralcoast.values.Youtube;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,27 +15,24 @@ import java.util.Date;
  * Video represents a YouTube video loaded from a Json query
  * Used to retrieve information needed to play and display the YouTube video
  */
-public class Video extends DatabaseObject {
+public class Video extends DatabaseObject implements Comparable {
 
-    private JsonObject fields;
+    JsonObject snippet;
 
     public Video (JsonObject json) {
         super(json);
         fields = json;
-    }
-
-    private JsonObject getSnippet() {
-        return fields.get(Android.YOUTUBE_JSON_SNIPPET).getAsJsonObject();
+        snippet = getField(Youtube.JSON_SNIPPET).getAsJsonObject();
     }
 
     // The title of the video
     public String getTitle() {
-        return getSnippet().get(Android.YOUTUBE_JSON_TITLE).getAsString();
+        return snippet.get(Youtube.JSON_TITLE).getAsString();
     }
 
     // The description of the video
     public String getDescription() {
-        return getSnippet().get(Android.YOUTUBE_JSON_DESCRIPTION).getAsString();
+        return snippet.get(Youtube.JSON_DESCRIPTION).getAsString();
     }
 
     // The video id of the video
@@ -41,12 +40,12 @@ public class Video extends DatabaseObject {
         JsonObject resourceId;
         String id = "";
 
-        if (getSnippet().get(Android.YOUTUBE_JSON_RESOURCE) != null) {
-            resourceId = getSnippet().get(Android.YOUTUBE_JSON_RESOURCE).getAsJsonObject();
-            id = resourceId.get(Android.YOUTUBE_JSON_VIDEO_ID).getAsString();
-        } else if (fields.get(Android.YOUTUBE_JSON_ID) != null) {
-            resourceId = fields.get(Android.YOUTUBE_JSON_ID).getAsJsonObject();
-            id = resourceId.get(Android.YOUTUBE_JSON_VIDEO_ID).getAsString();
+        if (snippet.get(Youtube.JSON_RESOURCE) != null) {
+            resourceId = snippet.get(Youtube.JSON_RESOURCE).getAsJsonObject();
+            id = resourceId.get(Youtube.JSON_VIDEO_ID).getAsString();
+        } else if (fields.get(Youtube.JSON_ID) != null) {
+            resourceId = fields.get(Youtube.JSON_ID).getAsJsonObject();
+            id = resourceId.get(Youtube.JSON_VIDEO_ID).getAsString();
         }
 
         return id;
@@ -54,11 +53,11 @@ public class Video extends DatabaseObject {
 
     // The date the video was uploaded
     public String getPublishDate() {
-        return getSnippet().get(Android.YOUTUBE_JSON_DATE).getAsString();
+        return snippet.get(Youtube.JSON_DATE).getAsString();
     }
 
     // How long ago the video was created (ex: 1 day ago)
-    public String getAge() {
+    public int getAge() {
         int videoAgeInDays;
 
         try {
@@ -70,13 +69,32 @@ public class Video extends DatabaseObject {
             videoAgeInDays = 0;
         }
 
-        return videoAgeInDays + " days ago";
+        return videoAgeInDays;
+    }
+
+    public String getAgeString() {
+        return getAge() + " " + Util.getString(R.string.days);
     }
 
     // The image url for the default thumbnail
     public String getThumbnailUrl() {
-        JsonObject imageData = getSnippet().getAsJsonObject(Android.YOUTUBE_JSON_THUMBNAIL);
-        JsonObject defaultImage = imageData.getAsJsonObject(Android.YOUTUBE_JSON_THUMBNAIL_DEFAULT);
-        return defaultImage.get(Android.YOUTUBE_JSON_THUMBNAIL_URL).getAsString();
+        JsonObject imageData = snippet.getAsJsonObject(Youtube.JSON_THUMBNAIL);
+        JsonObject defaultImage = imageData.getAsJsonObject(Youtube.JSON_THUMBNAIL_RES);
+        return defaultImage.get(Youtube.JSON_THUMBNAIL_URL).getAsString();
+    }
+
+    @Override
+    public int compareTo(Object another) {
+        Video other = (Video) another;
+        int myAge = getAge();
+        int theirAge = other.getAge();
+
+        if (myAge > theirAge) {
+            return 1;
+        }
+        if (myAge < theirAge) {
+            return -1;
+        }
+        return 0;
     }
 }

@@ -11,11 +11,9 @@ import java.util.List;
  * Wrapper class for content loaded from the database or otherwise.
  */
 public class Content<T extends DatabaseObject> extends ArrayList<T> {
-    //private List<T> objects;
     private ContentType type;
 
     public Content(List<T> objects, ContentType type) {
-        //this.objects = objects;
         if (objects != null) {
             addAll(objects);
         }

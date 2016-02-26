@@ -15,7 +15,7 @@ import java.util.Map.Entry;
  */
 public abstract class DatabaseObject {
 
-    private JsonObject fields;
+    protected JsonObject fields;
     private ImageData imageData;
 
     //for testing...

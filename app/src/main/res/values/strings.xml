@@ -9,6 +9,8 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <string name="days">days ago</string>
+
     <!-- Button Text -->
     <string name="button_apply">Apply Now</string>
     <string name="button_signup">Sign Up</string>
@@ -83,7 +85,6 @@
     <string name="form_past_date">You gave a time for \'%s\' that\'s in the past!</string>
     <string name="form_future_date">You gave a time for \'%s\' that\'s in the future!</string>
     <string name="form_generic_error">Your answer to \'%s\' is invalid</string>
-
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
 

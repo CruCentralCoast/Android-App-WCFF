@@ -65,7 +65,7 @@ public class FeedCardAdapter extends ArrayAdapter<DatabaseObject> {
         name.setText(current.getTitle());
 
         TextView date = (TextView) hold.findViewById(R.id.card_video_date);
-        date.setText(current.getAge());
+        date.setText(current.getAgeString());
 
         return hold;
     }

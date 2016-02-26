@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.model.resources.YoutubeViewer;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
@@ -71,7 +72,7 @@ public class VideoCardFactory implements CardFragmentFactory {
             name.setText(current.getTitle());
 
             TextView date = (TextView) hold.findViewById(R.id.card_video_date);
-            date.setText(current.getAge());
+            date.setText(current.getAgeString());
 
             return hold;
         }

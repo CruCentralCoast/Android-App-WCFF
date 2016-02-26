@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.PlaylistRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.VideoRetriever;
@@ -14,6 +15,7 @@ import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
+import com.will_code_for_food.crucentralcoast.values.Youtube;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -206,6 +208,16 @@ public class DBObjectLoader {
         return (Content<Resource>) data.get(Database.REST_RESOURCE);
     }
 
+    public static ArrayList<Playlist> getPlaylists() {
+        initData();
+        return (Content<Playlist>) data.get(Database.PLAYLISTS);
+    }
+
+    public static ArrayList<Video> getVideos() {
+        initData();
+        return (Content<Video>) data.get(Database.VIDEOS);
+    }
+
     public static Content get(String key) {
         initData();
         return data.get(key);
@@ -265,13 +277,13 @@ public class DBObjectLoader {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Playlist videoPlaylist;
-            List<Video> videos = null;
-            VideoRetriever retriever = new VideoRetriever();
-
             Log.i("DBObjectLoader", "Getting videos from youtube");
 
-            data.put(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS, retriever.getAll());
+            PlaylistRetriever playlistRetriever = new PlaylistRetriever();
+            VideoRetriever videoRetriever = new VideoRetriever();
+
+            data.put(Database.PLAYLISTS, playlistRetriever.getAll());
+            data.put(Database.VIDEOS, videoRetriever.getAll());
 
             return null;
         }

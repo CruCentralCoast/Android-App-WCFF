@@ -11,6 +11,7 @@ import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.values.Database;
+import com.will_code_for_food.crucentralcoast.values.Youtube;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -100,10 +101,14 @@ public class RestUtil {
         }
     }
 
+    /**
+     * Gets a playlist given its url query
+     */
     public static Playlist getPlaylist(String url) {
         try {
+            String numResults = Youtube.QUERY_MAXRESULTS + Youtube.MINRESULTS;
             JsonParser parser = new JsonParser();
-            HttpURLConnection conn = createGetConnection(url, "");
+            HttpURLConnection conn = createGetConnection(url + numResults, "");
             String toParse = request(conn);
 
             if (toParse.equals("!error")) {
@@ -115,6 +120,46 @@ public class RestUtil {
             }
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    /**
+     * Gets the uploads playlist from the given user's Youtube account
+     */
+    public static Playlist getPlaylistFromUser(String username) {
+        try {
+            String channelQuery = Youtube.QUERY + Youtube.QUERY_CHANNEL;
+            String userQuery = Youtube.QUERY_USERNAME + username;
+            String uploadsId = getUploadsId(channelQuery + userQuery + Youtube.QUERY_KEY);
+            String playlistQuery = Youtube.QUERY + Youtube.QUERY_PLAYLIST;
+            String uploadsQuery = Youtube.QUERY_PLAYLIST_ID + uploadsId;
+
+            return getPlaylist(playlistQuery + uploadsQuery + Youtube.QUERY_KEY);
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * Gets the id of the uploads playlist given a channel query
+     */
+    private static String getUploadsId(String url) throws Exception {
+        JsonParser parser = new JsonParser();
+        HttpURLConnection conn = createGetConnection(url, "");
+        String toParse = request(conn);
+
+        if (toParse.equals("!error")) {
+            return "";
+        } else {
+            JsonObject channel = parser.parse(toParse).getAsJsonObject();
+            JsonArray items = channel.get(Youtube.JSON_LIST).getAsJsonArray();
+            JsonObject content = items.get(0).getAsJsonObject();
+            JsonObject contentDetails = content.get(Youtube.JSON_CONTENT_DETAILS).getAsJsonObject();
+            JsonObject playlists = contentDetails.get(Youtube.JSON_RELATED_PLAYLISTS).getAsJsonObject();
+            String uploads = playlists.get(Youtube.JSON_UPLOADS).getAsString();
+
+            return uploads;
         }
     }
 

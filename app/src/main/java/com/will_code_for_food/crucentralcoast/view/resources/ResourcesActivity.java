@@ -47,7 +47,7 @@ public class ResourcesActivity extends MainActivity {
      * Displays the Cru YouTube videos in a list
      */
     public void viewVideos() {
-        loadFragmentById(R.layout.fragment_card_list, video_title, new ResourceVideoFragment(), this);
+        loadFragmentById(R.layout.fragment_card_list, video_title, new ViewVideosFragment(), this);
     }
 
     /**

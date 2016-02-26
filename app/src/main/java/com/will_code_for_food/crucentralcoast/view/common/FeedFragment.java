@@ -19,6 +19,7 @@ import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
+import com.will_code_for_food.crucentralcoast.values.Youtube;
 import com.will_code_for_food.crucentralcoast.view.events.EventCardFactory;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareEventCardFactory;
@@ -61,7 +62,7 @@ public class FeedFragment extends CruFragment {
         ArrayList<String> keyList = new ArrayList<String>();
         keyList.add(Database.REST_EVENT);
         keyList.add(Database.REST_RESOURCE);
-        keyList.add(Android.YOUTUBE_QUERY_SLOCRUSADE_UPLOADS);
+        keyList.add(Database.VIDEOS);
 
         MultiMemoryRetriever retriever = new MultiMemoryRetriever(keyList);
         CardFragmentFactory factory = new FeedCardFactory();

@@ -25,6 +25,12 @@ public class Video extends DatabaseObject implements Comparable {
         snippet = getField(Youtube.JSON_SNIPPET).getAsJsonObject();
     }
 
+    //for compatibility
+    @Override
+    public String getName() {
+        return getTitle();
+    }
+
     // The title of the video
     public String getTitle() {
         return snippet.get(Youtube.JSON_TITLE).getAsString();

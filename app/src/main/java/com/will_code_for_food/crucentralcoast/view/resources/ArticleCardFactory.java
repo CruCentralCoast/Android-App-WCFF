@@ -33,7 +33,7 @@ public class ArticleCardFactory implements CardFragmentFactory {
 
     @Override
     public ArrayAdapter createAdapter(Content cardObjects) {
-        return new ResourceAdapter(ResourcesActivity.context, cardObjects);
+        return new ArticleCardAdapter(ResourcesActivity.context, cardObjects);
     }
 
     @Override
@@ -48,35 +48,5 @@ public class ArticleCardFactory implements CardFragmentFactory {
                         new ViewArticleFragment(), currentActivity);
             }
         } ;
-    }
-
-    private class ResourceAdapter extends ArrayAdapter<SummerMission> {
-        private List<Resource> cards;
-
-        public ResourceAdapter(Context context, Content content) {
-            super(context, android.R.layout.simple_list_item_1, content.getObjects());
-            cards = content.getObjects();
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            Resource current = cards.get(position);
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            String imageLabel = current.getImage();
-            View hold = inflater.inflate(R.layout.fragment_resources_article_card, parent, false);
-
-            ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
-            if (imageLabel != null && !imageLabel.equals("")) {
-                Picasso.with(SummerMissionsActivity.context).load(imageLabel).fit().into(imageView);
-            } else {
-                System.out.println("Image is this: " + imageLabel);
-                imageView.setImageResource(R.drawable.crulogo);
-            }
-
-            TextView titleView = (TextView) hold.findViewById(R.id.card_text);
-            titleView.setText(current.getTitle());
-
-            return hold;
-        }
     }
 }

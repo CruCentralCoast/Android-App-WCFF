@@ -65,9 +65,9 @@ public class EventCardFactory implements CardFragmentFactory<Event> {
             @Override
             public void onItemClick (AdapterView < ? > parent, View view,int position, long id){
                 Event selectedEvent = (Event) myDBObjects.getObjects().get(position);
+                EventsActivity.setEvent(selectedEvent);
                 currentActivity.loadFragmentById(R.layout.fragment_event,
                         currentActivity.getTitle() + " > " + selectedEvent.getName(), new EventInfoFragment(), currentActivity);
-                EventsActivity.setEvent(selectedEvent);
             }
         } ;
     }

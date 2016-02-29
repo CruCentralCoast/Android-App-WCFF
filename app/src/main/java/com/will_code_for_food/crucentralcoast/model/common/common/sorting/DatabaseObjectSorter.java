@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast.model.common.common.sorting;
 import android.util.Log;
 
 import com.google.gson.JsonElement;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
@@ -12,6 +13,7 @@ import com.will_code_for_food.crucentralcoast.values.Database;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -24,9 +26,54 @@ import java.util.List;
  */
 public class DatabaseObjectSorter {
 
-    public static List<? extends DatabaseObject> sortByDate(final List<? extends DatabaseObject> list) {
+    private static SortMethod method;
+
+    public static Content filterByName(Content<? extends DatabaseObject> list, String phrase) {
+        List newList = new ArrayList();
+
+        for (DatabaseObject obj : list) {
+            if (obj != null && obj.getName() != null && obj.getName().toLowerCase().contains(phrase.toLowerCase())) {
+                newList.add(obj);
+            }
+        }
+
+        return new Content(newList, list.getType());
+    }
+
+    public static void sortByDate(List<? extends DatabaseObject> list, SortMethod newMethod) {
+        method = newMethod;
         Collections.sort(list, new DateComparator());
-        return list;
+    }
+
+    public static void sortFeedObjectsByType(List<? extends DatabaseObject> list, SortMethod method) {
+        List articles = new ArrayList();
+        List events = new ArrayList();
+        List videos = new ArrayList();
+        List other = new ArrayList();
+
+
+        for (DatabaseObject obj : list) {
+            if (obj instanceof Resource) {
+                articles.add(obj);
+            } else if (obj instanceof Event) {
+                events.add(obj);
+            } else if (obj instanceof Video) {
+                videos.add(obj);
+            } else {
+                other.add(obj);
+            }
+        }
+
+        sortByDate(articles, method);
+        sortByDate(events, method);
+        sortByDate(videos, method);
+        sortByDate(other, method);
+
+        list.clear();
+        list.addAll(articles);
+        list.addAll(events);
+        list.addAll(videos);
+        list.addAll(other);
     }
 
     private static class DateComparator implements Comparator<DatabaseObject> {
@@ -42,7 +89,7 @@ public class DatabaseObjectSorter {
             } else if (date1 != null && date2 == null) {
                 return -1;
             } else {
-                return date1.compareTo(date2) * -1;
+                return method == SortMethod.DESCENDING ? (date1.compareTo(date2) * -1) : date1.compareTo(date2);
             }
         }
 

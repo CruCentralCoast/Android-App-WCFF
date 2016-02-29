@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,8 +15,11 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.sorting.DatabaseObjectSorter;
+import com.will_code_for_food.crucentralcoast.model.common.common.sorting.SortMethod;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
+import com.will_code_for_food.crucentralcoast.view.events.EventInfoFragment;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.view.resources.ResourcesActivity;
 import com.will_code_for_food.crucentralcoast.view.summermissions.SummerMissionsActivity;
@@ -26,31 +30,63 @@ import java.util.List;
  * Created by MasonJStevenson on 2/18/2016.
  */
 public class FeedCardAdapter extends ArrayAdapter<DatabaseObject> {
-    List<DatabaseObject> cards;
+    Content<? extends DatabaseObject> cards;
+    Content<? extends DatabaseObject> cardsTemp;
 
     public FeedCardAdapter(Context context, int resource, Content<DatabaseObject> content) {
-        super(context, resource, content.getObjects());
-        cards = content.getObjects();
+        super(context, resource, content);
+        cards = content;
+        cardsTemp = cards;
+    }
+
+    @Override
+    public int getCount() {
+        return cards != null? cards.size() : 0;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         DatabaseObject current = cards.get(position);
+        View view = null;
 
         if (current instanceof Event) {
-            return getEventView((Event) current, parent);
+            view =  getEventView((Event) current, parent);
+        }else if (current instanceof Resource) {
+            view =  getArticleView((Resource) current, parent);
+        }else if (current instanceof Video) {
+            view =  getVideoView((Video) current, parent);
+        } else {
+            Log.e("FeedCardAdapter", "Expected valid db object. Got: " + current.getClass().toString());
         }
 
-        if (current instanceof Resource) {
-            return getArticleView((Resource) current, parent);
-        }
+        return view;
+    }
 
-        if (current instanceof Video) {
-            return getVideoView((Video) current, parent);
-        }
+    public void search(String phrase) {
+        cardsTemp = cards;
+        cards = DatabaseObjectSorter.filterByName(cards, phrase);
+        this.notifyDataSetChanged();
+    }
 
-        Log.e("FeedCardAdapter", "Expected valid db object. Got: " + current.getClass().toString());
-        return null;
+    public void clearSearch() {
+        Log.i("FeedCardAdapter", "clearing search");
+        cards = cardsTemp;
+        this.notifyDataSetChanged();
+    }
+
+    public void sortByNewest() {
+        DatabaseObjectSorter.sortByDate(cards, SortMethod.DESCENDING);
+        this.notifyDataSetChanged();
+    }
+
+    public void sortByOldest() {
+        DatabaseObjectSorter.sortByDate(cards, SortMethod.ASCENDING);
+        this.notifyDataSetChanged();
+    }
+
+    public void sortByType() {
+        DatabaseObjectSorter.sortFeedObjectsByType(cards, SortMethod.DESCENDING);
+        this.notifyDataSetChanged();
     }
 
     private View getVideoView(Video current, ViewGroup parent) {

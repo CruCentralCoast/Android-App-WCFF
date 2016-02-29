@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
@@ -17,14 +18,16 @@ import com.will_code_for_food.crucentralcoast.values.UI;
 
 /**
  * Displays information about the event
+ *
+ * OLD- Please delete this class.
  */
 public class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {
 
-    EventsActivity currentActivity; // reference to the activity running this task
+    MainActivity currentActivity; // reference to the activity running this task
     Event event;                    // event being displayed
 
-    public DisplayEventInfoTask() {
-        currentActivity = (EventsActivity) EventsActivity.context;
+    public DisplayEventInfoTask(MainActivity parent) {
+        currentActivity = parent;
     }
 
     @Override
@@ -74,6 +77,7 @@ public class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {
             rideButton.setImageResource(R.drawable.car_yes);
         }
 
-        currentActivity.modifyAddToCalendarButton();
+        //TODO: fix this
+        //currentActivity.modifyAddToCalendarButton();
     }
 }

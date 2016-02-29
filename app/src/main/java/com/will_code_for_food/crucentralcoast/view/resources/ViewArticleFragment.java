@@ -35,7 +35,6 @@ public class ViewArticleFragment extends CruFragment {
             Log.e("ViewArticleFragment", "article was null");
         }
 
-
         return fragmentView;
     }
 }

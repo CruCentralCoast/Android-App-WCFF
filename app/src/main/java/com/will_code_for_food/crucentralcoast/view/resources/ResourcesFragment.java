@@ -30,7 +30,6 @@ public class ResourcesFragment extends CruFragment {
     }
 
     private class ResourceTask extends AsyncTask<Void, Void, Void> {
-
         private MainActivity currentActivity;
         private ListView list;
         private String[] items = {"Videos", "Articles", "Leader Articles"};
@@ -55,7 +54,6 @@ public class ResourcesFragment extends CruFragment {
                 @Override
                 public void onItemClick(AdapterView<?> p, View view, int position, long id) {
                     ResourcesActivity activity = (ResourcesActivity)getActivity();
-
                     if (position == 0) {
                         activity.viewVideos();
                     } else if (position == 1) {

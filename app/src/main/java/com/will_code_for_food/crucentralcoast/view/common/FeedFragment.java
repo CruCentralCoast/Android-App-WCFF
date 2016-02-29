@@ -27,6 +27,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSche
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.VideoRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
 import com.will_code_for_food.crucentralcoast.values.Android;
@@ -78,7 +79,6 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
         sortItem = menu.findItem(R.id.sort);
 
         searchItem.setActionView(R.layout.action_search);
-        //menu.findItem(R.id.sort).setActionView(R.layout.action_sort);
 
         MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
@@ -97,9 +97,8 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
         });
 
         search = (EditText)menu.findItem(R.id.search).getActionView().findViewById(R.id.text);
-
         search.setOnEditorActionListener(this);
-        search.setImeActionLabel("Search", KeyEvent.KEYCODE_ENTER);
+        search.setImeActionLabel(Util.getString(R.string.search_title), KeyEvent.KEYCODE_ENTER);
     }
 
     @Override

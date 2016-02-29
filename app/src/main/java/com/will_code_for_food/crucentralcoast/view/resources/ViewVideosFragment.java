@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.view.resources;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,6 +27,7 @@ import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.values.Youtube;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
+import com.will_code_for_food.crucentralcoast.view.common.FeedCardAdapter;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 import java.util.ArrayList;
@@ -66,26 +68,51 @@ public class ViewVideosFragment extends CruFragment implements TextView.OnEditor
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.options_menu, menu);
-        menu.findItem(R.id.search).setActionView(R.layout.action_search);
-        EditText search = (EditText)menu.findItem(R.id.search).getActionView().findViewById(R.id.text);
+
+        MenuItem searchItem = menu.findItem(R.id.search);
+        searchItem.setActionView(R.layout.action_search);
+        final MenuItem sortItem = menu.findItem(R.id.sort);
+        final EditText search = (EditText) searchItem.getActionView().findViewById(R.id.text);
         search.setOnEditorActionListener(this);
         search.setImeActionLabel(Util.getString(R.string.search_title), KeyEvent.KEYCODE_ENTER);
+
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                sortItem.setVisible(false);
+                return true;
+            }
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                playlists = ((VideoCardAdapter) list.getAdapter()).clearSearch(null);
+                search.setText("");
+                sortItem.setVisible(true);
+                return true;
+            }
+        });
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.search) {
+        if (item.getItemId() == R.id.sort_newest) {
+            ((VideoCardAdapter) list.getAdapter()).sortByNewest();
             return true;
+        } else if (item.getItemId() == R.id.sort_oldest) {
+            ((VideoCardAdapter) list.getAdapter()).sortByOldest();
+            return true;
+        } else if (item.getItemId() == R.id.sort_type) {
+            ((VideoCardAdapter) list.getAdapter()).sortByType();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (event == null || event.getAction() == KeyEvent.KEYCODE_ENTER) {
             try {
-                playlists = new SearchVideos().execute(v.getText().toString()).get();
-                DisplayVideos();
+                playlists = ((VideoCardAdapter) list.getAdapter()).search(playlists, v.getText().toString());
             } catch (Exception e) {
                 String errorMessage = Util.getString(R.string.toast_no_videos);
                 Toast.makeText(currentActivity.getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
@@ -100,26 +127,6 @@ public class ViewVideosFragment extends CruFragment implements TextView.OnEditor
 
         for (Playlist playlist : playlists) {
             videos.addAll(playlist.getVideoContent());
-        }
-    }
-
-    private class SearchVideos extends AsyncTask<String, Void, List<Playlist>> {
-        @Override
-        protected List<Playlist> doInBackground(String... search) {
-            List<Playlist> filteredPlaylists = new ArrayList<>();
-            String query = Youtube.QUERY + Youtube.QUERY_SEARCH;
-            String searchTopic = Youtube.QUERY_SEARCH_TOPIC + search[0];
-            videos.clear();
-
-            for (Playlist playlist : playlists) {
-                String channelQuery = Youtube.QUERY_CHANNEL_ID + playlist.getChannelId();
-                String url = query + searchTopic + channelQuery + Youtube.QUERY_KEY;
-                Playlist filtered = RestUtil.getPlaylist(url);
-                filteredPlaylists.add(filtered);
-                videos.addAll(filtered.getVideoContent());
-            }
-
-            return filteredPlaylists;
         }
     }
 

@@ -29,19 +29,10 @@ import java.util.List;
 /**
  * Created by MasonJStevenson on 2/18/2016.
  */
-public class FeedCardAdapter extends ArrayAdapter<DatabaseObject> {
-    Content<? extends DatabaseObject> cards;
-    Content<? extends DatabaseObject> cardsTemp;
+public class FeedCardAdapter extends CardAdapter {
 
     public FeedCardAdapter(Context context, int resource, Content<DatabaseObject> content) {
         super(context, resource, content);
-        cards = content;
-        cardsTemp = cards;
-    }
-
-    @Override
-    public int getCount() {
-        return cards != null? cards.size() : 0;
     }
 
     @Override
@@ -60,33 +51,6 @@ public class FeedCardAdapter extends ArrayAdapter<DatabaseObject> {
         }
 
         return view;
-    }
-
-    public void search(String phrase) {
-        cardsTemp = cards;
-        cards = DatabaseObjectSorter.filterByName(cards, phrase);
-        this.notifyDataSetChanged();
-    }
-
-    public void clearSearch() {
-        Log.i("FeedCardAdapter", "clearing search");
-        cards = cardsTemp;
-        this.notifyDataSetChanged();
-    }
-
-    public void sortByNewest() {
-        DatabaseObjectSorter.sortByDate(cards, SortMethod.DESCENDING);
-        this.notifyDataSetChanged();
-    }
-
-    public void sortByOldest() {
-        DatabaseObjectSorter.sortByDate(cards, SortMethod.ASCENDING);
-        this.notifyDataSetChanged();
-    }
-
-    public void sortByType() {
-        DatabaseObjectSorter.sortFeedObjectsByType(cards, SortMethod.DESCENDING);
-        this.notifyDataSetChanged();
     }
 
     private View getVideoView(Video current, ViewGroup parent) {

@@ -34,6 +34,8 @@ import com.will_code_for_food.crucentralcoast.model.resources.TypeFaceUtil;
 
 import java.util.Stack;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class MainActivity extends AppCompatActivity {
     Notifier notifier;
     private ListView mDrawerList;
@@ -217,5 +219,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, newClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

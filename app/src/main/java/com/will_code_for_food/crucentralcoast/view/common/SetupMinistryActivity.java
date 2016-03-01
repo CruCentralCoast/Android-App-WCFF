@@ -33,6 +33,8 @@ import com.will_code_for_food.crucentralcoast.values.UI;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 /**
  * Created by MasonJStevenson on 1/20/2016.
  * <p/>
@@ -254,6 +256,11 @@ public class SetupMinistryActivity extends Activity {
                 }
             }
         };
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     /**

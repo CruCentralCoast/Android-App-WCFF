@@ -2,13 +2,14 @@ package com.will_code_for_food.crucentralcoast.model.common.form;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A form to be filled out by a user (ride-sharing, joining groups, etc.)
  */
-public abstract class Form {
+public abstract class Form implements Serializable {
     private List<Question> questions;
 
     /**
@@ -103,9 +104,9 @@ public abstract class Form {
      */
     public List<FormValidationResult> isCompleteDetailed() {
         List<FormValidationResult> results = new ArrayList<>();
-        for (Question question : questions) {
-            if (question.isRequired() && !question.isAnswered()) {
-                results.add(new FormValidationResult(FormValidationResultType.ERROR_INCOMPLETE, question));
+        for (int ndx = 0; ndx < questions.size(); ndx++) {
+            if (questions.get(ndx).isRequired() && !questions.get(ndx).isAnswered()) {
+                results.add(new FormValidationResult(FormValidationResultType.ERROR_INCOMPLETE, questions.get(ndx), ndx));
             }
         }
         return results;
@@ -136,6 +137,12 @@ public abstract class Form {
         Log.i("FORM", "Printing form...");
         for (Question question : questions) {
             Log.i("Quesiton", question.getPrompt() + " -> " + question.getAnswer());
+        }
+    }
+
+    public void clear() {
+        for (Question question : questions) {
+            question.clearAnswer();
         }
     }
 }

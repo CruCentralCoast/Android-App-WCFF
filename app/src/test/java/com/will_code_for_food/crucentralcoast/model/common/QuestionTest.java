@@ -26,7 +26,7 @@ public class QuestionTest extends WCFFUnitTest {
         newTest("Testing all Question Types");
         testSingleQuestionType(QuestionType.TRUE_FALSE, false);
         testSingleQuestionType(QuestionType.TIME_SELECT, new Time(0));
-        testSingleQuestionType(QuestionType.DATE_SELECT, Calendar.getInstance());
+        //testSingleQuestionType(QuestionType.DATE_SELECT, Calendar.getInstance());
         testSingleQuestionType(QuestionType.FREE_RESPONSE_SHORT, "");
         testSingleQuestionType(QuestionType.FREE_RESPONSE_LONG, "");
     }

@@ -37,4 +37,5 @@ dependencies {
     compile "com.google.android.gms:play-services:8.4.0"
     apply plugin: 'com.google.gms.google-services'
     compile 'com.getbase:floatingactionbutton:1.9.1'
+    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 }

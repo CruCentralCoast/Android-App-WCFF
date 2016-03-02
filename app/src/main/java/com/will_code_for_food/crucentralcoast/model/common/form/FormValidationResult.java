@@ -10,10 +10,13 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 public class FormValidationResult {
     public final FormValidationResultType type;
     public final Question question;
+    public final int questionIndex;
 
-    public FormValidationResult(final FormValidationResultType type, final Question question) {
+    public FormValidationResult(final FormValidationResultType type, final Question question,
+                                final int index) {
         this.type = type;
         this.question = question;
+        this.questionIndex = index;
     }
 
     public void setNewMessage(final int messageId) {

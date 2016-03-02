@@ -18,9 +18,7 @@
         android:layout_alignEnd="@+id/card_image"
         android:layout_alignRight="@+id/card_image"
         android:layout_alignTop="@+id/card_image"
-        android:paddingRight="15dp"
-        android:paddingTop="10dp"
-        android:src="@drawable/car_no" />
+        android:src="@drawable/ride_icon" />
 
     <TextView
         android:id="@+id/card_text"
@@ -30,7 +28,6 @@
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
-        android:text="This is an event"
         android:textSize="15sp" />
 
     <TextView
@@ -43,6 +40,5 @@
         android:paddingBottom="10dp"
         android:paddingRight="10dp"
         android:paddingTop="10dp"
-        android:text="This is an event"
         android:textSize="15sp" />
 </RelativeLayout>

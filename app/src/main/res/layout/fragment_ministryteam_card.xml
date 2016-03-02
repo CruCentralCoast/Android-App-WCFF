@@ -17,6 +17,6 @@
         android:layout_height="30dp"
         android:layout_below="@+id/mt_image"
         android:paddingLeft="10dp"
-        android:text="This is ministry team"
         android:textSize="15sp" />
+
 </RelativeLayout>

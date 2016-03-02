@@ -9,25 +9,47 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.JsonElement;
 import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
 import com.will_code_for_food.crucentralcoast.tasks.MinistryTeamInfoTask;
+import com.will_code_for_food.crucentralcoast.values.Android;
+import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.summermissions.SummerMissionsActivity;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Brian on 2/19/2016.
  */
 public class MinistryTeamCardFactory implements CardFragmentFactory<MinistryTeam> {
+    private Set<String> myMinistries;
+
+    public MinistryTeamCardFactory(){
+        // Only display dbObjects for the ministry
+        myMinistries = Util.loadStringSet(Android.PREF_MINISTRIES);
+    }
+
     @Override
     public boolean include(MinistryTeam object) {
-        return true;
+        JsonElement parentMinistry = object.getField(Database.JSON_KEY_TEAM_MINISTRY);
+
+        //Check if the user is subscribed to the ministry for the team
+        if (myMinistries.contains(parentMinistry.getAsString())) {
+            if (object instanceof MinistryTeam) {
+                return true;
+            }
+        }
+
+        // Return false if this ministry is not for user's ministries
+        return false;
     }
 
     @Override

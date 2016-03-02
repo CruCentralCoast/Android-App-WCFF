@@ -49,6 +49,8 @@ public class Database {
     public static final String EVENT_BAD_LOCATION = "TBD";
     public static final String EVENT_DATE_FORMAT = "MMM dd, h:mma";
 
+    public static final String JSON_KEY_TEAM_MINISTRY = "parentMinistry";
+
     public static final String JSON_KEY_RIDE_EVENT = "event";
     public static final String JSON_KEY_RIDE_DRIVER_NAME = "driverName";
     public static final String JSON_KEY_RIDE_DRIVER_NUMBER = "driverNumber";

@@ -20,4 +20,11 @@
         android:layout_below="@id/button_ministry_teams"
         android:onClick="viewJoinCommunityGroup"
         android:text="TEMPORARY JOIN COMMUNITY GROUP BUTTON"/>
+    <Button
+        android:id="@+id/button_form_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_community_groups"
+        android:onClick="viewJoinCommunityGroup"
+        android:text="Test Form Generation"/>
 </LinearLayout>

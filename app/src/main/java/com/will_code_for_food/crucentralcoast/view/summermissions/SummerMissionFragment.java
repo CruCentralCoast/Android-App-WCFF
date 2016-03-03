@@ -2,15 +2,18 @@ package com.will_code_for_food.crucentralcoast.view.summermissions;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
@@ -50,8 +53,13 @@ public class SummerMissionFragment extends CruFragment {
     }
 
     private void refreshMissionsList() {
-        Retriever retriever = new SingleRetriever<SummerMission>(RetrieverSchema.SUMMER_MISSION);
-        populateList(retriever);
+        Log.i("SummerMissionFragment", "refreshing summer missions list");
+
+        if (!DBObjectLoader.loadSummerMissions(Database.DB_TIMEOUT)) {
+            Toast.makeText(getParent(), "Unable to refresh summer missions", Toast.LENGTH_SHORT);
+        }
+
+        loadMissionsList();
     }
 
     private void populateList(Retriever retriever) {

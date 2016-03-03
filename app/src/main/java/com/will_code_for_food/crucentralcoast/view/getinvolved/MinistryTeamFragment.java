@@ -2,18 +2,23 @@ package com.will_code_for_food.crucentralcoast.view.getinvolved;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
+import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.summermissions.SummerMissionCardFactory;
@@ -29,7 +34,7 @@ public class MinistryTeamFragment extends CruFragment {
                              Bundle savedInstanceState) {
         View hold = super.onCreateView(inflater, container, savedInstanceState);
         layout = (SwipeRefreshLayout) hold.findViewById(R.id.card_refresh_layout);
-        refreshMinistryTeamList();
+        loadMinistryTeamList();
         return hold;
     }
 
@@ -44,8 +49,23 @@ public class MinistryTeamFragment extends CruFragment {
         });
     }
 
+    private void loadMinistryTeamList() {
+        SingleMemoryRetriever retriever = new SingleMemoryRetriever(Database.REST_SUMMER_MISSION);
+        populateList(retriever);
+    }
+
     private void refreshMinistryTeamList() {
-        Retriever retriever = new SingleRetriever<MinistryTeam>(RetrieverSchema.MINISTRY_TEAM);
+
+        Log.i("MinistryTeamFragment", "refreshing ministry team list");
+
+        if (!DBObjectLoader.loadMinistries(Database.DB_TIMEOUT)) {
+            Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT);
+        }
+
+        loadMinistryTeamList();
+    }
+
+    private void populateList(Retriever retriever) {
         CardFragmentFactory factory = new MinistryTeamCardFactory();
         new RetrievalTask<SummerMission>(retriever, factory,
                 R.string.toast_no_ministry_teams, new AsyncResponse(getParent()) {

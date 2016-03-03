@@ -5,14 +5,19 @@ import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
+import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
@@ -36,7 +41,7 @@ public class RidesFragment extends CruFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
-        viewAvailableRides();
+        loadRidesList();
         layout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.ridelist_swipe);
         return fragmentView;
     }
@@ -47,17 +52,31 @@ public class RidesFragment extends CruFragment {
         layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                viewAvailableRides();
+                refreshRidesList();
             }
         });
     }
 
+    public void loadRidesList() {
+        SingleMemoryRetriever retriever = new SingleMemoryRetriever(Database.REST_RIDE);
+        populateList(retriever);
+    }
+
+    public void refreshRidesList() {
+        Log.i("RidesFragment", "refreshing rides list");
+
+        if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
+            Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT);
+        }
+
+        loadRidesList();
+    }
+
     // Takes the user to the list of rides for the event
     //TODO: user first needs to fill out form
-    public void viewAvailableRides() {
+    public void populateList(Retriever retriever) {
         new SetEventHeader().execute();
 
-        Retriever retriever = new SingleRetriever<Ride>(RetrieverSchema.RIDE);
         CardFragmentFactory factory = new RideCardFactory(getParent());
         //TODO: callback task for selecting a ride (currently null)
         new RetrievalTask<Ride>(retriever, factory, R.string.toast_no_rides,

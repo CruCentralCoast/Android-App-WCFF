@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.MultiMemoryRetriever;
@@ -26,6 +27,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.VideoRetriever;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
@@ -157,6 +159,21 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
     private void refreshList() {
         Log.i("FeedFragment", "Refreshing Feed");
 
+        if (!DBObjectLoader.loadEvents(Database.DB_TIMEOUT)) {
+            Toast.makeText(getParent(), "Unable to refresh events", Toast.LENGTH_SHORT);
+        }
+
+        if (!DBObjectLoader.loadResources(Database.DB_TIMEOUT)) {
+            Toast.makeText(getParent(), "Unable to refresh resources", Toast.LENGTH_SHORT);
+        }
+
+        if (!DBObjectLoader.loadVideos(Database.DB_TIMEOUT)) {
+            Toast.makeText(getParent(), "Unable to refresh vidoes", Toast.LENGTH_SHORT);
+        }
+
+        loadList();
+
+        /*
         ArrayList<Retriever> retrieverList = new ArrayList<Retriever>();
         retrieverList.add(new SingleRetriever(RetrieverSchema.EVENT));
         retrieverList.add(new SingleRetriever(RetrieverSchema.RESOURCE));
@@ -172,5 +189,6 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
                         layout.setRefreshing(false);
                     }
                 }).execute();
+        */
     }
 }

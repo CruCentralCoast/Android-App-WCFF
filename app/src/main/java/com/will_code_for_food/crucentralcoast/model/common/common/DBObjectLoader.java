@@ -177,10 +177,25 @@ public class DBObjectLoader {
     }
 
     /**
-     * Loads youtube videos.
+     * Loads youtube videos. Doesn't wait for them to finish loading.
      */
     public static void loadVideos() {
         new GetVideoTask().execute();
+    }
+
+    /**
+     * Loads youtube videos. Waits for them to finish loading.
+     *
+     * @param waitTime maximum wait time in milliseconds
+     */
+    public static boolean loadVideos(long waitTime) {
+        try {
+            new GetVideoTask().execute().get(waitTime, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
     }
 
     public static ArrayList<Event> getEvents() {
@@ -268,7 +283,10 @@ public class DBObjectLoader {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            loadCount++;
+            if (!finishedLoading()) {
+                loadCount++;
+            }
+
             Log.i("DBObjectLoader", "Finished getting objects of type [" + key + "] from database (loadCount is: " + loadCount + ")");
         }
     }
@@ -292,7 +310,10 @@ public class DBObjectLoader {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            loadCount++;
+            if (!finishedLoading()) {
+                loadCount++;
+            }
+
             Log.i("DBObjectLoader", "Finished getting videos from youtube (loadCount is: " + loadCount + ")");
         }
     }

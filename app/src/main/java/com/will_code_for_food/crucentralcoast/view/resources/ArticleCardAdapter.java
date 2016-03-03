@@ -69,7 +69,7 @@ public class ArticleCardAdapter extends CardAdapter {
         if (type.equals(Database.RESOURCE_ARTICLE)) {
             typeView.setImageResource(R.drawable.ic_web_black_36dp);
         } else if (type.equals(Database.RESOURCE_VIDEO)) {
-            typeView.setImageResource(R.drawable.ic_movie_black_36dp);
+            typeView.setImageResource(R.drawable.ic_video);
         } else if (type.equals(Database.RESOURCE_AUDIO)) {
             typeView.setImageResource(R.drawable.ic_volume_up_black_36dp);
         }

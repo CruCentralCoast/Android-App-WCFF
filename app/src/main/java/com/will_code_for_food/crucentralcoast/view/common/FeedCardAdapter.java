@@ -19,6 +19,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.sorting.Databa
 import com.will_code_for_food.crucentralcoast.model.common.common.sorting.SortMethod;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
+import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.events.EventInfoFragment;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.view.resources.ResourcesActivity;
@@ -73,7 +74,7 @@ public class FeedCardAdapter extends CardAdapter {
     private View getArticleView(Resource current, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         String imageLabel = current.getImage();
-        View hold = inflater.inflate(R.layout.fragment_resources_article_card, parent, false);
+        View hold = inflater.inflate(R.layout.fragment_resources_card, parent, false);
 
         ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
         if (imageLabel != null && !imageLabel.equals("")) {
@@ -81,6 +82,16 @@ public class FeedCardAdapter extends CardAdapter {
         } else {
             System.out.println("Image is this: " + imageLabel);
             imageView.setImageResource(R.drawable.crulogo);
+        }
+
+        ImageView typeView = (ImageView) hold.findViewById(R.id.resource_type);
+        String type = current.getType();
+        if (type.equals(Database.RESOURCE_ARTICLE)) {
+            typeView.setImageResource(R.drawable.ic_web_black_36dp);
+        } else if (type.equals(Database.RESOURCE_VIDEO)) {
+            typeView.setImageResource(R.drawable.ic_movie_black_36dp);
+        } else if (type.equals(Database.RESOURCE_AUDIO)) {
+            typeView.setImageResource(R.drawable.ic_volume_up_black_36dp);
         }
 
         TextView titleView = (TextView) hold.findViewById(R.id.card_text);

@@ -1,16 +1,21 @@
 package com.will_code_for_food.crucentralcoast.view.getinvolved;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.View;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
+import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.ridesharing.EnterNameDialog;
 
 /**
  * Created by mallika on 1/14/16.
  */
 public class GetInvolvedActivity extends MainActivity {
+    private static MinistryTeam team = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +30,13 @@ public class GetInvolvedActivity extends MainActivity {
 
     }
 
-    public void joinMinistryTeam(View view){
+    public static void setMinistryTeam(MinistryTeam team){
+        GetInvolvedActivity.team = team;
+    }
 
+    public void joinMinistryTeam(View view){
+        MinistryTeamSignupDialog popup = MinistryTeamSignupDialog.newInstance(team);
+        FragmentManager manager = getFragmentManager();
+        popup.show(manager, "ministry_team_signup");
     }
 }

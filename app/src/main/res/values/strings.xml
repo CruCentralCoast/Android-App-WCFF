@@ -51,6 +51,14 @@
     <string name="ridesharing_seat_left" formatted="false">%d seat left</string>
     <string name="ridesharing_header" formatted="false">Ride Sharing Events</string>
 
+    <!-- Get Involved -->
+    <string name="ministry_team_signup_message">%1$s has signed up for %2$s. Their email is %3$s,
+        and their number is %4$s.</string>
+    <string name="ministry_team_signup_header">Sign up for Community Team!</string>
+    <string name="mt_name_hint">Name</string>
+    <string name="mt_number_hint">Number</string>
+    <string name="mt_email_hint">Email</string>
+
     <!-- Font formatting -->
     <string name="default_serif">SERIF</string>
     <string name="new_default">FreigSanProLiglt.otf</string>

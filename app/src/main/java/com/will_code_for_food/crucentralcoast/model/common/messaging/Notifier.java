@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast.model.common.messaging;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.support.v4.app.NotificationCompat;
+import android.telephony.SmsManager;
 
 /**
  * Created by Gavin on 11/12/2015.
@@ -19,9 +20,10 @@ public class Notifier {
         // TODO handles the push notification API in the superclass
         return false;
     }
-    public boolean textUser(String phoneNumber, NotificationMessage message) {
-        // TODO handles the texting API in the superclass
-        return false;
+    public static boolean textUser(String phoneNumber, String message) {
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+        return true;
     }
 
     public void createNotification(String title, String text, Context context) {

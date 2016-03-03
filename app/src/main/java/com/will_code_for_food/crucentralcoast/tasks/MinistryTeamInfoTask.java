@@ -24,6 +24,7 @@ public class MinistryTeamInfoTask extends AsyncTask<MinistryTeam, Void, Void> {
     @Override
     protected Void doInBackground(MinistryTeam... params) {
         ministryTeam = params[0];
+        GetInvolvedActivity.setMinistryTeam(ministryTeam);
         return null;
     }
 

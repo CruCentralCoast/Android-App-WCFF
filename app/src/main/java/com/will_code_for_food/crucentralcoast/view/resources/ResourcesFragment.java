@@ -32,7 +32,7 @@ public class ResourcesFragment extends CruFragment {
     private class ResourceTask extends AsyncTask<Void, Void, Void> {
         private MainActivity currentActivity;
         private ListView list;
-        private String[] items = {"Videos", "Articles", "Leader Articles"};
+        private String[] items = {"Videos", "Resources", "Leader Resources"};
 
         public ResourceTask() {
             super();

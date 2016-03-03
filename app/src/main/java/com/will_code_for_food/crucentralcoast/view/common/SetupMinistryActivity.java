@@ -165,7 +165,6 @@ public class SetupMinistryActivity extends Activity {
         private Context context;
 
         private TextView ministryName;
-        private TextView campusName;
         private ImageView cardImage;
         private String imageLabel = "";
         private RelativeLayout background;
@@ -201,7 +200,6 @@ public class SetupMinistryActivity extends Activity {
                 convertView = inflater.inflate(R.layout.fragment_ministry_setup_card, null);
 
                 ministryName = (TextView) convertView.findViewById(R.id.ministry_card_text);
-                campusName = (TextView) convertView.findViewById(R.id.ministry_campus_text);
                 cardImage = (ImageView) convertView.findViewById(R.id.ministry_card_image);
                 background = (RelativeLayout) convertView.findViewById(R.id.ministry_setup_card_background);
                 final TextView learnMore = (TextView) convertView.findViewById(R.id.ministry_learn_more);
@@ -218,17 +216,8 @@ public class SetupMinistryActivity extends Activity {
                         startActivity(intent);
                     }
                 });
-                ministryName.setText(ministry.getName());
 
-                String campusesText = "";
-                for (String campusID : ministry.getCampuses()) {
-                    for (Campus campus : SetupCampusActivity.selectedCampuses) {
-                        if (campus.getId().equals(campusID)) {
-                            campusesText += campus.getName() + "\n";
-                        }
-                    }
-                }
-                campusName.setText(campusesText);
+                ministryName.setText(ministry.getName());
 
                 //load image
                 imageLabel = ministry.getImage();

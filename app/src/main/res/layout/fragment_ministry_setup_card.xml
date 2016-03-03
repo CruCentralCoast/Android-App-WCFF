@@ -14,16 +14,7 @@
             android:id="@+id/ministry_card_image"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:paddingTop="25dp" />
-
-        <TextView
-            android:id="@+id/ministry_campus_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:textSize="20dp"
-            android:textColor="@color/colorAccent_cruBrightBlue" />
+            android:paddingTop="10dp" />
 
         <TextView
             android:id="@+id/ministry_card_text"

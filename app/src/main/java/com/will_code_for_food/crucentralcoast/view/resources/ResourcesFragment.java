@@ -82,11 +82,11 @@ public class ResourcesFragment extends CruFragment {
 
             ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
             if (position == 0) {
-                imageView.setImageResource(R.drawable.youtube);
+                imageView.setImageResource(R.drawable.ic_video);
             } else if (position == 1) {
-                imageView.setImageResource(R.drawable.articles_regular);
+                imageView.setImageResource(R.drawable.ic_folder_black_48dp);
             } else {
-                imageView.setImageResource(R.drawable.articles_leader);
+                imageView.setImageResource(R.drawable.ic_folder_special_black_48dp);
             }
 
             TextView textView = (TextView) hold.findViewById(R.id.card_text);

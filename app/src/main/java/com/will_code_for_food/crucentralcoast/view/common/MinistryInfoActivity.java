@@ -53,7 +53,7 @@ public class MinistryInfoActivity extends Activity {
             //load image
             String imageLabel = ministry.getImage();
             if (imageLabel != null && !imageLabel.equals("")) {
-                Picasso.with(this).load(imageLabel).fit().into(imageView);
+                Picasso.with(this).load(imageLabel).fit().centerInside().into(imageView);
             }
 
             description.setText(ministry.getDescription());

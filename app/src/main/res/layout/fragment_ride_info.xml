@@ -7,7 +7,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/ride_info_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
@@ -26,9 +25,8 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/ride_info_div1"
-        android:text="New Text"
         android:id="@+id/ride_info_driver"
         android:layout_centerHorizontal="true"
         android:textSize="25sp"
@@ -48,7 +46,6 @@
         android:layout_width="wrap_content"
         android:layout_height="130dp"
         android:layout_below="@+id/ride_info_div2"
-        android:text="New Text"
         android:id="@+id/ride_info_main"
         android:layout_centerHorizontal="true"
         android:textSize="15sp"

@@ -20,7 +20,8 @@
                 android:textSize="15sp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                android:paddingTop="10dp"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -28,7 +29,47 @@
                 android:id="@+id/name_prompt_input"
                 android:layout_below="@+id/name_prompt"
                 android:textSize="15sp"
-                android:paddingTop="5dp"/>
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/ridesharing_number"
+                android:id="@+id/number_prompt"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/name_prompt_input"
+                android:padding="10dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/number_prompt_input"
+                android:layout_below="@+id/number_prompt"
+                android:textSize="15sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"/>
+
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/gender_options"
+                android:layout_below="@+id/number_prompt_input"
+                android:paddingBottom="10dp">
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/gender_male"
+                    android:id="@+id/male"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/gender_female"
+                    android:id="@+id/female"/>
+            </RadioGroup>
 
             <TextView
                 android:layout_width="match_parent"
@@ -38,17 +79,21 @@
                 android:textSize="15sp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/name_prompt_input"
-                android:padding="10dp"/>
+                android:layout_below="@+id/gender_options"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
 
             <DatePicker
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:id="@+id/departure_date_picker"
                 android:layout_below="@+id/departure_date_prompt"
-                android:padding="10dp"
                 android:datePickerMode="calendar"
-                android:headerBackground="@color/colorAccent_cruBrightBlue"/>
+                android:headerBackground="@color/colorAccent_cruBrightBlue"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -57,7 +102,9 @@
                 android:layout_below="@+id/departure_date_picker"
                 android:id="@+id/departure_time_prompt"
                 android:textSize="15sp"
-                android:padding="10dp"/>
+                android:paddingTop="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
 
             <TimePicker
                 android:layout_width="match_parent"
@@ -65,8 +112,10 @@
                 android:timePickerMode="clock"
                 android:id="@+id/departure_time_picker"
                 android:layout_below="@+id/departure_time_prompt"
-                android:padding="10dp"
-                android:headerBackground="@color/colorAccent_cruBrightBlue"/>
+                android:headerBackground="@color/colorAccent_cruBrightBlue"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -82,14 +131,16 @@
                 android:layout_height="40dp"
                 android:id="@+id/list_of_locations"
                 android:layout_below="@+id/leave_location_prompt"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:paddingBottom="10dp"/>
 
             <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/direction_options"
-                android:layout_below="@+id/list_of_locations">
+                android:layout_below="@+id/list_of_locations"
+                android:paddingBottom="10dp">
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -123,7 +174,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="30dp"
-                android:layout_marginStart="30dp" />
+                android:layout_marginStart="30dp"
+                android:paddingBottom="10dp"/>
 
             <Button
                 android:layout_width="100dp"
@@ -137,7 +189,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="30dp"
-                android:layout_marginEnd="30dp" />
+                android:layout_marginEnd="30dp"
+                android:paddingBottom="10dp"/>
 
         </RelativeLayout>
     </ScrollView>

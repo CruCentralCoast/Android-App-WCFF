@@ -48,6 +48,7 @@ public class SetupMinistryActivity extends Activity {
     private ListView ministryList;
     private LinearLayout screen;
     private TextView title;
+
     public static Context context;
     public static Ministry selectedMinistry;
 
@@ -217,7 +218,6 @@ public class SetupMinistryActivity extends Activity {
                 });
 
                 ministryName.setText(ministry.getName());
-
 
                 //load image
                 imageLabel = ministry.getImage();

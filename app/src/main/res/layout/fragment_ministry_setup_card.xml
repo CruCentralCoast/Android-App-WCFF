@@ -14,8 +14,7 @@
             android:id="@+id/ministry_card_image"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"/>
+            android:paddingTop="10dp" />
 
         <TextView
             android:id="@+id/ministry_card_text"

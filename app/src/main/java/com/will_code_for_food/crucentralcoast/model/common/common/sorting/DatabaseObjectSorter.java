@@ -114,7 +114,7 @@ public class DatabaseObjectSorter {
             try {
                 DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
                 date = dateFormat.parse(dateString);
-            } catch (ParseException e) {
+            } catch (Exception e) {
                 Log.i("DatabaseObjectSorter", "parsed a null ISO date: " + dateString);
                 return null;
             }

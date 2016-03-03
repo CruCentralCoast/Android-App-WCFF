@@ -2,12 +2,15 @@ package com.will_code_for_food.crucentralcoast.view.events;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity;
@@ -52,8 +55,21 @@ public class EventsFragment extends CruFragment {
     }
 
     private void refreshList() {
-        Retriever retriever = new SingleRetriever(RetrieverSchema.EVENT);
-        populateList(retriever);
+
+        Log.i("EventsFragment", "refreshing events and rides");
+
+        if (!DBObjectLoader.loadEvents(Database.DB_TIMEOUT)) {
+            Toast.makeText(getParent(), "Unable to refresh events", Toast.LENGTH_SHORT);
+        }
+
+        if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
+            Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT);
+        }
+
+        loadList();
+
+        //Retriever retriever = new SingleRetriever(RetrieverSchema.EVENT);
+        //populateList(retriever);
     }
 
     private void populateList(Retriever retriever) {

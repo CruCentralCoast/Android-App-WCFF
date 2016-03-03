@@ -95,14 +95,14 @@ public class RideShareDriverFormFragment extends CruFragment {
             Gender userGender = (Gender) form.getQuestion(2).getAnswer();
             switch (userGender) {
                 case MALE:
-                    male.setSelected(true);
+                    male.setChecked(true);
                     break;
                 case FEMALE:
-                    female.setSelected(true);
+                    female.setChecked(true);
                     break;
                 default:
                     // default is male (could be decline to state or something)
-                    male.setSelected(true);
+                    male.setChecked(true);
             }
         }
 
@@ -171,6 +171,7 @@ public class RideShareDriverFormFragment extends CruFragment {
                 if (form.isFinished()) {
                     Toast.makeText(parent, "Submitted Driver Form", Toast.LENGTH_SHORT).show();
                     form.submit();
+
                 } else {
                     // error
                     Toast.makeText(parent, "Error!", Toast.LENGTH_SHORT).show();
@@ -189,7 +190,7 @@ public class RideShareDriverFormFragment extends CruFragment {
     }
 
     private boolean hasValidTextInput(final EditText e) {
-        return e.getText() != null && e.getText().toString().length() > 0;
+        return e != null && e.getText() != null && e.getText().toString().length() > 0;
     }
 
     private class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {

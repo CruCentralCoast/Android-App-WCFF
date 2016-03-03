@@ -23,23 +23,22 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
 
     private MainActivity parent;
     private String passengerName;
+    private String phoneNum;
     private String directionPreference;
     private Ride ride;
 
-    public RegisterForRideTask(MainActivity parent, String passengerName, String directionPreference, Ride ride) {
+    public RegisterForRideTask(MainActivity parent, String passengerName, String number, String directionPreference, Ride ride) {
         this.parent = parent;
         this.passengerName = passengerName;
         this.directionPreference = directionPreference;
         this.ride = ride;
+        this.phoneNum = number;
     }
 
     @Override
     protected Void doInBackground(Void... params) {
-        String phoneNum;
         JsonObject result;
         Passenger passenger;
-
-        phoneNum = Util.getPhoneNum();
 
         //try to find passenger in db
         passenger = RestUtil.getPassenger(phoneNum);

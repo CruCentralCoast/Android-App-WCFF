@@ -1,18 +1,14 @@
 package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by mallika on 1/14/16.

@@ -14,9 +14,12 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResultType;
+import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RiderForm;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
@@ -34,6 +37,7 @@ public class RideShareRiderFormFragment extends CruFragment{
     DatePicker datePicker;
     TimePicker timePicker;
     EditText name;
+    EditText number;
     EditText locations;
     RadioButton oneWayTo;
     RadioButton oneWayFrom;
@@ -43,9 +47,10 @@ public class RideShareRiderFormFragment extends CruFragment{
     Button submitButton;
     Button cancelButton;
     RideDirection direction = null;
-    Calendar calendar;
-    long time;
-    long date;
+
+    RadioButton male;
+    RadioButton female;
+    Gender gender;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +60,9 @@ public class RideShareRiderFormFragment extends CruFragment{
         parent = (RideShareActivity) getParent();
         selectedEvent = EventsActivity.getEvent();
         name = (EditText) fragmentView.findViewById(R.id.name_prompt_input);
+        number = (EditText) fragmentView.findViewById(R.id.number_prompt_input);
+        male = (RadioButton) fragmentView.findViewById(R.id.male);
+        female = (RadioButton) fragmentView.findViewById(R.id.female);
         datePicker = (DatePicker) fragmentView.findViewById(R.id.departure_date_picker);
         timePicker = (TimePicker) fragmentView.findViewById(R.id.departure_time_picker);
         locations = (EditText) fragmentView.findViewById(R.id.list_of_locations);
@@ -65,35 +73,35 @@ public class RideShareRiderFormFragment extends CruFragment{
         cancelButton = (Button) fragmentView.findViewById(R.id.driver_form_cancel);
 
         form = new RiderForm(selectedEvent.getId());
+        form.print();
+
+        // auto-fill name
         if (form.getQuestion(0).isAnswered()) {
             name.setText((String) form.getQuestion(0).getAnswer());
         }
 
-        datePicker.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
+        // auto-fill number if possible
+        String number_str = PhoneNumberAccessor.getUserPhoneNumber(parent);
+        if (number_str != null) {
+            form.getQuestion(1).answerQuestion(number_str);
+            number.setText(number_str);
+        }
 
-                calendar = new GregorianCalendar(datePicker.getYear(),
-                        datePicker.getMonth(),
-                        datePicker.getDayOfMonth(),
-                        0,
-                        0);
-
-                date = calendar.getTimeInMillis();
-            }});
-
-        timePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar timeCal = new GregorianCalendar(0,
-                        0,
-                        0,
-                        timePicker.getCurrentHour(),
-                        timePicker.getCurrentMinute());
-
-                time = calendar.getTimeInMillis();
+        // auto-fill gender
+        if (form.getQuestion(2).isAnswered()) {
+            Gender userGender = (Gender) form.getQuestion(2).getAnswer();
+            switch (userGender) {
+                case MALE:
+                    male.setSelected(true);
+                    break;
+                case FEMALE:
+                    female.setSelected(true);
+                    break;
+                default:
+                    // default is male (could be decline to state or something)
+                    male.setSelected(true);
             }
-        });
+        }
 
         oneWayFrom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,10 +119,21 @@ public class RideShareRiderFormFragment extends CruFragment{
                 direction = RideDirection.TWO_WAY;
             }});
 
+        male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gender = Gender.MALE;
+            }});
+        female.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gender = Gender.FEMALE;
+            }});
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(parent, "ride canceled", Toast.LENGTH_SHORT);
+                Toast.makeText(parent, "ride canceled", Toast.LENGTH_SHORT).show();
                 //Go back to previous fragment
                 //System.out.println("Submit clicked!");
             }
@@ -124,27 +143,32 @@ public class RideShareRiderFormFragment extends CruFragment{
             @Override
             public void onClick(View v) {
                 new DisplayEventInfoTask().execute();
-                if (name.getText() != null) {
+                if (hasValidTextInput(name)) {
                     form.answerQuestion(0, name.getText().toString());
                 }
-                if (date != 0){
-                    form.answerQuestion(1, date);
+                if (gender != null){
+                    form.answerQuestion(2, gender);
                 }
-                if (time != 0){
-                    form.answerQuestion(2, time);
-                }
+                // set time
+                Calendar cal =
+                        new GregorianCalendar(datePicker.getYear(),
+                                datePicker.getMonth(), datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute());
+                form.answerQuestion(3, cal);
+
                 if (direction != null){
-                    form.answerQuestion(3, direction);
+                    form.answerQuestion(4, direction);
                 }
-                if (locations.getText() != null) {
-                    form.answerQuestion(4, locations.getText().toString());
+                if (hasValidTextInput(locations)) {
+                    form.answerQuestion(5, locations.getText().toString());
                 }
                 if (form.isFinished()) {
-                    //submit
-                    Toast.makeText(parent, "Rider Form Submitted", Toast.LENGTH_SHORT);
+                    Toast.makeText(parent, "Submitted Driver Form", Toast.LENGTH_SHORT).show();
                     form.submit();
                 } else {
                     // error
+                    Toast.makeText(parent, "Error!", Toast.LENGTH_SHORT).show();
+                    form.print();
                     List<FormValidationResult> results = form.isFinishedDetailed();
                     // TODO these are all the errors returned by the form validation
                     // TODO I don't know how best to translate the form's results to show in the UI (change it however you want or let me know and I will)
@@ -158,6 +182,9 @@ public class RideShareRiderFormFragment extends CruFragment{
         return fragmentView;
     }
 
+    private boolean hasValidTextInput(final EditText e) {
+        return e.getText() != null && e.getText().toString().length() > 0;
+    }
 
     private class DisplayEventInfoTask extends AsyncTask<Event, Void, Void> {
 

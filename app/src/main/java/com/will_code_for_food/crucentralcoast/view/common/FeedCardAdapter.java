@@ -39,46 +39,86 @@ public class FeedCardAdapter extends CardAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         DatabaseObject current = cards.get(position);
-        View view = null;
 
         if (current instanceof Event) {
-            view =  getEventView((Event) current, parent);
-        }else if (current instanceof Resource) {
-            view =  getArticleView((Resource) current, parent);
-        }else if (current instanceof Video) {
-            view =  getVideoView((Video) current, parent);
+
+            //inflate
+            if (convertView == null || !checkTag(current, convertView)) {
+                convertView = inflateEventView((Event) current, parent);
+            }
+
+            //populate
+            populateEventView((Event) current, convertView);
+
+        } else if (current instanceof Resource) {
+            //inflate
+            if (convertView == null || !checkTag(current, convertView)) {
+                convertView = inflateArticleView((Resource) current, parent);
+            }
+
+            //populate
+            populateArticleView((Resource) current, convertView);
+        } else if (current instanceof Video) {
+            //inflate
+            if (convertView == null || !checkTag(current, convertView)) {
+                convertView = inflateVideoView((Video) current, parent);
+            }
+
+            //populate
+            populateVideoView((Video) current, convertView);
         } else {
             Log.e("FeedCardAdapter", "Expected valid db object. Got: " + current.getClass().toString());
         }
 
-        return view;
+        return convertView;
     }
 
-    private View getVideoView(Video current, ViewGroup parent) {
+    private boolean checkTag (DatabaseObject current, View convertView){
+        if (current instanceof Event) {
+            return ((String) convertView.getTag()).equals("event");
+        } else if (current instanceof Video) {
+            return ((String) convertView.getTag()).equals("video");
+        } else if (current instanceof Resource) {
+            return ((String) convertView.getTag()).equals("resource");
+        } else {
+            return false;
+        }
+    }
+
+    private View inflateVideoView(Video current, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View hold = inflater.inflate(R.layout.fragment_resources_youtube_card, parent, false);
+        hold.setTag("video");
+
+        return hold;
+    }
+
+    private void populateVideoView(Video current, View hold) {
 
         // Load card elements with video information
         ImageView thumbnail = (ImageView) hold.findViewById(R.id.card_image);
-        Picasso.with(ResourcesActivity.context).load(current.getThumbnailUrl()).fit().into(thumbnail);
+        Picasso.with(getContext()).load(current.getThumbnailUrl()).fit().into(thumbnail);
 
         TextView name = (TextView) hold.findViewById(R.id.card_video_name);
         name.setText(current.getTitle());
 
         TextView date = (TextView) hold.findViewById(R.id.card_video_date);
         date.setText(current.getAgeString());
+    }
 
+    private View inflateArticleView(Resource current, ViewGroup parent) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View hold = inflater.inflate(R.layout.fragment_resources_card, parent, false);
+
+        hold.setTag("resource");
         return hold;
     }
 
-    private View getArticleView(Resource current, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+    private void populateArticleView(Resource current, View hold) {
         String imageLabel = current.getImage();
-        View hold = inflater.inflate(R.layout.fragment_resources_card, parent, false);
-
         ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
         if (imageLabel != null && !imageLabel.equals("")) {
-            Picasso.with(SummerMissionsActivity.context).load(imageLabel).fit().into(imageView);
+            Picasso.with(getContext()).load(imageLabel).fit().into(imageView);
         } else {
             System.out.println("Image is this: " + imageLabel);
             imageView.setImageResource(R.drawable.crulogo);
@@ -96,17 +136,21 @@ public class FeedCardAdapter extends CardAdapter {
 
         TextView titleView = (TextView) hold.findViewById(R.id.card_text);
         titleView.setText(current.getTitle());
+    }
 
+    private View inflateEventView(Event current, ViewGroup parent) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View hold = inflater.inflate(R.layout.fragment_event_card, parent, false);
+
+        hold.setTag("event");
         return hold;
     }
 
-    private View getEventView(Event current, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
+    private void populateEventView(Event current, View hold) {
         String imageLabel = current.getImage();
-        View hold = inflater.inflate(R.layout.fragment_event_card, parent, false);
         ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
         if (imageLabel != null && !imageLabel.equals("")) {
-            Picasso.with(EventsActivity.context).load(imageLabel).fit().into(imageView);
+            Picasso.with(getContext()).load(imageLabel).fit().into(imageView);
         } else {
             System.out.println("Image is this: " + imageLabel);
             imageView.setImageResource(R.drawable.crulogo);
@@ -120,6 +164,5 @@ public class FeedCardAdapter extends CardAdapter {
         if (!current.hasRideSharing()) {
             carView.setVisibility(View.INVISIBLE);
         }
-        return hold;
     }
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ import java.util.List;
  * Created by masonstevenson on 2/4/16.
  */
 public class RideShareDriverFormFragment extends CruFragment {
+    private static final int MAX_SEATS = 12;
     private DriverForm form;
     DatePicker datePicker;
     TimePicker timePicker;
@@ -43,7 +45,7 @@ public class RideShareDriverFormFragment extends CruFragment {
     RadioButton oneWayTo;
     RadioButton oneWayFrom;
     RadioButton twoWay;
-    EditText numberofSeats;
+    NumberPicker numberofSeats;
     Event selectedEvent;
     MainActivity parent;
     Button submitButton;
@@ -71,7 +73,7 @@ public class RideShareDriverFormFragment extends CruFragment {
         oneWayTo = (RadioButton) fragmentView.findViewById(R.id.One_Way_To_Checkbox);
         oneWayFrom = (RadioButton) fragmentView.findViewById(R.id.One_Way_From_Checkbox);
         twoWay = (RadioButton) fragmentView.findViewById(R.id.Two_Way_Checkbox);
-        numberofSeats = (EditText) fragmentView.findViewById(R.id.number_of_seats);
+        numberofSeats = (NumberPicker) fragmentView.findViewById(R.id.number_of_seats);
         submitButton = (Button) fragmentView.findViewById(R.id.driver_form_submit);
         cancelButton = (Button) fragmentView.findViewById(R.id.driver_form_cancel);
 
@@ -133,6 +135,10 @@ public class RideShareDriverFormFragment extends CruFragment {
                 gender = Gender.FEMALE;
             }});
 
+        numberofSeats.setMinValue(1);
+        numberofSeats.setMaxValue(MAX_SEATS);
+        numberofSeats.setWrapSelectorWheel(false);
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,8 +171,8 @@ public class RideShareDriverFormFragment extends CruFragment {
                 if (hasValidTextInput(locations)) {
                     form.answerQuestion(5, locations.getText().toString());
                 }
-                if (hasValidTextInput(numberofSeats)){
-                    form.answerQuestion(6, Integer.parseInt(numberofSeats.getText().toString()));
+                if (numberofSeats.getValue() > 0) {
+                    form.answerQuestion(6, numberofSeats.getValue());
                 }
                 if (form.isFinished()) {
                     Toast.makeText(parent, "Submitted Driver Form", Toast.LENGTH_SHORT).show();

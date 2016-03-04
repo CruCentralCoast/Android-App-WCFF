@@ -15,6 +15,7 @@
         android:id="@+id/list_cards"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:divider="@null"
         android:layout_gravity="top" />
 
 </android.support.v4.widget.SwipeRefreshLayout>

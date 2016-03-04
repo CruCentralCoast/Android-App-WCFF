@@ -34,6 +34,7 @@
                 android:id="@+id/list_cards"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:divider="@null"
                 android:layout_gravity="center_horizontal" />
         </android.support.v4.widget.SwipeRefreshLayout>
 

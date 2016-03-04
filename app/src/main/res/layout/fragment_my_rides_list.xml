@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/list_cards"
+        android:divider="@null"
         android:layout_gravity="center_horizontal" />
 
     <android.support.design.widget.FloatingActionButton

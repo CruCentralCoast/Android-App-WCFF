@@ -177,6 +177,23 @@ public class DBObjectLoader {
     }
 
     /**
+     * Loads ministry teams. Waits for them to finish loading.
+     *
+     * @param waitTime maximum wait time in milliseconds
+     */
+    public static boolean loadMinistryTeams(long waitTime) {
+        return loadDelayed(RetrieverSchema.MINISTRY_TEAM, Database.MINISTRY_TEAM, waitTime);
+    }
+
+    /**
+     * Loads ministry teams. Doesn't wait for them to finish loading.
+     */
+    public static void loadMinistryTeams() {
+        Log.i("DBObjectLoader", "Loading ministry teams");
+        new GetOjbectTask<Resource>(RetrieverSchema.MINISTRY_TEAM, Database.MINISTRY_TEAM).execute();
+    }
+
+    /**
      * Loads youtube videos. Doesn't wait for them to finish loading.
      */
     public static void loadVideos() {

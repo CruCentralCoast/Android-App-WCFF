@@ -164,20 +164,20 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:padding="10dp"
+                android:paddingTop="10dp"
                 android:text="@string/ridesharing_seats"
                 android:id="@+id/number_of_seats_prompt"
                 android:layout_below="@+id/direction_options" />
 
-            <EditText
+            <NumberPicker
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="120dp"
                 android:id="@+id/number_of_seats"
                 android:layout_below="@+id/number_of_seats_prompt"
-                android:textSize="15sp"
-                android:paddingBottom="10dp"/>
+                android:textSize="25sp"
+                android:paddingBottom="20dp" />
 
             <Button
                 android:layout_width="100dp"

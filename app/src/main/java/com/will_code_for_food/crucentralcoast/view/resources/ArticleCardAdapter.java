@@ -67,11 +67,11 @@ public class ArticleCardAdapter extends CardAdapter {
         ImageView typeView = (ImageView) hold.findViewById(R.id.resource_type);
         String type = current.getType();
         if (type.equals(Database.RESOURCE_ARTICLE)) {
-            typeView.setImageResource(R.drawable.ic_web_black_36dp);
+            typeView.setImageResource(R.drawable.ic_web_grey_36dp);
         } else if (type.equals(Database.RESOURCE_VIDEO)) {
-            typeView.setImageResource(R.drawable.ic_video);
+            typeView.setImageResource(R.drawable.ic_video_grey);
         } else if (type.equals(Database.RESOURCE_AUDIO)) {
-            typeView.setImageResource(R.drawable.ic_volume_up_black_36dp);
+            typeView.setImageResource(R.drawable.ic_volume_up_grey_36dp);
         }
 
         TextView titleView = (TextView) hold.findViewById(R.id.card_text);

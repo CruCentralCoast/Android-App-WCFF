@@ -6,10 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     tools:context=".view.getinvolved.GetInvolvedActivity">
-
     <ListView
         android:id="@+id/list_resources"
         android:layout_width="fill_parent"
         android:layout_height="400dp" />
-
 </LinearLayout>

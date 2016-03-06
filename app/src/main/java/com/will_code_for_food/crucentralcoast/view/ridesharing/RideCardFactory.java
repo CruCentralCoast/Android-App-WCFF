@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
+import com.will_code_for_food.crucentralcoast.view.common.CardAdapter;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
@@ -67,20 +68,13 @@ public class RideCardFactory implements CardFragmentFactory {
         };
     }
 
-    private class RideAdapter extends ArrayAdapter<Ride> {
-
+    private class RideAdapter extends CardAdapter {
         Ride current;
         Context context;
 
         public RideAdapter(Context context, int resource, Content content) {
             super(context, resource, content);
-            cards = content;
             this.context = context;
-        }
-
-        @Override
-        public int getViewTypeCount() {
-            return getCount();
         }
 
         @Override
@@ -92,8 +86,7 @@ public class RideCardFactory implements CardFragmentFactory {
         public View getView(int position, View convertView, ViewGroup parent){
 
             if (convertView == null) {
-                current = cards.get(position);
-                //LayoutInflater inflater = LayoutInflater.from(getContext());
+                current = (Ride) cards.get(position);
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View hold = inflater.inflate(R.layout.fragment_ride_card, parent, false);
 

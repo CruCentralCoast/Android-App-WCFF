@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
@@ -51,41 +52,41 @@ public class RideInfoFragment extends CruFragment {
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
-        ride = (Ride) RideShareActivity.getRide();
-        event = (Event) RideShareActivity.getEvent(ride);
+        ride = RideShareActivity.getRide();
+        event = RideShareActivity.getEvent(ride);
 
         title = (TextView) fragmentView.findViewById(R.id.ride_info_title);
         driver = (TextView) fragmentView.findViewById(R.id.ride_info_driver);
         main = (TextView) fragmentView.findViewById(R.id.ride_info_main);
         actionButton = (Button) fragmentView.findViewById(R.id.btn_ride_info);
 
-        title.setText("Event: " + event.getName());
+        title.setText(Util.getString(R.string.ridesharing_event) + event.getName());
 
-        String driverText = "Driver: " + ride.getDriverName();
+        String driverText = Util.getString(R.string.ridesharing_driver) + ride.getDriverName();
         if (ride.getGender() != null) {
             driverText += " (" + ride.getGender() + ")";
         }
         driver.setText(driverText);
 
         String mainText = "";
-        mainText += "Pickup Location: ";
+        mainText += Util.getString(R.string.ridesharing_pickup_location);
         if (ride.getLocation().getStreet() != null) {
-         mainText += ride.getLocation().getStreet();
+            mainText += ride.getLocation().getStreet() + "\n";
         } else {
-            mainText += "unknown";
+            mainText += Util.getString(R.string.ridesharing_unknown_location) + "\n";
         }
-        mainText += "\nDate: " + ride.getLeaveDate() + "\nTime: " + ride.getLeaveTime() + "\n";
-        mainText += "Seats Available: ";
+        mainText += Util.getString(R.string.ridesharing_time) +
+                String.format(Util.getString(R.string.ridesharing_leaving_date),
+                ride.getLeaveTime(), ride.getLeaveDate()) + "\n";
+        mainText += Util.getString(R.string.ridesharing_seats_available);
 
         if ((ride.getDirection() == RideDirection.ONE_WAY_TO_EVENT) || (ride.getDirection() == RideDirection.TWO_WAY)) {
-            mainText += ride.getNumAvailableSeatsToEvent() + " to event -- ";
+            mainText += ride.getNumAvailableSeatsToEvent() + Util.getString(R.string.ridesharing_to_event) + "\n";
         }
-
         if ((ride.getDirection() == RideDirection.ONE_WAY_FROM_EVENT) || (ride.getDirection() == RideDirection.TWO_WAY)) {
-            mainText += ride.getNumAvailableSeatsFromEvent() + " from event";
+            mainText += ride.getNumAvailableSeatsFromEvent() + Util.getString(R.string.ridesharing_from_event) + "\n";
         }
-
-        mainText += "\nDirection: " + ride.getDirection().toString() + "\n";
+        mainText += Util.getString(R.string.ridesharing_direction) + ride.getDirection().toString() + "\n";
 
         main.setText(mainText);
 

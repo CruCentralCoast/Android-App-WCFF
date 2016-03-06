@@ -74,7 +74,7 @@ public class RideInfoFragment extends CruFragment {
         } else {
             mainText += "unknown";
         }
-        mainText += "\nTime: " + ride.getTime() + "\n";
+        mainText += "\nDate: " + ride.getLeaveDate() + "\nTime: " + ride.getLeaveTime() + "\n";
         mainText += "Seats Available: ";
 
         if ((ride.getDirection() == RideDirection.ONE_WAY_TO_EVENT) || (ride.getDirection() == RideDirection.TWO_WAY)) {

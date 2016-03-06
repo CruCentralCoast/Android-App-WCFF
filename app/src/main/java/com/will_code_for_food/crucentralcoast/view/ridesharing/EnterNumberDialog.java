@@ -6,50 +6,53 @@ import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
-import com.will_code_for_food.crucentralcoast.model.ridesharing.RiderForm;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 /**
- * Created by MasonJStevenson on 2/16/2016.
+ * Created by Gavin on 2/16/2016.
  */
 //I will fix the warning for this class later -Mason
-public class EnterNameDialog extends DialogFragment {
+public class EnterNumberDialog extends DialogFragment {
 
-    MainActivity parent;
-    Ride ride;
-    String passengerName;
+    private MainActivity parent;
+    private String number;
+    private Ride ride;
+    private String directionPreference;
+    private String passengerName;
 
-    public EnterNameDialog(MainActivity parent, Ride ride) {
+    public EnterNumberDialog(MainActivity parent, String passengerName, Ride ride) {
         this.parent = parent;
+        this.number = passengerName;
         this.ride = ride;
+        this.passengerName = passengerName;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Set up the input
         final EditText input = new EditText(parent);
-        final RiderForm form = new RiderForm("");
-        // auto-fill name
-        if (form.getQuestion(0).isAnswered()) {
-            input.setText((String) form.getQuestion(0).getAnswer());
-        }
-
+        input.setText(Util.getPhoneNum());
+        // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(input)
-                .setTitle("Enter Your Name")
+                .setTitle("Enter Phone Number")
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //store the passenger's name
-                        passengerName = input.getText().toString();
-                        EnterNumberDialog popup = new EnterNumberDialog(parent, passengerName, ride);
-                        FragmentManager manager = getFragmentManager();
-                        popup.show(manager, "ride_info_select_number");
+                        number = input.getText().toString();
+
+                        //if the ride is two-way, the passenger can choose to only go one direction
+                        if (ride.getDirection() == RideDirection.TWO_WAY) {
+                            SelectDirectionDialog popup = new SelectDirectionDialog(parent, passengerName, number, ride);
+                            FragmentManager manager = getFragmentManager();
+                            popup.show(manager, "ride_info_select_direction");
+                        } else {
+                            new RegisterForRideTask(parent, passengerName, number, ride.getDirection().toString(), ride).execute();
+                        }
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {

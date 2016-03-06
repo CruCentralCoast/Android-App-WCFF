@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast.model.ridesharing;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
+import com.will_code_for_food.crucentralcoast.model.common.common.Location;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
@@ -14,7 +15,9 @@ import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The form that user's fill out when looking for a ride to an event.
@@ -29,6 +32,8 @@ public class RiderForm extends Form {
     protected final Question leaveTimeFromEvent;
     protected final Question location;
 
+    protected Ride createdRide;
+
     /**
      * Creates a form for riders to fill out to find a ride.
      * Must provide a list of possible locations to leave from
@@ -36,6 +41,7 @@ public class RiderForm extends Form {
      */
     public RiderForm(final String eventId) {
         super();
+        createdRide = null;
         this.eventId = eventId;
         nameQuestion = new Question(
                 Util.getString(R.string.ridesharing_username_question_name),
@@ -106,13 +112,28 @@ public class RiderForm extends Form {
         return new ArrayList<>();
     }
 
+    public Ride getCreatedRide() {
+        return createdRide;
+    }
+
     public boolean submit() {
         if (isFinished()) {
-            // TODO add rider to ride
-            LocalStorageIO.writeSingleLineFile(LocalFiles.USER_NAME,
-                    nameQuestion.getAnswer().toString());
+            saveUserInfo();
             return true;
         }
         return false;
+    }
+
+    public void saveUserInfo() {
+        if (isComplete() && isValid()) {
+            // TODO create user using user's actual info (from phone)
+            String driverName =  (String) nameQuestion.getAnswer();
+            String driverNumber = (String) numberQuestion.getAnswer();
+            // save user info
+            LocalStorageIO.writeSingleLineFile(LocalFiles.USER_NAME, (String) nameQuestion.getAnswer());
+            PhoneNumberAccessor.savePhoneNumberToFile(driverNumber);
+            LocalStorageIO.writeSingleLineFile(LocalFiles.USER_GENDER,
+                    Util.getString(((Gender) genderQuestion.getAnswer()).getNameId()));
+        }
     }
 }

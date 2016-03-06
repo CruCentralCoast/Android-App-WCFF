@@ -14,19 +14,21 @@ import com.will_code_for_food.crucentralcoast.view.ridesharing.EnterNameDialog;
  * Created by mallika on 1/14/16.
  */
 public class GetInvolvedActivity extends MainActivity {
+
+    private static String title = "Get Involved";
     private static MinistryTeam team = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFragmentById(R.layout.fragment_get_involved, "Get Involved", null, this);
+        loadFragmentById(R.layout.fragment_get_involved, title, new GetInvolvedFragment(), this);
     }
 
-    public void viewMinistryTeams(View view){
-        loadFragmentById(R.layout.fragment_card_list, "Get Involved", new MinistryTeamFragment(), this);
+    public void viewMinistryTeams(){
+        loadFragmentById(R.layout.fragment_card_list, title, new MinistryTeamFragment(), this);
     }
 
-    public void viewJoinCommunityGroup(View view){
+    public void viewJoinCommunityGroup(){
 
     }
 

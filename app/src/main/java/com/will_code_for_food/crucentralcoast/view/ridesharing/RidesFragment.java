@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryR
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.values.Database;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
@@ -30,6 +32,7 @@ import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
 import com.will_code_for_food.crucentralcoast.values.UI;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
+import com.will_code_for_food.crucentralcoast.view.events.EventsFragment;
 
 /**
  * Created by Kayla on 2/1/2016.
@@ -43,6 +46,20 @@ public class RidesFragment extends CruFragment {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
         loadRidesList();
         layout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.ridelist_swipe);
+
+        //Set up action button to add a ride
+
+        final Event selectedEvent = EventsActivity.getEvent();
+        FloatingActionButton fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity activity = (MainActivity) getActivity();
+                activity.loadFragmentById(R.layout.fragment_ridesharing_select_action,
+                        selectedEvent.getName() + " > " + RideShareSelectActionFragment.TITLE,
+                        new RideShareSelectActionFragment(), activity);
+            }
+        });
         return fragmentView;
     }
 

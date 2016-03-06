@@ -53,18 +53,21 @@ public class ArticleCardAdapter extends CardAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Resource current = (Resource) cards.get(position);
-        LayoutInflater inflater = LayoutInflater.from(getContext());
         String imageLabel = current.getImage();
-        View hold = inflater.inflate(R.layout.fragment_resources_card, parent, false);
 
-        ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
+        if (convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.fragment_resources_card, parent, false);
+        }
+
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.card_image);
         if (imageLabel != null && !imageLabel.equals("")) {
             Picasso.with(ResourcesActivity.context).load(imageLabel).fit().into(imageView);
         } else {
             imageView.setImageResource(R.drawable.crulogo);
         }
 
-        ImageView typeView = (ImageView) hold.findViewById(R.id.resource_type);
+        ImageView typeView = (ImageView) convertView.findViewById(R.id.resource_type);
         String type = current.getType();
         if (type.equals(Database.RESOURCE_ARTICLE)) {
             typeView.setImageResource(R.drawable.ic_web_grey_36dp);
@@ -74,9 +77,9 @@ public class ArticleCardAdapter extends CardAdapter {
             typeView.setImageResource(R.drawable.ic_volume_up_grey_36dp);
         }
 
-        TextView titleView = (TextView) hold.findViewById(R.id.card_text);
+        TextView titleView = (TextView) convertView.findViewById(R.id.card_text);
         titleView.setText(current.getTitle());
 
-        return hold;
+        return convertView;
     }
 }

@@ -195,34 +195,34 @@ public class SetupMinistryActivity extends Activity {
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.fragment_ministry_setup_card, null);
+            }
 
-                ministryName = (TextView) convertView.findViewById(R.id.ministry_card_text);
-                cardImage = (ImageView) convertView.findViewById(R.id.ministry_card_image);
-                background = (RelativeLayout) convertView.findViewById(R.id.ministry_setup_card_background);
-                final TextView learnMore = (TextView) convertView.findViewById(R.id.ministry_learn_more);
-                final TextView over = (TextView) convertView.findViewById(R.id.ministry_setup_card_over);
-                over.setVisibility(View.INVISIBLE);
+            ministryName = (TextView) convertView.findViewById(R.id.ministry_card_text);
+            cardImage = (ImageView) convertView.findViewById(R.id.ministry_card_image);
+            background = (RelativeLayout) convertView.findViewById(R.id.ministry_setup_card_background);
+            final TextView learnMore = (TextView) convertView.findViewById(R.id.ministry_learn_more);
+            final TextView over = (TextView) convertView.findViewById(R.id.ministry_setup_card_over);
+            over.setVisibility(View.INVISIBLE);
 
-                ministryName.setOnClickListener(getMinistryListener(ministry, over));
-                cardImage.setOnClickListener(getMinistryListener(ministry, over));
-                learnMore.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectedMinistry = ministry;
-                        Intent intent = new Intent(context, MinistryInfoActivity.class);
-                        startActivity(intent);
-                    }
-                });
-
-                ministryName.setText(ministry.getName());
-
-                //load image
-                imageLabel = ministry.getImage();
-                if (imageLabel != null && !imageLabel.equals("")) {
-                    Picasso.with(this.getContext()).load(imageLabel).fit().centerInside().into(cardImage);
-                } else {
-                    cardImage.setImageResource(R.drawable.cru_logo_default);
+            ministryName.setOnClickListener(getMinistryListener(ministry, over));
+            cardImage.setOnClickListener(getMinistryListener(ministry, over));
+            learnMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedMinistry = ministry;
+                    Intent intent = new Intent(context, MinistryInfoActivity.class);
+                    startActivity(intent);
                 }
+            });
+
+            ministryName.setText(ministry.getName());
+
+            //load image
+            imageLabel = ministry.getImage();
+            if (imageLabel != null && !imageLabel.equals("")) {
+                Picasso.with(this.getContext()).load(imageLabel).fit().centerInside().into(cardImage);
+            } else {
+                cardImage.setImageResource(R.drawable.cru_logo_default);
             }
 
             return convertView;

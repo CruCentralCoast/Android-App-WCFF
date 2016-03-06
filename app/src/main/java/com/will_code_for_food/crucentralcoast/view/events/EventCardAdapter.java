@@ -30,25 +30,29 @@ public class EventCardAdapter extends ArrayAdapter<Event> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Event current = cards.get(position);
-        LayoutInflater inflater = LayoutInflater.from(getContext());
         String imageLabel = current.getImage();
-        View hold = inflater.inflate(R.layout.fragment_event_card, parent, false);
-        ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
+
+        if (convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.fragment_event_card, parent, false);
+        }
+
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.card_image);
         if (imageLabel != null && !imageLabel.equals("")) {
             Picasso.with(EventsActivity.context).load(imageLabel).fit().into(imageView);
         } else {
             System.out.println("Image is this: " + imageLabel);
             imageView.setImageResource(R.drawable.crulogo);
         }
-        TextView titleView = (TextView) hold.findViewById(R.id.card_text);
+        TextView titleView = (TextView) convertView.findViewById(R.id.card_text);
         titleView.setText(current.getName());
-        TextView dateView = (TextView) hold.findViewById(R.id.card_date);
+        TextView dateView = (TextView) convertView.findViewById(R.id.card_date);
         dateView.setText(current.getEventDate());
-        ImageView carView = (ImageView) hold.findViewById(R.id.card_car_image);
+        ImageView carView = (ImageView) convertView.findViewById(R.id.card_car_image);
 
         if (!current.hasRideSharing()) {
             carView.setVisibility(View.INVISIBLE);
         }
-        return hold;
+        return convertView;
     }
 }

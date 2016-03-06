@@ -96,31 +96,34 @@ public class MyRideCardFactory implements CardFragmentFactory {
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
             Ride current = cards.get(position);
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            View hold = inflater.inflate(R.layout.fragment_ride_card, parent, false);
 
-            TextView driverName = (TextView) hold.findViewById(R.id.card_driver_name);
+            if (convertView == null) {
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                convertView = inflater.inflate(R.layout.fragment_ride_card, parent, false);
+            }
+
+            TextView driverName = (TextView) convertView.findViewById(R.id.card_driver_name);
             driverName.setText(current.getDriverName());
 
-            TextView leaveDate = (TextView) hold.findViewById(R.id.card_ride_leave_date);
+            TextView leaveDate = (TextView) convertView.findViewById(R.id.card_ride_leave_date);
             String text = String.format(Util.getString(R.string.ridesharing_leaving_date),
                     current.getLeaveTime(), current.getLeaveDate());
             leaveDate.setText(text);
 
-            TextView leaveLocation = (TextView) hold.findViewById(R.id.card_ride_leave_location);
+            TextView leaveLocation = (TextView) convertView.findViewById(R.id.card_ride_leave_location);
             text = String.format(Util.getString(R.string.ridesharing_leaving_location),
                     "the PAC circle"); // use dummy value for now
             leaveLocation.setText(text);
 
             //TODO: Make this not use the same card
-            TextView seatsLeft = (TextView) hold.findViewById(R.id.card_ride_seats_left);
+            TextView seatsLeft = (TextView) convertView.findViewById(R.id.card_ride_seats_left);
             List<Event> events = new SingleRetriever<Event>(RetrieverSchema.EVENT).getAll();
             for (Event e : events)
                 if (e.getId().equals(current.getEventId()))
                     text = e.getName();
             seatsLeft.setText(text);
 
-            return hold;
+            return convertView;
         }
     }
 }

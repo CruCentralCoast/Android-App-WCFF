@@ -35,7 +35,7 @@ public class MyApplication extends MultiDexApplication {
 
         //Unfortunately, LeakCanary does not work properly with the emulator.
         //If you want to check for leaks, uncomment the following line and test on a physical device.
-        LeakCanary.install(this);
+        //LeakCanary.install(this);
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                         .setDefaultFontPath("FreigSanProLig.otf")

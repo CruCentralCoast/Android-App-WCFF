@@ -64,20 +64,23 @@ public class VideoCardAdapter extends CardAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Video current = (Video) cards.get(position);
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View hold = inflater.inflate(R.layout.fragment_resources_youtube_card, parent, false);
+
+        if (convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.fragment_resources_youtube_card, parent, false);
+        }
 
         // Load card elements with video information
-        ImageView thumbnail = (ImageView) hold.findViewById(R.id.card_image);
+        ImageView thumbnail = (ImageView) convertView.findViewById(R.id.card_image);
         Picasso.with(ResourcesActivity.context).load(current.getThumbnailUrl()).fit().into(thumbnail);
 
-        TextView name = (TextView) hold.findViewById(R.id.card_video_name);
+        TextView name = (TextView) convertView.findViewById(R.id.card_video_name);
         name.setText(current.getTitle());
 
-        TextView date = (TextView) hold.findViewById(R.id.card_video_date);
+        TextView date = (TextView) convertView.findViewById(R.id.card_video_date);
         date.setText(current.getAgeString());
 
-        return hold;
+        return convertView;
     }
 
     private class SearchVideos extends AsyncTask<String, Void, List<Playlist>> {

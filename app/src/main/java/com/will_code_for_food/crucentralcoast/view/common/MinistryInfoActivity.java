@@ -23,14 +23,11 @@ public class MinistryInfoActivity extends Activity {
     private TextView campusesView;
     private Ministry ministry;
 
-    public static Context context;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ministry_info);
 
-        context = this;
         ministry = SetupMinistryActivity.selectedMinistry;
         description = (TextView) findViewById(R.id.ministry_info_description);
         campusesView = (TextView) findViewById(R.id.ministry_info_campuses);

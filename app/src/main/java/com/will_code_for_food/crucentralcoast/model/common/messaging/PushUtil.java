@@ -14,6 +14,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class PushUtil {
                 List<Ministry> ministries = retriever.getAll().getObjects();
 
                 try {
-                    GcmPubSub subber = GcmPubSub.getInstance(MainActivity.context);
+                    GcmPubSub subber = GcmPubSub.getInstance(MyApplication.getContext());
 
                     //Unsubscribe from all ministries
                     for (Ministry ministry : ministries)

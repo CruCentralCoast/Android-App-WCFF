@@ -49,7 +49,6 @@ public class SetupMinistryActivity extends Activity {
     private LinearLayout screen;
     private TextView title;
 
-    public static Context context;
     public static Ministry selectedMinistry;
 
     public SetupMinistryActivity() {
@@ -60,8 +59,6 @@ public class SetupMinistryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_ministry);
-
-        context = this;
 
         initComponents();
         translateTitle();

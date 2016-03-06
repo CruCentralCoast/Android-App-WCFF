@@ -18,6 +18,7 @@ import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
+import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 
 /**
  * Created by Brian on 2/19/2016.

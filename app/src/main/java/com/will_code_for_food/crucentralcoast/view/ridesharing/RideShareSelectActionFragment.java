@@ -68,7 +68,7 @@ public class RideShareSelectActionFragment extends CruFragment {
             @Override
             public void onClick(View v) {
                 //getParent().loadFragmentById(R.layout.fragment_rideslist, "Rides", new RidesFragment(), getParent());
-                getParent().loadFragmentById(R.layout.fragment_ridesharing_rider_form, "Rider Form", new RideShareDriverFormFragment(), getParent());
+                getParent().loadFragmentById(R.layout.fragment_ridesharing_rider_form, "Rider Form", new RideShareRiderFormFragment(), getParent());
 
             }
         });

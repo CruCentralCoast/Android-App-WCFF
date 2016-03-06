@@ -65,10 +65,7 @@ public class DriverForm extends RiderForm {
             dir.setLeaveTimeFromEvent((GregorianCalendar) leaveTimeFromEvent.getAnswer());
             dir.setLeaveTimeToEvent((GregorianCalendar) leaveTimeToEvent.getAnswer());
             // save user info
-            LocalStorageIO.writeSingleLineFile(LocalFiles.USER_NAME, (String) nameQuestion.getAnswer());
-            PhoneNumberAccessor.savePhoneNumberToFile(driverNumber);
-            LocalStorageIO.writeSingleLineFile(LocalFiles.USER_GENDER,
-                    Util.getString(((Gender) genderQuestion.getAnswer()).getNameId()));
+            saveUserInfo();
 
             //TODO Fill in with real data
             // save to database

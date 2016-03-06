@@ -46,7 +46,7 @@ public class MinistryTeamFragment extends CruFragment {
     }
 
     private void loadMinistryTeamList() {
-        SingleMemoryRetriever retriever = new SingleMemoryRetriever(Database.REST_SUMMER_MISSION);
+        SingleMemoryRetriever retriever = new SingleMemoryRetriever(Database.MINISTRY_TEAM);
         populateList(retriever);
     }
 
@@ -54,7 +54,7 @@ public class MinistryTeamFragment extends CruFragment {
 
         Log.i("MinistryTeamFragment", "refreshing ministry team list");
 
-        if (!DBObjectLoader.loadMinistries(Database.DB_TIMEOUT)) {
+        if (!DBObjectLoader.loadMinistryTeams(Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT);
         }
 
@@ -63,7 +63,7 @@ public class MinistryTeamFragment extends CruFragment {
 
     private void populateList(Retriever retriever) {
         CardFragmentFactory factory = new MinistryTeamCardFactory();
-        new RetrievalTask<SummerMission>(retriever, factory,
+        new RetrievalTask<MinistryTeam>(retriever, factory,
                 R.string.toast_no_ministry_teams, new AsyncResponse(getParent()) {
             @Override
             protected void otherProcessing() {

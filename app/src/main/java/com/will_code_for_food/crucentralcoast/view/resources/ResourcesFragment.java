@@ -1,8 +1,10 @@
 package com.will_code_for_food.crucentralcoast.view.resources;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.will_code_for_food.crucentralcoast.R;
@@ -20,6 +23,8 @@ import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
  * Created by Kayla on 2/22/2016.
  */
 public class ResourcesFragment extends CruFragment {
+
+    public static final int ICON_HEIGHT = 80;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,12 +86,18 @@ public class ResourcesFragment extends CruFragment {
             String current = items[position];
 
             ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
+
+            //Get height from dp to px
+            int height = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, ICON_HEIGHT, getResources().getDisplayMetrics());
+            imageView.setLayoutParams(
+                    new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
             if (position == 0) {
-                imageView.setImageResource(R.drawable.ic_video);
+                imageView.setImageResource(R.drawable.ic_video_grey);
             } else if (position == 1) {
-                imageView.setImageResource(R.drawable.ic_folder_black_48dp);
+                imageView.setImageResource(R.drawable.ic_folder_grey_48dp);
             } else {
-                imageView.setImageResource(R.drawable.ic_folder_special_black_48dp);
+                imageView.setImageResource(R.drawable.ic_folder_special_grey_48dp);
             }
 
             TextView textView = (TextView) hold.findViewById(R.id.card_text);

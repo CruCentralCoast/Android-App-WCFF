@@ -19,10 +19,12 @@ public class SelectDirectionDialog extends DialogFragment {
     private String passengerName;
     private Ride ride;
     private String directionPreference;
+    private String number;
 
-    public SelectDirectionDialog(MainActivity parent, String passengerName, Ride ride) {
+    public SelectDirectionDialog(MainActivity parent, String passengerName, String number, Ride ride) {
         this.parent = parent;
         this.passengerName = passengerName;
+        this.number = number;
         this.ride = ride;
     }
 
@@ -41,7 +43,7 @@ public class SelectDirectionDialog extends DialogFragment {
                 })
                 .setPositiveButton("join", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        new RegisterForRideTask(parent, passengerName, directionPreference, ride).execute();
+                        new RegisterForRideTask(parent, passengerName, number, directionPreference, ride).execute();
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {

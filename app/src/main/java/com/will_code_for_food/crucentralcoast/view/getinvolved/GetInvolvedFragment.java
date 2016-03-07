@@ -1,10 +1,8 @@
-package com.will_code_for_food.crucentralcoast.view.resources;
+package com.will_code_for_food.crucentralcoast.view.getinvolved;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.will_code_for_food.crucentralcoast.R;
@@ -20,28 +17,26 @@ import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 /**
- * Created by Kayla on 2/22/2016.
+ * Created by Kayla on 3/5/2016.
  */
-public class ResourcesFragment extends CruFragment {
-
-    public static final int ICON_HEIGHT = 80;
+public class GetInvolvedFragment extends CruFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View hold = super.onCreateView(inflater, container, savedInstanceState);
-        new ResourceTask().execute();
+        new SetupTask().execute();
         return hold;
     }
 
-    private class ResourceTask extends AsyncTask<Void, Void, Void> {
+    private class SetupTask extends AsyncTask<Void, Void, Void> {
         private MainActivity currentActivity;
         private ListView list;
-        private String[] items = {"Videos", "Resources", "Leader Resources"};
+        private String[] items = {"Ministry Teams", "Community Groups"};
 
-        public ResourceTask() {
+        public SetupTask() {
             super();
-            currentActivity = (MainActivity) ResourcesActivity.context;
+            currentActivity = (MainActivity) GetInvolvedActivity.context;
         }
 
         @Override
@@ -53,28 +48,26 @@ public class ResourcesFragment extends CruFragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             list = (ListView) currentActivity.findViewById(R.id.list_resources);
-            list.setAdapter(new ResourceAdapter(ResourcesActivity.context,
+            list.setAdapter(new Adapter(GetInvolvedActivity.context,
                     android.R.layout.simple_list_item_1, items));
             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> p, View view, int position, long id) {
-                    ResourcesActivity activity = (ResourcesActivity)getActivity();
+                    GetInvolvedActivity activity = (GetInvolvedActivity)getActivity();
                     if (position == 0) {
-                        activity.viewVideos();
+                        activity.viewMinistryTeams();
                     } else if (position == 1) {
-                        activity.viewArticles();
-                    } else {
-                        activity.viewLeaderResources();
+                        activity.viewJoinCommunityGroup();
                     }
                 }
             });
         }
     }
 
-    private class ResourceAdapter extends ArrayAdapter {
+    private class Adapter extends ArrayAdapter {
         String[] items;
 
-        public ResourceAdapter(Context context, int resource, Object[] objects) {
+        public Adapter(Context context, int resource, Object[] objects) {
             super(context, resource, objects);
             items = (String[]) objects;
         }
@@ -86,18 +79,10 @@ public class ResourcesFragment extends CruFragment {
             String current = items[position];
 
             ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
-
-            //Get height from dp to px
-            int height = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP, ICON_HEIGHT, getResources().getDisplayMetrics());
-            imageView.setLayoutParams(
-                    new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
             if (position == 0) {
-                imageView.setImageResource(R.drawable.ic_video_grey);
+                imageView.setImageResource(R.drawable.ic_group_black_36dp);
             } else if (position == 1) {
-                imageView.setImageResource(R.drawable.ic_folder_grey_48dp);
-            } else {
-                imageView.setImageResource(R.drawable.ic_folder_special_grey_48dp);
+                imageView.setImageResource(R.drawable.ic_group_add_black_36dp);
             }
 
             TextView textView = (TextView) hold.findViewById(R.id.card_text);

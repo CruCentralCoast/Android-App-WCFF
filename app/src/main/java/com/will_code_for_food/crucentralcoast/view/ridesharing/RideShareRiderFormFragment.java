@@ -92,14 +92,14 @@ public class RideShareRiderFormFragment extends CruFragment{
             Gender userGender = (Gender) form.getQuestion(2).getAnswer();
             switch (userGender) {
                 case MALE:
-                    male.setSelected(true);
+                    male.setChecked(true);
                     break;
                 case FEMALE:
-                    female.setSelected(true);
+                    female.setChecked(true);
                     break;
                 default:
                     // default is male (could be decline to state or something)
-                    male.setSelected(true);
+                    male.setChecked(true);
             }
         }
 
@@ -163,7 +163,7 @@ public class RideShareRiderFormFragment extends CruFragment{
                     form.answerQuestion(5, locations.getText().toString());
                 }
                 if (form.isFinished()) {
-                    Toast.makeText(parent, "Submitted Driver Form", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(parent, "Submitted Rider Form", Toast.LENGTH_SHORT).show();
                     form.submit();
                 } else {
                     // error
@@ -171,7 +171,7 @@ public class RideShareRiderFormFragment extends CruFragment{
                     form.print();
                     List<FormValidationResult> results = form.isFinishedDetailed();
                     // TODO these are all the errors returned by the form validation
-                    // TODO I don't know how best to translate the form's results to show in the UI (change it however you want or let me know and I will)
+                    // TODO we should do this in the same way as dynamic forms
                     for(FormValidationResult result : results) {
                         Log.e("Form Error:", result.getMessage(parent));
                     }

@@ -50,6 +50,15 @@
     <string name="ridesharing_seats_left" formatted="false">%d seats left</string>
     <string name="ridesharing_seat_left" formatted="false">%d seat left</string>
     <string name="ridesharing_header" formatted="false">Ride Sharing Events</string>
+    <string name="ridesharing_event">Event: &#160;</string>
+    <string name="ridesharing_driver">Driver: &#160;</string>
+    <string name="ridesharing_pickup_location">Pickup Location: &#160;</string>
+    <string name="ridesharing_unknown_location">unknown</string>
+    <string name="ridesharing_time">Time: &#160;</string>
+    <string name="ridesharing_seats_available">Seats Available: &#160;</string>
+    <string name="ridesharing_to_event">&#160; to event — &#160;</string>
+    <string name="ridesharing_from_event">&#160; from event &#160;</string>
+    <string name="ridesharing_direction">Direction: &#160;</string>
 
     <!-- Get Involved -->
     <string name="ministry_team_signup_message">%1$s has signed up for %2$s. Their email is %3$s,

@@ -2,28 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:drawable/dialog_holo_light_frame">
+    android:background="@android:drawable/dialog_holo_light_frame"
+    >
 
     <ImageView
         android:id="@+id/card_image"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:src="@drawable/cru_logo_default"/>
+        android:src="@drawable/cru_bracket_no_line" />
 
     <ImageView
         android:id="@+id/resource_type"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:paddingLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
         android:paddingTop="10dp" />
 
     <TextView
         android:id="@+id/card_text"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/card_image"
+        android:layout_centerInParent="true"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
-        android:textSize="15sp" />
+        android:textSize="25sp"
+        android:textAlignment="center"/>
 
 </RelativeLayout>

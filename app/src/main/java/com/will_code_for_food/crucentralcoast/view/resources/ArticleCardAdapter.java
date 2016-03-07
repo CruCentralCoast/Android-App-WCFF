@@ -54,18 +54,15 @@ public class ArticleCardAdapter extends CardAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Resource current = (Resource) cards.get(position);
         String imageLabel = current.getImage();
-
+        
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.fragment_resources_card, parent, false);
         }
-
+        
         ImageView imageView = (ImageView) convertView.findViewById(R.id.card_image);
-        if (imageLabel != null && !imageLabel.equals("")) {
-            Picasso.with(ResourcesActivity.context).load(imageLabel).fit().into(imageView);
-        } else {
-            imageView.setImageResource(R.drawable.crulogo);
-        }
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageView.setImageResource(R.drawable.cru_bracket_no_line);
 
         ImageView typeView = (ImageView) convertView.findViewById(R.id.resource_type);
         String type = current.getType();

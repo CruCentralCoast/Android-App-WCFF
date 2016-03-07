@@ -19,7 +19,6 @@ import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
  * Created by MasonJStevenson on 2/1/2016.
  */
 public class RideShareSelectActionFragment extends CruFragment {
-    private Button btnRideList;
     private Button btnNeedRide;
     private Button btnCanDrive;
     private ImageView imageView;
@@ -36,7 +35,6 @@ public class RideShareSelectActionFragment extends CruFragment {
 
         btnNeedRide = (Button) fragmentView.findViewById(R.id.btn_need_a_ride);
         btnCanDrive = (Button) fragmentView.findViewById(R.id.btn_i_can_drive);
-        btnRideList = (Button) fragmentView.findViewById(R.id.btn_ride_list);
         imageView = (ImageView) fragmentView.findViewById(R.id.rideshare_select_action_image);
         event = EventsActivity.getEvent();
         dateText = (TextView) fragmentView.findViewById(R.id.ridesharing_select_action_date);
@@ -56,19 +54,11 @@ public class RideShareSelectActionFragment extends CruFragment {
     }
 
     private void initButtons() {
-        btnRideList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getParent().loadFragmentById(R.layout.fragment_ride_list, "Rides", new RidesFragment(), getParent());
-
-            }
-        });
-
         btnNeedRide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //getParent().loadFragmentById(R.layout.fragment_rideslist, "Rides", new RidesFragment(), getParent());
-                getParent().loadFragmentById(R.layout.fragment_ridesharing_rider_form, "Rider Form", new RideShareDriverFormFragment(), getParent());
+                getParent().loadFragmentById(R.layout.fragment_ridesharing_rider_form, "Rider Form", new RideShareRiderFormFragment(), getParent());
 
             }
         });

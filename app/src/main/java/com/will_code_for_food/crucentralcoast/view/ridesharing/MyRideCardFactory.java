@@ -22,6 +22,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.values.LocalFiles;
+import com.will_code_for_food.crucentralcoast.view.common.CardAdapter;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
@@ -86,22 +87,22 @@ public class MyRideCardFactory implements CardFragmentFactory {
         }
     }
 
-    private class RideAdapter extends ArrayAdapter<Ride> {
+    private class RideAdapter extends CardAdapter {
 
         public RideAdapter(Context context, int resource, Content content) {
-            super(context, resource, content.getObjects());
-            cards = content.getObjects();
+            super(context, resource, content);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
-            Ride current = cards.get(position);
-
+            Ride current = (Ride) cards.get(position);
+            
+            
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.fragment_ride_card, parent, false);
             }
-
+            
             TextView driverName = (TextView) convertView.findViewById(R.id.card_driver_name);
             driverName.setText(current.getDriverName());
 
@@ -111,17 +112,19 @@ public class MyRideCardFactory implements CardFragmentFactory {
             leaveDate.setText(text);
 
             TextView leaveLocation = (TextView) convertView.findViewById(R.id.card_ride_leave_location);
-            text = String.format(Util.getString(R.string.ridesharing_leaving_location),
-                    "the PAC circle"); // use dummy value for now
+            String location = current.getLocation().getStreet();
+            if (location == null) {
+                location = Util.getString(R.string.ridesharing_unknown_location);
+            }
+            text = String.format(Util.getString(R.string.ridesharing_leaving_location), location);
             leaveLocation.setText(text);
 
-            //TODO: Make this not use the same card
-            TextView seatsLeft = (TextView) convertView.findViewById(R.id.card_ride_seats_left);
+            TextView event = (TextView) convertView.findViewById(R.id.card_ride_seats_left);
             List<Event> events = new SingleRetriever<Event>(RetrieverSchema.EVENT).getAll();
             for (Event e : events)
                 if (e.getId().equals(current.getEventId()))
                     text = e.getName();
-            seatsLeft.setText(text);
+            event.setText(text);
 
             return convertView;
         }

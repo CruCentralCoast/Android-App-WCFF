@@ -117,12 +117,9 @@ public class FeedCardAdapter extends CardAdapter {
     private void populateArticleView(Resource current, View hold) {
         String imageLabel = current.getImage();
         ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
-        if (imageLabel != null && !imageLabel.equals("")) {
-            Picasso.with(getContext()).load(imageLabel).fit().into(imageView);
-        } else {
-            System.out.println("Image is this: " + imageLabel);
-            imageView.setImageResource(R.drawable.crulogo);
-        }
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        System.out.println("Image is this: " + imageLabel);
+        imageView.setImageResource(R.drawable.cru_bracket_no_line);
 
         ImageView typeView = (ImageView) hold.findViewById(R.id.resource_type);
         String type = current.getType();

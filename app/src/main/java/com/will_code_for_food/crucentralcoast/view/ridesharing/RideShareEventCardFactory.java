@@ -45,9 +45,8 @@ public class RideShareEventCardFactory extends EventCardFactory {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Event selectedEvent = (Event) myDBObjects.getObjects().get(position);
                 EventsActivity.setEvent(selectedEvent);
-                currentActivity.loadFragmentById(R.layout.fragment_ridesharing_select_action,
-                        selectedEvent.getName() + " > " + RideShareSelectActionFragment.TITLE,
-                        new RideShareSelectActionFragment(), currentActivity);
+                currentActivity.loadFragmentById(R.layout.fragment_ride_list, "Rides", new RidesFragment(), currentActivity);
+
             }
         };
     }

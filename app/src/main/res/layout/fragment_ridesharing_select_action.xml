@@ -26,17 +26,6 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:text="@string/button_ride_list"
-        android:textColor="@color/colorPrimary_cruGray"
-        android:textSize="15sp"
-        android:id="@+id/btn_ride_list"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:background="@color/colorPrimary_cruGold"/>
-
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="60dp"
         android:text="@string/button_need_ride"
         android:textColor="@color/colorPrimary_cruGray"
         android:textSize="15sp"

@@ -23,6 +23,7 @@ import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RiderForm;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
 import java.util.Calendar;
@@ -43,7 +44,7 @@ public class RideShareRiderFormFragment extends CruFragment{
     RadioButton oneWayFrom;
     RadioButton twoWay;
     Event selectedEvent;
-    RideShareActivity parent;
+    MainActivity parent;
     Button submitButton;
     Button cancelButton;
     RideDirection direction = null;
@@ -57,7 +58,7 @@ public class RideShareRiderFormFragment extends CruFragment{
                              Bundle savedInstanceState) {
         final View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
-        parent = (RideShareActivity) getParent();
+        parent = getParent();
         selectedEvent = EventsActivity.getEvent();
         name = (EditText) fragmentView.findViewById(R.id.name_prompt_input);
         number = (EditText) fragmentView.findViewById(R.id.number_prompt_input);

@@ -18,6 +18,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created by Brian on 11/27/2015.
+ *
+ * If you are getting any errors in this file, try refreshing your gradle: click on the Gradle tab
+ * on the right-hand side of Android Studio, and then select "Refresh all Gradle projects"
  */
 public class MyApplication extends MultiDexApplication {
 

@@ -13,31 +13,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.MultiMemoryRetriever;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.MultiRetriever;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.VideoRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
-import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
-import com.will_code_for_food.crucentralcoast.values.Youtube;
-import com.will_code_for_food.crucentralcoast.view.events.EventCardFactory;
-import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity;
-import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareEventCardFactory;
 
 import java.util.ArrayList;
 
@@ -49,6 +37,7 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
     MenuItem sortItem;
     ListView listView;
     EditText search;
+    private int index, top;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,8 +46,8 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
 
         layout = (SwipeRefreshLayout) hold.findViewById(R.id.card_refresh_layout);
         listView = (ListView) hold.findViewById(R.id.list_cards);
-
         loadList();
+
         return hold;
     }
 
@@ -71,6 +60,14 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
                 refreshList();
             }
         });
+    }
+
+    @Override
+    public void onPause(){
+        index = listView.getFirstVisiblePosition();
+        View v = listView.getChildAt(0);
+        top = (v == null) ? 0 : v.getTop();
+        super.onPause();
     }
 
     @Override
@@ -107,7 +104,6 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (event == null || event.getAction() == KeyEvent.KEYCODE_ENTER) {
             ((FeedCardAdapter) listView.getAdapter()).search(v.getText().toString());
-
             InputMethodManager imm = (InputMethodManager) getParent().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(listView.getWindowToken(), 0);
         }
@@ -153,7 +149,7 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
                     public void otherProcessing() {
                         layout.setRefreshing(false);
                     }
-                }).execute();
+                }).execute(index, top);
     }
 
     private void refreshList() {
@@ -172,23 +168,5 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
         }
 
         loadList();
-
-        /*
-        ArrayList<Retriever> retrieverList = new ArrayList<Retriever>();
-        retrieverList.add(new SingleRetriever(RetrieverSchema.EVENT));
-        retrieverList.add(new SingleRetriever(RetrieverSchema.RESOURCE));
-        retrieverList.add(new VideoRetriever());
-
-        MultiRetriever retriever = new MultiRetriever(retrieverList);
-        CardFragmentFactory factory = new FeedCardFactory();
-
-        new RetrievalTask<Event>(retriever, factory, R.string.toast_no_events,
-                new AsyncResponse(getParent()) {
-                    @Override
-                    public void otherProcessing() {
-                        layout.setRefreshing(false);
-                    }
-                }).execute();
-        */
     }
 }

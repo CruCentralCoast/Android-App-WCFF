@@ -22,15 +22,15 @@ import java.util.List;
  * in a list is handled by a CardFactory class.
  * Created by Brian on 1/24/2016.
  */
-public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Void, Void>{
-    private List<T> dbObjects;         // list of all events in database
-    private MainActivity currentActivity;           // reference to the activity running this task
-    private Content<T> myDBObjects;       // list of relevant ministry objects only
-    private Retriever retriever;                    //Database retriever
-    private CardFragmentFactory cardFactory;        //Factory to create a card fragment from a json object
+public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Integer, Void, Void> {
+    private List<T> dbObjects;                // list of all events in database
+    private MainActivity currentActivity;     // reference to the activity running this task
+    private Content<T> myDBObjects;           // list of relevant ministry objects only
+    private Retriever retriever;              // Database retriever
+    private CardFragmentFactory cardFactory;  // Factory to create a card fragment from a json object
     private int errorMessageId;
-    private int listId;
     private AsyncResponse response;
+    private int index, top;
 
     public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory,
                          int errorMessageId, AsyncResponse response) {
@@ -48,11 +48,13 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
     }
 
     @Override
-    protected Void doInBackground(Void... params) {
+    protected Void doInBackground(Integer... params) {
         Content dbContent = retriever.getAll();
+        index = params.length == 2 ? params[0] : 0;
+        top = params.length == 2 ? params[1] : 0;
+
         if (dbContent != null) {
             ArrayList<T> filteredObjects = new ArrayList<T>();
-
             dbObjects = dbContent.getObjects();
 
             for (T object : dbObjects) {
@@ -60,7 +62,6 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
                     filteredObjects.add(object);
                 }
             }
-
             myDBObjects = new Content<>(filteredObjects, dbContent.getType());
         } else {
             Log.e("Retrieval", "Unable to retrieve any data");
@@ -79,6 +80,7 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Void, Vo
             if (list != null) {
                 list.setAdapter(cardFactory.createAdapter(myDBObjects));
                 list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, myDBObjects));
+                list.setSelectionFromTop(index, top);
             }
         } else {
             String errorMessage = Util.getString(errorMessageId);

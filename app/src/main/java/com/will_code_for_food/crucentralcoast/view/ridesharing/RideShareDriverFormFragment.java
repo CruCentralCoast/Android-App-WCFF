@@ -144,7 +144,6 @@ public class RideShareDriverFormFragment extends CruFragment {
             public void onClick(View v) {
                 Toast.makeText(parent, "ride canceled", Toast.LENGTH_SHORT).show();
                 //Go back to previous fragment
-                //System.out.println("Submit clicked!");
             }
         });
 
@@ -154,6 +153,9 @@ public class RideShareDriverFormFragment extends CruFragment {
                 new DisplayEventInfoTask().execute();
                 if (hasValidTextInput(name)) {
                     form.answerQuestion(0, name.getText().toString());
+                }
+                if (hasValidTextInput(number)) {
+                    form.answerQuestion(1, number.getText().toString());
                 }
                 if (gender != null){
                     form.answerQuestion(2, gender);

@@ -76,9 +76,11 @@ public class MyRideCardFactory implements CardFragmentFactory {
         protected Void doInBackground(Void... params) {
             Passenger me = RestUtil.getPassenger(Util.getPhoneNum());
             ArrayList<Ride> rides = new SingleRetriever<Ride>(RetrieverSchema.RIDE).getAll();
+            List<String> ids = LocalStorageIO.readList(LocalFiles.USER_RIDES);
 
             for (Ride ride : rides) {
-                if (me != null && ride.hasPassenger(me.getId())) {
+                if (ride != null && me != null && (ride.hasPassenger(me.getId())
+                        || (ids != null && ids.contains(ride.getId())))) {
                     myRides.add(ride.getId());
                 }
             }

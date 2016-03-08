@@ -177,49 +177,48 @@ public class SetupCampusActivity extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.fragment_campus_setup_card, null);
+            }
 
-                campusName = (TextView) convertView.findViewById(R.id.campus_card_text);
-                cardImage = (ImageView) convertView.findViewById(R.id.campus_card_image);
-                final TextView over = (TextView) convertView.findViewById(R.id.campus_setup_card_over);
-                over.setVisibility(View.INVISIBLE);
-                final Campus campus = campusList.get(position);
-                campusName.setText(campus.getName());
+            campusName = (TextView) convertView.findViewById(R.id.campus_card_text);
+            cardImage = (ImageView) convertView.findViewById(R.id.campus_card_image);
+            final TextView over = (TextView) convertView.findViewById(R.id.campus_setup_card_over);
+            over.setVisibility(View.INVISIBLE);
+            final Campus campus = campusList.get(position);
+            campusName.setText(campus.getName());
 
-                final RelativeLayout background = (RelativeLayout) convertView.findViewById(R.id.campus_setup_card);
+            final RelativeLayout background = (RelativeLayout) convertView.findViewById(R.id.campus_setup_card);
 
-                background.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectedCampus = campus;
+            background.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedCampus = campus;
 
-                        if (!selectedCampuses.contains(campus)) {
-                            selectedCampuses.add(campus);
-                            over.setVisibility(View.VISIBLE);
-                            over.bringToFront();
-                        } else {
-                            selectedCampuses.remove(campus);
-                            over.setVisibility(View.INVISIBLE);
-                        }
-
-                        if (!selectedCampuses.isEmpty()) {
-                            nextButton.setEnabled(true);
-                            nextButton.setVisibility(View.VISIBLE);
-                        } else {
-                            nextButton.setEnabled(false);
-                        }
+                    if (!selectedCampuses.contains(campus)) {
+                        selectedCampuses.add(campus);
+                        over.setVisibility(View.VISIBLE);
+                        over.bringToFront();
+                    } else {
+                        selectedCampuses.remove(campus);
+                        over.setVisibility(View.INVISIBLE);
                     }
-                });
 
-                //load the image
-                imageLabel = campus.getImage();
-                if (imageLabel != null && !imageLabel.equals("")) {
-                    Picasso.with(this.getContext()).load(imageLabel).fit().centerInside().into(cardImage);
-                } else {
-                    cardImage.setImageResource(R.drawable.cru_logo_default);
+                    if (!selectedCampuses.isEmpty()) {
+                        nextButton.setEnabled(true);
+                        nextButton.setVisibility(View.VISIBLE);
+                    } else {
+                        nextButton.setEnabled(false);
+                    }
                 }
+            });
+
+            //load the image
+            imageLabel = campus.getImage();
+            if (imageLabel != null && !imageLabel.equals("")) {
+                Picasso.with(this.getContext()).load(imageLabel).fit().centerInside().into(cardImage);
+            } else {
+                cardImage.setImageResource(R.drawable.cru_logo_default);
             }
 
             return convertView;

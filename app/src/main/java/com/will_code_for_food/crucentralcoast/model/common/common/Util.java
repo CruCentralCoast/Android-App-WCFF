@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
 import com.will_code_for_food.crucentralcoast.view.common.SplashscreenActivity;
 import com.will_code_for_food.crucentralcoast.values.Android;
 
@@ -33,7 +34,7 @@ public class Util {
      * Gets a string resource using MainActivity.java's context.
      */
     public static String getString(final int resId) {
-        return getString(SplashscreenActivity.context, resId);
+        return getString(MyApplication.getContext(), resId);
     }
 
     /**
@@ -51,14 +52,14 @@ public class Util {
     }
 
     public static Context getContext() {
-        return SplashscreenActivity.context;
+        return MyApplication.getContext();
     }
 
     /**
      * Saves a string with the given key to the shared preferences file
      */
     public static void saveString(String key, String toSave) {
-        Context context = SplashscreenActivity.context;
+        Context context = MyApplication.getContext();
         String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -67,7 +68,7 @@ public class Util {
     }
 
     public static void saveBool(String key, Boolean toSave) {
-        Context context = SplashscreenActivity.context;
+        Context context = MyApplication.getContext();
         String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -78,7 +79,7 @@ public class Util {
 
     // Saves the string to the set in the given key
     public static void saveToSet(String key, String toSave) {
-        Context context = SplashscreenActivity.context;
+        Context context = MyApplication.getContext();
         String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         Set<String> newSet = sharedPref.getStringSet(key, null);
@@ -115,7 +116,7 @@ public class Util {
      * Loads a string from the shared preferences file, or null if none exist
      */
     public static String loadString(String key) {
-        Context context = SplashscreenActivity.context;
+        Context context = MyApplication.getContext();
         String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         String value = sharedPref.getString(key, null);
@@ -124,7 +125,7 @@ public class Util {
     }
 
     public static Boolean loadBool(String key) {
-        Context context = SplashscreenActivity.context;
+        Context context = MyApplication.getContext();
         String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         Boolean value = sharedPref.getBoolean(key, false);
@@ -136,7 +137,7 @@ public class Util {
      * Loads a string set from the shared preferences file, or null if none exists
      */
     public static Set<String> loadStringSet(String key) {
-        Context context = SplashscreenActivity.context;
+        Context context = MyApplication.getContext();
         String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         Set<String> value = sharedPref.getStringSet(key, null);
@@ -185,7 +186,7 @@ public class Util {
 
         try {
             //get this phone number
-            TelephonyManager tMgr = (TelephonyManager) SplashscreenActivity.context.getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager tMgr = (TelephonyManager) MyApplication.getContext().getSystemService(Context.TELEPHONY_SERVICE);
             phoneNum = tMgr.getLine1Number();
         } catch (java.lang.SecurityException e) {
             //triggered if emulator is in use

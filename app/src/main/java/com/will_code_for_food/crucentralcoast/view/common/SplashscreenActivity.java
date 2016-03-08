@@ -24,7 +24,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 public class SplashscreenActivity extends Activity {
 
-    public static Context context;
+    //public static Context context;
 
     private FrameLayout screen;
 
@@ -34,7 +34,7 @@ public class SplashscreenActivity extends Activity {
         setContentView(R.layout.activity_splashscreen);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        context = this;
+        //context = this;
 
         DBObjectLoader.loadAll();
 

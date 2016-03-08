@@ -88,14 +88,12 @@ public class RideCardFactory implements CardFragmentFactory {
             if (convertView == null) {
                 current = (Ride) cards.get(position);
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View hold = inflater.inflate(R.layout.fragment_ride_card, parent, false);
+                convertView = inflater.inflate(R.layout.fragment_ride_card, parent, false);
 
-                setDriverName(hold);
-                setLeaveDate(hold);
-                setLeaveLocation(hold);
-                setSeatsLeft(hold);
-
-                return hold;
+                setDriverName(convertView);
+                setLeaveDate(convertView);
+                setLeaveLocation(convertView);
+                setSeatsLeft(convertView);
             }
 
             return convertView;

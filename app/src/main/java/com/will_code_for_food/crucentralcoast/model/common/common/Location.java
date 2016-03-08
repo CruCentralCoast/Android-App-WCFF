@@ -87,7 +87,7 @@ public class Location {
 
         Location otherLoc;
 
-        if (other instanceof Location) {
+        if (other != null && other instanceof Location) {
             otherLoc = (Location) other;
 
             return (this.country.equals(otherLoc.getCountry())) &&

@@ -39,6 +39,15 @@ public class Event extends DatabaseObject {
         updateCalendarEvent();
     }
 
+    public Event(JsonObject json, boolean testMode) {
+        super(json);
+
+        if (!testMode) {
+            loadParentMinistries();
+            updateCalendarEvent();
+        }
+    }
+
     // Gets the description of this event
     public String getDescription() {
         return getFieldAsString(Database.JSON_KEY_COMMON_DESCRIPTION);

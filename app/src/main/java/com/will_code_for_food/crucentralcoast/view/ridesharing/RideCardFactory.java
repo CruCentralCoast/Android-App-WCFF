@@ -1,15 +1,12 @@
 package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.view.common.CardAdapter;
@@ -22,13 +19,10 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
-import java.util.List;
-
 /**
  * Created by Kayla on 1/31/2016.
  */
 public class RideCardFactory implements CardFragmentFactory {
-    private List<Ride> cards;
     private Event event;
     private MainActivity parent;
 

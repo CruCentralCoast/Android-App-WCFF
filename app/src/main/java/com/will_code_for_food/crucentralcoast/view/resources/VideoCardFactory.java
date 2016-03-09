@@ -18,8 +18,6 @@ import java.util.List;
  */
 public class VideoCardFactory implements CardFragmentFactory {
 
-    private List<Video> cards;
-
     @Override
     public boolean include(DatabaseObject object) {
         return true;

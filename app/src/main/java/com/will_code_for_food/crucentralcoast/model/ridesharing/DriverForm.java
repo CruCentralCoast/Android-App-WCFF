@@ -70,7 +70,7 @@ public class DriverForm extends RiderForm {
             //TODO Fill in with real data
             // save to database
             Ride origRide = new Ride(eventId, driverName, driverNumber, "dummy_gcm_id",
-                    new Location("12345", "CA", "", "123 Main Street", "USA"), 1.0,
+                    new Location("12345", "CA", "", (String) location.getAnswer(), "USA"), 1.0,
                     (int) numSeats.getAnswer(), dir, ((Gender)genderQuestion.getAnswer()).name());
             Ride ride = null;
             try {

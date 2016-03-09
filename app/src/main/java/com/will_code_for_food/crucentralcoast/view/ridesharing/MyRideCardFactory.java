@@ -2,7 +2,6 @@ package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,6 @@ import java.util.List;
  */
 public class MyRideCardFactory implements CardFragmentFactory {
     private List<String> myRides;
-    List<Ride> cards;
 
     public MyRideCardFactory(){
         // myRides = LocalStorageIO.readList(LocalFiles.USER_RIDES); BROKEN
@@ -76,9 +74,11 @@ public class MyRideCardFactory implements CardFragmentFactory {
         protected Void doInBackground(Void... params) {
             Passenger me = RestUtil.getPassenger(Util.getPhoneNum());
             ArrayList<Ride> rides = new SingleRetriever<Ride>(RetrieverSchema.RIDE).getAll();
+            List<String> ids = LocalStorageIO.readList(LocalFiles.USER_RIDES);
 
             for (Ride ride : rides) {
-                if (me != null && ride.hasPassenger(me.getId())) {
+                if (ride != null && me != null && (ride.hasPassenger(me.getId())
+                        || (ids != null && ids.contains(ride.getId())))) {
                     myRides.add(ride.getId());
                 }
             }

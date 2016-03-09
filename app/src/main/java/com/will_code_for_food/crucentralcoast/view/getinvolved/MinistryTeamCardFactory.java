@@ -21,7 +21,6 @@ import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
-import com.will_code_for_food.crucentralcoast.view.summermissions.SummerMissionsActivity;
 
 import java.util.List;
 import java.util.Set;

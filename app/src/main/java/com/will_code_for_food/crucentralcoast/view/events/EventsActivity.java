@@ -25,7 +25,6 @@ public class EventsActivity extends MainActivity {
     protected String title = "Events";
 
     private static Event event = null;
-    private ImageButton calendarButton;
 
     public static void setEvent(final Event newEvent) {
         event = newEvent;

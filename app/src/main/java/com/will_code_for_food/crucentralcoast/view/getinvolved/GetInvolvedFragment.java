@@ -80,9 +80,9 @@ public class GetInvolvedFragment extends CruFragment {
 
             ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
             if (position == 0) {
-                imageView.setImageResource(R.drawable.ic_group_black_36dp);
+                imageView.setImageResource(R.drawable.group);
             } else if (position == 1) {
-                imageView.setImageResource(R.drawable.ic_group_add_black_36dp);
+                imageView.setImageResource(R.drawable.group_add);
             }
 
             TextView textView = (TextView) hold.findViewById(R.id.card_text);

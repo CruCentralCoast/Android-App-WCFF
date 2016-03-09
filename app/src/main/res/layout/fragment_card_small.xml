@@ -8,6 +8,7 @@
         android:id="@+id/card_image"
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        android:paddingTop="10dp"
         android:src="@drawable/cru_logo_default"/>
 
     <TextView

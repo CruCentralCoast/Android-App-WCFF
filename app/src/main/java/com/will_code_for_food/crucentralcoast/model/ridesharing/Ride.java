@@ -9,6 +9,8 @@ import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
@@ -43,7 +45,6 @@ public class Ride extends DatabaseObject {
     private String gender;
     private String time;
 
-
     private List<String> riderIds;
     private List<Passenger> ridersToEvent;
     private List<Passenger> ridersFromEvent;
@@ -65,7 +66,9 @@ public class Ride extends DatabaseObject {
      * be converted into a JSON object like the ones stored in
      * the database, and created using the inherited constructor.
      */
-    public Ride(String eventId, String driverName, String driverNumber, String gcmId, Location location, Double radius, Integer numSeats, RideDirection direction, String gender) {
+    public Ride(String eventId, String driverName, String driverNumber, String gcmId,
+                Location location, Double radius, Integer numSeats, RideDirection direction,
+                String gender) {
         super(new JsonObject()); // satisfies need to call super
 
         this.eventId = eventId;
@@ -85,6 +88,10 @@ public class Ride extends DatabaseObject {
         }
         SimpleDateFormat f = new SimpleDateFormat(Database.ISO_FORMAT);
         this.time = f.format(direction.getLeaveTimeToEvent().getTime());
+
+        ridersToEvent = new ArrayList<>();
+        ridersFromEvent = new ArrayList<>();
+        riderIds = new ArrayList<>();
     }
 
     public void refreshFields() {
@@ -100,8 +107,10 @@ public class Ride extends DatabaseObject {
         direction = RideDirection.fromString(getFieldAsString(Database.JSON_KEY_RIDE_DIRECTION));
         gender = getFieldAsString(Database.JSON_KEY_RIDE_GENDER);
 
-        for (JsonElement passenger : getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray()) {
-            riderIds.add(passenger.getAsString());
+        if (getField(Database.JSON_KEY_RIDE_PASSENGERS) != null) {
+            for (JsonElement passenger : getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray()) {
+                riderIds.add(passenger.getAsString());
+            }
         }
 
         // TODO this keeps happening, and is a problem
@@ -256,10 +265,10 @@ public class Ride extends DatabaseObject {
         return direction.hasTimeLeavingFromEvent();
     }
 
-    public void addToDb() {
+    /*public void addToDb() {
         this.update(RestUtil.create(this.toJSON(), Database.REST_RIDE)); //updates the JSON object held by the parent class
         this.refreshFields(); //updates the fields for this class based on the parent class
-    }
+    }*/
 
     public RideDirection getDirection() {
         return direction;
@@ -269,24 +278,8 @@ public class Ride extends DatabaseObject {
         this.direction = direction;
     }
 
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
-    }
-
-    public void setDriverNumber(String driverNumber) {
-        this.driverNumber = driverNumber;
-    }
-
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
-    }
-
     public String getGcmId() {
         return gcmId;
-    }
-
-    public void setGcmId(String gcmId) {
-        this.gcmId = gcmId;
     }
 
     public String getGender() {
@@ -301,24 +294,8 @@ public class Ride extends DatabaseObject {
         this.location = location;
     }
 
-    public void setNumSeats(Integer numSeats) {
-        this.numSeats = numSeats;
-    }
-
     public Double getRadius() {
         return radius;
-    }
-
-    public void setRadius(Double radius) {
-        this.radius = radius;
-    }
-
-    public void setRidersToEvent(List<Passenger> riders) {
-        this.ridersToEvent = riders;
-    }
-
-    public void setRidersFromEvent(List<Passenger> riders) {
-        this.ridersFromEvent = riders;
     }
 
     public String getTime() {
@@ -376,5 +353,26 @@ public class Ride extends DatabaseObject {
         thisObj.add(Database.JSON_KEY_RIDE_GENDER, new JsonPrimitive(gender));
 
         return thisObj;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other != null && other instanceof Ride) {
+            Ride ride = (Ride) other;
+            return eventId.equals(ride.getEventId()) &&
+                    gcmId.equals(ride.getGcmId()) &&
+                    driverName.equals(ride.getDriverName()) &&
+                    driverNumber.equals(ride.getDriverNumber()) &&
+                    direction == ride.getDirection() &&
+                    radius.equals(ride.getRadius()) &&
+                    numSeats.equals(ride.getNumSeats()) &&
+                    getNumAvailableSeatsFromEvent() == ride.getNumAvailableSeatsFromEvent() &&
+                    getNumAvailableSeatsToEvent() == ride.getNumAvailableSeatsToEvent() &&
+                    gender == ride.getGender() &&
+                    getLeaveDate().equals(ride.getLeaveDate()) &&
+                    getLeaveTime().equals(ride.getLeaveTime()) &&
+                    location.equals(ride.getLocation());
+        }
+        return false;
     }
 }

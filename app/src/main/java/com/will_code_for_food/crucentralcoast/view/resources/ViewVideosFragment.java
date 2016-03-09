@@ -1,6 +1,5 @@
 package com.will_code_for_food.crucentralcoast.view.resources;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.view.KeyEvent;
@@ -20,17 +19,13 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
-import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
-import com.will_code_for_food.crucentralcoast.values.Youtube;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
-import com.will_code_for_food.crucentralcoast.view.common.FeedCardAdapter;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,8 +39,6 @@ public class ViewVideosFragment extends CruFragment implements TextView.OnEditor
     private CardFragmentFactory cardFactory;
     private ListView list;
     private MainActivity currentActivity;
-
-    // used for scrolling pagination
     private int firstItem, visibleItems, totalItems;
 
     @Override
@@ -152,10 +145,15 @@ public class ViewVideosFragment extends CruFragment implements TextView.OnEditor
                             playlist.loadMore();
                             videos.addAll(playlist.getVideoContent());
                         }
+
+                        int index = list.getFirstVisiblePosition();
+                        View v = list.getChildAt(0);
+                        int top = (v == null) ? 0 : v.getTop();
+
                         Collections.sort(videos);
                         list.setAdapter(cardFactory.createAdapter(videos));
                         list.setOnItemClickListener(cardFactory.createCardListener(currentActivity, videos));
-                        list.setSelection(firstItem);
+                        list.setSelectionFromTop(index, top);
                     }
                 }
             });

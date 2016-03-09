@@ -44,9 +44,6 @@ public class EventInfoFragment extends CruFragment {
         initComponents(fragmentView);
         populateView(fragmentView);
 
-        //new DisplayEventInfoTask(getParent()).execute(EventsActivity.getEvent());
-
-
         return fragmentView;
     }
 

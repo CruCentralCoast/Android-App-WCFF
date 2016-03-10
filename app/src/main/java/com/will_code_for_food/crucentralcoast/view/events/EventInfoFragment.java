@@ -88,7 +88,6 @@ public class EventInfoFragment extends CruFragment {
         if (event.getImage() != null && event.getImage() != "") {
             Picasso.with(getParent()).load(event.getImage()).fit().into(imageView);
         }
-        System.out.println("Find assets: " + parent.getApplication().getAssets());
 
         // Display the location of the event
         TextView locationLabel = (TextView) fragmentView.findViewById(R.id.text_event_location);

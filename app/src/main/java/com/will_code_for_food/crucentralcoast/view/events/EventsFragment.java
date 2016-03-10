@@ -61,7 +61,6 @@ public class EventsFragment extends CruFragment {
         super.onPause();
     }
 
-
     private void loadList() {
         SingleMemoryRetriever retriever = new SingleMemoryRetriever(Database.REST_EVENT);
         populateList(retriever);

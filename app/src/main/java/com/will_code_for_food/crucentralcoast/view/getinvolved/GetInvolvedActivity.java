@@ -36,6 +36,10 @@ public class GetInvolvedActivity extends MainActivity {
         GetInvolvedActivity.team = team;
     }
 
+    public static MinistryTeam getMinistryTeam() {
+        return team;
+    }
+
     public void joinMinistryTeam(View view){
         MinistryTeamSignupDialog popup = MinistryTeamSignupDialog.newInstance(team);
         FragmentManager manager = getFragmentManager();

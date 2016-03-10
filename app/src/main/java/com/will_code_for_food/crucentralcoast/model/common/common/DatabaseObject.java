@@ -1,6 +1,5 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;

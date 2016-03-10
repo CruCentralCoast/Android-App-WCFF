@@ -9,9 +9,7 @@ import android.webkit.WebView;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
-import com.will_code_for_food.crucentralcoast.tasks.DisplayEventInfoTask;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
-import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
 /**
  * Created by MasonJStevenson on 2/15/2016.

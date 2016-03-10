@@ -1,26 +1,15 @@
 package com.will_code_for_food.crucentralcoast.view.resources;
 
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
-import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
-import com.will_code_for_food.crucentralcoast.tasks.SummerMissionViewTask;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
-import com.will_code_for_food.crucentralcoast.view.summermissions.SummerMissionsActivity;
-
-import java.util.List;
 
 /**
  * Created by Brian on 2/16/2016.

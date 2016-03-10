@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
@@ -53,8 +52,7 @@ public class ArticleCardAdapter extends CardAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Resource current = (Resource) cards.get(position);
-        String imageLabel = current.getImage();
-        
+
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.fragment_resources_card, parent, false);

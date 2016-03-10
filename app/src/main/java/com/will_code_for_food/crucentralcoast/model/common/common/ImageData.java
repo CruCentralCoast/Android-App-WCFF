@@ -160,8 +160,8 @@ public class ImageData {
             return this.id.equals(otherImage.getId()) &&
                     this.version.equals(otherImage.getVersion()) &&
                     this.signature.equals(otherImage.getSignature()) &&
-                    this.width == otherImage.getWidth() &&
-                    this.height == otherImage.getHeight() &&
+                    this.width.equals(otherImage.getWidth()) &&
+                    this.height.equals(otherImage.getHeight()) &&
                     this.format.equals(otherImage.getFormat()) &&
                     this.url.equals(otherImage.url) &&
                     this.secureUrl.equals(otherImage.getSecureUrl());

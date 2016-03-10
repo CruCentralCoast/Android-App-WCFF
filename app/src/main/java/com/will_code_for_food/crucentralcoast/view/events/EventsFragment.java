@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
@@ -28,12 +29,15 @@ import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareEventCar
  */
 public class EventsFragment extends CruFragment {
     SwipeRefreshLayout layout;
+    ListView listView;
+    private int index, top;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View hold = super.onCreateView(inflater, container, savedInstanceState);
         layout = (SwipeRefreshLayout) hold.findViewById(R.id.card_refresh_layout);
+        listView = (ListView) hold.findViewById(R.id.list_cards);
         loadList();
         return hold;
     }
@@ -47,6 +51,14 @@ public class EventsFragment extends CruFragment {
                 refreshList();
             }
         });
+    }
+
+    @Override
+    public void onPause(){
+        index = listView.getFirstVisiblePosition();
+        View v = listView.getChildAt(0);
+        top = (v == null) ? 0 : v.getTop();
+        super.onPause();
     }
 
     private void loadList() {
@@ -67,9 +79,6 @@ public class EventsFragment extends CruFragment {
         }
 
         loadList();
-
-        //Retriever retriever = new SingleRetriever(RetrieverSchema.EVENT);
-        //populateList(retriever);
     }
 
     private void populateList(Retriever retriever) {
@@ -87,6 +96,6 @@ public class EventsFragment extends CruFragment {
                     public void otherProcessing() {
                         layout.setRefreshing(false);
                     }
-                }).execute();
+                }).execute(index, top);
     }
 }

@@ -5,7 +5,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
@@ -22,6 +21,7 @@ import com.will_code_for_food.crucentralcoast.view.events.EventsFragment;
  * Created by Brian on 2/15/2016.
  */
 public class MyRidesFragment extends CruFragment {
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

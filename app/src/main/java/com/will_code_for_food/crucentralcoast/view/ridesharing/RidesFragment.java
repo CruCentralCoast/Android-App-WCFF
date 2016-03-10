@@ -1,7 +1,6 @@
 package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.app.Activity;
-import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -23,22 +22,19 @@ import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
-import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
-import com.will_code_for_food.crucentralcoast.values.UI;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
-import com.will_code_for_food.crucentralcoast.view.events.EventsFragment;
 
 /**
  * Created by Kayla on 2/1/2016.
  */
 public class RidesFragment extends CruFragment {
+    ListView listView;
     SwipeRefreshLayout layout;
+    private int index, top;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +42,7 @@ public class RidesFragment extends CruFragment {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
         loadRidesList();
         layout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.ridelist_swipe);
+        listView = (ListView) fragmentView.findViewById(R.id.list_cards);
 
         //Set up action button to add a ride
 
@@ -61,6 +58,14 @@ public class RidesFragment extends CruFragment {
             }
         });
         return fragmentView;
+    }
+
+    @Override
+    public void onPause(){
+        index = listView.getFirstVisiblePosition();
+        View v = listView.getChildAt(0);
+        top = (v == null) ? 0 : v.getTop();
+        super.onPause();
     }
 
     @Override
@@ -102,7 +107,7 @@ public class RidesFragment extends CruFragment {
             public void otherProcessing() {
                 layout.setRefreshing(false);
             }
-        }).execute();
+        }).execute(index, top);
     }
 
     // Sets up and loads the image for the event into the image header

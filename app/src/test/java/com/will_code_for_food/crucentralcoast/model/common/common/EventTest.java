@@ -16,5 +16,8 @@ public class EventTest extends TestCase {
         System.out.println("Found " + events.size() + " events");
 
         assertTrue(!events.isEmpty());
+        assertTrue(events.get(0).hasLocation());
+        assertTrue(events.get(0).hasFacebook());
+        assertTrue(events.get(0).hasRideSharing());
     }
 }

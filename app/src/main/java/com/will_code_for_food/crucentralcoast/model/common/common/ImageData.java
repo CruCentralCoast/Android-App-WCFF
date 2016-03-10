@@ -74,80 +74,40 @@ public class ImageData {
         return fields;
     }
 
-    public void setFields(JsonObject fields) {
-        this.fields = fields;
-    }
-
     public String getFormat() {
         return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
     }
 
     public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getResourceType() {
         return resourceType;
     }
 
-    public void setResourceType(String resourceType) {
-        this.resourceType = resourceType;
-    }
-
     public String getSecureUrl() {
         return secureUrl;
-    }
-
-    public void setSecureUrl(String secureUrl) {
-        this.secureUrl = secureUrl;
     }
 
     public String getSignature() {
         return signature;
     }
 
-    public void setSignature(String signature) {
-        this.signature = signature;
-    }
-
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getVersion() {
         return version;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
     public Integer getWidth() {
         return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
     }
 
     @Override

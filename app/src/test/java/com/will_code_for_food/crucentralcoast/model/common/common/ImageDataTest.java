@@ -20,10 +20,15 @@ public class ImageDataTest extends TestCase {
             "\"url\":\"http://blahblahblah\"," +
             "\"secure_url\":\"https://blahblahblah\" }";
 
-    public void testConstructImageData() {
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+
         JsonParser parser = new JsonParser();
         imageData = new ImageData(parser.parse(imageString));
+    }
 
+    public void testConstructImageData() {
         assertEquals("1", imageData.getId());
         assertEquals("0", imageData.getVersion());
         assertEquals("adf4a6", imageData.getSignature());
@@ -33,5 +38,9 @@ public class ImageDataTest extends TestCase {
         assertEquals("image", imageData.getResourceType());
         assertEquals("http://blahblahblah", imageData.getUrl());
         assertEquals("https://blahblahblah", imageData.getSecureUrl());
+
+        assertNull(imageData.getFieldAsInt("NOTAFIELD"));
+        assertNull(imageData.getFieldAsString("NOTAFIELD"));
+        assertNotNull(imageData.getFields());
     }
 }

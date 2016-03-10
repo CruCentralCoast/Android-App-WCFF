@@ -79,16 +79,17 @@ public class RideCardFactory implements CardFragmentFactory {
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
 
+            current = (Ride) cards.get(position);
+
             if (convertView == null) {
-                current = (Ride) cards.get(position);
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.fragment_ride_card, parent, false);
-
-                setDriverName(convertView);
-                setLeaveDate(convertView);
-                setLeaveLocation(convertView);
-                setSeatsLeft(convertView);
             }
+
+            setDriverName(convertView);
+            setLeaveDate(convertView);
+            setLeaveLocation(convertView);
+            setSeatsLeft(convertView);
 
             return convertView;
         }

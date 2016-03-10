@@ -16,7 +16,6 @@ import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.tasks.DisplayEventInfoTask;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
@@ -28,7 +27,7 @@ import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareSelectAc
 public class EventInfoFragment extends CruFragment {
 
     private ImageButton calendarButton;
-    private ImageButton ridsharingButton;
+    private ImageButton ridesharingButton;
     private ImageButton facebookButton;
     private ImageButton mapButton;
     private Event event = EventsActivity.getEvent();
@@ -49,35 +48,35 @@ public class EventInfoFragment extends CruFragment {
 
     private void initComponents(final View fragmentView) {
         calendarButton = (ImageButton) fragmentView.findViewById(R.id.button_calendar);
-        ridsharingButton = (ImageButton) fragmentView.findViewById(R.id.button_rideshare);
+        ridesharingButton = (ImageButton) fragmentView.findViewById(R.id.button_rideshare);
         facebookButton = (ImageButton) fragmentView.findViewById(R.id.button_facebook);
         mapButton = (ImageButton) fragmentView.findViewById(R.id.button_map);
 
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calendarButtonSelected(fragmentView);
+                calendarButtonSelected();
             }
         });
 
-        ridsharingButton.setOnClickListener(new View.OnClickListener() {
+        ridesharingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewRidesharing(fragmentView);
+                viewRidesharing();
             }
         });
 
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewFacebook(fragmentView);
+                viewFacebook();
             }
         });
 
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewMap(fragmentView);
+                viewMap();
             }
         });
     }
@@ -137,7 +136,7 @@ public class EventInfoFragment extends CruFragment {
     }
 
     // Adds the event to the user's Google Calendar
-    public void calendarButtonSelected(View view) {
+    public void calendarButtonSelected() {
         if (event != null) {
             if (event.isInCalendarAlready()) {
                 event.deleteFromCalendar(parent);
@@ -157,7 +156,7 @@ public class EventInfoFragment extends CruFragment {
     }
 
     // Opens the event's ridesharing page, if one exists
-    public void viewRidesharing(View view) {
+    public void viewRidesharing() {
         if (event.hasRideSharing()) {
             parent.loadFragmentById(R.layout.fragment_ridesharing_select_action, event.getName() + " > " + RideShareSelectActionFragment.TITLE, new RideShareSelectActionFragment(), parent);
         }
@@ -168,7 +167,7 @@ public class EventInfoFragment extends CruFragment {
     }
 
     // Opens the event's Facebook page
-    public void viewFacebook(View view) {
+    public void viewFacebook() {
         String url = event.getFacebookLink();
 
         // Check for valid url
@@ -184,7 +183,7 @@ public class EventInfoFragment extends CruFragment {
     }
 
     // Opens the event's location in Google Maps
-    public void viewMap(View view) {
+    public void viewMap() {
         // No map for this location
         if (!event.hasLocation()) {
             Toast.makeText(parent, Util.getString(R.string.toast_no_map),

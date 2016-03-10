@@ -16,7 +16,6 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
-import com.will_code_for_food.crucentralcoast.tasks.MinistryTeamInfoTask;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
@@ -64,10 +63,11 @@ public class MinistryTeamCardFactory implements CardFragmentFactory<MinistryTeam
         return new AdapterView.OnItemClickListener () {
             @Override
             public void onItemClick (AdapterView < ? > parent, View view,int position, long id){
-                MinistryTeam selectedMinistryTeam = (MinistryTeam) myDBObjects.getObjects().get(position);
+                MinistryTeam selectedMinistryTeam = myDBObjects.getObjects().get(position);
+                GetInvolvedActivity.setMinistryTeam(selectedMinistryTeam);
                 currentActivity.loadFragmentById(R.layout.fragment_ministryteam,
-                        currentActivity.getTitle() + " > " + selectedMinistryTeam.getName(), null, currentActivity);
-                new MinistryTeamInfoTask().execute(selectedMinistryTeam);
+                        currentActivity.getTitle() + " > " + selectedMinistryTeam.getName(),
+                        new MinistryTeamInfoFragment(), currentActivity);
             }
         } ;
     }

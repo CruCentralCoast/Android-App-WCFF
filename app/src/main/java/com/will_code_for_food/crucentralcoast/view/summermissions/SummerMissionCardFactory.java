@@ -15,7 +15,6 @@ import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
-import com.will_code_for_food.crucentralcoast.tasks.SummerMissionViewTask;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 
 import java.util.List;
@@ -44,9 +43,10 @@ public class SummerMissionCardFactory implements CardFragmentFactory {
             @Override
             public void onItemClick (AdapterView < ? > parent, View view,int position, long id){
                 SummerMission selectedMission = (SummerMission) myDBObjects.getObjects().get(position);
+                SummerMissionsActivity.setMission(selectedMission);
                 currentActivity.loadFragmentById(R.layout.fragment_summermission,
-                        currentActivity.getTitle() + " > " + selectedMission.getName(), null, currentActivity);
-                new SummerMissionViewTask().execute(selectedMission);
+                        currentActivity.getTitle() + " > " + selectedMission.getName(),
+                        new SummerMissionInfoFragment(), currentActivity);
             }
         } ;
     }

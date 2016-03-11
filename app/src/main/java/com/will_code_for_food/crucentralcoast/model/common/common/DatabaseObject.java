@@ -1,5 +1,7 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
+import android.util.Log;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -62,11 +64,15 @@ public abstract class DatabaseObject {
     public Double getFieldAsDouble(String fieldName) {
         String field = getFieldAsString(fieldName);
 
-        if (field != null) {
-            return Double.parseDouble(field);
-        } else {
-            return null;
+        try {
+            if (field != null) {
+                return Double.parseDouble(field);
+            }
+        } catch (NumberFormatException ex) {
+            Log.e("DatabaseObject", "NumberFormatException thrown in getFieldAsDouble() for the following field: " + fieldName);
         }
+
+        return null;
     }
 
     /**
@@ -76,11 +82,15 @@ public abstract class DatabaseObject {
     public Integer getFieldAsInt(String fieldName) {
         String field = getFieldAsString(fieldName);
 
-        if (field != null) {
-            return Integer.parseInt(field);
-        } else {
-            return null;
+        try {
+            if (field != null) {
+                return Integer.parseInt(field);
+            }
+        } catch (NumberFormatException ex) {
+            Log.e("DatabaseObject", "NumberFormatException thrown in getFieldAsInt() for the following field: " + fieldName);
         }
+
+        return null;
     }
 
     /**

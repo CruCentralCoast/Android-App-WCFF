@@ -6,6 +6,7 @@ import com.google.gson.JsonParser;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
+import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
@@ -29,6 +30,7 @@ public class TestDB {
     public static final String RESOURCES_FILE = JSON_ROOT + "Resources";
     public static final String RIDES_FILE = JSON_ROOT + "Rides";
     public static final String PLAYLIST_1_FILE = JSON_ROOT + "Playlist1";
+    public static final String SUMMER_MISSIONS_FILE = JSON_ROOT + "SummerMissions";
 
 
     public static ArrayList<DatabaseObject> getFeed() {
@@ -46,6 +48,16 @@ public class TestDB {
 
         for (JsonElement event : loadTestObjects(EVENTS_FILE)) {
             list.add(new Event(event.getAsJsonObject(), true));
+        }
+
+        return list;
+    }
+
+    public static ArrayList<SummerMission> getSummerMissions() {
+        ArrayList list = new ArrayList<SummerMission>();
+
+        for (JsonElement mission : loadTestObjects(SUMMER_MISSIONS_FILE)) {
+            list.add(new SummerMission(mission.getAsJsonObject()));
         }
 
         return list;

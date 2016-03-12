@@ -28,5 +28,8 @@ public class RestUtilTest extends TestCase {
         JsonArray ministriesJson = RestUtil.getWithConditions(Database.REST_MINISTRY, field);
         assertNotNull(ministriesJson);
         assertTrue(ministriesJson.size() > 0);
+        assertTrue(ministriesJson.get(0).isJsonObject());
+        Ministry ministry = new Ministry(ministriesJson.get(0).getAsJsonObject());
+        assertEquals(ministry.getName(), TEST_MINISTRY_NAME);
     }
 }

@@ -63,4 +63,9 @@ public class Resource extends DatabaseObject {
     public String getUrl() {
         return url;
     }
+
+    @Override
+    public String getName() {
+        return getTitle();
+    }
 }

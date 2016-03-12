@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Created by MasonJStevenson on 1/18/2016.
+ *
  */
 public class EventTest extends TestCase {
     Event event1;

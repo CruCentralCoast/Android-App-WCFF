@@ -22,14 +22,11 @@ import java.util.List;
 /**
  * Created by MasonJStevenson on 2/18/2016.
  *
- * BROKEN, currently
  */
 public class DatabaseObjectSorter {
 
-    private static SortMethod method;
-
-    public static Content filterByName(Content<? extends DatabaseObject> list, String phrase) {
-        List newList = new ArrayList();
+    public static Content<DatabaseObject> filterByName(Content<DatabaseObject> list, String phrase) {
+        List<DatabaseObject> newList = new ArrayList<DatabaseObject>();
 
         for (DatabaseObject obj : list) {
             if (obj != null && obj.getName() != null && obj.getName().toLowerCase().contains(phrase.toLowerCase())) {
@@ -37,19 +34,18 @@ public class DatabaseObjectSorter {
             }
         }
 
-        return new Content(newList, list.getType());
+        return new Content<DatabaseObject>(newList, list.getType());
     }
 
     public static void sortByDate(List<? extends DatabaseObject> list, SortMethod newMethod) {
-        method = newMethod;
-        Collections.sort(list, new DateComparator());
+        Collections.sort(list, new DateComparator(newMethod));
     }
 
-    public static void sortFeedObjectsByType(List<? extends DatabaseObject> list, SortMethod method) {
-        List articles = new ArrayList();
-        List events = new ArrayList();
-        List videos = new ArrayList();
-        List other = new ArrayList();
+    public static void sortFeedObjectsByType(List<DatabaseObject> list, SortMethod method) {
+        List<DatabaseObject> articles = new ArrayList<DatabaseObject>();
+        List<DatabaseObject> events = new ArrayList<DatabaseObject>();
+        List<DatabaseObject> videos = new ArrayList<DatabaseObject>();
+        List<DatabaseObject> other = new ArrayList<DatabaseObject>();
 
 
         for (DatabaseObject obj : list) {
@@ -74,67 +70,5 @@ public class DatabaseObjectSorter {
         list.addAll(events);
         list.addAll(videos);
         list.addAll(other);
-    }
-
-    private static class DateComparator implements Comparator<DatabaseObject> {
-
-        public int compare(DatabaseObject obj1, DatabaseObject obj2) {
-            Date date1 = getDate(obj1);
-            Date date2 = getDate(obj2);
-
-            if (date1 == null && date2 == null) {
-                return 0;
-            } else if (date1 == null && date2 != null) {
-                return 1;
-            } else if (date1 != null && date2 == null) {
-                return -1;
-            } else {
-                return method == SortMethod.DESCENDING ? (date1.compareTo(date2) * -1) : date1.compareTo(date2);
-            }
-        }
-
-        private Date getDate(DatabaseObject obj) {
-
-            //TODO: sort events by the date the event was added, not date the event occurs
-            if (obj instanceof Video) {
-                return parseISO(((Video) obj).getPublishDate());
-            } else if (obj instanceof Resource) {
-                return parseISO(((Resource) obj).getDate());
-            } else if (obj instanceof Event) {
-                return parseISO(((Event) obj).getFieldAsString(Database.JSON_KEY_EVENT_STARTDATE));
-            } else {
-                return null;
-            }
-        }
-
-        private Date parseISO(String dateString) {
-            Date date;
-
-            // Convert ISODate to Java Date format
-            try {
-                DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
-                date = dateFormat.parse(dateString);
-            } catch (Exception e) {
-                Log.i("DatabaseObjectSorter", "parsed a null ISO date: " + dateString);
-                return null;
-            }
-
-            return date;
-        }
-
-        private Date parseYouTube(String dateString) {
-            Date date;
-
-            // Convert ISODate to Java Date format
-            try {
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-                date = dateFormat.parse(dateString);
-            } catch (ParseException e) {
-                Log.i("DatabaseObjectSorter", "parsed a null Youtube date: " + dateString);
-                return null;
-            }
-
-            return date;
-        }
     }
 }

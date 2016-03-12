@@ -191,7 +191,14 @@ public class RestUtil {
         }
     }
 
-    private static JsonObject createUpdateHelper(JsonObject toSend, String collectionName, String command) {
+    /**
+     * Helper for the methods create() and update(). Creates a post connection and sends the
+     * JsonObject toSend to the database. If create() is used, the object is added a a new object in
+     * the target collection. If update() is used, the object replaces an existing object in the target
+     * collection. Since the code for these two methods is almost identical, it makes sense to
+     * relocate it here.
+     */
+    private static JsonObject sendJsonObject(JsonObject toSend, String collectionName, String command) {
 
         HttpURLConnection connection = null;
 
@@ -240,14 +247,14 @@ public class RestUtil {
      * This new JSON object will have an auto-generated _id field.
      */
     public static JsonObject create(JsonObject toSend, String collectionName) {
-        return createUpdateHelper(toSend, collectionName, Database.REST_QUERY_CREATE);
+        return sendJsonObject(toSend, collectionName, Database.REST_QUERY_CREATE);
     }
 
     /**
      *  Updates an existing object
      */
     public static JsonObject update(JsonObject updatedObject, String collectionName) {
-        return createUpdateHelper(updatedObject, collectionName, Database.REST_QUERY_UPDATE);
+        return sendJsonObject(updatedObject, collectionName, Database.REST_QUERY_UPDATE);
     }
 
     private static boolean addDropHelper(String command, String rideId, String passengerId) {

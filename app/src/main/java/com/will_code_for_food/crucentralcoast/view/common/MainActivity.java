@@ -28,6 +28,7 @@ import com.will_code_for_food.crucentralcoast.view.getinvolved.GetInvolvedActivi
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.view.resources.ResourcesActivity;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity;
+import com.will_code_for_food.crucentralcoast.view.ridesharing.WorkaroundMapFragment;
 import com.will_code_for_food.crucentralcoast.view.summermissions.SummerMissionsActivity;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.Notifier;
 import com.will_code_for_food.crucentralcoast.model.resources.TypeFaceUtil;
@@ -224,5 +225,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    public WorkaroundMapFragment getMapFragment(int id) {
+        return (WorkaroundMapFragment) getSupportFragmentManager().findFragmentById(id);
     }
 }

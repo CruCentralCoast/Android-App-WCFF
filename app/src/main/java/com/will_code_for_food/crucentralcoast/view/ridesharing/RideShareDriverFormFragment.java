@@ -11,9 +11,16 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
@@ -34,7 +41,7 @@ import java.util.List;
 /**
  * Created by masonstevenson on 2/4/16.
  */
-public class RideShareDriverFormFragment extends CruFragment {
+public class RideShareDriverFormFragment extends CruFragment implements OnMapReadyCallback {
     private static final int MAX_SEATS = 12;
     private DriverForm form;
     DatePicker datePicker;
@@ -56,10 +63,16 @@ public class RideShareDriverFormFragment extends CruFragment {
     RadioButton female;
     Gender gender;
 
+    private GoogleMap mMap;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
+
+        final ScrollView scrollView = (ScrollView) fragmentView.findViewById(R.id.driver_form_scroll);
+        loadMap(scrollView);
 
         parent = getParent();
         selectedEvent = EventsActivity.getEvent();
@@ -195,6 +208,39 @@ public class RideShareDriverFormFragment extends CruFragment {
         });
 
         return fragmentView;
+    }
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    public void loadMap(final ScrollView mScrollView) {
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        WorkaroundMapFragment mapFragment = getParent().getMapFragment(R.id.map);
+
+        mapFragment.setListener(new WorkaroundMapFragment.OnTouchListener() {
+            @Override
+            public void onTouch() {
+                mScrollView.requestDisallowInterceptTouchEvent(true);
+            }
+        });
+
+        mapFragment.getMapAsync(this);
     }
 
     private boolean hasValidTextInput(final EditText e) {

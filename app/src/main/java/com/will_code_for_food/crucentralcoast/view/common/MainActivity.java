@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.RegistrationIntentService;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
@@ -227,7 +228,16 @@ public class MainActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+
     public WorkaroundMapFragment getMapFragment(int id) {
         return (WorkaroundMapFragment) getSupportFragmentManager().findFragmentById(id);
+    }
+
+    /**
+     * Destroys a map fragment, releasing its fragment id. If you have a mapfragment inside a CruFragment,
+     * you need to call this in the CruFragment's onDestroyView() method.
+     */
+    public void destroyMapFragment(int id) {
+        getSupportFragmentManager().beginTransaction().remove(getMapFragment(id)).commitAllowingStateLoss();
     }
 }

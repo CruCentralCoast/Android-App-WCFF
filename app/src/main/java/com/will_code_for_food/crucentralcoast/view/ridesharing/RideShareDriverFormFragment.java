@@ -1,5 +1,7 @@
 package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,7 +50,7 @@ public class RideShareDriverFormFragment extends CruFragment implements OnMapRea
     TimePicker timePicker;
     EditText name;
     EditText number;
-    EditText locations;
+    //EditText locations;
     RadioButton oneWayTo;
     RadioButton oneWayFrom;
     RadioButton twoWay;
@@ -63,6 +65,7 @@ public class RideShareDriverFormFragment extends CruFragment implements OnMapRea
     RadioButton female;
     Gender gender;
 
+    ScrollView scrollView;
     private GoogleMap mMap;
 
 
@@ -71,8 +74,8 @@ public class RideShareDriverFormFragment extends CruFragment implements OnMapRea
                              Bundle savedInstanceState) {
         final View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
-        final ScrollView scrollView = (ScrollView) fragmentView.findViewById(R.id.driver_form_scroll);
-        loadMap(scrollView);
+        scrollView = (ScrollView) fragmentView.findViewById(R.id.driver_form_scroll);
+        loadMap();
 
         parent = getParent();
         selectedEvent = EventsActivity.getEvent();
@@ -82,7 +85,7 @@ public class RideShareDriverFormFragment extends CruFragment implements OnMapRea
         female = (RadioButton) fragmentView.findViewById(R.id.female);
         datePicker = (DatePicker) fragmentView.findViewById(R.id.departure_date_picker);
         timePicker = (TimePicker) fragmentView.findViewById(R.id.departure_time_picker);
-        locations = (EditText) fragmentView.findViewById(R.id.list_of_locations);
+        //locations = (EditText) fragmentView.findViewById(R.id.list_of_locations);
         oneWayTo = (RadioButton) fragmentView.findViewById(R.id.One_Way_To_Checkbox);
         oneWayFrom = (RadioButton) fragmentView.findViewById(R.id.One_Way_From_Checkbox);
         twoWay = (RadioButton) fragmentView.findViewById(R.id.Two_Way_Checkbox);
@@ -183,9 +186,9 @@ public class RideShareDriverFormFragment extends CruFragment implements OnMapRea
                 if (direction != null){
                     form.answerQuestion(4, direction);
                 }
-                if (hasValidTextInput(locations)) {
-                    form.answerQuestion(5, locations.getText().toString());
-                }
+                //if (hasValidTextInput(locations)) {
+                //    form.answerQuestion(5, locations.getText().toString());
+                //}
                 if (numberofSeats.getValue() > 0) {
                     form.answerQuestion(6, numberofSeats.getValue());
                 }
@@ -211,6 +214,19 @@ public class RideShareDriverFormFragment extends CruFragment implements OnMapRea
     }
 
     /**
+     * The mapfragment's id must be removed from the FragmentManager or else the app will crash when
+     * you go back to the page with the map and it tries to load a duplicate fragment id.
+     **/
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mMap != null) {
+            getParent().destroyMapFragment(R.id.driver_form_map);
+            mMap = null;
+        }
+    }
+
+    /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera. In this case,
@@ -224,23 +240,27 @@ public class RideShareDriverFormFragment extends CruFragment implements OnMapRea
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng slo = new LatLng(35.2828, -120.659485);
+        //mMap.addMarker(new MarkerOptions().position(slo).title("Marker in San Luis Obispo"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(slo));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(10.0f));
     }
 
-    public void loadMap(final ScrollView mScrollView) {
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        WorkaroundMapFragment mapFragment = getParent().getMapFragment(R.id.map);
+    public void loadMap() {
 
-        mapFragment.setListener(new WorkaroundMapFragment.OnTouchListener() {
-            @Override
-            public void onTouch() {
-                mScrollView.requestDisallowInterceptTouchEvent(true);
-            }
-        });
+        if (mMap == null) {
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            WorkaroundMapFragment mapFragment = getParent().getMapFragment(R.id.driver_form_map);
 
-        mapFragment.getMapAsync(this);
+            mapFragment.setListener(new WorkaroundMapFragment.OnTouchListener() {
+                @Override
+                public void onTouch() {
+                    scrollView.requestDisallowInterceptTouchEvent(true);
+                }
+            });
+
+            mapFragment.getMapAsync(this);
+        }
     }
 
     private boolean hasValidTextInput(final EditText e) {

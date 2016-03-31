@@ -127,21 +127,21 @@
                 android:textSize="15sp"
                 android:padding="10dp" />
 
-            <EditText
+            <!--EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/list_of_locations"
                 android:layout_below="@+id/leave_location_prompt"
                 android:textSize="15sp"
-                android:paddingBottom="10dp"/>
+                android:paddingBottom="10dp"/-->
 
             <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 xmlns:map="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:id="@+id/map"
-                android:layout_below="@+id/list_of_locations"
+                android:id="@+id/driver_form_map"
+                android:layout_below="@+id/leave_location_prompt"
                 tools:context=".RideShareDriverFormFragment"
                 android:name="com.will_code_for_food.crucentralcoast.view.ridesharing.WorkaroundMapFragment" />
 
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/direction_options"
-                android:layout_below="@+id/map"
+                android:layout_below="@+id/driver_form_map"
                 android:paddingBottom="10dp">
                 <RadioButton
                     android:layout_width="match_parent"

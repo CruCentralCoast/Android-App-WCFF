@@ -1,5 +1,7 @@
 package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,17 +19,21 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.Location;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -35,7 +41,7 @@ import java.util.List;
 /**
  * Created by MasonJStevenson on 4/1/2016.
  */
-public abstract class RideShareFormFragment extends CruFragment implements OnMapReadyCallback {
+public abstract class RideShareFormFragment extends CruFragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
     Form form;
     DatePicker datePicker;
@@ -57,6 +63,7 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
 
     private ScrollView scrollView;
     private GoogleMap mMap;
+    private Location selectedLocation = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -146,12 +153,14 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
             @Override
             public void onClick(View v) {
                 gender = Gender.MALE;
-            }});
+            }
+        });
         female.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gender = Gender.FEMALE;
-            }});
+            }
+        });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,9 +271,10 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
 
         // Add a marker in Sydney and move the camera
         LatLng slo = new LatLng(35.2828, -120.659485);
-        //mMap.addMarker(new MarkerOptions().position(slo).title("Marker in San Luis Obispo"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(slo));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(10.0f));
+
+        mMap.setOnMapClickListener(this);
     }
 
     public void loadMap() {
@@ -286,5 +296,29 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
 
     public boolean hasValidTextInput(final EditText e) {
         return e.getText() != null && e.getText().toString().length() > 0;
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+
+        Geocoder geocoder = new Geocoder(MyApplication.getContext());
+        Address selectedAddress;
+        LatLng displayLoc = latLng;
+        String locTitle = "custom location";
+
+        try {
+            //find the nearest address
+            selectedAddress = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1).get(0);
+            displayLoc = new LatLng(selectedAddress.getLatitude(), selectedAddress.getLongitude());
+            locTitle = selectedAddress.getAddressLine(0);
+
+            selectedLocation = new Location(selectedAddress);
+
+            mMap.clear();
+            mMap.addMarker(new MarkerOptions().position(displayLoc).title(locTitle)).showInfoWindow();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

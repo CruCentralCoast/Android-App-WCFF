@@ -1,5 +1,6 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
+import android.location.Address;
 import android.provider.ContactsContract;
 
 import com.google.gson.JsonArray;
@@ -9,6 +10,7 @@ import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -17,41 +19,50 @@ import java.util.Map;
  * Holds location data associated with a DatabaseObject
  */
 public class Location {
-    private String postcode;
-    private String state;
-    private String suburb;
-    private String street;
-    private String country;
-    private JsonObject fields;
+    //private String postcode;
+    //private String state;
+    //private String suburb;
+    //private String street;
+    //private String country;
+    //private JsonObject fields;
+
+    private Address address;
 
     //for testing
+    /*
     public Location(String postcode, String state, String suburb, String street, String country) {
         this.postcode = postcode;
         this.state = state;
         this.suburb = suburb;
         this.street = street;
         this.country = country;
-    }
+    }*/
 
     public Location(JsonElement locElement) {
+        JsonObject fields;
 
         if (locElement.isJsonObject()) {
             fields = locElement.getAsJsonObject();
 
-            postcode = getFieldAsString(Database.JSON_KEY_COMMON_LOCATION_POSTCODE);
-            state = getFieldAsString(Database.JSON_KEY_COMMON_LOCATION_STATE);
-            suburb = getFieldAsString(Database.JSON_KEY_COMMON_LOCATION_SUBURB);
-            street = getFieldAsString(Database.JSON_KEY_COMMON_LOCATION_STREET);
-            country = getFieldAsString(Database.JSON_KEY_COMMON_LOCATION_COUNTRY);
+            address = new Address(Locale.US);
+            address.setPostalCode(getFieldAsString(fields, Database.JSON_KEY_COMMON_LOCATION_POSTCODE));
+            address.setAdminArea(getFieldAsString(fields, Database.JSON_KEY_COMMON_LOCATION_STATE));
+            address.setLocality(getFieldAsString(fields, Database.JSON_KEY_COMMON_LOCATION_SUBURB));
+            address.setAddressLine(0, getFieldAsString(fields, Database.JSON_KEY_COMMON_LOCATION_STREET));
+            address.setCountryName(getFieldAsString(fields, Database.JSON_KEY_COMMON_LOCATION_COUNTRY));
 
         }
+    }
+
+    public Location(Address address) {
+        this.address = address;
     }
 
     /**
      * Gets a field from this object as a String. If the field can't be represented as a String
      * or if it does not exist, returns null.
      */
-    public String getFieldAsString(String fieldName) {
+    private String getFieldAsString(JsonObject fields, String fieldName) {
 
         JsonElement fieldValue = fields.get(fieldName);
 
@@ -63,25 +74,34 @@ public class Location {
     }
 
     public String getPostcode() {
-        return postcode;
+        return address.getPostalCode();
     }
 
     public String getState() {
-        return state;
+        return address.getAdminArea();
     }
 
     public String getSuburb() {
-        return suburb;
+        return address.getLocality();
     }
 
     public String getStreet() {
-        return street;
+        return address.getAddressLine(0);
     }
 
     public String getCountry() {
-        return country;
+        return address.getCountryName();
     }
 
+    public double getLatitude() {
+        return address.getLatitude();
+    }
+
+    public double getLongitude() {
+        return address.getLongitude();
+    }
+
+    /*
     @Override
     public boolean equals(Object other) {
 
@@ -98,15 +118,18 @@ public class Location {
         }
 
         return false;
-    }
+    }*/
 
     public JsonObject toJSON() {
         JsonObject thisObj = new JsonObject();
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_POSTCODE, new JsonPrimitive(postcode));
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STATE, new JsonPrimitive(state));
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_SUBURB, new JsonPrimitive(suburb));
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STREET, new JsonPrimitive(street));
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_COUNTRY, new JsonPrimitive(country));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_POSTCODE, new JsonPrimitive(getPostcode()));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STATE, new JsonPrimitive(getState()));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_SUBURB, new JsonPrimitive(getSuburb()));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STREET, new JsonPrimitive(getStreet()));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_COUNTRY, new JsonPrimitive(getCountry()));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_LATITUDE, new JsonPrimitive(getLatitude()));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_LONGITUDE, new JsonPrimitive(getLongitude()));
+
         return thisObj;
     }
 }

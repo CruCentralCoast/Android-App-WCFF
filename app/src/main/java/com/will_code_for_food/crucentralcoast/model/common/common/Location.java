@@ -19,24 +19,20 @@ import java.util.Map;
  * Holds location data associated with a DatabaseObject
  */
 public class Location {
-    //private String postcode;
-    //private String state;
-    //private String suburb;
-    //private String street;
-    //private String country;
-    //private JsonObject fields;
 
     private Address address;
 
     //for testing
-    /*
     public Location(String postcode, String state, String suburb, String street, String country) {
-        this.postcode = postcode;
-        this.state = state;
-        this.suburb = suburb;
-        this.street = street;
-        this.country = country;
-    }*/
+        address = new Address(Locale.US);
+        address.setPostalCode(postcode);
+        address.setAdminArea(state);
+        address.setLocality(suburb);
+        address.setAddressLine(0, street);
+        address.setCountryName(country);
+
+        //TODO: add latatitude/longitude
+    }
 
     public Location(JsonElement locElement) {
         JsonObject fields;
@@ -50,6 +46,7 @@ public class Location {
             address.setLocality(getFieldAsString(fields, Database.JSON_KEY_COMMON_LOCATION_SUBURB));
             address.setAddressLine(0, getFieldAsString(fields, Database.JSON_KEY_COMMON_LOCATION_STREET));
             address.setCountryName(getFieldAsString(fields, Database.JSON_KEY_COMMON_LOCATION_COUNTRY));
+            //TODO: add latatitude/longitude
 
         }
     }
@@ -101,7 +98,6 @@ public class Location {
         return address.getLongitude();
     }
 
-    /*
     @Override
     public boolean equals(Object other) {
 
@@ -110,25 +106,30 @@ public class Location {
         if (other != null && other instanceof Location) {
             otherLoc = (Location) other;
 
-            return (this.country.equals(otherLoc.getCountry())) &&
-                    (this.street.equals(otherLoc.getStreet())) &&
-                    (this.suburb.equals(otherLoc.getSuburb())) &&
-                    (this.state.equals(otherLoc.getState())) &&
-                    (this.postcode.equals(otherLoc.getPostcode()));
+            return (this.getCountry().equals(otherLoc.getCountry())) &&
+                    (this.getStreet().equals(otherLoc.getStreet())) &&
+                    (this.getSuburb().equals(otherLoc.getSuburb())) &&
+                    (this.getState().equals(otherLoc.getState())) &&
+                    (this.getPostcode().equals(otherLoc.getPostcode()));
         }
 
         return false;
-    }*/
+    }
 
     public JsonObject toJSON() {
         JsonObject thisObj = new JsonObject();
+        JsonArray geo = new JsonArray();
+
         thisObj.add(Database.JSON_KEY_COMMON_LOCATION_POSTCODE, new JsonPrimitive(getPostcode()));
         thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STATE, new JsonPrimitive(getState()));
         thisObj.add(Database.JSON_KEY_COMMON_LOCATION_SUBURB, new JsonPrimitive(getSuburb()));
         thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STREET, new JsonPrimitive(getStreet()));
         thisObj.add(Database.JSON_KEY_COMMON_LOCATION_COUNTRY, new JsonPrimitive(getCountry()));
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_LATITUDE, new JsonPrimitive(getLatitude()));
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_LONGITUDE, new JsonPrimitive(getLongitude()));
+
+        //Todo: figure out why the following lines are malformed
+        //geo.add(new JsonPrimitive(Double.toString(getLongitude())));
+        //geo.add(new JsonPrimitive(Double.toString(getLatitude())));
+        //thisObj.add(Database.JSON_KEY_COMMON_LOCATION_GEO, geo);
 
         return thisObj;
     }

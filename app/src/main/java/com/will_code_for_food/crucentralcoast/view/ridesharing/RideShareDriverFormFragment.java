@@ -51,17 +51,6 @@ public class RideShareDriverFormFragment extends RideShareFormFragment {
 
     @Override
     public void submitFormAdditionalActions() {
-        new PushNewRideTask().execute();
-
         //TODO: go to a new screen here
-    }
-
-    private class PushNewRideTask extends AsyncTask<Event, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Event... params) {
-            //RestUtil.create(Ride.toJSON(selectedEvent.getId(), new User("testDriver", "1234567"), 5, "test", RideDirection.ONE_WAY_TO_EVENT), Database.REST_RIDE);
-            return null;
-        }
     }
 }

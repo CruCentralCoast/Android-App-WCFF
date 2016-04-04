@@ -31,6 +31,7 @@ public class Database {
     public static final String JSON_KEY_COMMON_LOCATION_SUBURB = "suburb";
     public static final String JSON_KEY_COMMON_LOCATION_STREET = "street1";
     public static final String JSON_KEY_COMMON_LOCATION_COUNTRY = "country";
+    public static final String JSON_KEY_COMMON_LOCATION_GEO = "geo";
     public static final String JSON_KEY_COMMON_LOCATION_LATITUDE = "latitude";
     public static final String JSON_KEY_COMMON_LOCATION_LONGITUDE = "longitude";
     public static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";

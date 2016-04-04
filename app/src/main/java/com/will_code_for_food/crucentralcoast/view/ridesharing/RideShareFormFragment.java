@@ -147,7 +147,8 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
             @Override
             public void onClick(View v) {
                 direction = RideDirection.TWO_WAY;
-            }});
+            }
+        });
 
         male.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,9 +207,10 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
         if (direction != null){
             form.answerQuestion(4, direction);
         }
-        //if (hasValidTextInput(locations)) {
-        //    form.answerQuestion(5, locations.getText().toString());
-        //}
+
+        if (selectedLocation != null) {
+            form.answerQuestion(5, selectedLocation);
+        }
 
         //answer any other questions the child form might have
         answerAdditionalQuestions();

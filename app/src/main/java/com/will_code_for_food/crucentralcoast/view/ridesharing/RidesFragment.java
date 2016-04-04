@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
@@ -51,10 +52,10 @@ public class RidesFragment extends CruFragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity activity = (MainActivity) getActivity();
-                activity.loadFragmentById(R.layout.fragment_ridesharing_select_action,
-                        selectedEvent.getName() + " > " + RideShareSelectActionFragment.TITLE,
-                        new RideShareSelectActionFragment(), activity);
+                getParent().loadFragmentById(R.layout.fragment_ridesharing_driver_form,
+                        selectedEvent.getName() + " > " +
+                                Util.getString(R.string.ridesharing_driver_form_title),
+                        new RideShareDriverFormFragment(), getParent());
             }
         });
         return fragmentView;

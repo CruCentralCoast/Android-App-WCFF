@@ -127,9 +127,9 @@ public class Location {
         thisObj.add(Database.JSON_KEY_COMMON_LOCATION_COUNTRY, new JsonPrimitive(getCountry()));
 
         //Todo: figure out why the following lines are malformed
-        //geo.add(new JsonPrimitive(Double.toString(getLongitude())));
-        //geo.add(new JsonPrimitive(Double.toString(getLatitude())));
-        //thisObj.add(Database.JSON_KEY_COMMON_LOCATION_GEO, geo);
+        geo.add(new JsonPrimitive(getLongitude() + ""));
+        geo.add(new JsonPrimitive(getLatitude() + ""));
+        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_GEO, geo);
 
         return thisObj;
     }

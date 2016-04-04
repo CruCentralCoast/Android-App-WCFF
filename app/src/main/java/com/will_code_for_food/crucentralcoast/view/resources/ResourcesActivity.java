@@ -7,6 +7,7 @@ import android.content.Intent;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.authentication.Authenticator;
+import com.will_code_for_food.crucentralcoast.model.resources.LeaderArticleCardFactory;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 import com.will_code_for_food.crucentralcoast.values.UI;
@@ -54,8 +55,9 @@ public class ResourcesActivity extends MainActivity {
      * Displays the Cru articles in a list
      */
     public void viewArticles() {
-        loadFragmentById(R.layout.fragment_card_list, article_title,
-                new ResourceArticleFragment(), this);
+        ResourceArticleFragment fragment = new ResourceArticleFragment();
+        fragment.setFactory(new ArticleCardFactory());
+        loadFragmentById(R.layout.fragment_card_list, article_title, fragment, this);
     }
 
     public void viewLeaderResources() {
@@ -67,8 +69,9 @@ public class ResourcesActivity extends MainActivity {
     }
 
     private void goToLeaderResources() {
-        // TODO actually show leader resources
-        Toast.makeText(context, "Show leader resources...", Toast.LENGTH_LONG).show();
+        ResourceArticleFragment fragment = new ResourceArticleFragment();
+        fragment.setFactory(new LeaderArticleCardFactory());
+        loadFragmentById(R.layout.fragment_card_list, article_title, fragment, this);
     }
 
     /**

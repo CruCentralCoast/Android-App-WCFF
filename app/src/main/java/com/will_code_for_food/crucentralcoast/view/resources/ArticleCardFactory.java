@@ -5,6 +5,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.authentication.Authenticator;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
@@ -17,7 +18,12 @@ import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 public class ArticleCardFactory implements CardFragmentFactory {
     @Override
     public boolean include(DatabaseObject object) {
-        return true;
+        Resource resource = (Resource) object;
+
+        if (resource != null) {
+            return !resource.isRestricted();
+        }
+        return false;
     }
 
     @Override

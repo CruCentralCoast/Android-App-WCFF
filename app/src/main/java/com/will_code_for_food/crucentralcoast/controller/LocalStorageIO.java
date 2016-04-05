@@ -42,22 +42,35 @@ public class LocalStorageIO {
      * the file if necessary. Each element in the list is given its own line. Clears
      * the file if it already exists.
      */
-    public static boolean writeList(final List<String> list, final String fileName) {
+    public static boolean writeList(final List<String> list, final String fileName,
+                                    final boolean readable) {
         File path = MyApplication.getContext().getFilesDir();
         File file = new File(path, fileName);
         try {
-            file.createNewFile();
-            OutputStreamWriter writer = new OutputStreamWriter(
-                    Util.getContext().openFileOutput(fileName, Context.MODE_PRIVATE));
-            for (String string : list) {
-                writer.write(string + "\n");
+            if (file.createNewFile()) {
+                if (readable) {
+                   if(!file.setReadable(true, false)) {
+                       Log.e("File Write", "Global read permissions error");
+                   }
+                }
+                OutputStreamWriter writer = new OutputStreamWriter(Util.getContext().openFileOutput(fileName, Context.MODE_PRIVATE));
+                for (String string : list) {
+                    writer.write(string + "\n");
+                }
+                writer.close();
+                return true;
+            } else {
+                Log.e("File Write", "Error creating file: " + fileName);
+                return false;
             }
-            writer.close();
-            return true;
         } catch (IOException e) {
             Log.e("Write Error", "File write failed: " + e.toString());
             return false;
         }
+    }
+
+    public static boolean writeList(final List<String> list, final String fileName) {
+        return writeList(list, fileName, false);
     }
 
     /**

@@ -18,6 +18,9 @@
             android:key="pref_logout"
             android:title="Log Out"
             android:summary="(Community Group Leaders Only)"/>
+        <Preference
+            android:key="pref_email"
+            android:title="Crash Report Email (Debug)"/>
         <CheckBoxPreference
             android:key="setup_complete"
             android:title="Initial Setup Complete"

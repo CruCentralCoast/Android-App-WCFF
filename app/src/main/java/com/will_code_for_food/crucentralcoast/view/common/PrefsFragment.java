@@ -10,7 +10,10 @@ import android.preference.PreferenceFragment;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.EmailMessage;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.EmailSender;
 import com.will_code_for_food.crucentralcoast.controller.authentication.Authenticator;
+import com.will_code_for_food.crucentralcoast.controller.crash_reports.CrashReport;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
@@ -63,6 +66,16 @@ public class PrefsFragment extends PreferenceFragment
                 Authenticator.logOut();
                 Toast.makeText(parent, Util.getString(R.string.logout_message),
                         Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
+        Preference emailPref = findPreference(Android.PREF_EMAIL);
+        emailPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                EmailSender.send(getActivity(),
+                        new CrashReport(new NullPointerException(), "It all broke :(").asMessage());
                 return true;
             }
         });

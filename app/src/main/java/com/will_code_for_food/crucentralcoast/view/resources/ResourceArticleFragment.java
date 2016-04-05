@@ -32,6 +32,11 @@ public class ResourceArticleFragment extends CruFragment implements TextView.OnE
 
     ListView listView;
     private int index, top;
+    private CardFragmentFactory factory;
+
+    public void setFactory (CardFragmentFactory aFactory) {
+        factory = aFactory;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,7 +46,6 @@ public class ResourceArticleFragment extends CruFragment implements TextView.OnE
         listView = (ListView) fragmentView.findViewById(R.id.list_cards);
 
         Retriever retriever = new SingleRetriever<Resource>(RetrieverSchema.RESOURCE);
-        CardFragmentFactory factory = new ArticleCardFactory();
         new RetrievalTask<Resource>(retriever, factory, R.string.toast_no_articles).execute(index, top);
 
         return fragmentView;

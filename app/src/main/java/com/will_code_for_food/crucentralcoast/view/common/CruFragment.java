@@ -47,12 +47,14 @@ public class CruFragment extends Fragment {
         return inflater.inflate(id, container, false);
     }
 
-    protected void hideKeyboard() {
+    /**
+     * Hides the keyboard. Takes any view element in the screen.
+     */
+    protected void hideKeyboard(final View view) {
         InputMethodManager inputMethodManager = (InputMethodManager)
                 getParent().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        View curFocus = getParent().getCurrentFocus();
-        if (curFocus != null) {
-            inputMethodManager.hideSoftInputFromWindow(curFocus.getWindowToken(), 0);
+        if (view != null) {
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
@@ -61,9 +63,8 @@ public class CruFragment extends Fragment {
             hideKeyboardOnUnfocusListener = new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
-                    Log.e("Focus change", "" + hasFocus);
                     if (!hasFocus) {
-                        hideKeyboard();
+                        hideKeyboard(v);
                     }
                 }
             };
@@ -77,8 +78,8 @@ public class CruFragment extends Fragment {
             hideKeyboardOnEnterKeyListener = new TextView.OnEditorActionListener() {
                 public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN) {
-                        Log.e("Hit enter!!!", "Woo!");
                         view.clearFocus();
+                        hideKeyboard(view);
                     }
                     return true;
                 }

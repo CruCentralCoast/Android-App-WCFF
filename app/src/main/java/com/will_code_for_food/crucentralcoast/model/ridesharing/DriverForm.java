@@ -52,11 +52,10 @@ public class DriverForm extends RiderForm {
             String driverNumber = (String) numberQuestion.getAnswer();
 
             RideDirection dir;
-            if (Util.getString(R.string.ridesharing_one_way_to_event)
-                    .equals(direction.getAnswer())) {
+
+            if (direction.getAnswer() == RideDirection.ONE_WAY_TO_EVENT) {
                 dir = RideDirection.ONE_WAY_TO_EVENT;
-            } else if (Util.getString(R.string.ridesharing_one_way_from_event)
-                    .equals(direction.getAnswer())) {
+            } else if (direction.getAnswer() == RideDirection.ONE_WAY_FROM_EVENT) {
                 dir = RideDirection.ONE_WAY_FROM_EVENT;
             } else {
                 dir = RideDirection.TWO_WAY;

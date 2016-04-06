@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RiderForm;
 
@@ -33,6 +36,5 @@ public class RideShareRiderFormFragment extends RideShareFormFragment {
 
     @Override
     public void submitFormAdditionalActions() {
-        //TODO: go to a new screen here
     }
 }

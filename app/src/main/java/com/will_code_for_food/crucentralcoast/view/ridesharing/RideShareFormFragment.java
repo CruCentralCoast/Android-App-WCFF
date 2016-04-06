@@ -93,6 +93,9 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
         submitButton = (Button) fragmentView.findViewById(R.id.driver_form_submit);
         cancelButton = (Button) fragmentView.findViewById(R.id.driver_form_cancel);
 
+        hideKeyboardOnUnfocus(name, number);
+        unfocusOnEnterKey(name, number);
+
         form = getForm(selectedEvent.getId());
         form.print();
     }

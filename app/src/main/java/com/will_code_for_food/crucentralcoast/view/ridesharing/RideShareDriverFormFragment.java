@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
 
@@ -51,6 +52,8 @@ public class RideShareDriverFormFragment extends RideShareFormFragment {
 
     @Override
     public void submitFormAdditionalActions() {
-        //TODO: go to a new screen here
+        getParent().loadFragmentById(R.layout.fragment_my_rides_list,
+                Util.getString(R.string.ridesharing_my_rides_title),
+                new MyRidesFragment(), getParent());
     }
 }

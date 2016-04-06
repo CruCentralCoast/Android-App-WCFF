@@ -35,8 +35,8 @@ import java.util.concurrent.TimeoutException;
 public class DBObjectLoader {
 
     private static ConcurrentHashMap<String, Content> data;
-    private static final int OBJECTS_TO_LOAD = 7;
-    private static int loadCount = 0;
+    private static final int OBJECTS_TO_LOAD = 8; //the number of dbobject types to load during the splashscreen
+    private static int loadCount = 0; //the current number of dbobject types loaded
 
     /**
      * Loads all objects. Doesn't wait for them to finish loading.
@@ -46,6 +46,7 @@ public class DBObjectLoader {
         loadEvents();
         loadCampuses();
         loadMinistries();
+        loadMinistryTeams();
         loadRides();
         loadResources();
         loadSummerMissions();
@@ -61,6 +62,7 @@ public class DBObjectLoader {
         loadEvents(waitTime);
         loadCampuses(waitTime);
         loadMinistries(waitTime);
+        loadMinistryTeams(waitTime);
         loadRides(waitTime);
         loadResources(waitTime);
         loadSummerMissions(waitTime);

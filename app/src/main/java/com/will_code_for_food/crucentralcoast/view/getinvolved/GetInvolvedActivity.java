@@ -25,11 +25,11 @@ public class GetInvolvedActivity extends MainActivity {
     }
 
     public void viewMinistryTeams(){
-        loadFragmentById(R.layout.fragment_card_list, title, new MinistryTeamFragment(), this);
+        loadFragmentById(R.layout.fragment_card_list, "Ministry Teams", new MinistryTeamFragment(), this);
     }
 
     public void viewJoinCommunityGroup(){
-
+        //Todo: go to join community group screen
     }
 
     public static void setMinistryTeam(MinistryTeam team){

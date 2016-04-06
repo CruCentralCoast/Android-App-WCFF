@@ -38,13 +38,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.common.SetupCampusActivity" >
+        <activity android:name=".view.common.SetupCampusActivity" android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".view.common.SetupMinistryActivity">
+        <activity android:name=".view.common.SetupMinistryActivity" android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".view.common.MinistryInfoActivity" >
+        <activity android:name=".view.common.MinistryInfoActivity" android:screenOrientation="portrait">
         </activity>
 
         <activity android:name=".view.common.MainActivity" android:screenOrientation="portrait" >

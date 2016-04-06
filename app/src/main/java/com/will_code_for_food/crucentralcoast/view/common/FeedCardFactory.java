@@ -5,6 +5,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.authentication.Authenticator;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
@@ -23,6 +24,13 @@ public class FeedCardFactory implements CardFragmentFactory<DatabaseObject> {
 
     @Override
     public boolean include(DatabaseObject object) {
+        if (object != null && object instanceof Resource) {
+            Resource resource = (Resource) object;
+
+            // Not logged in; check if article restricted
+            if (!Authenticator.isUserLoggedIn() && !Authenticator.logIn())
+                return !resource.isRestricted();
+        }
         return true;
     }
 

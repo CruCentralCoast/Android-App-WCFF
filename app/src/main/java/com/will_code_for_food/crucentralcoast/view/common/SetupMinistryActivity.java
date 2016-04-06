@@ -159,6 +159,7 @@ public class SetupMinistryActivity extends Activity {
     private class MinistryAdapter extends ArrayAdapter<Ministry> {
 
         private List<Ministry> ministryList;
+        private List<Boolean> ministryVisibilities = new ArrayList<Boolean>();
         private Context context;
 
         private TextView ministryName;
@@ -170,6 +171,9 @@ public class SetupMinistryActivity extends Activity {
             super(context, R.layout.fragment_ministry_setup_card, ministryList);
             this.ministryList = ministryList;
             this.context = context;
+            for (Ministry ministry : ministryList) {
+                ministryVisibilities.add(false);
+            }
         }
 
         /**
@@ -202,7 +206,12 @@ public class SetupMinistryActivity extends Activity {
             background = (RelativeLayout) convertView.findViewById(R.id.ministry_setup_card_background);
             final TextView learnMore = (TextView) convertView.findViewById(R.id.ministry_learn_more);
             final TextView over = (TextView) convertView.findViewById(R.id.ministry_setup_card_over);
-            over.setVisibility(View.INVISIBLE);
+            if (ministryVisibilities.get(position)) {
+                over.setVisibility(View.VISIBLE);
+            }
+            else {
+                over.setVisibility(View.INVISIBLE);
+            }
 
             ministryName.setOnClickListener(getMinistryListener(ministry, over));
             cardImage.setOnClickListener(getMinistryListener(ministry, over));
@@ -227,33 +236,37 @@ public class SetupMinistryActivity extends Activity {
 
             return convertView;
         }
+
+        /**
+         * Creates on-click listener for selecting Ministries
+         */
+        private View.OnClickListener getMinistryListener(final Ministry ministry, final TextView over) {
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!selectedMinistries.contains(ministry)) {
+                        selectedMinistries.add(ministry);
+                        over.setVisibility(View.VISIBLE);
+                        over.bringToFront();
+                        ministryVisibilities.set(getPosition(ministry), true);
+                    } else {
+                        selectedMinistries.remove(ministry);
+                        over.setVisibility(View.INVISIBLE);
+                        ministryVisibilities.set(getPosition(ministry), false);
+                    }
+
+                    if (!selectedMinistries.isEmpty()) {
+                        finishButton.setEnabled(true);
+                        finishButton.setVisibility(View.VISIBLE);
+                    } else {
+                        finishButton.setEnabled(false);
+                    }
+                }
+            };
+        }
     }
 
-    /**
-     * Creates on-click listener for selecting Ministries
-     */
-    private View.OnClickListener getMinistryListener(final Ministry ministry, final TextView over) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!selectedMinistries.contains(ministry)) {
-                    selectedMinistries.add(ministry);
-                    over.setVisibility(View.VISIBLE);
-                    over.bringToFront();
-                } else {
-                    selectedMinistries.remove(ministry);
-                    over.setVisibility(View.INVISIBLE);
-                }
 
-                if (!selectedMinistries.isEmpty()) {
-                    finishButton.setEnabled(true);
-                    finishButton.setVisibility(View.VISIBLE);
-                } else {
-                    finishButton.setEnabled(false);
-                }
-            }
-        };
-    }
 
     @Override
     protected void attachBaseContext(Context newBase) {

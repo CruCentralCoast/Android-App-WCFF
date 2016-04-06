@@ -148,6 +148,7 @@ public class SetupCampusActivity extends Activity {
      */
     private class CampusAdapter extends ArrayAdapter<Campus> {
         private List<Campus> campusList;
+        private List<Boolean> campusVisibilities = new ArrayList<Boolean>();
         private Context context;
 
         private TextView campusName;
@@ -159,6 +160,9 @@ public class SetupCampusActivity extends Activity {
             super(context, R.layout.fragment_campus_setup_card, campusList);
             this.campusList = campusList;
             this.context = context;
+            for (Campus campus : campusList) {
+                campusVisibilities.add(false);
+            }
         }
 
         @Override
@@ -175,7 +179,7 @@ public class SetupCampusActivity extends Activity {
          * Updates a single card in the list with the correct name and image.
          */
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.fragment_campus_setup_card, null);
@@ -184,7 +188,12 @@ public class SetupCampusActivity extends Activity {
             campusName = (TextView) convertView.findViewById(R.id.campus_card_text);
             cardImage = (ImageView) convertView.findViewById(R.id.campus_card_image);
             final TextView over = (TextView) convertView.findViewById(R.id.campus_setup_card_over);
-            over.setVisibility(View.INVISIBLE);
+            if (campusVisibilities.get(position)) {
+                over.setVisibility(View.VISIBLE);
+            }
+            else {
+                over.setVisibility(View.INVISIBLE);
+            }
             final Campus campus = campusList.get(position);
             campusName.setText(campus.getName());
 
@@ -199,9 +208,11 @@ public class SetupCampusActivity extends Activity {
                         selectedCampuses.add(campus);
                         over.setVisibility(View.VISIBLE);
                         over.bringToFront();
+                        campusVisibilities.set(position, true);
                     } else {
                         selectedCampuses.remove(campus);
                         over.setVisibility(View.INVISIBLE);
+                        campusVisibilities.set(position, false);
                     }
 
                     if (!selectedCampuses.isEmpty()) {

@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.controller;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -17,10 +18,13 @@ import com.will_code_for_food.crucentralcoast.view.common.SplashscreenActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -67,6 +71,32 @@ public class LocalStorageIO {
             Log.e("Write Error", "File write failed: " + e.toString());
             return false;
         }
+    }
+
+    public static boolean copyToExternal(String filename){
+        Context context = Util.getContext();
+        if (context == null) {
+            Log.e("File copy", "Null context");
+            return false;
+        }
+        try {
+            File file = new File(context.getExternalFilesDir(null), filename); //Get file location from external source
+            InputStream is = new FileInputStream(context.getFilesDir() + File.separator + filename); //get file location from internal
+            OutputStream os = new FileOutputStream(file); //Open your OutputStream and pass in the file you want to write to
+            byte[] toWrite = new byte[is.available()]; //Init a byte array for handing data transfer
+            Log.i("Available ", is.available() + "");
+            int result = is.read(toWrite); //Read the data from the byte array
+            Log.i("Result", result + "");
+            os.write(toWrite); //Write it to the output stream
+            is.close(); //Close it
+            os.close(); //Close it
+            Log.i("Copying to", "" + context.getExternalFilesDir(null) + File.separator + filename);
+            Log.i("Copying from", context.getFilesDir() + File.separator + filename + "");
+            return true;
+        } catch (Exception e) {
+            Toast.makeText(context, "File copy failed: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show(); //if there's an error, make a piece of toast and serve it up
+        }
+        return false;
     }
 
     public static boolean writeList(final List<String> list, final String fileName) {

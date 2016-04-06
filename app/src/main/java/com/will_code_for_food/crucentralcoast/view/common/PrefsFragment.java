@@ -10,8 +10,7 @@ import android.preference.PreferenceFragment;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.EmailMessage;
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.EmailSender;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.email.EmailSender;
 import com.will_code_for_food.crucentralcoast.controller.authentication.Authenticator;
 import com.will_code_for_food.crucentralcoast.controller.crash_reports.CrashReport;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;

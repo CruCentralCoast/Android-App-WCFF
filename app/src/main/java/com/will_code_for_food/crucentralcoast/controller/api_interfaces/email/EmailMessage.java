@@ -1,9 +1,10 @@
-package com.will_code_for_food.crucentralcoast.controller.api_interfaces;
+package com.will_code_for_food.crucentralcoast.controller.api_interfaces.email;
 
 import android.net.Uri;
 import android.util.Log;
 
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
 
 import java.io.File;
@@ -19,7 +20,7 @@ public class EmailMessage {
     public final String body;
     public final List<AttachmentFile> attachments;
 
-    private static final String TEMP_FNAME = "temp-email-attachment-file.mail";
+    private static final String TEMP_FNAME = "BugReport.txt";
 
     private EmailMessage(final String to, final String subject, final String body) {
         this.to = to;
@@ -51,9 +52,9 @@ public class EmailMessage {
 
     private boolean addAttachmentFile(final String fname, final boolean deleteAfter) {
         if (LocalStorageIO.fileExists(fname)) {
-            File path = MyApplication.getContext().getFilesDir();
-            File file = new File(path, fname);
-            attachments.add(new AttachmentFile(Uri.fromFile(file), deleteAfter));
+            LocalStorageIO.copyToExternal(fname);
+            File file = new File(Util.getContext().getExternalFilesDir(null), fname);
+            attachments.add(new AttachmentFile(file, deleteAfter));
             return true;
         } else {
             Log.e("Email Attachment", "File not found");

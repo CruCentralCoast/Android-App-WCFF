@@ -1,9 +1,8 @@
 package com.will_code_for_food.crucentralcoast.controller.crash_reports;
 
-import android.net.Uri;
 import android.os.Build;
 
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.EmailMessage;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.email.EmailMessage;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -23,7 +22,7 @@ public class CrashReport {
     public final String message;
 
     public static final String CRU_EMAIL = "Will.Code.For.Food.CP@gmail.com";
-    public static final String CRASH_SUBJECT = "Error Report";
+    public static final String CRASH_SUBJECT = "Bug Report";
 
     /**
      * Creates a crash report based on the current state of the app

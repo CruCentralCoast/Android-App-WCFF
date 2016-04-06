@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
@@ -35,10 +37,8 @@ public class MyRideCardFactory implements CardFragmentFactory {
     private List<String> myRides;
 
     public MyRideCardFactory(){
-        // myRides = LocalStorageIO.readList(LocalFiles.USER_RIDES); BROKEN
         myRides = new ArrayList<String>();
-        new getMyRides().execute();
-
+        getMyRides();
     }
 
     @Override
@@ -68,23 +68,25 @@ public class MyRideCardFactory implements CardFragmentFactory {
         };
     }
 
-    private class getMyRides extends AsyncTask<Void, Void, Void> {
+    private void getMyRides() {
+        String myPhoneNum = Util.getPhoneNum();
+        ArrayList<Ride> rides = DBObjectLoader.getRides();
 
-        @Override
-        protected Void doInBackground(Void... params) {
-            Passenger me = RestUtil.getPassenger(Util.getPhoneNum());
-            ArrayList<Ride> rides = new SingleRetriever<Ride>(RetrieverSchema.RIDE).getAll();
-            List<String> ids = LocalStorageIO.readList(LocalFiles.USER_RIDES);
-
-            for (Ride ride : rides) {
-                if (ride != null && me != null && (ride.hasPassenger(me.getId())
-                        || (ids != null && ids.contains(ride.getId())))) {
-                    myRides.add(ride.getId());
-                }
+        for (Ride ride : rides) {
+            if (isPassenger(ride, myPhoneNum) || isDriver(ride, myPhoneNum)) {
+                myRides.add(ride.getId());
             }
-
-            return null;
         }
+    }
+
+    private boolean isPassenger(Ride ride, String phoneNum) {
+        Passenger passenger = DBObjectLoader.getPassenger(phoneNum);
+
+        return passenger != null && ride.hasPassenger(passenger.getId());
+    }
+
+    private boolean isDriver(Ride ride, String phoneNum) {
+        return ride != null && ride.getDriverNumber().equals(phoneNum);
     }
 
     private class RideAdapter extends CardAdapter {

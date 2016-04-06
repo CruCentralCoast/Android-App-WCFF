@@ -3,12 +3,15 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.PlaylistRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.VideoRetriever;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
@@ -35,7 +38,7 @@ import java.util.concurrent.TimeoutException;
 public class DBObjectLoader {
 
     private static ConcurrentHashMap<String, Content> data;
-    private static final int OBJECTS_TO_LOAD = 8; //the number of dbobject types to load during the splashscreen
+    private static final int OBJECTS_TO_LOAD = 9; //the number of dbobject types to load during the splashscreen
     private static int loadCount = 0; //the current number of dbobject types loaded
 
     /**
@@ -51,6 +54,7 @@ public class DBObjectLoader {
         loadResources();
         loadSummerMissions();
         loadVideos();
+        loadPassengers();
     }
 
     /**
@@ -67,6 +71,7 @@ public class DBObjectLoader {
         loadResources(waitTime);
         loadSummerMissions(waitTime);
         //TODO: loadVideos(waitTime);
+        loadPassengers(waitTime);
     }
 
     /**
@@ -81,7 +86,7 @@ public class DBObjectLoader {
      */
     public static void loadEvents() {
         Log.i("DBObjectLoader", "Loading events");
-        new GetOjbectTask<Event>(RetrieverSchema.EVENT, Database.REST_EVENT).execute();
+        new GetOjbectTask<Event>(RetrieverSchema.EVENT).execute();
     }
 
     /**
@@ -90,7 +95,7 @@ public class DBObjectLoader {
      * @param waitTime maximum wait time in milliseconds
      */
     public static boolean loadEvents(long waitTime) {
-        return loadDelayed(RetrieverSchema.EVENT, Database.REST_EVENT, waitTime);
+        return loadDelayed(RetrieverSchema.EVENT, waitTime);
     }
 
     /**
@@ -98,7 +103,7 @@ public class DBObjectLoader {
      */
     public static void loadMinistries() {
         Log.i("DBObjectLoader", "Loading ministries");
-        new GetOjbectTask<Ministry>(RetrieverSchema.MINISTRY, Database.REST_MINISTRY).execute();
+        new GetOjbectTask<Ministry>(RetrieverSchema.MINISTRY).execute();
     }
 
     /**
@@ -107,7 +112,7 @@ public class DBObjectLoader {
      * @param waitTime maximum wait time in milliseconds
      */
     public static boolean loadMinistries(long waitTime) {
-        return loadDelayed(RetrieverSchema.MINISTRY, Database.REST_MINISTRY, waitTime);
+        return loadDelayed(RetrieverSchema.MINISTRY, waitTime);
     }
 
     /**
@@ -115,7 +120,7 @@ public class DBObjectLoader {
      */
     public static void loadRides() {
         Log.i("DBObjectLoader", "Loading rides");
-        new GetOjbectTask<Ride>(RetrieverSchema.RIDE, Database.REST_RIDE).execute();
+        new GetOjbectTask<Ride>(RetrieverSchema.RIDE).execute();
     }
 
     /**
@@ -124,7 +129,7 @@ public class DBObjectLoader {
      * @param waitTime maximum wait time in milliseconds
      */
     public static boolean loadRides(long waitTime) {
-        return loadDelayed(RetrieverSchema.RIDE, Database.REST_RIDE, waitTime);
+        return loadDelayed(RetrieverSchema.RIDE, waitTime);
     }
 
     /**
@@ -132,7 +137,7 @@ public class DBObjectLoader {
      */
     public static void loadCampuses() {
         Log.i("DBObjectLoader", "Loading campuses");
-        new GetOjbectTask<Campus>(RetrieverSchema.CAMPUS, Database.REST_CAMPUS).execute();
+        new GetOjbectTask<Campus>(RetrieverSchema.CAMPUS).execute();
     }
 
     /**
@@ -141,7 +146,7 @@ public class DBObjectLoader {
      * @param waitTime maximum wait time in milliseconds
      */
     public static boolean loadCampuses(long waitTime) {
-        return loadDelayed(RetrieverSchema.CAMPUS, Database.REST_CAMPUS, waitTime);
+        return loadDelayed(RetrieverSchema.CAMPUS, waitTime);
     }
 
     /**
@@ -149,7 +154,7 @@ public class DBObjectLoader {
      */
     public static void loadResources() {
         Log.i("DBObjectLoader", "Loading resources");
-        new GetOjbectTask<Resource>(RetrieverSchema.RESOURCE, Database.REST_RESOURCE).execute();
+        new GetOjbectTask<Resource>(RetrieverSchema.RESOURCE).execute();
     }
 
     /**
@@ -158,7 +163,7 @@ public class DBObjectLoader {
      * @param waitTime maximum wait time in milliseconds
      */
     public static boolean loadResources(long waitTime) {
-        return loadDelayed(RetrieverSchema.RESOURCE, Database.REST_RESOURCE, waitTime);
+        return loadDelayed(RetrieverSchema.RESOURCE, waitTime);
     }
 
     /**
@@ -166,7 +171,7 @@ public class DBObjectLoader {
      */
     public static void loadSummerMissions() {
         Log.i("DBObjectLoader", "Loading summer missions");
-        new GetOjbectTask<Resource>(RetrieverSchema.SUMMER_MISSION, Database.REST_SUMMER_MISSION).execute();
+        new GetOjbectTask<Resource>(RetrieverSchema.SUMMER_MISSION).execute();
     }
 
     /**
@@ -175,7 +180,7 @@ public class DBObjectLoader {
      * @param waitTime maximum wait time in milliseconds
      */
     public static boolean loadSummerMissions(long waitTime) {
-        return loadDelayed(RetrieverSchema.SUMMER_MISSION, Database.REST_SUMMER_MISSION, waitTime);
+        return loadDelayed(RetrieverSchema.SUMMER_MISSION, waitTime);
     }
 
     /**
@@ -184,7 +189,7 @@ public class DBObjectLoader {
      * @param waitTime maximum wait time in milliseconds
      */
     public static boolean loadMinistryTeams(long waitTime) {
-        return loadDelayed(RetrieverSchema.MINISTRY_TEAM, Database.MINISTRY_TEAM, waitTime);
+        return loadDelayed(RetrieverSchema.MINISTRY_TEAM, waitTime);
     }
 
     /**
@@ -192,7 +197,24 @@ public class DBObjectLoader {
      */
     public static void loadMinistryTeams() {
         Log.i("DBObjectLoader", "Loading ministry teams");
-        new GetOjbectTask<Resource>(RetrieverSchema.MINISTRY_TEAM, Database.MINISTRY_TEAM).execute();
+        new GetOjbectTask<Resource>(RetrieverSchema.MINISTRY_TEAM).execute();
+    }
+
+    /**
+     * Loads passengers. Waits for them to finish loading.
+     *
+     * @param waitTime maximum wait time in milliseconds
+     */
+    public static boolean loadPassengers(long waitTime) {
+        return loadDelayed(RetrieverSchema.PASSENGER, waitTime);
+    }
+
+    /**
+     * Loads ministry teams. Doesn't wait for them to finish loading.
+     */
+    public static void loadPassengers() {
+        Log.i("DBObjectLoader", "Loading ministry teams");
+        new GetOjbectTask<Resource>(RetrieverSchema.PASSENGER).execute();
     }
 
     /**
@@ -247,6 +269,28 @@ public class DBObjectLoader {
         return (Content<Playlist>) data.get(Database.PLAYLISTS);
     }
 
+    public static ArrayList<Passenger> getPassengers() {
+        initData();
+        return (Content<Passenger>) data.get(Database.REST_PASSENGER);
+    }
+
+    public static Passenger getPassenger(String phoneNum) {
+        ArrayList<Passenger> passengers = getPassengers();
+        Passenger passenger = null;
+
+
+        //get the latest Passenger object with that phone number
+        if (passengers != null) {
+            for (Passenger tempPassenger : passengers) {
+                if (tempPassenger.getPhoneNumber().equals(phoneNum)) {
+                    passenger = tempPassenger;
+                }
+            }
+        }
+
+        return passenger;
+    }
+
     public static ArrayList<Video> getVideos() {
         initData();
         return (Content<Video>) data.get(Database.VIDEOS);
@@ -265,9 +309,9 @@ public class DBObjectLoader {
     }
 
 
-    private static boolean loadDelayed(RetrieverSchema schema, String tag, long waitTime) {
+    private static boolean loadDelayed(RetrieverSchema schema, long waitTime) {
         try {
-            new GetOjbectTask<Event>(schema, tag).execute().get(waitTime, TimeUnit.MILLISECONDS);
+            new GetOjbectTask<Event>(schema).execute().get(waitTime, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             return false;
         }
@@ -280,9 +324,9 @@ public class DBObjectLoader {
         RetrieverSchema schema;
         String key;
 
-        public GetOjbectTask(RetrieverSchema schema, String key) {
+        public GetOjbectTask(RetrieverSchema schema) {
             this.schema = schema;
-            this.key = key;
+            this.key = schema.getTableName();
         }
 
         @Override

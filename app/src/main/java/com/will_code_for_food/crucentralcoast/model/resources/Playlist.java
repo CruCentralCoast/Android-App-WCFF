@@ -40,6 +40,10 @@ public class Playlist extends DatabaseObject {
         return videoContent;
     }
 
+    public JsonArray getVideosJSON() {
+        return fields.get(Youtube.JSON_LIST).getAsJsonArray();
+    }
+
     public String getChannelId() {
         JsonArray videos = fields.get(Youtube.JSON_LIST).getAsJsonArray();
         JsonObject video = videos.get(0).getAsJsonObject();

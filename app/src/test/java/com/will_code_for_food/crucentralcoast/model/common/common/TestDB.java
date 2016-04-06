@@ -5,9 +5,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
+import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
+import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
+import com.will_code_for_food.crucentralcoast.values.Youtube;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,7 +29,19 @@ public class TestDB {
     public static final String PASSENGERS_FILE = JSON_ROOT + "Passengers";
     public static final String RESOURCES_FILE = JSON_ROOT + "Resources";
     public static final String RIDES_FILE = JSON_ROOT + "Rides";
+    public static final String PLAYLIST_1_FILE = JSON_ROOT + "Playlist1";
     public static final String SUMMER_MISSIONS_FILE = JSON_ROOT + "SummerMissions";
+
+
+    public static ArrayList<DatabaseObject> getFeed() {
+        ArrayList list = new ArrayList<DatabaseObject>();
+
+        list.addAll(getEvents());
+        list.addAll(getResources());
+        list.addAll(getVideos());
+
+        return list;
+    }
 
     public static ArrayList<Event> getEvents() {
         ArrayList list = new ArrayList<Event>();
@@ -93,6 +108,16 @@ public class TestDB {
 
         for (JsonElement element : loadTestObjects(RIDES_FILE)) {
             list.add(new Ride(element.getAsJsonObject()));
+        }
+
+        return list;
+    }
+
+    public static ArrayList<Video> getVideos () {
+        ArrayList<Video> list = new ArrayList<Video>();
+
+        for (JsonElement element : loadTestObjects(PLAYLIST_1_FILE)) {
+            list.add(new Video(element.getAsJsonObject()));
         }
 
         return list;

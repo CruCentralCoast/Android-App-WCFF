@@ -55,7 +55,7 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Integer,
 
         if (dbContent != null) {
             ArrayList<T> filteredObjects = new ArrayList<T>();
-            dbObjects = dbContent.getObjects();
+            dbObjects = dbContent;
 
             for (T object : dbObjects) {
                 if (cardFactory.include(object)) {
@@ -73,7 +73,7 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Integer,
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         ListView list = (ListView) currentActivity.findViewById(R.id.list_cards);
-        if ((myDBObjects != null) && (myDBObjects.getObjects() != null) && (!myDBObjects.getObjects().isEmpty())) {
+        if ((myDBObjects != null) && (myDBObjects != null) && (!myDBObjects.isEmpty())) {
 
             //for some reason, list is null when switching from the main feed to resources or get involved.
             //adding this check stops the app from crashing

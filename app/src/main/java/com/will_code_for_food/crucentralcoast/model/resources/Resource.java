@@ -16,6 +16,7 @@ public class Resource extends DatabaseObject {
     private String type;
     private String date;
     private String title;
+    private boolean restricted;
     private ArrayList<String> tags;
 
     public Resource(JsonObject obj) {
@@ -31,7 +32,10 @@ public class Resource extends DatabaseObject {
         type = getFieldAsString("type");
         date = getFieldAsString("date");
         title = getFieldAsString("title");
-        tags = new ArrayList<String>();
+        tags = new ArrayList<>();
+
+        String restriction = getFieldAsString("restricted");
+        restricted = (restriction == null || restriction.equals("true"));
 
         if (getField("tags").isJsonArray()) {
             tagsArray = getField("tags").getAsJsonArray();
@@ -62,5 +66,14 @@ public class Resource extends DatabaseObject {
 
     public String getUrl() {
         return url;
+    }
+
+    public boolean isRestricted() {
+        return restricted;
+    }
+
+    @Override
+    public String getName() {
+        return getTitle();
     }
 }

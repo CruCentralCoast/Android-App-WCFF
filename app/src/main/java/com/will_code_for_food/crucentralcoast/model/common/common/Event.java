@@ -66,7 +66,7 @@ public class Event extends DatabaseObject {
     // Checks if there is a Facebook page for this event
     public boolean hasFacebook() {
         String url = getFacebookLink();
-        return url != null && url != "";
+        return url != null && !url.equals("");
     }
 
     // Gets the date of the event in reader format

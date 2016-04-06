@@ -63,7 +63,9 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
             parent.runOnUiThread(new Runnable() {
                 public void run() {
                     Toast.makeText(parent, "Ride Joined", Toast.LENGTH_SHORT).show();
-                    parent.loadFragmentById(R.layout.fragment_my_rides_list, "My Rides", new MyRidesFragment(), parent);
+                    parent.loadFragmentById(R.layout.fragment_my_rides_list,
+                            Util.getString(R.string.ridesharing_my_rides_title),
+                            new MyRidesFragment(), parent);
                 }
             });
 

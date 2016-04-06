@@ -15,18 +15,22 @@ import java.util.ArrayList;
  */
 public class Ministry extends DatabaseObject {
     private ArrayList<String> campuses;
+    private ArrayList<String> campusesName;
 
     public Ministry(JsonObject obj) {
         super(obj);
 
         campuses = new ArrayList<String>();
+        campusesName = new ArrayList<String>();
 
         JsonElement campusList = this.getField(Database.JSON_KEY_MINISTRY_CAMPUSES);
 
         if (campusList.isJsonArray()) {
+            int count = campusList.getAsJsonArray().size();
             for (JsonElement campus : campusList.getAsJsonArray()) {
                 campuses.add(campus.getAsString());
             }
+
         } else {
             System.out.println("campusList is not an array");
         }
@@ -35,4 +39,5 @@ public class Ministry extends DatabaseObject {
     public ArrayList<String> getCampuses() {
         return campuses;
     }
+
 }

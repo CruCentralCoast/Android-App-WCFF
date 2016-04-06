@@ -119,14 +119,30 @@
                 android:headerBackground="@color/colorAccent_cruBrightBlue"
                 android:paddingBottom="10dp"/>
 
-            <TextView
+            <!--TextView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="@string/ridesharing_location"
                 android:id="@+id/leave_location_prompt"
                 android:layout_below="@+id/departure_time_picker"
                 android:textSize="15sp"
-                android:padding="10dp" />
+                android:padding="10dp" /-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/selector_wrapper"
+                android:layout_below="@+id/departure_time_picker"
+                android:background="#FFFFFF">
+
+                <fragment
+                    android:id="@+id/location_selector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                    />
+            </LinearLayout>
+
 
             <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
@@ -134,7 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:id="@+id/rideshare_form_map"
-                android:layout_below="@+id/leave_location_prompt"
+                android:layout_below="@+id/selector_wrapper"
                 tools:context=".RideShareDriverFormFragment"
                 android:name="com.will_code_for_food.crucentralcoast.view.ridesharing.WorkaroundMapFragment" />
 

@@ -1,8 +1,12 @@
 package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
+import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +19,10 @@ import android.widget.ScrollView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,6 +32,7 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
@@ -41,7 +50,7 @@ import java.util.List;
 /**
  * Created by MasonJStevenson on 4/1/2016.
  */
-public abstract class RideShareFormFragment extends CruFragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
+public abstract class RideShareFormFragment extends CruFragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener, PlaceSelectionListener {
 
     Form form;
     DatePicker datePicker;
@@ -64,6 +73,7 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
     private ScrollView scrollView;
     private GoogleMap mMap;
     private Location selectedLocation = null;
+    private PlaceAutocompleteFragment locationSelector;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,6 +108,9 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
 
         form = getForm(selectedEvent.getId());
         form.print();
+
+        locationSelector = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.location_selector);
+        locationSelector.setHint(Util.getString(R.string.ridesharing_location));
     }
 
     /**
@@ -181,6 +194,10 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
                 submitForm();
             }
         });
+
+        // Register a listener to receive callbacks when a place has been selected or an error has
+        // occurred.
+        locationSelector.setOnPlaceSelectedListener(this);
     }
 
     private void answerQuestions() {
@@ -311,9 +328,10 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
         LatLng displayLoc = latLng;
         String locTitle = "custom location";
 
-        try {
-            //find the nearest address
-            selectedAddress = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1).get(0);
+        //find the nearest address
+        selectedAddress = getNearestAddress(latLng);
+
+        if (selectedAddress != null) {
             displayLoc = new LatLng(selectedAddress.getLatitude(), selectedAddress.getLongitude());
             locTitle = selectedAddress.getAddressLine(0);
 
@@ -322,8 +340,57 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
             mMap.clear();
             mMap.addMarker(new MarkerOptions().position(displayLoc).title(locTitle)).showInfoWindow();
 
+            locationSelector.setText("");
+        }
+    }
+
+    private Address getNearestAddress(LatLng latLng) {
+        Geocoder geocoder = new Geocoder(MyApplication.getContext());
+        Address selectedAddress;
+
+        try {
+            //find the nearest address
+            selectedAddress = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1).get(0);
+            return selectedAddress;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return null;
+    }
+
+    /**
+     * Callback invoked when a place has been selected from the PlaceAutocompleteFragment.
+     */
+    @Override
+    public void onPlaceSelected(Place place) {
+        Address selectedAddress;
+
+        mMap.clear();
+        mMap.addMarker(new MarkerOptions().position(place.getLatLng()).title((String) place.getName()));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(15.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
+
+
+        selectedAddress = getNearestAddress(place.getLatLng());
+
+        if (selectedAddress != null) {
+            selectedLocation = new Location(selectedAddress);
+        } else {
+            Log.e("RideShareFormFragment", "Couldn't find nearest address");
+            Toast.makeText(getParent(), "Error", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Callback invoked when PlaceAutocompleteFragment encounters an error.
+     */
+    @Override
+    public void onError(Status status) {
+        Log.e("RideShareFormFragment", "onError: Status = " + status.toString());
+
+        Toast.makeText(getParent(), "Place selection failed: " + status.getStatusMessage(),
+                Toast.LENGTH_SHORT).show();
     }
 }

@@ -162,6 +162,7 @@ public class SetupMinistryActivity extends Activity {
         private Context context;
 
         private TextView ministryName;
+        private TextView campusName;
         private ImageView cardImage;
         private String imageLabel = "";
         private RelativeLayout background;
@@ -191,12 +192,20 @@ public class SetupMinistryActivity extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             final Ministry ministry = ministryList.get(position);
+            final String campus = ministry.getCampuses().get(0);
+            String campusNameStr = "";
+            for (Campus campusId : selectedCampuses){
+                if(campus.equals(campusId.getId())) {
+                    campusNameStr = campusId.getName();
+                }
+            }
 
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.fragment_ministry_setup_card, null);
             }
 
+            campusName = (TextView) convertView.findViewById(R.id.ministry_card_campus);
             ministryName = (TextView) convertView.findViewById(R.id.ministry_card_text);
             cardImage = (ImageView) convertView.findViewById(R.id.ministry_card_image);
             background = (RelativeLayout) convertView.findViewById(R.id.ministry_setup_card_background);
@@ -204,6 +213,7 @@ public class SetupMinistryActivity extends Activity {
             final TextView over = (TextView) convertView.findViewById(R.id.ministry_setup_card_over);
             over.setVisibility(View.INVISIBLE);
 
+            campusName.setOnClickListener(getMinistryListener(ministry, over));
             ministryName.setOnClickListener(getMinistryListener(ministry, over));
             cardImage.setOnClickListener(getMinistryListener(ministry, over));
             learnMore.setOnClickListener(new View.OnClickListener() {
@@ -215,6 +225,7 @@ public class SetupMinistryActivity extends Activity {
                 }
             });
 
+            campusName.setText(campusNameStr);
             ministryName.setText(ministry.getName());
 
             //load image

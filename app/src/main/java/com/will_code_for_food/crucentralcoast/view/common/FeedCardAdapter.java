@@ -41,12 +41,10 @@ public class FeedCardAdapter extends CardAdapter {
         DatabaseObject current = cards.get(position);
 
         if (current instanceof Event) {
-
             //inflate
             if (convertView == null || !checkTag(current, convertView)) {
                 convertView = inflateEventView((Event) current, parent);
             }
-
             //populate
             populateEventView((Event) current, convertView);
 
@@ -55,7 +53,6 @@ public class FeedCardAdapter extends CardAdapter {
             if (convertView == null || !checkTag(current, convertView)) {
                 convertView = inflateArticleView((Resource) current, parent);
             }
-
             //populate
             populateArticleView((Resource) current, convertView);
         } else if (current instanceof Video) {
@@ -63,11 +60,13 @@ public class FeedCardAdapter extends CardAdapter {
             if (convertView == null || !checkTag(current, convertView)) {
                 convertView = inflateVideoView((Video) current, parent);
             }
-
             //populate
             populateVideoView((Video) current, convertView);
         } else {
-            Log.e("FeedCardAdapter", "Expected valid db object. Got: " + current.getClass().toString());
+            String errorMesg = "unknown";
+            if (current != null && current.getClass() != null)
+                errorMesg = current.getClass().toString();
+            Log.e("FeedCardAdapter", "Expected valid db object. Got: " + errorMesg);
         }
 
         return convertView;

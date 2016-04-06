@@ -73,6 +73,8 @@ public class RideShareRiderFormFragment extends CruFragment{
         submitButton = (Button) fragmentView.findViewById(R.id.driver_form_submit);
         cancelButton = (Button) fragmentView.findViewById(R.id.driver_form_cancel);
 
+        hideKeyboardOnUnfocus(name, number, locations);
+
         form = new RiderForm(selectedEvent.getId());
         form.print();
 

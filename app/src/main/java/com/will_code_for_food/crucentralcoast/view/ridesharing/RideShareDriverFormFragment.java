@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResultType;
@@ -76,6 +77,9 @@ public class RideShareDriverFormFragment extends CruFragment {
         numberofSeats = (NumberPicker) fragmentView.findViewById(R.id.number_of_seats);
         submitButton = (Button) fragmentView.findViewById(R.id.driver_form_submit);
         cancelButton = (Button) fragmentView.findViewById(R.id.driver_form_cancel);
+
+        hideKeyboardOnUnfocus(name, number, locations);
+        unfocusOnEnterKey(name, number, locations);
 
         form = new DriverForm(selectedEvent.getId());
         form.print();
@@ -179,7 +183,7 @@ public class RideShareDriverFormFragment extends CruFragment {
                 if (form.isFinished()) {
                     Toast.makeText(parent, "Submitted Driver Form", Toast.LENGTH_SHORT).show();
                     form.submit();
-
+                    getParent().loadFragmentById(R.layout.fragment_my_rides_list, Util.getString(R.string.ridesharing_my_rides_title), new MyRidesFragment(), getParent());
                 } else {
                     // error
                     Toast.makeText(parent, "Error!", Toast.LENGTH_SHORT).show();

@@ -21,5 +21,8 @@ public class LocationTest extends TestCase {
         assertEquals("San Luis Obispo", loc.getSuburb());
         assertEquals("CA-1", loc.getStreet());
         assertEquals("United States", loc.getCountry());
+
+        assertNull(loc.getFieldAsString("NOTAFIELD"));
+        assertTrue(loc.equals(new Location(loc.toJSON())));
     }
 }

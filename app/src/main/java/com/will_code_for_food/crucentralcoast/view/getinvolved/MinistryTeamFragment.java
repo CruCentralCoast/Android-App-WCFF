@@ -68,7 +68,7 @@ public class MinistryTeamFragment extends CruFragment {
         Log.i("MinistryTeamFragment", "refreshing ministry team list");
 
         if (!DBObjectLoader.loadMinistryTeams(Database.DB_TIMEOUT)) {
-            Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT);
+            Toast.makeText(getParent(), "Unable to refresh ministry teams", Toast.LENGTH_SHORT);
         }
 
         loadMinistryTeamList();

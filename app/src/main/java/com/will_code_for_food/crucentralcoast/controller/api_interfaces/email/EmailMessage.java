@@ -17,7 +17,7 @@ public class EmailMessage {
     public final String body;
     public final List<AttachmentFile> attachments;
 
-    private static final String TEMP_FNAME = "BugReport.txt";
+    private static final String TEMP_FNAME = "Report.txt";
 
     private EmailMessage(final String to, final String subject, final String body) {
         this.to = to;
@@ -36,11 +36,7 @@ public class EmailMessage {
             Logger.e("Email Message", "Email to " + to + " cannot have a null subject");
             return null;
         }
-        if (body == null) {
-            Logger.e("Email Message", "Email to " + to + " cannot have a null body");
-            return null;
-        }
-        return new EmailMessage(to, subject, body);
+        return new EmailMessage(to, subject, body != null ? body : "");
     }
 
     private boolean addAttachmentFile(final String fname) {

@@ -117,4 +117,7 @@
     <string name="cached_data_msg">No internet connection! This is old data!</string>
     <string name="login_invalid_cred">This username and password combo is incorrect</string>
     <string name="logout_message">You have been logged out</string>
+
+    <!-- Crash Reports -->
+    <string name="crash_report_button">Submit</string>
 </resources>

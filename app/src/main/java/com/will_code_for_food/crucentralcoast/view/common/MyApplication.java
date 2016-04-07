@@ -12,6 +12,8 @@ import com.parse.ParsePush;
 import com.parse.SaveCallback;
 import com.squareup.leakcanary.LeakCanary;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.email.EmailSender;
+import com.will_code_for_food.crucentralcoast.controller.crash_reports.CrashReport;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -26,9 +28,25 @@ public class MyApplication extends MultiDexApplication {
 
     private static Context appContext;
 
+//    public MyApplication() {
+//        defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
+//        // setup handler for uncaught exception
+//        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+//            @Override
+//            public void uncaughtException(Thread thread, Throwable ex) {
+//                EmailSender.send(new MainActivity(), new CrashReport(ex, null).asMessage());
+//                // re-throw critical exception further to the os (important)
+////                defaultUEH.uncaughtException(thread, ex);
+//            }
+//        });
+//    }
+//
+//    // uncaught exception handler variable
+//    private Thread.UncaughtExceptionHandler defaultUEH;
+
+
     @Override
     public void onCreate() {
-
         appContext = this;
 
         Parse.initialize(this, getResources().getString(R.string.parseAppId),

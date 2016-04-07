@@ -87,6 +87,14 @@
         </activity>
 
         <activity
+            android:name=".view.common.CrashReportActivity"
+            android:parentActivityName=".view.common.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.common.MainActivity" />
+        </activity>
+
+        <activity
             android:name=".view.common.SettingsActivity"
             android:parentActivityName=".view.common.MainActivity">
             <meta-data

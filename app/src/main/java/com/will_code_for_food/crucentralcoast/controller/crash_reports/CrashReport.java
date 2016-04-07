@@ -22,7 +22,7 @@ public class CrashReport {
     public final int version_name;
     public final String model;
     public final String manufacturer;
-    public final Exception exception;
+    public final Throwable exception;
 
     public final String message;
 
@@ -49,7 +49,7 @@ public class CrashReport {
     /**
      * Creates a crash report based on the current state of the app
      */
-    public CrashReport(final Exception exception, final String message) {
+    public CrashReport(final Throwable exception, final String message) {
         this.exception = exception;
         this.message = message;
         // phone hardware information

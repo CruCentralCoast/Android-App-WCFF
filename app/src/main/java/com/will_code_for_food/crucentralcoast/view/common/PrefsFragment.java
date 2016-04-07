@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.email.EmailSender;
 import com.will_code_for_food.crucentralcoast.controller.authentication.Authenticator;
 import com.will_code_for_food.crucentralcoast.controller.crash_reports.CrashReport;
@@ -74,9 +74,8 @@ public class PrefsFragment extends PreferenceFragment
         emailPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Log.e("Bug Report", "Submitting manually");
-                EmailSender.send(getActivity(),
-                        new CrashReport(new NullPointerException(), "It all broke :(").asMessage());
+                Logger.i("Bug Report", "Submitting manually");
+                EmailSender.send(getActivity(), new CrashReport(null, null).asMessage());
                 return true;
             }
         });

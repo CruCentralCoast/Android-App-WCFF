@@ -2,16 +2,23 @@ package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
+import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
@@ -22,13 +29,34 @@ import com.will_code_for_food.crucentralcoast.view.events.EventsFragment;
  */
 public class MyRidesFragment extends CruFragment {
 
+    private SwipeRefreshLayout layout;
+    private FloatingActionButton fab;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
+        initComponents(fragmentView);
+        loadList();
+
+        return fragmentView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshList();
+            }
+        });
+    }
+
+    private void initComponents(View fragmentView) {
         //Set up action button to add a ride
-        FloatingActionButton fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab);
+        fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,11 +67,27 @@ public class MyRidesFragment extends CruFragment {
             }
         });
 
-        Retriever retriever = new SingleRetriever<Ride>(RetrieverSchema.RIDE);
+        layout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.card_refresh_layout);
+    }
+
+    private void loadList() {
+        Retriever retriever = new SingleMemoryRetriever(Database.REST_RIDE);
+        populateList(retriever);
+    }
+
+    private void refreshList() {
+        Log.i("MyRidesFragment", "refreshing rides");
+
+        if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
+            Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT);
+        }
+
+        loadList();
+    }
+
+    private void populateList(Retriever retriever) {
         CardFragmentFactory factory = new MyRideCardFactory();
         new RetrievalTask<Ride>(retriever, factory,
                 R.string.toast_no_my_rides).execute();
-
-        return fragmentView;
     }
 }

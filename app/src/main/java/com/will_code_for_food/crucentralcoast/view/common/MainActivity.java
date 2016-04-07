@@ -121,11 +121,13 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Submit",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
+                                Log.e("Click submit", "hit cr submit");
                                 // get user input and set it to result
                                 // edit text
                                 EmailSender.send(getParent(),
                                         new CrashReport(ex,
                                                 userInput.getText().toString()).asMessage());
+                                dialog.cancel();
                             }
                         })
                 .setNegativeButton("Cancel",

@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.EnterNameDialog;
@@ -25,7 +26,7 @@ public class GetInvolvedActivity extends MainActivity {
     }
 
     public void viewMinistryTeams(){
-        loadFragmentById(R.layout.fragment_card_list, "Ministry Teams", new MinistryTeamFragment(), this);
+        loadFragmentById(R.layout.fragment_card_list, Util.getString(getParent(), R.string.ministry_team_header), new MinistryTeamFragment(), this);
     }
 
     public void viewJoinCommunityGroup(){
@@ -43,6 +44,6 @@ public class GetInvolvedActivity extends MainActivity {
     public void joinMinistryTeam(View view){
         MinistryTeamSignupDialog popup = MinistryTeamSignupDialog.newInstance(team);
         FragmentManager manager = getFragmentManager();
-        popup.show(manager, "ministry_team_signup");
+        popup.show(manager, "ministry_team_signup"); //todo: fix this (not sure which string to use)
     }
 }

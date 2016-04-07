@@ -211,5 +211,4 @@ public class RideShareDriverFormFragment extends CruFragment {
         }
     }
 
-
 }

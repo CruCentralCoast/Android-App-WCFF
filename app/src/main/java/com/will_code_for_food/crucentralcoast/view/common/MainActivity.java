@@ -1,5 +1,7 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBar;
 import android.app.Fragment;
@@ -13,14 +15,20 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.will_code_for_food.crucentralcoast.controller.Logger;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.email.EmailSender;
+import com.will_code_for_food.crucentralcoast.controller.crash_reports.CrashReport;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.view.getinvolved.GetInvolvedActivity;
 import com.will_code_for_food.crucentralcoast.R;
@@ -47,6 +55,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final Thread.UncaughtExceptionHandler oldHandler =
+                Thread.getDefaultUncaughtExceptionHandler();
+        Thread.currentThread().setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable throwable) {
+                Log.e("Alert", "Lets See if it Works !!!");
+
+//                .sendCrashReport(throwable);
+            }
+        });
+
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         notifier = new Notifier();
@@ -79,6 +99,51 @@ public class MainActivity extends AppCompatActivity {
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context, R.color.colorAccent_cruBrightBlue)));
         TypeFaceUtil.overrideFont(getApplicationContext(), getResources().getString(R.string.default_serif), getResources().getString(R.string.new_default));
+    }
+
+    public void sendCrashReport() {
+        sendCrashReport(null);
+    }
+
+    public void sendCrashReport(final Throwable ex) {
+        // get prompts.xml view
+        LayoutInflater li = LayoutInflater.from(context);
+        View promptsView = li.inflate(R.layout.fragment_crash_report, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.cr_user_message);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("Submit",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // get user input and set it to result
+                                // edit text
+                                EmailSender.send(getParent(),
+                                        new CrashReport(ex,
+                                                userInput.getText().toString()).asMessage());
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
 
     @Override

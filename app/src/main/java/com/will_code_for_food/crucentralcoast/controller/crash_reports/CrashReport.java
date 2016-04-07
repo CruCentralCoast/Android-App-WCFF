@@ -6,6 +6,7 @@ import android.util.Log;
 import com.will_code_for_food.crucentralcoast.BuildConfig;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.email.EmailMessage;
+import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +20,7 @@ import java.util.Random;
 public class CrashReport {
     public final Date date;
     public final String version;
+    public final String app_version;
     public final int version_name;
     public final String model;
     public final String manufacturer;
@@ -52,6 +54,7 @@ public class CrashReport {
     public CrashReport(final Throwable exception, final String message) {
         this.exception = exception;
         this.message = message;
+        this.app_version = MyApplication.getVersion();
         // phone hardware information
         date = Calendar.getInstance().getTime();
         version = Build.VERSION.RELEASE;
@@ -68,6 +71,7 @@ public class CrashReport {
         } else {
             text += "No user message\n";
         }
+        text += "\nAPP VERSION: " + app_version + "\n\n";
         text += "DATE: " + date.toString() + "\n";
         text += "API VERSION: " + version_name + " ( v" + version + " )\n";
         text += "MODEL: " + model + "\n";

@@ -1,20 +1,12 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.parse.Parse;
-import com.parse.ParseException;
 import com.parse.ParseInstallation;
-import com.parse.ParsePush;
-import com.parse.SaveCallback;
-import com.squareup.leakcanary.LeakCanary;
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.email.EmailSender;
-import com.will_code_for_food.crucentralcoast.controller.crash_reports.CrashReport;
-import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -28,22 +20,11 @@ public class MyApplication extends MultiDexApplication {
 
     private static Context appContext;
 
-//    public MyApplication() {
-//        defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
-//        // setup handler for uncaught exception
-//        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-//            @Override
-//            public void uncaughtException(Thread thread, Throwable ex) {
-//                EmailSender.send(new MainActivity(), new CrashReport(ex, null).asMessage());
-//                // re-throw critical exception further to the os (important)
-////                defaultUEH.uncaughtException(thread, ex);
-//            }
-//        });
-//    }
-//
-//    // uncaught exception handler variable
-//    private Thread.UncaughtExceptionHandler defaultUEH;
-
+    private final static int MAJOR_VERSION = 0;
+    private final static int MINOR_VERSION = 0;
+    private final static int DEFECT_VERSION = 0;
+    private final static char RELEASE = 'A';
+    private final static int RELEASE_PATCH = 1;
 
     @Override
     public void onCreate() {
@@ -72,5 +53,10 @@ public class MyApplication extends MultiDexApplication {
         }
 
         return appContext;
+    }
+
+    public static String getVersion() {
+        return "v" + MAJOR_VERSION + '.' + MINOR_VERSION + '.' + DEFECT_VERSION
+                + '.' + RELEASE + RELEASE_PATCH;
     }
 }

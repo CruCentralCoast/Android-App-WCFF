@@ -75,7 +75,7 @@ public class PrefsFragment extends PreferenceFragment
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 Logger.i("Bug Report", "Submitting manually");
-                EmailSender.send(getActivity(), new CrashReport(null, null).asMessage());
+                ((MainActivity) getActivity()).sendCrashReport();
                 return true;
             }
         });

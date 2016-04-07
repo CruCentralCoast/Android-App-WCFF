@@ -38,10 +38,7 @@ public class EventCardFactory implements CardFragmentFactory<Event> {
         //Go through all ministries for the event and see if the user is subscribed
         for (JsonElement objectMinistry : ministriesObject.getAsJsonArray()) {
             if (myMinistries.contains(objectMinistry.getAsString())) {
-                Event event = null;
-                if (object instanceof Event) {
-                    return true;
-                }
+                return true;
             }
         }
 

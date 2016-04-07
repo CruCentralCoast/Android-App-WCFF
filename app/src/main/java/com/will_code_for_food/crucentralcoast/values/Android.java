@@ -14,5 +14,5 @@ public class Android {
     public static final String PREF_LOGOUT = "pref_logout";
 
     //other android values
-    public static final int HARDWARE_ACCELERATION_SUPPORTED_SDK_LEVEL = 19;
+    public static final int CHROMIUM_SUPPORTED_SDK_LEVEL = 19;
 }

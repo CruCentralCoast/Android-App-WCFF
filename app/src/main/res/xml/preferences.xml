@@ -20,7 +20,8 @@
             android:summary="(Community Group Leaders Only)"/>
         <Preference
             android:key="pref_email"
-            android:title="Crash Report Email (Debug)"/>
+            android:title="Send Bug Report"
+            android:summary="(Thanks for the feedback!)"/>
         <CheckBoxPreference
             android:key="setup_complete"
             android:title="Initial Setup Complete"

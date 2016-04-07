@@ -4,17 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.Cache;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
-import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
-import com.will_code_for_food.crucentralcoast.view.common.SplashscreenActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,7 +17,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -48,25 +38,22 @@ public class LocalStorageIO {
      */
     public static boolean writeList(final List<String> list, final String fileName,
                                     final boolean readable) {
-        File path = MyApplication.getContext().getFilesDir();
+        File path = Util.getContext().getFilesDir();
         File file = new File(path, fileName);
         try {
-            if (file.createNewFile()) {
-                if (readable) {
-                   if(!file.setReadable(true, false)) {
-                       Log.e("File Write", "Global read permissions error");
-                   }
-                }
-                OutputStreamWriter writer = new OutputStreamWriter(Util.getContext().openFileOutput(fileName, Context.MODE_PRIVATE));
-                for (String string : list) {
-                    writer.write(string + "\n");
-                }
-                writer.close();
-                return true;
-            } else {
-                Log.e("File Write", "Error creating file: " + fileName);
-                return false;
+            file.createNewFile();
+            if (readable) {
+               if(!file.setReadable(true, false)) {
+                   Log.e("File Write", "Global read permissions error");
+               }
             }
+            OutputStreamWriter writer = new OutputStreamWriter(
+                    Util.getContext().openFileOutput(fileName, Context.MODE_PRIVATE));
+            for (String string : list) {
+                writer.write(string + "\n");
+            }
+            writer.close();
+            return true;
         } catch (IOException e) {
             Log.e("Write Error", "File write failed: " + e.toString());
             return false;
@@ -84,7 +71,7 @@ public class LocalStorageIO {
             InputStream is = new FileInputStream(context.getFilesDir() + File.separator + filename); //get file location from internal
             OutputStream os = new FileOutputStream(file); //Open your OutputStream and pass in the file you want to write to
             byte[] toWrite = new byte[is.available()]; //Init a byte array for handing data transfer
-            Log.i("Available ", is.available() + "");
+            Log.i("Available", is.available() + "");
             int result = is.read(toWrite); //Read the data from the byte array
             Log.i("Result", result + "");
             os.write(toWrite); //Write it to the output stream
@@ -94,7 +81,9 @@ public class LocalStorageIO {
             Log.i("Copying from", context.getFilesDir() + File.separator + filename + "");
             return true;
         } catch (Exception e) {
-            Toast.makeText(context, "File copy failed: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show(); //if there's an error, make a piece of toast and serve it up
+            Log.e("File copy", "Failed");
+            Toast.makeText(context, "File copy failed: " + e.getLocalizedMessage(),
+                    Toast.LENGTH_LONG).show();
         }
         return false;
     }
@@ -135,15 +124,15 @@ public class LocalStorageIO {
      * Adds a string to the end of a file
      */
     public static boolean appendToList(final String data, final String fileName) {
-        if (!fileExists(fileName))
+        if (!fileExists(fileName)) {
             return writeSingleLineFile(fileName, data);
-
-        List<String> list = readList(fileName);
-        if (list != null) {
-            list.add(data);
-            return writeList(list, fileName);
         }
-        return false;
+        List<String> list = readList(fileName);
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        list.add(data);
+        return writeList(list, fileName);
     }
 
     /**
@@ -190,7 +179,7 @@ public class LocalStorageIO {
         for (String key : map.keySet()) {
             if (key.contains(HASHMAP_DELIMITER) || map.get(key).contains(HASHMAP_DELIMITER)) {
                 Log.w("WRITING HASHMAP",
-                        "Warning: Hashmap contains the sequence used to separate keys and values." +
+                        "Hashmap contains the sequence used to separate keys and values." +
                             " This could cause errors.");
             }
             list.add(key + HASHMAP_DELIMITER + map.get(key));

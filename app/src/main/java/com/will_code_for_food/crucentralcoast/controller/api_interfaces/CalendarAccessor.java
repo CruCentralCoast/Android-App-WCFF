@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.CalendarEvent;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 
@@ -47,7 +48,7 @@ public class CalendarAccessor {
                                                final Activity currentActivity) {
         Uri eventUri = ContentUris
                 .withAppendedId(getCalendarUriBase(), event.getCalendarId());
-        Log.i("Deleting...", "deleting id " + event.getCalendarId());
+        Logger.i("Deleting...", "deleting id " + event.getCalendarId());
         currentActivity.getContentResolver().delete(eventUri, null, null);
         deleteFromSet(event.getCalendarId());
     }
@@ -97,7 +98,7 @@ public class CalendarAccessor {
         long eventId = getExitingCalendarEventId(event.getTitle(), event.getDatabaseId());
         if (eventId == -1) {
             try {
-                Log.i("EVENT", "Creating event in calendar: " + event.getTitle());
+                Logger.i("EVENT", "Creating event in calendar: " + event.getTitle());
                 // event information
                 ContentValues values = getContentValues(event);
                 TimeZone timeZone = TimeZone.getDefault();
@@ -121,10 +122,10 @@ public class CalendarAccessor {
                 Util.saveToSet(EVENT_KEY_SET, eventId + DELIMITER + event.getDatabaseId());
             } catch (Exception ex) {
                 ex.printStackTrace();
-                Log.i("Event to calendar", "Unable to add event to calendar");
+                Logger.i("Event to calendar", "Unable to add event to calendar");
             }
         } else {
-            Log.i("Event to calendar", "Found event already in calendar. Updating.");
+            Logger.i("Event to calendar", "Found event already in calendar. Updating.");
             editExistingEvent(event, currentActivity);
         }
         return eventId;
@@ -141,7 +142,7 @@ public class CalendarAccessor {
             for (String str : set) {
                 String[] pair = str.split("\\" + DELIMITER);
                 if (databaseId.equals(pair[1])) {
-                    Log.e("Found event", "Id: " + pair[0] + ", Title: " + eventTitle);
+                    Logger.i("Found event", "Id: " + pair[0] + ", Title: " + eventTitle);
                     return Integer.parseInt(pair[0]);
                 }
             }
@@ -164,7 +165,7 @@ public class CalendarAccessor {
                 Uri event = ContentUris.withAppendedId(Events.CONTENT_URI, id);
                 Cursor cursor = currentActivity.managedQuery(event, null, null, null, null);
                 if (cursor.getCount() != 1) {
-                    Log.e("Deleted Event", "Could not find event " + pair[1]);
+                    Logger.i("Deleted Event", "Could not find event " + pair[1]);
                     toRemove[ndx++] = id;
                 }
             }

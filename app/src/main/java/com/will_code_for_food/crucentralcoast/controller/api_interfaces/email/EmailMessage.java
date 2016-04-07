@@ -1,11 +1,8 @@
 package com.will_code_for_food.crucentralcoast.controller.api_interfaces.email;
 
-import android.net.Uri;
-import android.util.Log;
-
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,15 +29,15 @@ public class EmailMessage {
     public static EmailMessage buildMessage(final String to, final String subject,
                                             final String body) {
         if (to == null) {
-            Log.e("Email Message", "Email cannot have a null 'to' address");
+            Logger.e("Email Message", "Email cannot have a null 'to' address");
             return null;
         }
         if (subject == null) {
-            Log.e("Email Message", "Email to " + to + " cannot have a null subject");
+            Logger.e("Email Message", "Email to " + to + " cannot have a null subject");
             return null;
         }
         if (body == null) {
-            Log.e("Email Message", "Email to " + to + " cannot have a null body");
+            Logger.e("Email Message", "Email to " + to + " cannot have a null body");
             return null;
         }
         return new EmailMessage(to, subject, body);
@@ -57,7 +54,7 @@ public class EmailMessage {
             attachments.add(new AttachmentFile(file, deleteAfter));
             return true;
         } else {
-            Log.e("Email Attachment", "File not found");
+            Logger.e("Email Attachment", "File not found");
         }
         return false;
     }

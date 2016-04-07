@@ -1,6 +1,5 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
-import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBar;
 import android.app.Fragment;
@@ -21,8 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.will_code_for_food.crucentralcoast.model.common.messaging.RegistrationIntentService;
-import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.view.getinvolved.GetInvolvedActivity;
 import com.will_code_for_food.crucentralcoast.R;
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         notifier = new Notifier();
-        titleStack = new Stack<String>();
+        titleStack = new Stack<>();
 
         context = this;
 
@@ -77,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         doFeedLoad = true;
-
-
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context, R.color.colorAccent_cruBrightBlue)));

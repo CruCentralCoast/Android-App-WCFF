@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
@@ -73,6 +74,7 @@ public class PrefsFragment extends PreferenceFragment
         emailPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
+                Log.e("Bug Report", "Submitting manually");
                 EmailSender.send(getActivity(),
                         new CrashReport(new NullPointerException(), "It all broke :(").asMessage());
                 return true;

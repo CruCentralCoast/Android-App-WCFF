@@ -21,6 +21,7 @@ public enum RetrieverSchema {
     EVENT (Event.class, Database.REST_EVENT),
     SUMMER_MISSION (SummerMission.class, Database.REST_SUMMER_MISSION),
     RIDE (Ride.class, Database.REST_RIDE),
+    PASSENGER (Passenger.class, Database.REST_PASSENGER),
     RESOURCE(Resource.class, Database.REST_RESOURCE),
     MINISTRY_TEAM (MinistryTeam.class, Database.MINISTRY_TEAM),
     PASSENGER (Passenger.class, Database.REST_PASSENGER);

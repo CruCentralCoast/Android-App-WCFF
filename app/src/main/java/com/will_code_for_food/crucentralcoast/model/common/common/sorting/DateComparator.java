@@ -4,12 +4,12 @@ import android.util.Log;
 
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
@@ -59,6 +59,8 @@ public class DateComparator implements Comparator<DatabaseObject> {
             return parseISO(((Resource) obj).getDate());
         } else if (obj instanceof Event) {
             return parseISO(((Event) obj).getFieldAsString(Database.JSON_KEY_EVENT_STARTDATE));
+        } else if (obj instanceof SummerMission) {
+            return parseISO(((SummerMission) obj).getFieldAsString(Database.JSON_KEY_EVENT_STARTDATE));
         } else {
             return null;
         }

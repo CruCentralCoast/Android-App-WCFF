@@ -122,16 +122,21 @@ public class RideCardFactory implements CardFragmentFactory {
         }
 
         private void setSeatsLeft(View hold) {
-            String text;
-
             TextView seatsLeft = (TextView) hold.findViewById(R.id.card_ride_seats_left);
-            // TODO this is not the way we should be calculating number of seats left
-            int seats = current.getNumAvailableSeatsFromEvent() + current.getNumAvailableSeatsToEvent();
-            if (seats == 1) {
-                text = String.format(Util.getString(R.string.ridesharing_seat_left), seats);
-            } else {
-                text = String.format(Util.getString(R.string.ridesharing_seats_left), seats);
+            String text = "";
+
+            if (current.isToEvent()) {
+                text += current.getNumAvailableSeatsToEvent();
+                text += " " + Util.getString(R.string.ridesharing_to);
             }
+            if (current.isTwoWay()) {
+                text += " - ";
+            }
+            if (current.isFromEvent()) {
+                text += current.getNumAvailableSeatsFromEvent();
+                text += " " + Util.getString(R.string.ridesharing_from);
+            }
+
             seatsLeft.setText(text);
         }
     }

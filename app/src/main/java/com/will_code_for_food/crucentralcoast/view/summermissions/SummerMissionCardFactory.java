@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
+import com.will_code_for_food.crucentralcoast.model.common.common.sorting.DatabaseObjectSorter;
+import com.will_code_for_food.crucentralcoast.model.common.common.sorting.SortMethod;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
@@ -32,6 +34,7 @@ public class SummerMissionCardFactory implements CardFragmentFactory {
 
     @Override
     public ArrayAdapter createAdapter(Content cardObjects) {
+        DatabaseObjectSorter.sortByDate(cardObjects, SortMethod.ASCENDING);
         return new SummerMissionAdapter(SummerMissionsActivity.context,
                 android.R.layout.simple_list_item_1, cardObjects);
     }
@@ -71,9 +74,7 @@ public class SummerMissionCardFactory implements CardFragmentFactory {
             ImageView imageView = (ImageView) convertView.findViewById(R.id.sm_image);
             if (imageLabel != null && !imageLabel.equals("")) {
                 Picasso.with(SummerMissionsActivity.context).load(imageLabel).fit().into(imageView);
-            }
-            else {
-                System.out.println("Image is this: " + imageLabel);
+            } else {
                 imageView.setImageResource(R.drawable.crulogo);
             }
 

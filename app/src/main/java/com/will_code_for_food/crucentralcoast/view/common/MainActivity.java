@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.email.EmailSender;
 import com.will_code_for_food.crucentralcoast.controller.crash_reports.CrashReport;
+import com.will_code_for_food.crucentralcoast.controller.crash_reports.CrashReportExceptionHandler;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.view.getinvolved.GetInvolvedActivity;
@@ -58,16 +59,11 @@ public class MainActivity extends AppCompatActivity {
 
         final Thread.UncaughtExceptionHandler oldHandler =
                 Thread.getDefaultUncaughtExceptionHandler();
-        Thread.currentThread().setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread thread, Throwable throwable) {
-                Log.e("Alert", "Lets See if it Works !!!");
+        CrashReportExceptionHandler newHandler = new CrashReportExceptionHandler();
+        newHandler.setActivity(this);
+        Thread.setDefaultUncaughtExceptionHandler(newHandler);
 
-//                .sendCrashReport(throwable);
-            }
-        });
-
-        setContentView(R.layout.activity_main);
+                setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         notifier = new Notifier();
         titleStack = new Stack<>();

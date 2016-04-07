@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.RegistrationIntentService;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
@@ -32,6 +33,7 @@ import com.will_code_for_food.crucentralcoast.view.getinvolved.GetInvolvedActivi
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.view.resources.ResourcesActivity;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity;
+import com.will_code_for_food.crucentralcoast.view.ridesharing.WorkaroundMapFragment;
 import com.will_code_for_food.crucentralcoast.view.summermissions.SummerMissionsActivity;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.Notifier;
 import com.will_code_for_food.crucentralcoast.model.resources.TypeFaceUtil;
@@ -228,6 +230,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+
+    public WorkaroundMapFragment getMapFragment(int id) {
+        return (WorkaroundMapFragment) getSupportFragmentManager().findFragmentById(id);
+    }
+
+    /**
+     * Destroys a map fragment, releasing its fragment id. If you have a mapfragment inside a CruFragment,
+     * you need to call this in the CruFragment's onDestroyView() method.
+     */
+    public void destroyMapFragment(int id) {
+        getSupportFragmentManager().beginTransaction().remove(getMapFragment(id)).commitAllowingStateLoss();
     }
 
     /**

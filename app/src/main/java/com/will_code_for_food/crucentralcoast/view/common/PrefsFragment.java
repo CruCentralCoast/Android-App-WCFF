@@ -44,9 +44,7 @@ public class PrefsFragment extends PreferenceFragment
     {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-
         MultiSelectListPreference campusPref = (MultiSelectListPreference) findPreference(Android.PREF_CAMPUSES);
-
         Preference clearPref = findPreference(Android.PREF_CLEAR);
 
         clearPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -91,7 +89,6 @@ public class PrefsFragment extends PreferenceFragment
         });
 
         this.getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-
         new MinistrySettingsTask().execute();
         new CampusSettingsTask().execute();
     }

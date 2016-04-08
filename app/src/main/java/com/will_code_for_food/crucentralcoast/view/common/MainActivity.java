@@ -1,5 +1,6 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
@@ -25,11 +26,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.email.EmailSender;
 import com.will_code_for_food.crucentralcoast.controller.crash_reports.CrashReport;
 import com.will_code_for_food.crucentralcoast.controller.crash_reports.CrashReportExceptionHandler;
-import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.view.getinvolved.GetInvolvedActivity;
 import com.will_code_for_food.crucentralcoast.R;
@@ -53,17 +52,21 @@ public class MainActivity extends AppCompatActivity {
     public static Context context;
     private static boolean doFeedLoad = true;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    private void handleUncaughtExceptions() {
         final Thread.UncaughtExceptionHandler oldHandler =
                 Thread.getDefaultUncaughtExceptionHandler();
         CrashReportExceptionHandler newHandler = new CrashReportExceptionHandler();
-        newHandler.setActivity(this);
+        newHandler.setActivityAndHandler(this, oldHandler);
         Thread.setDefaultUncaughtExceptionHandler(newHandler);
+    }
 
-                setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        handleUncaughtExceptions();
+        sendCachedReports();
+
+        setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         notifier = new Notifier();
         titleStack = new Stack<>();
@@ -91,57 +94,83 @@ public class MainActivity extends AppCompatActivity {
         }
 
         doFeedLoad = true;
-
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context, R.color.colorAccent_cruBrightBlue)));
         TypeFaceUtil.overrideFont(getApplicationContext(), getResources().getString(R.string.default_serif), getResources().getString(R.string.new_default));
     }
 
-    public void sendCrashReport() {
-        sendCrashReport(null);
+    public void sendCachedCrashReport() {
+        sendCrashReport(null, true);
     }
 
-    public void sendCrashReport(final Throwable ex) {
-        // get prompts.xml view
+    public void sendCrashReport() {
+        sendCrashReport(null, false);
+    }
+
+    private void sendCrashReport(final Throwable ex, final boolean cached) {
+        // get xml view
         LayoutInflater li = LayoutInflater.from(context);
         View promptsView = li.inflate(R.layout.fragment_crash_report, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                context);
-
-        // set prompts.xml to alertdialog builder
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        // set xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
-
+        final Activity act = this;
         final EditText userInput = (EditText) promptsView
                 .findViewById(R.id.cr_user_message);
-
         // set dialog message
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("Submit",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                Log.e("Click submit", "hit cr submit");
-                                // get user input and set it to result
-                                // edit text
-                                EmailSender.send(getParent(),
-                                        new CrashReport(ex,
-                                                userInput.getText().toString()).asMessage());
-                                dialog.cancel();
+                .setTitle("Bug Report")
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (!cached) {
+                            EmailSender.send(act, new CrashReport(ex, userInput.getText().toString()).asMessage());
+                        } else {
+                            CrashReport report = CrashReport.loadCachedReport();
+                            if (report != null) {
+                                EmailSender.send(act, report.asMessage());
                             }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        });
+                        }
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
 
         // show it
         alertDialog.show();
+    }
+
+    private void sendCachedReports() {
+        Log.i("Crash Report", "Checking for cached crash reports");
+        if (CrashReport.cacheReportExists()) {
+            Log.i("Crash Report", "Found cached report");
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Bug Report");
+            builder.setMessage("Looks like the app crashed the last time you used it! "
+                    + "Would you like to send us a quick bug report?");
+            builder.setPositiveButton("Sure!", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    sendCachedCrashReport();
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("No thanks", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
     @Override

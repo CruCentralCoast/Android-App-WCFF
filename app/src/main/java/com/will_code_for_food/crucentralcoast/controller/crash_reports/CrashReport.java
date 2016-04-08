@@ -4,10 +4,12 @@ import android.os.Build;
 import android.util.Log;
 
 import com.will_code_for_food.crucentralcoast.BuildConfig;
+import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.email.EmailMessage;
 import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,9 +27,12 @@ public class CrashReport {
     public final String model;
     public final String manufacturer;
     public final Throwable exception;
-
+    public final boolean cached;
     public final String message;
 
+    private final String text;
+
+    private static final String CACHED_REPORT = "last-session-cached-crash-report";
     public static final String CRU_EMAIL = "Will.Code.For.Food.CP@gmail.com";
     public static final String[] CRASH_SUBJECTS = new String[] {
             "Bug Report",
@@ -52,9 +57,24 @@ public class CrashReport {
      * Creates a crash report based on the current state of the app
      */
     public CrashReport(final Throwable exception, final String message) {
+        this(exception, message, false);
+    }
+
+    private CrashReport(final Throwable exception, final String message, final boolean cached) {
+        if (cached) {
+            List<String> list = LocalStorageIO.readList(CACHED_REPORT);
+            if (list != null) {
+                text = convertToString(list);
+            } else {
+                text = null;
+            }
+        } else {
+            text = null;
+        }
         this.exception = exception;
         this.message = message;
         this.app_version = MyApplication.getVersion();
+        this.cached = cached;
         // phone hardware information
         date = Calendar.getInstance().getTime();
         version = Build.VERSION.RELEASE;
@@ -63,47 +83,77 @@ public class CrashReport {
         manufacturer = Build.MANUFACTURER;
     }
 
-    public String asText() {
-        String text = "";
+    public List<String> asText() {
+        List<String> text = new ArrayList<>();
         if (message != null) {
-            text += "USER MESSAGE:\n";
-            text += message + "\n\n";
+            text.add("USER MESSAGE:\n");
+            text.add(message + "\n\n");
         } else {
-            text += "No user message\n";
+            text.add("No user message\n");
         }
-        text += "\nAPP VERSION: " + app_version + "\n\n";
-        text += "DATE: " + date.toString() + "\n";
-        text += "API VERSION: " + version_name + " ( v" + version + " )\n";
-        text += "MODEL: " + model + "\n";
-        text += "MANUFACTURER: " + manufacturer + "\n";
+        text.add("\nAPP VERSION: " + app_version + "\n\n");
+        text.add("DATE: " + date.toString() + "\n");
+        text.add("API VERSION: " + version_name + " ( v" + version + " )\n");
+        text.add("MODEL: " + model + "\n");
+        text.add("MANUFACTURER: " + manufacturer + "\n");
 
         if (exception != null) {
-            text += "\n\n**************************************************\n";
-            text += "\nSTACK TRACE:\n\n";
-            text += exception.getMessage() + "\n\n";
+            text.add("\n\n**************************************************\n");
+            text.add("\nSTACK TRACE:\n\n");
+            text.add(exception.getMessage() + "\n\n");
             for (StackTraceElement ele : exception.getStackTrace()) {
-                text += ele.toString() + "\n";
+                text.add(ele.toString() + "\n");
             }
         } else {
-            text += "\n\nNo Exception included\n";
+            text.add("\n\nNo Exception included\n");
         }
 
         List<String> sessionLogs = Logger.getSessionLogs();
         if (sessionLogs != null) {
-            text += "\n\n**************************************************\n";
-            text += "\nSESSION LOG:\n\n";
+            text.add("\n\n**************************************************\n");
+            text.add("\nSESSION LOG:\n\n");
             for (String line : Logger.getSessionLogs()) {
-                text += line + '\n';
+                text.add(line + '\n');
             }
         }
-        Log.i("Session Log Retrieved:\n", text);
+        return text;
+    }
+
+    private String convertToString(final List<String> list) {
+        String text = "";
+        for (String str : list) {
+            text += str;
+            text += '\n';
+        }
         return text;
     }
 
     public EmailMessage asMessage() {
         EmailMessage msg = EmailMessage.buildMessage(CRU_EMAIL,
                 CRASH_SUBJECTS[new Random().nextInt(CRASH_SUBJECTS.length)], message);
-        msg.addAttachmentFromText(asText());
+        if (cached) {
+            msg.addAttachmentFromText(text);
+        } else {
+            msg.addAttachmentFromText(convertToString(asText()));
+        }
         return msg;
+    }
+
+    public boolean cache() {
+        LocalStorageIO.deleteFile(CACHED_REPORT);
+        return LocalStorageIO.writeList(asText(), CACHED_REPORT);
+    }
+
+    public static CrashReport loadCachedReport() {
+        if (cacheReportExists()) {
+            CrashReport report = new CrashReport(null, null, true);
+            LocalStorageIO.deleteFile(CACHED_REPORT);
+            return report;
+        }
+        return null;
+    }
+
+    public static boolean cacheReportExists() {
+        return LocalStorageIO.fileExists(CACHED_REPORT);
     }
 }

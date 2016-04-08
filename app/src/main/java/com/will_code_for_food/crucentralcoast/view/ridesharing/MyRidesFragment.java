@@ -17,12 +17,15 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriev
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
+import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.events.EventsFragment;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Brian on 2/15/2016.
@@ -79,7 +82,7 @@ public class MyRidesFragment extends CruFragment {
         Log.i("MyRidesFragment", "refreshing rides");
 
         if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
-            Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT);
+            Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT).show();
         }
 
         loadList();
@@ -87,7 +90,16 @@ public class MyRidesFragment extends CruFragment {
 
     private void populateList(Retriever retriever) {
         CardFragmentFactory factory = new MyRideCardFactory();
-        new RetrievalTask<Ride>(retriever, factory,
-                R.string.toast_no_my_rides).execute();
+
+        //try {
+                new RetrievalTask<Ride>(retriever, factory, R.string.toast_no_my_rides, new AsyncResponse(getParent()) {
+                @Override
+                public void otherProcessing() {
+                    layout.setRefreshing(false);
+                }
+            }).execute(); //.get(5000, TimeUnit.MILLISECONDS);
+        //} catch (Exception e) {
+        //    Toast.makeText(getParent(), "Unable to load rides", Toast.LENGTH_SHORT).show();
+        //}
     }
 }

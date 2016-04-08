@@ -74,6 +74,8 @@
     <string name="mt_name_hint">Name</string>
     <string name="mt_number_hint">Number</string>
     <string name="mt_email_hint">Email</string>
+    <string name="ministry_team_header">Ministry Teams</string>
+    <string name="get_involved_header">Get Involved</string>
 
     <!-- Font formatting -->
     <string name="default_serif">SERIF</string>
@@ -95,7 +97,7 @@
     <string name="ridesharing_two_way_date_question_name">event leave date</string>
     <string name="ridesharing_two_way_time">What time would you like to leave the event?</string>
     <string name="ridesharing_two_way_time_question_name">event leave time</string>
-    <string name="ridesharing_location">Where would you like to leave from?</string>
+    <string name="ridesharing_location">Where are you leaving from?</string>
     <string name="ridesharing_location_question_name">leave location</string>
     <string name="ridesharing_seats">How many seats are available? Don\'t include yourself!</string>
     <string name="ridesharing_seats_question_name">number of seats</string>

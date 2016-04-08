@@ -23,7 +23,8 @@ public enum RetrieverSchema {
     RIDE (Ride.class, Database.REST_RIDE),
     PASSENGER (Passenger.class, Database.REST_PASSENGER),
     RESOURCE(Resource.class, Database.REST_RESOURCE),
-    MINISTRY_TEAM (MinistryTeam.class, Database.MINISTRY_TEAM);
+    MINISTRY_TEAM (MinistryTeam.class, Database.MINISTRY_TEAM),
+    PASSENGER (Passenger.class, Database.REST_PASSENGER);
 
     public Class<? extends DatabaseObject> getObjClass() {
         return objClass;

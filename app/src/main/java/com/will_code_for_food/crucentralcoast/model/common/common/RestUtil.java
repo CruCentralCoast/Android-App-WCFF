@@ -247,6 +247,7 @@ public class RestUtil {
      * This new JSON object will have an auto-generated _id field.
      */
     public static JsonObject create(JsonObject toSend, String collectionName) {
+        Log.i("RestUtil.java", "Sending object to " + collectionName + ": " + toSend.toString());
         return sendJsonObject(toSend, collectionName, Database.REST_QUERY_CREATE);
     }
 

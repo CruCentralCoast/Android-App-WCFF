@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
@@ -36,7 +38,7 @@ public class MyRideCardFactory implements CardFragmentFactory {
 
     public MyRideCardFactory(){
         myRides = new ArrayList<String>();
-        new getMyRides().execute();
+        getMyRides();
     }
 
     @Override
@@ -66,23 +68,25 @@ public class MyRideCardFactory implements CardFragmentFactory {
         };
     }
 
-    private class getMyRides extends AsyncTask<Void, Void, Void> {
+    private void getMyRides() {
+        String myPhoneNum = Util.getPhoneNum();
+        ArrayList<Ride> rides = DBObjectLoader.getRides();
 
-        @Override
-        protected Void doInBackground(Void... params) {
-            String myPhoneNum = Util.getPhoneNum();
-            Passenger me = RestUtil.getPassenger(myPhoneNum);
-            ArrayList<Ride> rides = new SingleRetriever<Ride>(RetrieverSchema.RIDE).getAll();
-
-            for (Ride ride : rides) {
-                if (ride != null && me != null &&
-                        (myPhoneNum.equals(ride.getDriverNumber()) || ride.hasPassenger(me.getId()))) {
-                    myRides.add(ride.getId());
-                }
+        for (Ride ride : rides) {
+            if (isPassenger(ride, myPhoneNum) || isDriver(ride, myPhoneNum)) {
+                myRides.add(ride.getId());
             }
-
-            return null;
         }
+    }
+
+    private boolean isPassenger(Ride ride, String phoneNum) {
+        Passenger passenger = DBObjectLoader.getPassenger(phoneNum);
+
+        return passenger != null && ride.hasPassenger(passenger.getId());
+    }
+
+    private boolean isDriver(Ride ride, String phoneNum) {
+        return ride != null && ride.getDriverNumber().equals(phoneNum);
     }
 
     private class RideAdapter extends CardAdapter {
@@ -94,7 +98,8 @@ public class MyRideCardFactory implements CardFragmentFactory {
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
             Ride current = (Ride) cards.get(position);
-
+            
+            
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.fragment_ride_card, parent, false);

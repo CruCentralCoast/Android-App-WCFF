@@ -44,6 +44,9 @@
     <string name="preferences_file">com.will_code_for_food.crucentralcoast_preferences</string>
 
     <!--    Ridesharing     -->
+    <string name="ridesharing_join">Join Ride</string>
+    <string name="ridesharing_leave">Leave Ride</string>
+    <string name="ridesharing_cancel">Cancel Ride</string>
     <string name="ridesharing_driver_notification">%%s has joined your ride to %%s!</string>
     <string name="ridesharing_leaving_date" formatted="false">Leaving %s on %s</string>
     <string name="ridesharing_leaving_location" formatted="false">from %s</string>

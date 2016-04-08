@@ -35,10 +35,8 @@ public class MyRideCardFactory implements CardFragmentFactory {
     private List<String> myRides;
 
     public MyRideCardFactory(){
-        // myRides = LocalStorageIO.readList(LocalFiles.USER_RIDES); BROKEN
         myRides = new ArrayList<String>();
         new getMyRides().execute();
-
     }
 
     @Override
@@ -72,13 +70,13 @@ public class MyRideCardFactory implements CardFragmentFactory {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Passenger me = RestUtil.getPassenger(Util.getPhoneNum());
+            String myPhoneNum = Util.getPhoneNum();
+            Passenger me = RestUtil.getPassenger(myPhoneNum);
             ArrayList<Ride> rides = new SingleRetriever<Ride>(RetrieverSchema.RIDE).getAll();
-            List<String> ids = LocalStorageIO.readList(LocalFiles.USER_RIDES);
 
             for (Ride ride : rides) {
-                if (ride != null && me != null && (ride.hasPassenger(me.getId())
-                        || (ids != null && ids.contains(ride.getId())))) {
+                if (ride != null && me != null &&
+                        (myPhoneNum.equals(ride.getDriverNumber()) || ride.hasPassenger(me.getId()))) {
                     myRides.add(ride.getId());
                 }
             }
@@ -96,8 +94,7 @@ public class MyRideCardFactory implements CardFragmentFactory {
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
             Ride current = (Ride) cards.get(position);
-            
-            
+
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.fragment_ride_card, parent, false);

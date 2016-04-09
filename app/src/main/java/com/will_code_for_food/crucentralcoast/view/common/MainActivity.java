@@ -322,17 +322,21 @@ public class MainActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-
-    public WorkaroundMapFragment getMapFragment(int id) {
-        return (WorkaroundMapFragment) getSupportFragmentManager().findFragmentById(id);
+    /**
+     * Destroys a support fragment, releasing its fragment id. If you have a mapfragment inside a CruFragment,
+     * you need to call this in the CruFragment's onDestroyView() method.
+     */
+    public void destroySupportFragment(int id) {
+        android.support.v4.app.Fragment fragment = getSupportFragmentManager().findFragmentById(id);
+        getSupportFragmentManager().beginTransaction().remove(fragment).commitAllowingStateLoss();
     }
 
     /**
-     * Destroys a map fragment, releasing its fragment id. If you have a mapfragment inside a CruFragment,
-     * you need to call this in the CruFragment's onDestroyView() method.
+     * Destroys a fragment, releasing its fragment id.
      */
-    public void destroyMapFragment(int id) {
-        getSupportFragmentManager().beginTransaction().remove(getMapFragment(id)).commitAllowingStateLoss();
+    public void destroyFragment(int id) {
+        Fragment fragment = getFragmentManager().findFragmentById(id);
+        getFragmentManager().beginTransaction().remove(fragment).commitAllowingStateLoss();
     }
 
     /**

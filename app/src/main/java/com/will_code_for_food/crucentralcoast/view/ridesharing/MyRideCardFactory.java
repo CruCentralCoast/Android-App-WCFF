@@ -74,7 +74,6 @@ public class MyRideCardFactory implements CardFragmentFactory {
 
         for (Ride ride : rides) {
             if (isPassenger(ride, myPhoneNum) || isDriver(ride, myPhoneNum)) {
-                System.out.println("*************************************************");
                 myRides.add(ride.getId());
             }
         }
@@ -87,11 +86,6 @@ public class MyRideCardFactory implements CardFragmentFactory {
     }
 
     private boolean isDriver(Ride ride, String phoneNum) {
-        if (ride != null) {
-            Log.d("MyRideCardFactory", "comparing [" + phoneNum + "] to [" + ride.getDriverNumber() + "]");
-        } else {
-            Log.d("MyRideCardFactory", "ride is null");
-        }
         return ride != null && ride.getDriverNumber().equals(phoneNum);
     }
 

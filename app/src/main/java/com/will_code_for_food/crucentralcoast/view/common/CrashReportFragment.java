@@ -1,17 +1,14 @@
-package com.will_code_for_food.crucentralcoast.view.resources;
+package com.will_code_for_food.crucentralcoast.view.common;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
-
 /**
- * Created by Gavin Scott on 2/2/2016.
+ * The fragment that allows users to create and send bug reports
  */
-public class LogInFragment extends CruFragment {
-
+public class CrashReportFragment extends CruFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

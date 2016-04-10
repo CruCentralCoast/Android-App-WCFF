@@ -8,16 +8,16 @@ public class Database {
     public static final String DB_URL = "http://ec2-52-91-235-48.compute-1.amazonaws.com:3001/api/";
     public static final int DB_TIMEOUT = 2000;
 
-    public static final String REST_MINISTRY = "ministry";
-    public static final String REST_CAMPUS = "campus";
-    public static final String REST_EVENT = "event";
-    public static final String REST_SUMMER_MISSION = "summermission";
-    public static final String REST_RIDE = "ride";
-    public static final String REST_PASSENGER = "passenger";
-    public static final String REST_RESOURCE = "resource";
+    public static final String REST_MINISTRY = "ministries";
+    public static final String REST_CAMPUS = "campuses";
+    public static final String REST_EVENT = "events";
+    public static final String REST_SUMMER_MISSION = "summermissions";
+    public static final String REST_RIDE = "rides";
+    public static final String REST_PASSENGER = "passengers";
+    public static final String REST_RESOURCE = "resources";
     public static final String PLAYLISTS = "playlists";
     public static final String VIDEOS = "videos";
-    public static final String MINISTRY_TEAM = "ministryteam";
+    public static final String MINISTRY_TEAM = "ministryteams";
 
     public static final String JSON_KEY_COMMON_ID = "_id";
     public static final String JSON_KEY_COMMON_IMAGE = "image";
@@ -78,10 +78,12 @@ public class Database {
 
     public static final String HTTP_REQUEST_METHOD_GET = "GET";
     public static final String HTTP_REQUEST_METHOD_POST = "POST";
+    public static final String HTTP_REQUEST_METHOD_PATCH = "PATCH";
+    public static final String HTTP_REQUEST_METHOD_DELETE = "DELETE";
     public static final String CONTENT_TYPE_JSON = "application/json";
     public static final String CONTENT_TYPE_URL_ENCODED = "application/x-www-form-urlencoded";
     public static final String REST_QUERY_GET_ALL = "/list";
-    public static final String REST_QUERY_FIND = "/find";
+    public static final String REST_QUERY_FIND = "/search";
     public static final String REST_QUERY_CREATE = "/create";
     public static final String REST_QUERY_ADD_PASSENGER = "/addPassenger";
     public static final String REST_QUERY_DROP_PASSENGER = "/dropPassenger";

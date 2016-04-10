@@ -7,12 +7,14 @@ import android.preference.PreferenceManager;
 
 import com.google.android.gms.gcm.GcmPubSub;
 import com.parse.ParsePush;
+import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Android;
+import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
 
@@ -98,8 +100,7 @@ public class PushUtil {
     public static String getGCMId()
     {
         if (gcmId == null || gcmId.isEmpty()){
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(regService);
-            gcmId = prefs.getString(RegistrationIntentService.GCM_ID, "");
+            gcmId = LocalStorageIO.readSingleLine(LocalFiles.GCM_ID);
         }
         return gcmId;
     }

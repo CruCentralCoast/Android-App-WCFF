@@ -10,7 +10,10 @@ import android.preference.PreferenceFragment;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.email.EmailSender;
 import com.will_code_for_food.crucentralcoast.controller.authentication.Authenticator;
+import com.will_code_for_food.crucentralcoast.controller.crash_reports.CrashReport;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
@@ -41,9 +44,7 @@ public class PrefsFragment extends PreferenceFragment
     {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-
         MultiSelectListPreference campusPref = (MultiSelectListPreference) findPreference(Android.PREF_CAMPUSES);
-
         Preference clearPref = findPreference(Android.PREF_CLEAR);
 
         clearPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -67,6 +68,16 @@ public class PrefsFragment extends PreferenceFragment
             }
         });
 
+        Preference emailPref = findPreference(Android.PREF_EMAIL);
+        emailPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Logger.i("Bug Report", "Submitting manually");
+                ((MainActivity) getActivity()).sendCrashReport();
+                return true;
+            }
+        });
+
         clearPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -78,7 +89,6 @@ public class PrefsFragment extends PreferenceFragment
         });
 
         this.getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-
         new MinistrySettingsTask().execute();
         new CampusSettingsTask().execute();
     }

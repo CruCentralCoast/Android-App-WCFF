@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Android;
@@ -37,6 +38,7 @@ public class SplashscreenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Logger.initialize();
         setContentView(R.layout.activity_splashscreen);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -121,7 +123,7 @@ public class SplashscreenActivity extends Activity {
      * Launches either the initial setup or the main page depending on if the user has previously completed the initial setup.
      */
     private void launchApp() {
-
+        Logger.i("Launching App", "Starting MainActivity");
         if (!Util.loadBool(Android.PREF_SETUP_COMPLETE)) {
             Intent intent = new Intent(this, SetupCampusActivity.class);
             startActivity(intent);

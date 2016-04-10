@@ -1,20 +1,15 @@
 package com.will_code_for_food.crucentralcoast.controller.retrieval;
 
-import android.util.Log;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
-
-import org.json.JSONObject;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -43,10 +38,10 @@ public class SingleRetriever<T extends DatabaseObject> implements Retriever {
         if (testMode) {
             return getTestContent();
         } else if ((content = getLiveContent()).getType() == ContentType.LIVE) {
-            Log.e("RETRIEVAL", "getting live content");
+            Logger.i("RETRIEVAL", "Getting live content");
             return content;
         } else {
-            Log.e("RETRIEVAL", "getting cached content");
+            Logger.i("RETRIEVAL", "Getting cached content");
             return getCachedContent();
         }
     }

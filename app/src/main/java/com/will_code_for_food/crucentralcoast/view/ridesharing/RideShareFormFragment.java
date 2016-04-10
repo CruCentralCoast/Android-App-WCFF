@@ -273,7 +273,8 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
     public void onDestroyView() {
         super.onDestroyView();
         if (mMap != null) {
-            getParent().destroyMapFragment(R.id.rideshare_form_map);
+            getParent().destroySupportFragment(R.id.rideshare_form_map);
+            getParent().destroyFragment(R.id.location_selector);
             mMap = null;
         }
     }
@@ -303,7 +304,7 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
 
         if (mMap == null) {
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-            WorkaroundMapFragment mapFragment = getParent().getMapFragment(R.id.rideshare_form_map);
+            WorkaroundMapFragment mapFragment = (WorkaroundMapFragment) getParent().getSupportFragmentManager().findFragmentById(R.id.rideshare_form_map);
 
             mapFragment.setListener(new WorkaroundMapFragment.OnTouchListener() {
                 @Override

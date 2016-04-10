@@ -59,33 +59,14 @@ public class RestUtil {
         return connection;
     }
 
-    private static HttpURLConnection createPatchConnection(String from, String body, String contentType, String id) throws Exception {
+    private static HttpURLConnection createChangeConnection(String from, String body, String contentType, String id, String requestMethod) throws Exception {
         String dataUrl = DB_URL + from;
 
         URL url = new URL(dataUrl + "/" + id);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int timeout = Database.DB_TIMEOUT;
         connection.setConnectTimeout(timeout);
-        connection.setRequestMethod(Database.HTTP_REQUEST_METHOD_PATCH);
-        connection.setRequestProperty("Content-Type", contentType);
-        connection.setRequestProperty("Accept", "application/json");
-
-        connection.setDoOutput(true);
-
-        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-        wr.writeBytes(body);
-        wr.close();
-        return connection;
-    }
-
-    private static HttpURLConnection createDeleteConnection(String from, String body, String contentType, String id) throws Exception {
-        String dataUrl = DB_URL + from;
-
-        URL url = new URL(dataUrl + "/" + id);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        int timeout = Database.DB_TIMEOUT;
-        connection.setConnectTimeout(timeout);
-        connection.setRequestMethod(Database.HTTP_REQUEST_METHOD_DELETE);
+        connection.setRequestMethod(requestMethod);
         connection.setRequestProperty("Content-Type", contentType);
         connection.setRequestProperty("Accept", "application/json");
 
@@ -245,8 +226,8 @@ public class RestUtil {
 
         try {
             if (update)
-                connection = createPatchConnection(collectionName, toSend.toString(), Database.CONTENT_TYPE_JSON,
-                        toSend.get(Database.JSON_KEY_COMMON_ID).getAsString());
+                connection = createChangeConnection(collectionName, toSend.toString(), Database.CONTENT_TYPE_JSON,
+                        toSend.get(Database.JSON_KEY_COMMON_ID).getAsString(), Database.HTTP_REQUEST_METHOD_PATCH);
             else
                 connection = createPostConnection(collectionName, toSend.toString(), Database.CONTENT_TYPE_JSON);
 
@@ -310,8 +291,9 @@ public class RestUtil {
 
         try {
             if (remove) {
-                connection = createDeleteConnection(Database.REST_RIDE + "/" + rideId + "/" +
-                        Database.REST_PASSENGER, content, Database.CONTENT_TYPE_URL_ENCODED, passengerId);
+                connection = createChangeConnection(Database.REST_RIDE + "/" + rideId + "/" +
+                        Database.REST_PASSENGER, content, Database.CONTENT_TYPE_URL_ENCODED, passengerId,
+                        Database.HTTP_REQUEST_METHOD_DELETE);
             }
             else {
                 connection = createPostConnection(Database.REST_RIDE + "/" + rideId + "/" +

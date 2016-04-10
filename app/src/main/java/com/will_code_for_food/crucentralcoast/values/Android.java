@@ -12,4 +12,6 @@ public class Android {
     public static final String PREF_SETUP_COMPLETE = "setup_complete";
     public static final String PREF_CLEAR = "pref_clear";
     public static final String PREF_LOGOUT = "pref_logout";
+
+    public static final int API_LEVEL_MARSHMALLOW = 23;
 }

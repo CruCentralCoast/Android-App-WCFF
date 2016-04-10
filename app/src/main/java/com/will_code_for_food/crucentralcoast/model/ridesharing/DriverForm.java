@@ -12,6 +12,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.form.MultiOptionQuestion;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
 import com.will_code_for_food.crucentralcoast.model.common.form.QuestionType;
+import com.will_code_for_food.crucentralcoast.model.common.messaging.PushUtil;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 
@@ -69,9 +70,9 @@ public class DriverForm extends RiderForm {
 
             //TODO Fill in with real data
             // save to database
-            Ride origRide = new Ride(eventId, driverName, driverNumber, "dummy_gcm_id",
+            Ride origRide = new Ride(eventId, driverName, driverNumber, PushUtil.getGCMId(),
                     (Location) location.getAnswer(), 1.0,
-                    (int) numSeats.getAnswer(), dir, ((Gender)genderQuestion.getAnswer()).name());
+                    (int) numSeats.getAnswer(), dir, ((Gender)genderQuestion.getAnswer()).getValue() + "");
             Ride ride = null;
             try {
                 ride = new SendToDBTask(origRide).execute().get(2000, TimeUnit.MILLISECONDS);

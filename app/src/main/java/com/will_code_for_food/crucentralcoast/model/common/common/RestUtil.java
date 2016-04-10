@@ -59,6 +59,45 @@ public class RestUtil {
         return connection;
     }
 
+    private static HttpURLConnection createPatchConnection(String from, String body, String contentType, String id) throws Exception {
+        String dataUrl = DB_URL + from;
+
+        URL url = new URL(dataUrl + "/" + id);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        int timeout = Database.DB_TIMEOUT;
+        connection.setConnectTimeout(timeout);
+        connection.setRequestMethod(Database.HTTP_REQUEST_METHOD_PATCH);
+        connection.setRequestProperty("Content-Type", contentType);
+        connection.setRequestProperty("Accept", "application/json");
+
+        connection.setDoOutput(true);
+
+        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+        wr.writeBytes(body);
+        wr.close();
+        return connection;
+    }
+
+    private static HttpURLConnection createDeleteConnection(String from, String body, String contentType, String id) throws Exception {
+        String dataUrl = DB_URL + from;
+
+        URL url = new URL(dataUrl + "/" + id);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        int timeout = Database.DB_TIMEOUT;
+        connection.setConnectTimeout(timeout);
+        connection.setRequestMethod(Database.HTTP_REQUEST_METHOD_DELETE);
+        connection.setRequestProperty("Content-Type", contentType);
+        connection.setRequestProperty("Accept", "application/json");
+
+        connection.setDoOutput(true);
+
+        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+        wr.writeBytes(body);
+        wr.close();
+        return connection;
+    }
+
+
     /**
      * Gets a JSON object from the server and returns it as a String.
      */
@@ -88,8 +127,7 @@ public class RestUtil {
     public static JsonArray get(String tableName) {
         JsonParser parser = new JsonParser();
         try {
-            HttpURLConnection conn = createGetConnection(DB_URL, tableName
-                    + Database.REST_QUERY_GET_ALL);
+            HttpURLConnection conn = createGetConnection(DB_URL, tableName);
             String toParse = request(conn);
 
             if (toParse.equals("!error"))
@@ -198,7 +236,7 @@ public class RestUtil {
      * collection. Since the code for these two methods is almost identical, it makes sense to
      * relocate it here.
      */
-    private static JsonObject sendJsonObject(JsonObject toSend, String collectionName, String command) {
+    private static JsonObject sendJsonObject(JsonObject toSend, String collectionName, boolean update) {
 
         HttpURLConnection connection = null;
 
@@ -206,12 +244,16 @@ public class RestUtil {
         JsonObject dbObj = null;
 
         try {
-            connection = createPostConnection(collectionName + command, toSend.toString(), Database.CONTENT_TYPE_JSON);
+            if (update)
+                connection = createPatchConnection(collectionName, toSend.toString(), Database.CONTENT_TYPE_JSON,
+                        toSend.get(Database.JSON_KEY_COMMON_ID).getAsString());
+            else
+                connection = createPostConnection(collectionName, toSend.toString(), Database.CONTENT_TYPE_JSON);
 
             StringBuilder sb = new StringBuilder();
             int HttpResult = connection.getResponseCode();
 
-            if (HttpResult == HttpURLConnection.HTTP_OK) {
+            if (HttpResult == HttpURLConnection.HTTP_OK || HttpResult == HttpURLConnection.HTTP_CREATED) {
                 BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
                 String line = null;
                 while ((line = br.readLine()) != null) {
@@ -223,7 +265,7 @@ public class RestUtil {
                 //Log.d("RestUtil.java", sb.toString());
                 System.out.println(sb.toString());
 
-                dbObj = parser.parse(sb.toString()).getAsJsonObject().get("post").getAsJsonObject();
+                dbObj = parser.parse(sb.toString()).getAsJsonObject();
 
             } else {
                 //Log.d("RestUtil.java", connection.getResponseMessage());
@@ -248,30 +290,37 @@ public class RestUtil {
      */
     public static JsonObject create(JsonObject toSend, String collectionName) {
         Log.i("RestUtil.java", "Sending object to " + collectionName + ": " + toSend.toString());
-        return sendJsonObject(toSend, collectionName, Database.REST_QUERY_CREATE);
+        return sendJsonObject(toSend, collectionName, false);
     }
 
     /**
      *  Updates an existing object
      */
     public static JsonObject update(JsonObject updatedObject, String collectionName) {
-        return sendJsonObject(updatedObject, collectionName, Database.REST_QUERY_UPDATE);
+        return sendJsonObject(updatedObject, collectionName, true);
     }
 
-    private static boolean addDropHelper(String command, String rideId, String passengerId) {
+    private static boolean addDropHelper(Boolean remove, String rideId, String passengerId) {
         HttpURLConnection connection = null;
-        String content = "ride_id=" + rideId + "&passenger_id=" + passengerId;
+        String content = "passenger_id=" + passengerId;
         JsonParser parser = new JsonParser();
         JsonObject dbObj = null;
         boolean actionSuccessful = false;
         int HttpResult;
 
         try {
-            connection = createPostConnection(Database.REST_RIDE + command, content, Database.CONTENT_TYPE_URL_ENCODED);
+            if (remove) {
+                connection = createDeleteConnection(Database.REST_RIDE + "/" + rideId + "/" +
+                        Database.REST_PASSENGER, content, Database.CONTENT_TYPE_URL_ENCODED, passengerId);
+            }
+            else {
+                connection = createPostConnection(Database.REST_RIDE + "/" + rideId + "/" +
+                        Database.REST_PASSENGER, content, Database.CONTENT_TYPE_URL_ENCODED);
+            }
 
             HttpResult = connection.getResponseCode();
 
-            if(HttpResult == HttpURLConnection.HTTP_OK){
+            if(HttpResult == HttpURLConnection.HTTP_OK || HttpResult == HttpURLConnection.HTTP_CREATED){
                 actionSuccessful = true;
                 Log.d("RestUtil.java", connection.getResponseMessage());
             } else{
@@ -293,13 +342,13 @@ public class RestUtil {
     //adds a passenger to a ride
     public static boolean addPassenger(String rideId, String passengerId) {
         Log.i("RestUtil", "adding passenger " + passengerId + " to ride " + rideId);
-        return addDropHelper(Database.REST_QUERY_ADD_PASSENGER, rideId, passengerId);
+        return addDropHelper(false, rideId, passengerId);
     }
 
     //removes a passenger from a ride
     public static boolean dropPassenger(String rideId, String passengerId) {
         Log.i("RestUtil", "dropping passenger " + passengerId + " from ride " + rideId);
-        return addDropHelper(Database.REST_QUERY_DROP_PASSENGER, rideId, passengerId);
+        return addDropHelper(true, rideId, passengerId);
     }
 
     /**

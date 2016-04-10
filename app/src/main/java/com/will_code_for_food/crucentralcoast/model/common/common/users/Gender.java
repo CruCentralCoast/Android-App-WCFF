@@ -9,13 +9,15 @@ import com.will_code_for_food.crucentralcoast.values.LocalFiles;
  * Created by Gavin on 2/24/2016.
  */
 public enum Gender {
-    MALE (R.string.gender_male),
-    FEMALE (R.string.gender_female);
+    MALE (R.string.gender_male, 1),
+    FEMALE (R.string.gender_female, 2);
 
     private final int nameId;
+    private final int value;
 
-    Gender(final int nameId) {
+    Gender(final int nameId, int value) {
         this.nameId = nameId;
+        this.value = value;
     }
 
     public static Gender getFromName(final String query) {
@@ -31,6 +33,9 @@ public enum Gender {
 
     public int getNameId() {
         return nameId;
+    }
+    public int getValue() {
+        return value;
     }
 
     public static Gender getUsersGender() {

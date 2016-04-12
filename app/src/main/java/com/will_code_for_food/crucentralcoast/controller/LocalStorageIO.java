@@ -2,27 +2,21 @@ package com.will_code_for_food.crucentralcoast.controller;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.Cache;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
-import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
-import com.will_code_for_food.crucentralcoast.view.common.SplashscreenActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -42,11 +36,17 @@ public class LocalStorageIO {
      * the file if necessary. Each element in the list is given its own line. Clears
      * the file if it already exists.
      */
-    public static boolean writeList(final List<String> list, final String fileName) {
-        File path = MyApplication.getContext().getFilesDir();
+    public static boolean writeList(final List<String> list, final String fileName,
+                                    final boolean readable) {
+        File path = Util.getContext().getFilesDir();
         File file = new File(path, fileName);
         try {
             file.createNewFile();
+            if (readable) {
+               if(!file.setReadable(true, false)) {
+                   Log.e("File Write", "Global read permissions error");
+               }
+            }
             OutputStreamWriter writer = new OutputStreamWriter(
                     Util.getContext().openFileOutput(fileName, Context.MODE_PRIVATE));
             for (String string : list) {
@@ -58,6 +58,38 @@ public class LocalStorageIO {
             Log.e("Write Error", "File write failed: " + e.toString());
             return false;
         }
+    }
+
+    public static boolean copyToExternal(String filename){
+        Context context = Util.getContext();
+        if (context == null) {
+            Log.e("File copy", "Null context");
+            return false;
+        }
+        try {
+            File file = new File(context.getExternalFilesDir(null), filename); //Get file location from external source
+            InputStream is = new FileInputStream(context.getFilesDir() + File.separator + filename); //get file location from internal
+            OutputStream os = new FileOutputStream(file); //Open your OutputStream and pass in the file you want to write to
+            byte[] toWrite = new byte[is.available()]; //Init a byte array for handing data transfer
+            Log.i("Available", is.available() + "");
+            int result = is.read(toWrite); //Read the data from the byte array
+            Log.i("Result", result + "");
+            os.write(toWrite); //Write it to the output stream
+            is.close(); //Close it
+            os.close(); //Close it
+            Log.i("Copying to", "" + context.getExternalFilesDir(null) + File.separator + filename);
+            Log.i("Copying from", context.getFilesDir() + File.separator + filename + "");
+            return true;
+        } catch (Exception e) {
+            Log.e("File copy", "Failed");
+            Toast.makeText(context, "File copy failed: " + e.getLocalizedMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+        return false;
+    }
+
+    public static boolean writeList(final List<String> list, final String fileName) {
+        return writeList(list, fileName, false);
     }
 
     /**
@@ -92,15 +124,15 @@ public class LocalStorageIO {
      * Adds a string to the end of a file
      */
     public static boolean appendToList(final String data, final String fileName) {
-        if (!fileExists(fileName))
+        if (!fileExists(fileName)) {
             return writeSingleLineFile(fileName, data);
-
-        List<String> list = readList(fileName);
-        if (list != null) {
-            list.add(data);
-            return writeList(list, fileName);
         }
-        return false;
+        List<String> list = readList(fileName);
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        list.add(data);
+        return writeList(list, fileName);
     }
 
     /**
@@ -147,7 +179,7 @@ public class LocalStorageIO {
         for (String key : map.keySet()) {
             if (key.contains(HASHMAP_DELIMITER) || map.get(key).contains(HASHMAP_DELIMITER)) {
                 Log.w("WRITING HASHMAP",
-                        "Warning: Hashmap contains the sequence used to separate keys and values." +
+                        "Hashmap contains the sequence used to separate keys and values." +
                             " This could cause errors.");
             }
             list.add(key + HASHMAP_DELIMITER + map.get(key));

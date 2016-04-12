@@ -27,7 +27,9 @@ import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 import java.io.IOException;
@@ -47,8 +49,6 @@ public class RegistrationIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        SharedPreferences sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
         PushUtil.regService = this;
 
         try {
@@ -70,8 +70,7 @@ public class RegistrationIntentService extends IntentService {
             // You should store a boolean that indicates whether the generated token has been
             // sent to your server. If the boolean is false, send the token to your server,
             // otherwise your server should have already received the token.
-            sharedPreferences.edit().putBoolean(SENT_TOKEN_TO_SERVER, true).apply();
-            sharedPreferences.edit().putString(GCM_ID, token).apply();
+            LocalStorageIO.writeSingleLineFile(LocalFiles.GCM_ID, token);
 
             // Subscribe to topic channels
             PushUtil.subscribe("global");
@@ -80,7 +79,6 @@ public class RegistrationIntentService extends IntentService {
             Log.d(TAG, "Failed to complete token refresh", e);
             // If an exception happens while fetching the new token or updating our registration data
             // on a third-party server, this ensures that we'll attempt the update at a later time.
-            sharedPreferences.edit().putBoolean(SENT_TOKEN_TO_SERVER, false).apply();
         }
         // Notify UI that registration has completed, so the progress indicator can be hidden.
         Intent registrationComplete = new Intent(REGISTRATION_COMPLETE);

@@ -1,15 +1,21 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Android;
@@ -24,22 +30,53 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 public class SplashscreenActivity extends Activity {
 
-    //public static Context context;
-
     private FrameLayout screen;
+
+    //if you need to request a permission on startup, add it here
+    private static final String[] permissions = {Manifest.permission.READ_PHONE_STATE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Logger.initialize();
         setContentView(R.layout.activity_splashscreen);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        //context = this;
 
         DBObjectLoader.loadAll();
 
         screen = (FrameLayout) findViewById(R.id.splashscreen_content);
+
+        if (Build.VERSION.SDK_INT >= Android.API_LEVEL_MARSHMALLOW) {
+            requestPermissions();
+        }
+
         loadContent();
+    }
+
+    /**
+     * Starting with api level 23 (Marshmallow), you have to request some permissions from the user.
+     */
+    private void requestPermissions() {
+
+        for (int count = 0; count < permissions.length; count++) {
+            if (ContextCompat.checkSelfPermission(this, permissions[count]) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{permissions[count]}, 0);
+            }
+        }
+    }
+
+    /**
+     * Checks to see if all startup permissions have been granted
+     */
+    private boolean checkAllPermissions() {
+
+        for (int count = 0; count < permissions.length; count++) {
+            if (ContextCompat.checkSelfPermission(this, permissions[count]) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -51,7 +88,7 @@ public class SplashscreenActivity extends Activity {
             @Override
             public void run() {
 
-                if (DBObjectLoader.finishedLoading()) {
+                if (checkAllPermissions() && DBObjectLoader.finishedLoading()) {
                     //Finish splash activity so user cant go back to it.
                     finish();
 
@@ -86,7 +123,7 @@ public class SplashscreenActivity extends Activity {
      * Launches either the initial setup or the main page depending on if the user has previously completed the initial setup.
      */
     private void launchApp() {
-
+        Logger.i("Launching App", "Starting MainActivity");
         if (!Util.loadBool(Android.PREF_SETUP_COMPLETE)) {
             Intent intent = new Intent(this, SetupCampusActivity.class);
             startActivity(intent);

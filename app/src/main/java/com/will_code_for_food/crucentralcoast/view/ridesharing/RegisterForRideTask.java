@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
@@ -63,6 +64,7 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
             parent.runOnUiThread(new Runnable() {
                 public void run() {
                     Toast.makeText(parent, "Ride Joined", Toast.LENGTH_SHORT).show();
+                    DBObjectLoader.loadRides(Database.DB_TIMEOUT);
                     parent.loadFragmentById(R.layout.fragment_my_rides_list,
                             Util.getString(R.string.ridesharing_my_rides_title),
                             new MyRidesFragment(), parent);

@@ -161,11 +161,8 @@ public class RideInfoFragment extends CruFragment {
                     public void onClick(View v) {
                         //drop ride
                         new DropPassenger(thisPassenger).execute();
+                        DBObjectLoader.loadRides(Database.DB_TIMEOUT);
                         setToJoin();
-                        System.out.println("TEST REFRESHING RIDES");
-                        if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
-                            Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT).show();
-                        }
                     }
                 });
             } else if (myRide) {
@@ -175,18 +172,11 @@ public class RideInfoFragment extends CruFragment {
                     public void onClick(View v) {
                         //cancel ride
                         new DropRide().execute();
-                        System.out.println("TEST REFRESHING RIDES");
-                        if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
-                            Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT).show();
-                        }
+                        DBObjectLoader.loadRides(Database.DB_TIMEOUT);
                     }
                 });
             } else {
                 setToJoin();
-                System.out.println("TEST REFRESHING RIDES");
-                if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
-                    Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT).show();
-                }
             }
         }
     }

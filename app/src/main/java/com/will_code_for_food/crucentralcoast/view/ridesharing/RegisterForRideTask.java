@@ -60,7 +60,6 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
 
         if ((result != null) && ((ride.hasPassenger(new Passenger(result).getId())) || (RestUtil.addPassenger(ride.getId(), new Passenger(result).getId())))) {
             //TODO: Notify driver
-
             parent.runOnUiThread(new Runnable() {
                 public void run() {
                     Toast.makeText(parent, "Ride Joined", Toast.LENGTH_SHORT).show();

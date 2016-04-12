@@ -13,6 +13,7 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,10 +22,20 @@ import java.util.List;
 public class EventCardAdapter extends ArrayAdapter<Event> {
 
     List<Event> cards;
+    List<Boolean> ridesharingActives = new ArrayList<Boolean>();
 
     public EventCardAdapter(Context context, int resource, Content<Event> content) {
         super(context, resource, content.getObjects());
         cards = content.getObjects();
+
+        for (Event card : cards) {
+            if (card.hasRideSharing()) {
+                ridesharingActives.add(true);
+            }
+            else {
+                ridesharingActives.add(false);
+            }
+        }
     }
 
     @Override
@@ -50,8 +61,11 @@ public class EventCardAdapter extends ArrayAdapter<Event> {
         dateView.setText(current.getEventDate());
         ImageView carView = (ImageView) convertView.findViewById(R.id.card_car_image);
 
-        if (!current.hasRideSharing()) {
+        if (!ridesharingActives.get(position)) {
             carView.setVisibility(View.INVISIBLE);
+        }
+        else {
+            carView.setVisibility(View.VISIBLE);
         }
         return convertView;
     }

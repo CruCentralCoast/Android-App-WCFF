@@ -6,6 +6,8 @@ import android.widget.ArrayAdapter;
 
 import com.google.gson.JsonElement;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
+import com.will_code_for_food.crucentralcoast.model.common.common.sorting.DatabaseObjectSorter;
+import com.will_code_for_food.crucentralcoast.model.common.common.sorting.SortMethod;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
@@ -48,6 +50,7 @@ public class EventCardFactory implements CardFragmentFactory<Event> {
 
     @Override
     public ArrayAdapter createAdapter(Content<Event> cardFragments) {
+        DatabaseObjectSorter.sortByDate(cardFragments, SortMethod.ASCENDING);
         return new EventCardAdapter(MainActivity.context,
                 android.R.layout.simple_list_item_1, cardFragments);
     }

@@ -44,11 +44,14 @@
     <string name="preferences_file">com.will_code_for_food.crucentralcoast_preferences</string>
 
     <!--    Ridesharing     -->
+    <string name="ridesharing_join">Join Ride</string>
+    <string name="ridesharing_leave">Leave Ride</string>
+    <string name="ridesharing_cancel">Cancel Ride</string>
     <string name="ridesharing_driver_notification">%%s has joined your ride to %%s!</string>
     <string name="ridesharing_leaving_date" formatted="false">Leaving %s on %s</string>
     <string name="ridesharing_leaving_location" formatted="false">from %s</string>
-    <string name="ridesharing_seats_left" formatted="false">%d seats left</string>
-    <string name="ridesharing_seat_left" formatted="false">%d seat left</string>
+    <string name="ridesharing_seats_left" formatted="false">%d seats </string>
+    <string name="ridesharing_seat_left" formatted="false">%d seat </string>
     <string name="ridesharing_header" formatted="false">Ride Sharing Events</string>
     <string name="ridesharing_event">Event: &#160;</string>
     <string name="ridesharing_driver">Driver: &#160;</string>
@@ -56,7 +59,9 @@
     <string name="ridesharing_unknown_location">unknown</string>
     <string name="ridesharing_time">Time: &#160;</string>
     <string name="ridesharing_seats_available">Seats Available: &#160;</string>
+    <string name="ridesharing_to">to</string>
     <string name="ridesharing_to_event">&#160; to event — &#160;</string>
+    <string name="ridesharing_from">from</string>
     <string name="ridesharing_from_event">&#160; from event &#160;</string>
     <string name="ridesharing_direction">Direction: &#160;</string>
     <string name="ridesharing_driver_form_title">Driver Form</string>

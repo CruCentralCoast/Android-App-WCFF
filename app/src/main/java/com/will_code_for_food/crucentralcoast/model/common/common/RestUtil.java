@@ -342,7 +342,6 @@ public class RestUtil {
         Passenger tempPassenger = null;
         Passenger passenger = null;
 
-
         //get the latest Passenger object with that phone number
         if (passengers != null) {
             for (JsonElement tempElement : passengers) {
@@ -355,5 +354,18 @@ public class RestUtil {
         }
 
         return passenger;
+    }
+
+    public static Passenger getPassengerFromID(String id) {
+        JsonArray passengers = RestUtil.get(Database.REST_PASSENGER);
+
+        if (passengers != null) {
+            for (JsonElement tempElement : passengers) {
+                if (tempElement.getAsJsonObject().get(Database.JSON_KEY_COMMON_ID).getAsString().equals(id)) {
+                    return new Passenger(tempElement.getAsJsonObject());
+                }
+            }
+        }
+        return null;
     }
 }

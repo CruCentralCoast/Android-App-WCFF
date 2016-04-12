@@ -148,13 +148,43 @@ public class Ride extends DatabaseObject {
     }
 
     public int getNumAvailableSeatsToEvent() {
-        //JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray()
-        return getNumSeats() - ridersToEvent.size();
+        //TODO: Make this work with only to riders
+        JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
+        /*
+        JsonArray allRiders = RestUtil.get(Database.REST_PASSENGER);
+        int numSeats = getNumSeats();
+
+        for (int i = 0; i < allRiders.size(); i++) {
+            JsonObject rider = allRiders.get(i).getAsJsonObject();
+            String riderDirection = rider.get("direction").getAsString();
+            if (passengers.contains(rider.get("_id")) &&
+                    (riderDirection == "both" || riderDirection == "to")) {
+                numSeats--;
+            }
+        }
+        return numSeats;
+        */
+        return getNumSeats() - passengers.size();
     }
 
     public int getNumAvailableSeatsFromEvent() {
-        //JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
-        return getNumSeats() - ridersFromEvent.size();
+        //TODO: Make this work with only from riders
+        JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
+        /*
+        JsonArray allRiders = RestUtil.get(Database.REST_PASSENGER);
+        int numSeats = getNumSeats();
+
+        for (int i = 0; i < allRiders.size(); i++) {
+            JsonObject rider = allRiders.get(i).getAsJsonObject();
+            String riderDirection = rider.get("direction").getAsString();
+            if (passengers.contains(rider.get("_id")) &&
+                    (riderDirection == "both" || riderDirection == "from")) {
+                numSeats--;
+            }
+        }
+        return numSeats;
+        */
+        return getNumSeats() - passengers.size();
     }
 
     public boolean addRiderToEvent(final Passenger rider) {

@@ -1,21 +1,13 @@
 package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
+
 import android.app.FragmentManager;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Path;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +15,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
@@ -33,11 +24,9 @@ import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
-import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -157,7 +146,7 @@ public class RideInfoFragment extends CruFragment {
         protected Void doInBackground(Void... params) {
             phoneNum = Util.getPhoneNum();
             thisPassenger = RestUtil.getPassenger(phoneNum);
-            rideJoined = ((thisPassenger != null) && ride.hasPassenger(thisPassenger.getId()));
+            rideJoined = thisPassenger != null && ride.hasPassenger(thisPassenger.getId());
             myRide = (phoneNum.equals(ride.getDriverNumber()));
             return null;
         }
@@ -165,7 +154,6 @@ public class RideInfoFragment extends CruFragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
             if (rideJoined) {
                 actionButton.setText(Util.getString(R.string.ridesharing_leave));
                 actionButton.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +162,10 @@ public class RideInfoFragment extends CruFragment {
                         //drop ride
                         new DropPassenger(thisPassenger).execute();
                         setToJoin();
+                        System.out.println("TEST REFRESHING RIDES");
+                        if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
+                            Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             } else if (myRide) {
@@ -183,10 +175,18 @@ public class RideInfoFragment extends CruFragment {
                     public void onClick(View v) {
                         //cancel ride
                         new DropRide().execute();
+                        System.out.println("TEST REFRESHING RIDES");
+                        if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
+                            Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             } else {
                 setToJoin();
+                System.out.println("TEST REFRESHING RIDES");
+                if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
+                    Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }

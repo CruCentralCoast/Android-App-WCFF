@@ -148,9 +148,9 @@ public class Ride extends DatabaseObject {
     }
 
     public int getNumAvailableSeatsToEvent() {
-        //TODO: Make this work properly
-        /*
+        //TODO: Make this work with only to riders
         JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
+        /*
         JsonArray allRiders = RestUtil.get(Database.REST_PASSENGER);
         int numSeats = getNumSeats();
 
@@ -164,13 +164,13 @@ public class Ride extends DatabaseObject {
         }
         return numSeats;
         */
-        return getNumSeats() - ridersToEvent.size();
+        return getNumSeats() - passengers.size();
     }
 
     public int getNumAvailableSeatsFromEvent() {
-        //TODO: Make this work properly
-        /*
+        //TODO: Make this work with only from riders
         JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
+        /*
         JsonArray allRiders = RestUtil.get(Database.REST_PASSENGER);
         int numSeats = getNumSeats();
 
@@ -184,7 +184,7 @@ public class Ride extends DatabaseObject {
         }
         return numSeats;
         */
-        return getNumSeats() - ridersFromEvent.size();
+        return getNumSeats() - passengers.size();
     }
 
     public boolean addRiderToEvent(final Passenger rider) {

@@ -285,19 +285,20 @@ public class RestUtil {
         HttpURLConnection connection = null;
         String content = "passenger_id=" + passengerId;
         JsonParser parser = new JsonParser();
-        JsonObject dbObj = null;
+        JsonObject dbObj = new JsonObject();
+        dbObj.addProperty("passenger_id", passengerId);
         boolean actionSuccessful = false;
         int HttpResult;
 
         try {
             if (remove) {
                 connection = createChangeConnection(Database.REST_RIDE + "/" + rideId + "/" +
-                        Database.REST_PASSENGER, content, Database.CONTENT_TYPE_URL_ENCODED, passengerId,
+                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_URL_ENCODED, passengerId,
                         Database.HTTP_REQUEST_METHOD_DELETE);
             }
             else {
                 connection = createPostConnection(Database.REST_RIDE + "/" + rideId + "/" +
-                        Database.REST_PASSENGER, content, Database.CONTENT_TYPE_URL_ENCODED);
+                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_URL_ENCODED);
             }
 
             HttpResult = connection.getResponseCode();

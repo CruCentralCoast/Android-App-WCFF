@@ -96,10 +96,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (doFeedLoad) {
-            loadFragmentById(R.layout.fragment_card_list, "Home", new FeedFragment(), this); //Uncomment this for feed main screen
+        //if (doFeedLoad) {
             //loadFragmentById(R.layout.fragment_main, "CruCentralCoast", null, this); //Uncomment this for original main screen
-        }
+        //}
 
         doFeedLoad = true;
         ActionBar bar = getSupportActionBar();
@@ -252,7 +251,8 @@ public class MainActivity extends AppCompatActivity {
 
         switch (viewText) {
             case "Home":
-                loadFragmentById(R.layout.fragment_card_list, "Home", new FeedFragment(), this);
+                //loadFragmentById(R.layout.fragment_card_list, "Home", new FeedFragment(), this);
+                newActivity(HomeActivity.class);
                 break;
             case "Events":
                 newActivity(EventsActivity.class);
@@ -314,6 +314,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void newActivity(Class newClass) {
         doFeedLoad = false;
+        getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); //clear all fragments
         Intent intent = new Intent(this, newClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);

@@ -44,6 +44,8 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
         View hold = super.onCreateView(inflater, container, savedInstanceState);
         setHasOptionsMenu(true);
 
+        Log.i("FeedFragment", "feed fragment loading");
+
         layout = (SwipeRefreshLayout) hold.findViewById(R.id.card_refresh_layout);
         listView = (ListView) hold.findViewById(R.id.list_cards);
         loadList();

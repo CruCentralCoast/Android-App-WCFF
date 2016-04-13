@@ -106,7 +106,7 @@ public class SetupMinistryActivity extends Activity {
         //Apply splash exit (fade out) and main entry (fade in) animation transitions.
         overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

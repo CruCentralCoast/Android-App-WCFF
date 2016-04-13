@@ -134,13 +134,17 @@ public class Util {
     }
 
     /**
-     * Loads a string set from the shared preferences file, or null if none exists
+     * Loads a string set from the shared preferences file, or an empty HashSet if none exists
      */
     public static Set<String> loadStringSet(String key) {
         Context context = MyApplication.getContext();
         String preferences_file = Android.PREFS_FILE;
         SharedPreferences sharedPref = context.getSharedPreferences(preferences_file, Context.MODE_PRIVATE);
         Set<String> value = sharedPref.getStringSet(key, null);
+
+        if (value == null) {
+            value = new HashSet<String>();
+        }
 
         return value;
     }

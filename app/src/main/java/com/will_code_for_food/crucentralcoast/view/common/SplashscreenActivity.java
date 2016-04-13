@@ -128,7 +128,7 @@ public class SplashscreenActivity extends Activity {
             Intent intent = new Intent(this, SetupCampusActivity.class);
             startActivity(intent);
         } else {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }
     }

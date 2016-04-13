@@ -177,8 +177,9 @@ public class PrefsFragment extends PreferenceFragment
     }
 
     private void reload() {
-        parent.finish();
-        parent.startActivity(parent.getIntent());
+        parent.recreate();
+        //parent.finish();
+        //parent.startActivity(parent.getIntent());
     }
 
     private class MinistrySettingsTask extends AsyncTask<Void, Void, List<Ministry>>{

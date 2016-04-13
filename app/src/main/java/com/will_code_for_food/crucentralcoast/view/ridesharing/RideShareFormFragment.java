@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
@@ -37,6 +38,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
+import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
@@ -247,6 +249,7 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
             Toast.makeText(parent, "Submitted Form", Toast.LENGTH_SHORT).show();
             form.submit();
             submitFormAdditionalActions();
+            DBObjectLoader.loadRides(Database.DB_TIMEOUT);
         } else {
             // error
             Toast.makeText(parent, "Error!", Toast.LENGTH_SHORT).show();

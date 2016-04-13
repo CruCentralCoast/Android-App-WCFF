@@ -1,11 +1,15 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.widget.Toast;
 
@@ -20,6 +24,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriev
 import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
 import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.PushUtil;
 import com.will_code_for_food.crucentralcoast.values.Android;
 
@@ -33,7 +38,17 @@ import java.util.Set;
  */
 public class PrefsFragment extends PreferenceFragment
         implements SharedPreferences.OnSharedPreferenceChangeListener {
-    static Activity parent;
+    private Activity parent;
+
+    private PreferenceCategory prefsContainer;
+    private MultiSelectListPreference campusPref;
+    private Preference clearPref;
+    private Preference logoutPref;
+    private Preference emailPref;
+    private Preference debugPref;
+    private CheckBoxPreference setupPref;
+
+    private PrefsFragment thisFrag = this;
 
     public PrefsFragment() {
         parent = (Activity) SettingsActivity.context;
@@ -44,20 +59,28 @@ public class PrefsFragment extends PreferenceFragment
     {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-        MultiSelectListPreference campusPref = (MultiSelectListPreference) findPreference(Android.PREF_CAMPUSES);
-        Preference clearPref = findPreference(Android.PREF_CLEAR);
 
-        clearPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                getPreferenceManager().getSharedPreferences().edit().clear().commit();
-                reload();
-                PushUtil.clearPushChannels();
-                return false;
-            }
-        });
+        getComponents();
+        setListeners();
+        hidePrefs();
 
-        Preference logoutPref = findPreference(Android.PREF_LOGOUT);
+        this.getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        new MinistrySettingsTask().execute();
+        new CampusSettingsTask().execute();
+    }
+
+    public void getComponents() {
+        prefsContainer = (PreferenceCategory) findPreference(Android.PREF_CONTAINER);
+        campusPref = (MultiSelectListPreference) findPreference(Android.PREF_CAMPUSES);
+        clearPref = findPreference(Android.PREF_CLEAR);
+        logoutPref = findPreference(Android.PREF_LOGOUT);
+        emailPref = findPreference(Android.PREF_EMAIL);
+        debugPref = findPreference(Android.PREF_DEBUG);
+        setupPref = (CheckBoxPreference) findPreference(Android.PREF_SETUP_COMPLETE);
+    }
+
+    public void setListeners() {
+
         logoutPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -68,7 +91,6 @@ public class PrefsFragment extends PreferenceFragment
             }
         });
 
-        Preference emailPref = findPreference(Android.PREF_EMAIL);
         emailPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -78,19 +100,53 @@ public class PrefsFragment extends PreferenceFragment
             }
         });
 
+
+
         clearPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
+                boolean debugEnabled = getPreferenceManager().getSharedPreferences().getBoolean(Android.PREF_DEBUG, false);
+
                 getPreferenceManager().getSharedPreferences().edit().clear().commit();
+                getPreferenceManager().getSharedPreferences().edit().putBoolean(Android.PREF_DEBUG, debugEnabled).commit(); //keep debug value
                 reload();
                 PushUtil.clearPushChannels();
                 return false;
             }
         });
 
-        this.getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-        new MinistrySettingsTask().execute();
-        new CampusSettingsTask().execute();
+        debugPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+
+                //check for pw eventually
+                PrefsPasswordDialog popup = new PrefsPasswordDialog(thisFrag);
+                FragmentManager manager = getFragmentManager();
+                popup.show(manager, "prefs_enter_password");
+
+                return false;
+            }
+        });
+    }
+
+    public void enableDeveloperOptions(String password) {
+        if (password.equals(Android.DEBUG_PW)) {
+            getPreferenceManager().getSharedPreferences().edit().putBoolean(Android.PREF_DEBUG, true).commit();
+            reload();
+        } else {
+            Toast.makeText(parent, "incorrect password", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void hidePrefs() {
+        boolean debugEnabled = getPreferenceManager().getSharedPreferences().getBoolean(Android.PREF_DEBUG, false);
+
+        if (debugEnabled) {
+            prefsContainer.removePreference(debugPref);
+        } else {
+            prefsContainer.removePreference(setupPref);
+            prefsContainer.removePreference(clearPref);
+        }
     }
 
     /**

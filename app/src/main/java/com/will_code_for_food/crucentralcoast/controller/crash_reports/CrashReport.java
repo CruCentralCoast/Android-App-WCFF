@@ -140,8 +140,12 @@ public class CrashReport {
     }
 
     public boolean cache() {
-        LocalStorageIO.deleteFile(CACHED_REPORT);
+        deleteCache();
         return LocalStorageIO.writeList(asText(), CACHED_REPORT);
+    }
+
+    public static boolean deleteCache() {
+        return LocalStorageIO.deleteFile(CACHED_REPORT);
     }
 
     public static CrashReport loadCachedReport() {

@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             CrashReport report = CrashReport.loadCachedReport();
                             if (report != null) {
+                                report.setUserMessage(userInput.getText().toString());
                                 EmailSender.send(act, report.asMessage());
                             }
                         }

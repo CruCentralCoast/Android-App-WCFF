@@ -283,9 +283,6 @@ public class RestUtil {
     private static boolean changePost(boolean change, String path, String body, String contentType,
                                       String id, String requestMethod) {
         HttpURLConnection connection = null;
-        JsonParser parser = new JsonParser();
-        JsonObject dbObj = new JsonObject();
-        dbObj.addProperty("passenger_id", passengerId);
         boolean actionSuccessful = false;
         int HttpResult;
 
@@ -318,6 +315,9 @@ public class RestUtil {
 
     private static boolean addDropHelper(Boolean remove, String rideId, String passengerId) {
         String path = Database.REST_RIDE + "/" + rideId + "/" + Database.REST_PASSENGER;
+        JsonParser parser = new JsonParser();
+        JsonObject dbObj = new JsonObject();
+        dbObj.addProperty("passenger_id", passengerId);
         String content = dbObj.toString();
         String contentType = Database.CONTENT_TYPE_URL_ENCODED;
         String method;

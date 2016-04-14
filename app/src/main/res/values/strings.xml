@@ -127,4 +127,7 @@
 
     <!-- Crash Reports -->
     <string name="crash_report_button">Submit</string>
+    <string name="oops">Oops!</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="please_restart">The initial loading setup could not be completed. Please check your connection and restart the app.</string>
 </resources>

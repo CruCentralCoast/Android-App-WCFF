@@ -78,7 +78,6 @@ public class RestUtil {
         return connection;
     }
 
-
     /**
      * Gets a JSON object from the server and returns it as a String.
      */
@@ -281,25 +280,17 @@ public class RestUtil {
         return sendJsonObject(updatedObject, collectionName, true);
     }
 
-    private static boolean addDropHelper(Boolean remove, String rideId, String passengerId) {
+    private static boolean changePost(boolean change, String path, String body, String contentType,
+                                      String id, String requestMethod) {
         HttpURLConnection connection = null;
-        String content = "passenger_id=" + passengerId;
-        JsonParser parser = new JsonParser();
-        JsonObject dbObj = new JsonObject();
-        dbObj.addProperty("passenger_id", passengerId);
         boolean actionSuccessful = false;
         int HttpResult;
 
         try {
-            if (remove) {
-                connection = createChangeConnection(Database.REST_RIDE + "/" + rideId + "/" +
-                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_JSON, passengerId,
-                        Database.HTTP_REQUEST_METHOD_DELETE);
-            }
-            else {
-                connection = createPostConnection(Database.REST_RIDE + "/" + rideId + "/" +
-                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_JSON);
-            }
+            if (change)
+                connection = createChangeConnection(path, body, contentType, id, requestMethod);
+            else
+                connection = createPostConnection(path, body, contentType);
 
             HttpResult = connection.getResponseCode();
 
@@ -320,6 +311,23 @@ public class RestUtil {
         }
 
         return actionSuccessful;
+    }
+
+    private static boolean addDropHelper(Boolean remove, String rideId, String passengerId) {
+        String path = Database.REST_RIDE + "/" + rideId + "/" + Database.REST_PASSENGER;
+        JsonParser parser = new JsonParser();
+        JsonObject dbObj = new JsonObject();
+        dbObj.addProperty("passenger_id", passengerId);
+        String content = dbObj.toString();
+        String contentType = Database.CONTENT_TYPE_URL_ENCODED;
+        String method;
+
+        if (remove)
+            method = Database.HTTP_REQUEST_METHOD_DELETE;
+        else
+            method = Database.CONTENT_TYPE_URL_ENCODED;
+
+        return changePost(remove, path, content, contentType, passengerId, method);
     }
 
     //adds a passenger to a ride
@@ -355,18 +363,5 @@ public class RestUtil {
         }
 
         return passenger;
-    }
-
-    public static Passenger getPassengerFromID(String id) {
-        JsonArray passengers = RestUtil.get(Database.REST_PASSENGER);
-
-        if (passengers != null) {
-            for (JsonElement tempElement : passengers) {
-                if (tempElement.getAsJsonObject().get(Database.JSON_KEY_COMMON_ID).getAsString().equals(id)) {
-                    return new Passenger(tempElement.getAsJsonObject());
-                }
-            }
-        }
-        return null;
     }
 }

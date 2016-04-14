@@ -54,6 +54,16 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
             result = RestUtil.update(Passenger.toJSON(passenger.getId(), passengerName, phoneNum, PushUtil.getGCMId(), directionPreference), Database.REST_PASSENGER);
         }
 
+        // check for internet connection
+        if (!Util.isNetworkAvailable(parent)) {
+            parent.runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(parent, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+            return null;
+        }
+
         //update ride
         if ((ride.hasPassenger(new Passenger(result).getId()))) {
             System.out.println("Ride has passenger");

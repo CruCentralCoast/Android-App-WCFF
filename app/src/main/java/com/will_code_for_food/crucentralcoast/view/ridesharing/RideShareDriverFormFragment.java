@@ -21,6 +21,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
+import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResultType;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
@@ -28,6 +29,7 @@ import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -69,7 +71,6 @@ public class RideShareDriverFormFragment extends CruFragment {
         female = (RadioButton) fragmentView.findViewById(R.id.female);
         datePicker = (DatePicker) fragmentView.findViewById(R.id.departure_date_picker);
         timePicker = (TimePicker) fragmentView.findViewById(R.id.departure_time_picker);
-        locations = (EditText) fragmentView.findViewById(R.id.list_of_locations);
         oneWayTo = (RadioButton) fragmentView.findViewById(R.id.One_Way_To_Checkbox);
         oneWayFrom = (RadioButton) fragmentView.findViewById(R.id.One_Way_From_Checkbox);
         twoWay = (RadioButton) fragmentView.findViewById(R.id.Two_Way_Checkbox);

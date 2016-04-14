@@ -295,11 +295,6 @@ public class Ride extends DatabaseObject {
         return direction.hasTimeLeavingFromEvent();
     }
 
-    /*public void addToDb() {
-        this.update(RestUtil.create(this.toJSON(), Database.REST_RIDE)); //updates the JSON object held by the parent class
-        this.refreshFields(); //updates the fields for this class based on the parent class
-    }*/
-
     public RideDirection getDirection() {
         return direction;
     }
@@ -357,6 +352,7 @@ public class Ride extends DatabaseObject {
     //Example of how to add a new Ride to the database and store it in a ride object for later use:
     // Ride newRide = new Ride(RestUtil.create(Ride.toJSON(event, driver, seats, loc, dir)));
     public static JsonObject toJSON(
+            final String id,
             final String eventId,
             final String driverName,
             final String driverNumber,
@@ -371,6 +367,7 @@ public class Ride extends DatabaseObject {
         JsonObject thisObj = new JsonObject();
 
         //TODO implement gcm key retrieval
+        thisObj.add(Database.JSON_KEY_COMMON_ID, new JsonPrimitive(id));
         thisObj.add(Database.JSON_KEY_RIDE_EVENT, new JsonPrimitive(eventId));
         thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NAME, new JsonPrimitive(driverName));
         thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NUMBER, new JsonPrimitive(driverNumber));
@@ -380,7 +377,8 @@ public class Ride extends DatabaseObject {
         thisObj.add(Database.JSON_KEY_RIDE_RADIUS, new JsonPrimitive(radius));
         thisObj.add(Database.JSON_KEY_RIDE_SEATS, new JsonPrimitive(Integer.toString(numSeats)));
         thisObj.add(Database.JSON_KEY_RIDE_DIRECTION, new JsonPrimitive(direction.toString()));
-        thisObj.add(Database.JSON_KEY_RIDE_GENDER, new JsonPrimitive(gender));
+        // casting to number failed error
+        //thisObj.add(Database.JSON_KEY_RIDE_GENDER, new JsonPrimitive(gender));
 
         return thisObj;
     }

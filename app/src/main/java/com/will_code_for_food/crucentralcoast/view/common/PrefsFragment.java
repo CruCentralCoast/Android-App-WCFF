@@ -298,7 +298,7 @@ public class PrefsFragment extends PreferenceFragment
                 if (campusCount == 0) {
 
                     //remove ministry from preferences
-                    Log.i("PrefsFragment", "removing ministry " + ministry.getId());
+                    Logger.i("PrefsFragment", "removing ministry " + ministry.getId());
                     ministrySet.remove(ministry.getId());
                     ministriesRemovedString += ministry.getName() + "; ";
                 }

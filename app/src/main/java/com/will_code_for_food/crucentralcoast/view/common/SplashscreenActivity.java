@@ -18,6 +18,7 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.model.common.messaging.RegistrationIntentService;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.UI;
 
@@ -49,6 +50,9 @@ public class SplashscreenActivity extends Activity {
         if (Build.VERSION.SDK_INT >= Android.API_LEVEL_MARSHMALLOW) {
             requestPermissions();
         }
+
+        Intent intent = new Intent(this, RegistrationIntentService.class);
+        startService(intent);
 
         loadContent();
     }
@@ -128,7 +132,7 @@ public class SplashscreenActivity extends Activity {
             Intent intent = new Intent(this, SetupCampusActivity.class);
             startActivity(intent);
         } else {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }
     }

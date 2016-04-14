@@ -1,5 +1,6 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
+import android.util.ArraySet;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,7 @@ import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 import com.will_code_for_food.crucentralcoast.view.resources.ResourcesActivity;
 import com.will_code_for_food.crucentralcoast.view.resources.ViewArticleFragment;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**

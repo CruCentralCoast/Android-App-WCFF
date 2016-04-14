@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.EditText;
 
+import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
@@ -24,12 +25,15 @@ public class EnterNumberDialog extends DialogFragment {
     private Ride ride;
     private String directionPreference;
     private String passengerName;
+    private Event event;
 
-    public EnterNumberDialog(MainActivity parent, String passengerName, Ride ride) {
+    public EnterNumberDialog(final MainActivity parent, final String passengerName,
+                             final Ride ride, final Event event) {
         this.parent = parent;
         this.number = passengerName;
         this.ride = ride;
         this.passengerName = passengerName;
+        this.event = event;
     }
 
     @Override
@@ -47,11 +51,14 @@ public class EnterNumberDialog extends DialogFragment {
 
                         //if the ride is two-way, the passenger can choose to only go one direction
                         if (ride.getDirection() == RideDirection.TWO_WAY) {
-                            SelectDirectionDialog popup = new SelectDirectionDialog(parent, passengerName, number, ride);
+                            SelectDirectionDialog popup =
+                                    new SelectDirectionDialog(parent, passengerName, number,
+                                            ride, event);
                             FragmentManager manager = getFragmentManager();
                             popup.show(manager, "ride_info_select_direction");
                         } else {
-                            new RegisterForRideTask(parent, passengerName, number, ride.getDirection().toString(), ride).execute();
+                            new RegisterForRideTask(parent, passengerName, number,
+                                    ride.getDirection().toString(), ride, event).execute();
                         }
                     }
                 })

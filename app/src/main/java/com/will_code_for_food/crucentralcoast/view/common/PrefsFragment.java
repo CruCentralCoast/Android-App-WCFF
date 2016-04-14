@@ -1,8 +1,10 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
@@ -52,6 +55,9 @@ public class PrefsFragment extends PreferenceFragment
 
     private PrefsFragment thisFrag = this;
 
+    private Set<String> campusSet;
+    private Set<String> ministrySet;
+
     public PrefsFragment() {
         parent = (Activity) SettingsActivity.context;
     }
@@ -83,6 +89,9 @@ public class PrefsFragment extends PreferenceFragment
         setupPref = (CheckBoxPreference) findPreference(Android.PREF_SETUP_COMPLETE);
         campusPref = (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_CAMPUSES);
         ministryPref = (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_MINISTRIES);
+
+        campusSet = campusPref.getValues();
+        ministrySet = ministryPref.getValues();
     }
 
     public void setListeners() {
@@ -133,8 +142,14 @@ public class PrefsFragment extends PreferenceFragment
                 return false;
             }
         });
+
+        ministryPref.setOnPreferenceChangeListener(new MinistryPreferenceListener());
+        campusPref.setOnPreferenceChangeListener(new CampusPreferenceListener());
     }
 
+    /**
+     * If given the correct password, the preferences page will display debug settings
+     */
     public void enableDeveloperOptions(String password) {
         if (password.equals(Android.DEBUG_PW)) {
             getPreferenceManager().getSharedPreferences().edit().putBoolean(Android.PREF_DEBUG, true).commit();
@@ -144,6 +159,9 @@ public class PrefsFragment extends PreferenceFragment
         }
     }
 
+    /**
+     * Displays either an option to enable debug prefs, or the debug prefs themselves.
+     */
     public void hidePrefs() {
         boolean debugEnabled = getPreferenceManager().getSharedPreferences().getBoolean(Android.PREF_DEBUG, false);
 
@@ -155,50 +173,27 @@ public class PrefsFragment extends PreferenceFragment
         }
     }
 
-    /**
-     * Listener for performing actions when ministries are (un)subscribed to
-     */
-    private class MinistryPreferenceListener implements Preference.OnPreferenceChangeListener{
-        @Override
-        public boolean onPreferenceChange(Preference preference, Object newValue) {
-            Set<String> newSubscribed = (HashSet<String>) newValue;
-            Set<String> oldSubscribed = ((MultiSelectListPreference) preference).getValues();
-
-            //Subscibe to new ministries
-            for (String ministry : newSubscribed) {
-                if (!oldSubscribed.contains(ministry)) {
-                    PushUtil.subscribe(ministry);
-                }
-            }
-
-            //Unsubscribe from old ministries
-            for (String ministry : oldSubscribed) {
-                if (!newSubscribed.contains(ministry)) {
-                    PushUtil.unsubscribe(ministry);
-                }
-            }
-
-            return true;
-        }
-    }
-
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        reload();
+        //reload();
     }
 
+    /**
+     * Refreshes the page.
+     */
     private void reload() {
         parent.recreate();
     }
 
+    /**
+     * Loads content for the ministry settings dialog.
+     */
     private void initMinistrySettings() {
         List<Ministry> ministries = DBObjectLoader.getMinistries();
 
         Set<String> selectedCampuses = Util.loadStringSet(Android.PREF_CAMPUSES);
-        List<String> filteredIds = new ArrayList<String>();
-        List<String> filteredNames = new ArrayList<String>();
-
-        ministryPref.setOnPreferenceChangeListener(new MinistryPreferenceListener());
+        ArrayList<String> displayedMinistryIds = new ArrayList<String>();
+        ArrayList<String> displayedMinistryNames = new ArrayList<String>();
 
         if (selectedCampuses != null && !selectedCampuses.isEmpty()) {
             ministryPref.setEnabled(true);
@@ -206,14 +201,14 @@ public class PrefsFragment extends PreferenceFragment
             for (String campus : selectedCampuses) {
                 for (Ministry ministry : ministries) {
                     if (ministry.getCampuses().contains(campus)) {
-                        filteredIds.add(ministry.getId());
-                        filteredNames.add(ministry.getName());
+                        displayedMinistryIds.add(ministry.getId());
+                        displayedMinistryNames.add(ministry.getName());
                     }
                 }
             }
 
-            ministryPref.setEntries(filteredNames.toArray(new CharSequence[filteredNames.size()]));
-            ministryPref.setEntryValues(filteredIds.toArray(new CharSequence[filteredIds.size()]));
+            ministryPref.setEntries(displayedMinistryNames.toArray(new CharSequence[displayedMinistryNames.size()]));
+            ministryPref.setEntryValues(displayedMinistryIds.toArray(new CharSequence[displayedMinistryIds.size()]));
         }
 
         else {
@@ -221,45 +216,9 @@ public class PrefsFragment extends PreferenceFragment
         }
     }
 
-    /*
-    private class MinistrySettingsTask extends AsyncTask<Void, Void, List<Ministry>>{
-
-        @Override
-        protected List<Ministry> doInBackground(Void... params) {
-            Retriever retriever = new SingleRetriever<Ministry>(RetrieverSchema.MINISTRY);
-            return retriever.getAll().getObjects();
-        }
-
-        @Override
-        protected void onPostExecute(List<Ministry> ministries) {
-            Set<String> selectedCampuses = Util.loadStringSet(Android.PREF_CAMPUSES);
-            List<String> filteredIds = new ArrayList<String>();
-            List<String> filteredNames = new ArrayList<String>();
-
-            ministryPref.setOnPreferenceChangeListener(new MinistryPreferenceListener());
-
-            if (selectedCampuses != null && !selectedCampuses.isEmpty()) {
-                ministryPref.setEnabled(true);
-
-                for (String campus : selectedCampuses) {
-                    for (Ministry ministry : ministries) {
-                        if (ministry.getCampuses().contains(campus)) {
-                            filteredIds.add(ministry.getId());
-                            filteredNames.add(ministry.getName());
-                        }
-                    }
-                }
-
-                ministryPref.setEntries(filteredNames.toArray(new CharSequence[filteredNames.size()]));
-                ministryPref.setEntryValues(filteredIds.toArray(new CharSequence[filteredIds.size()]));
-            }
-
-            else {
-                ministryPref.setEnabled(false);
-            }
-        }
-    }*/
-
+    /**
+     * Loads content for the campus settings dialog.
+     */
     private void initCampusSettings() {
         List<Campus> campuses = DBObjectLoader.getCampuses();
 
@@ -267,8 +226,7 @@ public class PrefsFragment extends PreferenceFragment
         CharSequence[] names = new CharSequence[campuses.size()];
         int idIdx = 0, nameIdx = 0;
 
-        for (Campus campus : campuses)
-        {
+        for (Campus campus : campuses) {
             ids[idIdx++] = campus.getId();
             names[nameIdx++] = campus.getName();
         }
@@ -277,29 +235,104 @@ public class PrefsFragment extends PreferenceFragment
         campusPref.setEntryValues(ids);
     }
 
-    /*
-    private class CampusSettingsTask extends AsyncTask<Void, Void, List<Campus>>{
-
+    /**
+     * Listener for performing actions when ministries are (un)subscribed to
+     */
+    private class MinistryPreferenceListener implements Preference.OnPreferenceChangeListener{
         @Override
-        protected List<Campus> doInBackground(Void... params) {
-            Retriever retriever = new SingleRetriever<Ministry>(RetrieverSchema.CAMPUS);
-            return retriever.getAll().getObjects();
-        }
+        public boolean onPreferenceChange(Preference preference, Object newValue) {
+            ministrySet = (HashSet<String>) newValue;
+            Set<String> oldSubscribed = ((MultiSelectListPreference) preference).getValues();
 
-        @Override
-        protected void onPostExecute(List<Campus> campuses) {
-            CharSequence[] ids = new CharSequence[campuses.size()];
-            CharSequence[] names = new CharSequence[campuses.size()];
-            int idIdx = 0, nameIdx = 0;
-
-            for (Campus campus : campuses)
-            {
-                ids[idIdx++] = campus.getId();
-                names[nameIdx++] = campus.getName();
+            //Subscibe to new ministries
+            for (String ministry : ministrySet) {
+                if (!oldSubscribed.contains(ministry)) {
+                    PushUtil.subscribe(ministry);
+                }
             }
 
-            campusPref.setEntries(names);
-            campusPref.setEntryValues(ids);
+            //Unsubscribe from old ministries
+            for (String ministry : oldSubscribed) {
+                if (!ministrySet.contains(ministry)) {
+                    PushUtil.unsubscribe(ministry);
+                }
+            }
+
+            reload();
+            return true;
         }
-    }*/
+    }
+    
+    private class CampusPreferenceListener implements Preference.OnPreferenceChangeListener {
+
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue) {
+
+            int campusCount;
+            String ministriesRemovedString = "";
+
+            //get currently subscribed campuses
+            campusSet = (HashSet<String>) newValue;
+
+            //get ministries
+            List<Ministry> ministries = DBObjectLoader.getMinistries();
+            List<Ministry> myMinistries = new ArrayList<Ministry>();
+
+            for (Ministry ministry : ministries) {
+                if (ministrySet.contains(ministry.getId())) {
+                    myMinistries.add(ministry);
+                }
+            }
+
+            //figure out if any of them need to be unsubscribed to
+            for (Ministry ministry : myMinistries) {
+                campusCount = 0;
+
+                for (String campusId : ministry.getCampuses()) {
+                    if (campusSet.contains(campusId)) {
+                        campusCount++;
+                    }
+                }
+
+                //campusCount == 0 means there are no subscribed campuses associated with this ministry
+                if (campusCount == 0) {
+
+                    //remove ministry from preferences
+                    Log.i("PrefsFragment", "removing ministry " + ministry.getId());
+                    ministrySet.remove(ministry.getId());
+                    ministriesRemovedString += ministry.getName() + "; ";
+                }
+            }
+
+            //notify the user of change
+            if (!ministriesRemovedString.equals("")) {
+                getPreferenceManager().getSharedPreferences().edit().remove(Android.PREF_MINISTRIES).commit();
+                getPreferenceManager().getSharedPreferences().edit().putStringSet(Android.PREF_MINISTRIES, ministrySet).commit();
+                notifyUserOfChange(ministriesRemovedString);
+            }
+
+            reload();
+            return true;
+        }
+
+        private void notifyUserOfChange(String ministriesRemoved) {
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            //Yes button clicked
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            //No button clicked
+                            break;
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(parent);
+            builder.setMessage("you were unsubscribed from the following ministries:\n\n" + ministriesRemoved).setPositiveButton("Ok", dialogClickListener).show();
+        }
+    }
 }

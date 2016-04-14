@@ -61,7 +61,7 @@ public class RideInfoFragment extends CruFragment {
         // Set text for driver info
         String driverText = Util.getString(R.string.ridesharing_driver) + ride.getDriverName();
         if (ride.getGender() != null) {
-            driverText += " (" + ride.getGender() + ")";
+            driverText += " (" + getGenderFromEnum(ride.getGender()) + ")";
         }
         driver.setText(driverText);
 
@@ -94,6 +94,15 @@ public class RideInfoFragment extends CruFragment {
         }
 
         return fragmentView;
+    }
+
+    private String getGenderFromEnum(String num) {
+        if (String.valueOf(Gender.FEMALE.getValue()).equals(num))
+            return Util.getString(Gender.FEMALE.getNameId());
+        else if (String.valueOf(Gender.MALE.getValue()).equals(num))
+            return Util.getString(Gender.MALE.getNameId());
+        else
+            return "";
     }
 
     private String getRideInfo() {

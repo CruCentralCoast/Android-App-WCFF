@@ -1,14 +1,15 @@
 package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
+import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
+import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
@@ -28,13 +29,17 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
     private String phoneNum;
     private String directionPreference;
     private Ride ride;
+    private Event event;
 
-    public RegisterForRideTask(MainActivity parent, String passengerName, String number, String directionPreference, Ride ride) {
+    public RegisterForRideTask(final MainActivity parent, final String passengerName,
+                               final String number, final String directionPreference,
+                               final Ride ride, final Event event) {
         this.parent = parent;
         this.passengerName = passengerName;
         this.directionPreference = directionPreference;
         this.ride = ride;
         this.phoneNum = number;
+        this.event = event;
     }
 
     @Override
@@ -59,8 +64,10 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
             System.out.println("Ride has passenger");
         }
 
-        if ((result != null) && ((ride.hasPassenger(new Passenger(result).getId())) || (RestUtil.addPassenger(ride.getId(), new Passenger(result).getId())))) {
-            //TODO: Notify driver
+        if ((result != null) && ((ride.hasPassenger(new Passenger(result).getId()))
+                || (RestUtil.addPassenger(ride.getId(), new Passenger(result).getId())))) {
+            notifyDriver(passengerName, ride, directionPreference);
+
             parent.runOnUiThread(new Runnable() {
                 public void run() {
                     Toast.makeText(parent, "Ride Joined", Toast.LENGTH_SHORT).show();
@@ -75,7 +82,7 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
         } else {
             parent.runOnUiThread(new Runnable() {
                 public void run() {
-                    Toast.makeText(parent, "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(parent, "Error in joining ride", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -83,6 +90,20 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
         LocalStorageIO.appendToList(ride.getId(), LocalFiles.USER_RIDES);
 
         return null;
+    }
+
+    private void notifyDriver(final String passengerName, final Ride ride,
+                              final String directionPreference) {
+        Log.i("Signing up for ride", "Notifying driver of a new rider");
+        // creating message
+        String msg = "Hi! My name is %s, and I just used the CRU app to sign up "
+                + "to ride in your car to %s.";
+        msg = String.format(msg, passengerName, event.getName());
+        if (ride.isTwoWay()) {
+            msg += String.format(" I'm hoping to get a ride %s the event, thanks!",
+                    directionPreference != "both" ? directionPreference : "both to and from");
+        }
+        SMSHandler.sendSMS(parent, ride.getDriverNumber(), msg);
     }
 
     @Override

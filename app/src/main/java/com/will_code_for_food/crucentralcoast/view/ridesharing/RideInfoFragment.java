@@ -45,7 +45,6 @@ public class RideInfoFragment extends CruFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
-
         ride = RideShareActivity.getRide();
         event = RideShareActivity.getEvent(ride);
         title = (TextView) fragmentView.findViewById(R.id.ride_info_title);
@@ -76,7 +75,7 @@ public class RideInfoFragment extends CruFragment {
         // Leaving time
         mainText += Util.getString(R.string.ridesharing_time) +
                 String.format(Util.getString(R.string.ridesharing_leaving_date),
-                ride.getLeaveTime(), ride.getLeaveDate()) + "\n";
+                        ride.getLeaveTime(), ride.getLeaveDate()) + "\n";
 
         // Direction
         mainText += Util.getString(R.string.ridesharing_direction) + ride.getDirection().toString() + "\n";
@@ -187,7 +186,7 @@ public class RideInfoFragment extends CruFragment {
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EnterNameDialog popup = new EnterNameDialog(getParent(), ride);
+                EnterNameDialog popup = new EnterNameDialog(getParent(), ride, event);
                 FragmentManager manager = getFragmentManager();
                 popup.show(manager, "ride_info_enter_name");
             }

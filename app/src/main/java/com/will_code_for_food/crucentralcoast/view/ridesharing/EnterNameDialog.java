@@ -6,12 +6,10 @@ import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
+import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
-import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RiderForm;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
@@ -21,13 +19,15 @@ import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 //I will fix the warning for this class later -Mason
 public class EnterNameDialog extends DialogFragment {
 
-    MainActivity parent;
-    Ride ride;
+    final MainActivity parent;
+    final Ride ride;
     String passengerName;
+    final Event event;
 
-    public EnterNameDialog(MainActivity parent, Ride ride) {
+    public EnterNameDialog(final MainActivity parent, final Ride ride, final Event event) {
         this.parent = parent;
         this.ride = ride;
+        this.event = event;
     }
 
     @Override
@@ -47,7 +47,8 @@ public class EnterNameDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         //store the passenger's name
                         passengerName = input.getText().toString();
-                        EnterNumberDialog popup = new EnterNumberDialog(parent, passengerName, ride);
+                        EnterNumberDialog popup = new EnterNumberDialog(parent, passengerName,
+                                ride, event);
                         FragmentManager manager = getFragmentManager();
                         popup.show(manager, "ride_info_select_number");
                     }

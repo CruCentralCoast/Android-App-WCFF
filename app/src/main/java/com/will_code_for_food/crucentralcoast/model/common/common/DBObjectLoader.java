@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.PlaylistRetriever;
@@ -85,7 +86,7 @@ public class DBObjectLoader {
      * Loads events. Doesn't wait for them to finish loading.
      */
     public static void loadEvents() {
-        Log.i("DBObjectLoader", "Loading events");
+        Logger.i("DBObjectLoader", "Loading events");
         new GetOjbectTask<Event>(RetrieverSchema.EVENT).execute();
     }
 
@@ -102,7 +103,7 @@ public class DBObjectLoader {
      * Loads ministries. Doesn't wait for them to finish loading.
      */
     public static void loadMinistries() {
-        Log.i("DBObjectLoader", "Loading ministries");
+        Logger.i("DBObjectLoader", "Loading ministries");
         new GetOjbectTask<Ministry>(RetrieverSchema.MINISTRY).execute();
     }
 
@@ -119,7 +120,7 @@ public class DBObjectLoader {
      * Loads rides. Doesn't wait for them to finish loading.
      */
     public static void loadRides() {
-        Log.i("DBObjectLoader", "Loading rides");
+        Logger.i("DBObjectLoader", "Loading rides");
         new GetOjbectTask<Ride>(RetrieverSchema.RIDE).execute();
     }
 
@@ -136,7 +137,7 @@ public class DBObjectLoader {
      * Loads campuses. Doesn't wait for them to finish loading.
      */
     public static void loadCampuses() {
-        Log.i("DBObjectLoader", "Loading campuses");
+        Logger.i("DBObjectLoader", "Loading campuses");
         new GetOjbectTask<Campus>(RetrieverSchema.CAMPUS).execute();
     }
 
@@ -153,7 +154,7 @@ public class DBObjectLoader {
      * Loads resources. Doesn't wait for them to finish loading.
      */
     public static void loadResources() {
-        Log.i("DBObjectLoader", "Loading resources");
+        Logger.i("DBObjectLoader", "Loading resources");
         new GetOjbectTask<Resource>(RetrieverSchema.RESOURCE).execute();
     }
 
@@ -170,7 +171,7 @@ public class DBObjectLoader {
      * Loads summer missions. Doesn't wait for them to finish loading.
      */
     public static void loadSummerMissions() {
-        Log.i("DBObjectLoader", "Loading summer missions");
+        Logger.i("DBObjectLoader", "Loading summer missions");
         new GetOjbectTask<Resource>(RetrieverSchema.SUMMER_MISSION).execute();
     }
 
@@ -196,7 +197,7 @@ public class DBObjectLoader {
      * Loads ministry teams. Doesn't wait for them to finish loading.
      */
     public static void loadMinistryTeams() {
-        Log.i("DBObjectLoader", "Loading ministry teams");
+        Logger.i("DBObjectLoader", "Loading ministry teams");
         new GetOjbectTask<Resource>(RetrieverSchema.MINISTRY_TEAM).execute();
     }
 
@@ -213,7 +214,7 @@ public class DBObjectLoader {
      * Loads ministry teams. Doesn't wait for them to finish loading.
      */
     public static void loadPassengers() {
-        Log.i("DBObjectLoader", "Loading ministry teams");
+        Logger.i("DBObjectLoader", "Loading ministry teams");
         new GetOjbectTask<Resource>(RetrieverSchema.PASSENGER).execute();
     }
 
@@ -303,7 +304,7 @@ public class DBObjectLoader {
 
     private static void initData() {
         if (data == null) {
-            Log.i("DBObjectLoader", "data was null");
+            Logger.i("DBObjectLoader", "data was null");
             data = new ConcurrentHashMap<String, Content>();
         }
     }
@@ -333,7 +334,7 @@ public class DBObjectLoader {
         protected Void doInBackground(Void... params) {
             initData();
 
-            Log.i("DBObjectLoader", "Getting objects of type [" + key + "] from database");
+            Logger.i("DBObjectLoader", "Getting objects of type [" + key + "] from database");
             Content<T> content = new SingleRetriever<T>(schema).getAll();
 
             if (content != null) {
@@ -350,7 +351,7 @@ public class DBObjectLoader {
                 loadCount++;
             }
 
-            Log.i("DBObjectLoader", "Finished getting objects of type [" + key + "] from database (loadCount is: " + loadCount + ")");
+            Logger.i("DBObjectLoader", "Finished getting objects of type [" + key + "] from database (loadCount is: " + loadCount + ")");
         }
     }
 
@@ -358,7 +359,7 @@ public class DBObjectLoader {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Log.i("DBObjectLoader", "Getting videos from youtube");
+            Logger.i("DBObjectLoader", "Getting videos from youtube");
 
             PlaylistRetriever playlistRetriever = new PlaylistRetriever();
             VideoRetriever videoRetriever = new VideoRetriever();
@@ -377,7 +378,7 @@ public class DBObjectLoader {
                 loadCount++;
             }
 
-            Log.i("DBObjectLoader", "Finished getting videos from youtube (loadCount is: " + loadCount + ")");
+            Logger.i("DBObjectLoader", "Finished getting videos from youtube (loadCount is: " + loadCount + ")");
         }
     }
 }

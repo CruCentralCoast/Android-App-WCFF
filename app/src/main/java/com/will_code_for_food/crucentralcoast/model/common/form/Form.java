@@ -2,6 +2,8 @@ package com.will_code_for_food.crucentralcoast.model.common.form;
 
 import android.util.Log;
 
+import com.will_code_for_food.crucentralcoast.controller.Logger;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +43,7 @@ public abstract class Form implements Serializable {
      */
     public boolean answerQuestion(final int index, final Object answer) {
         if (index < questions.size()) {
-            Log.i("Answering", index + " : " + questions.get(index).getName() + " = " + answer);
+            Logger.i("Answering", index + " : " + questions.get(index).getName() + " = " + answer);
             questions.get(index).answerQuestion(answer);
             return true;
         }
@@ -134,9 +136,9 @@ public abstract class Form implements Serializable {
      * Prints the form to the logger (for debugging)
      */
     public void print() {
-        Log.i("FORM", "Printing form...");
+        Logger.i("FORM", "Printing form...");
         for (Question question : questions) {
-            Log.i("Quesiton", question.getPrompt() + " -> " + question.getAnswer());
+            Logger.i("Quesiton", question.getPrompt() + " -> " + question.getAnswer());
         }
     }
 

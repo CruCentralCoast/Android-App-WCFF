@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
@@ -79,7 +80,7 @@ public class MyRidesFragment extends CruFragment {
     }
 
     private void refreshList() {
-        Log.i("MyRidesFragment", "refreshing rides");
+        Logger.i("MyRidesFragment", "refreshing rides");
 
         if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT).show();

@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
@@ -82,7 +83,7 @@ public class Ride extends DatabaseObject {
         this.gender = gender;
 
         if (this.direction == null) {
-            Log.e("Ride Error", "Given NULL ride direction. Setting as default.");
+            Logger.e("Ride Error", "Given NULL ride direction. Setting as default.");
             this.direction = RideDirection.ONE_WAY_TO_EVENT;
             this.direction.setLeaveTimeFromEvent(Calendar.getInstance());
         }
@@ -116,7 +117,7 @@ public class Ride extends DatabaseObject {
 
         // TODO this keeps happening, and is a problem
         if (direction == null) {
-            Log.e("Ride Error", "Could not get direction from the database. Setting as default.");
+            Logger.e("Ride Error", "Could not get direction from the database. Setting as default.");
             direction = RideDirection.ONE_WAY_TO_EVENT;
         }
     }

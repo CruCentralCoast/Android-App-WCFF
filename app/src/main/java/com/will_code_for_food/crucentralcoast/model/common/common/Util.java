@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
@@ -152,15 +153,15 @@ public class Util {
      */
     public static void printSet(final String key) {
         Set<String> set = Util.loadStringSet(key);
-        Log.i("*********", "**************************");
+        Logger.i("*********", "**************************");
         if (set == null) {
-            Log.i("   ", "No set");
+            Logger.i("   ", "No set");
         } else {
             for (String s : set) {
-                Log.i("     ", s);
+                Logger.i("     ", s);
             }
         }
-        Log.i("*********", "**************************");
+        Logger.i("*********", "**************************");
     }
 
     /**

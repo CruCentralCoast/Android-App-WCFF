@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
@@ -189,7 +190,7 @@ public class RideShareDriverFormFragment extends CruFragment {
                     // TODO these are all the errors returned by the form validation
                     // TODO I don't know how best to translate the form's results to show in the UI (change it however you want or let me know and I will)
                     for(FormValidationResult result : results) {
-                        Log.e("Form Error:", result.getMessage(parent));
+                        Logger.e("Form Error:", result.getMessage(parent));
                     }
                 }
             }

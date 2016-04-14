@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
@@ -269,7 +270,7 @@ public class RestUtil {
      * This new JSON object will have an auto-generated _id field.
      */
     public static JsonObject create(JsonObject toSend, String collectionName) {
-        Log.i("RestUtil.java", "Sending object to " + collectionName + ": " + toSend.toString());
+        Logger.i("RestUtil.java", "Sending object to " + collectionName + ": " + toSend.toString());
         return sendJsonObject(toSend, collectionName, false);
     }
 
@@ -296,13 +297,13 @@ public class RestUtil {
 
             if(HttpResult == HttpURLConnection.HTTP_OK || HttpResult == HttpURLConnection.HTTP_CREATED){
                 actionSuccessful = true;
-                Log.d("RestUtil.java", connection.getResponseMessage());
+                Logger.d("RestUtil.java", connection.getResponseMessage());
             } else{
-                Log.d("RestUtil.java", connection.getResponseMessage());
+                Logger.d("RestUtil.java", connection.getResponseMessage());
             }
 
         } catch (Exception ex) {
-            Log.e("RestUtil.java", ex.toString());
+            Logger.e("RestUtil.java", ex.toString());
             System.out.println(ex.toString());
         } finally {
             if (connection != null) {
@@ -332,13 +333,13 @@ public class RestUtil {
 
     //adds a passenger to a ride
     public static boolean addPassenger(String rideId, String passengerId) {
-        Log.i("RestUtil", "adding passenger " + passengerId + " to ride " + rideId);
+        Logger.i("RestUtil", "adding passenger " + passengerId + " to ride " + rideId);
         return addDropHelper(false, rideId, passengerId);
     }
 
     //removes a passenger from a ride
     public static boolean dropPassenger(String rideId, String passengerId) {
-        Log.i("RestUtil", "dropping passenger " + passengerId + " from ride " + rideId);
+        Logger.i("RestUtil", "dropping passenger " + passengerId + " from ride " + rideId);
         return addDropHelper(true, rideId, passengerId);
     }
 

@@ -6,6 +6,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
@@ -64,7 +65,7 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Integer,
             }
             myDBObjects = new Content<>(filteredObjects, dbContent.getType());
         } else {
-            Log.e("Retrieval", "Unable to retrieve any data");
+            Logger.e("Retrieval", "Unable to retrieve any data");
         }
         return null;
     }

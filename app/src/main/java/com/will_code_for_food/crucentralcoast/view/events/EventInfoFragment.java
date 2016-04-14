@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Database;
@@ -126,7 +127,7 @@ public class EventInfoFragment extends CruFragment {
      * the event is already in the calendar
      */
     private void modifyAddToCalendarButton() {
-        Log.e("Changing button", "changing button");
+        Logger.e("Changing button", "changing button");
         if (event.isInCalendarAlready()) {
             calendarButton.setImageResource(R.drawable.calendar_added);
         } else {

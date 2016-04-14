@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
+import com.will_code_for_food.crucentralcoast.controller.Logger;
+
 /**
  * Sends emails using the user's email account and existing email app
  */
@@ -13,10 +15,10 @@ public class EmailSender {
 
     public static boolean send(Activity activity, EmailMessage msg) {
         if (msg == null) {
-            Log.e("Sending Email", "Could not send null message");
+            Logger.e("Sending Email", "Could not send null message");
             return false;
         }
-        Log.e("Sending Email", "Sending email to " + msg.to);
+        Logger.e("Sending Email", "Sending email to " + msg.to);
         Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(SCHEME,
                 msg.to, null));
         intent.putExtra(Intent.EXTRA_SUBJECT, msg.subject);

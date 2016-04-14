@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.model.common.common.sorting;
 
 import android.util.Log;
 
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
@@ -77,7 +78,7 @@ public class DateComparator implements Comparator<DatabaseObject> {
             DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
             date = dateFormat.parse(dateString);
         } catch (Exception e) {
-            Log.i("DatabaseObjectSorter", "parsed a null ISO date: " + dateString);
+            Logger.i("DatabaseObjectSorter", "parsed a null ISO date: " + dateString);
             return null;
         }
 

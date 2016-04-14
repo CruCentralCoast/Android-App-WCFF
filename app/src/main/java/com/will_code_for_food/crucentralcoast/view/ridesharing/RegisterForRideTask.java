@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
@@ -104,7 +105,7 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
 
     private void notifyDriver(final String passengerName, final Ride ride,
                               final String directionPreference) {
-        Log.i("Signing up for ride", "Notifying driver of a new rider");
+        Logger.i("Signing up for ride", "Notifying driver of a new rider");
         // creating message
         String msg = "Hi! My name is %s, and I just used the CRU app to sign up "
                 + "to ride in your car to %s.";

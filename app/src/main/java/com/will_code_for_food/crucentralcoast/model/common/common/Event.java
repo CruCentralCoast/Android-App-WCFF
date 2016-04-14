@@ -9,6 +9,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
@@ -139,7 +140,7 @@ public class Event extends DatabaseObject {
      */
     public void saveToCalendar(final Activity currentActivity) {
         updateCalendarEvent();
-        Log.i("Accessing Calendar", "Creating new event");
+        Logger.i("Accessing Calendar", "Creating new event");
         long id = CalendarAccessor.addEventToCalendar(calendarEvent, currentActivity);
         calendarEvent.setCalendarId(id);
     }
@@ -153,7 +154,7 @@ public class Event extends DatabaseObject {
     }
 
     public void deleteFromCalendar(final Activity currentActivity) {
-        Log.i("Accessing Calendar", "Deleting event from calendar");
+        Logger.i("Accessing Calendar", "Deleting event from calendar");
         CalendarAccessor.deleteEventFromCalendar(calendarEvent, currentActivity);
         calendarEvent.setCalendarId(null);
     }
@@ -194,7 +195,7 @@ public class Event extends DatabaseObject {
                 calendar.setTime(startTime);
                 calendar.add(Calendar.HOUR, 1);
                 endTime = calendar.getTime();
-                Log.e("Event Creation", "Unable to get event end time for " + getName());
+                Logger.e("Event Creation", "Unable to get event end time for " + getName());
             }
 
             try {
@@ -205,7 +206,7 @@ public class Event extends DatabaseObject {
                     // TODO switch to Joda-Time instead of java.util.Date
                 }
             } catch (java.text.ParseException | NullPointerException ex) {
-                Log.i("Event Creation", "Unable to get event reminder time for " + getName());
+                Logger.i("Event Creation", "Unable to get event reminder time for " + getName());
             }
 
             int calendarId = CalendarAccessor.getExitingCalendarEventId(getName(), databaseId);
@@ -214,7 +215,7 @@ public class Event extends DatabaseObject {
                     getFieldAsString(Database.JSON_KEY_EVENT_LOCATION), startTime.getTime(),
                     endTime.getTime(), reminderMinutesBefore, calendarId);
         } catch (java.text.ParseException ex) {
-            Log.e("Event Creation", "Unable to get mandatory data for" + getName());
+            Logger.e("Event Creation", "Unable to get mandatory data for" + getName());
             ex.printStackTrace();
         }
     }

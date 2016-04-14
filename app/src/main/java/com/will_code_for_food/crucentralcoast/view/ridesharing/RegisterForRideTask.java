@@ -12,6 +12,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
+import com.will_code_for_food.crucentralcoast.model.common.messaging.PushUtil;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.values.LocalFiles;
@@ -47,10 +48,10 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
         //if passenger doesn't exist
         if (passenger == null) {
             //push new passenger into db
-            result = RestUtil.create(Passenger.toJSON(passengerName, phoneNum, "dummy_id", directionPreference), Database.REST_PASSENGER);
+            result = RestUtil.create(Passenger.toJSON(passengerName, phoneNum, PushUtil.getGCMId(), directionPreference), Database.REST_PASSENGER);
         } else {
             //update existing passenger
-            result = RestUtil.update(Passenger.toJSON(passenger.getId(), passengerName, phoneNum, "dummy_id", directionPreference), Database.REST_PASSENGER);
+            result = RestUtil.update(Passenger.toJSON(passenger.getId(), passengerName, phoneNum, PushUtil.getGCMId(), directionPreference), Database.REST_PASSENGER);
         }
 
         // check for internet connection

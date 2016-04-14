@@ -53,7 +53,7 @@
     <TextView
         android:id="@+id/ministry_setup_card_over"
         android:layout_width="fill_parent"
-        android:layout_height="180dp"
+        android:layout_height="220dp"
         android:layout_alignBaseline="@+id/ministry_setup_card_under"
         android:alpha=".3"
         android:background="@color/colorPrimary_cruGrayLight"

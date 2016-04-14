@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             CrashReport report = CrashReport.loadCachedReport();
                             if (report != null) {
+                                report.setUserMessage(userInput.getText().toString());
                                 EmailSender.send(act, report.asMessage());
                             }
                         }
@@ -144,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        CrashReport.deleteCache();
                         dialog.cancel();
                     }
                 });
@@ -173,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
             builder.setNegativeButton("No thanks", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    CrashReport.deleteCache();
                     dialog.dismiss();
                 }
             });

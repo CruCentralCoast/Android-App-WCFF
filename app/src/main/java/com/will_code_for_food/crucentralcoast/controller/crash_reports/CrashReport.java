@@ -28,7 +28,7 @@ public class CrashReport {
     public final String manufacturer;
     public final Throwable exception;
     public final boolean cached;
-    public final String message;
+    public String message;
 
     private final String text;
 
@@ -58,6 +58,10 @@ public class CrashReport {
      */
     public CrashReport(final Throwable exception, final String message) {
         this(exception, message, false);
+    }
+
+    public void setUserMessage(final String msg) {
+        this.message = msg;
     }
 
     private CrashReport(final Throwable exception, final String message, final boolean cached) {
@@ -140,8 +144,12 @@ public class CrashReport {
     }
 
     public boolean cache() {
-        LocalStorageIO.deleteFile(CACHED_REPORT);
+        deleteCache();
         return LocalStorageIO.writeList(asText(), CACHED_REPORT);
+    }
+
+    public static boolean deleteCache() {
+        return LocalStorageIO.deleteFile(CACHED_REPORT);
     }
 
     public static CrashReport loadCachedReport() {

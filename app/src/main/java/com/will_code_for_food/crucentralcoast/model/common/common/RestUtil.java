@@ -277,13 +277,15 @@ public class RestUtil {
      *  Updates an existing object
      */
     public static JsonObject update(JsonObject updatedObject, String collectionName) {
-        System.out.println("TESTING UPDATE");
         return sendJsonObject(updatedObject, collectionName, true);
     }
 
     private static boolean changePost(boolean change, String path, String body, String contentType,
                                       String id, String requestMethod) {
         HttpURLConnection connection = null;
+        JsonParser parser = new JsonParser();
+        JsonObject dbObj = new JsonObject();
+        dbObj.addProperty("passenger_id", passengerId);
         boolean actionSuccessful = false;
         int HttpResult;
 
@@ -294,12 +296,14 @@ public class RestUtil {
                 connection = createPostConnection(path, body, contentType);
 
             HttpResult = connection.getResponseCode();
+
             if(HttpResult == HttpURLConnection.HTTP_OK || HttpResult == HttpURLConnection.HTTP_CREATED){
                 actionSuccessful = true;
                 Log.d("RestUtil.java", connection.getResponseMessage());
             } else{
                 Log.d("RestUtil.java", connection.getResponseMessage());
             }
+
         } catch (Exception ex) {
             Log.e("RestUtil.java", ex.toString());
             System.out.println(ex.toString());
@@ -314,7 +318,7 @@ public class RestUtil {
 
     private static boolean addDropHelper(Boolean remove, String rideId, String passengerId) {
         String path = Database.REST_RIDE + "/" + rideId + "/" + Database.REST_PASSENGER;
-        String content = "passenger_id=" + passengerId;
+        String content = dbObj.toString();
         String contentType = Database.CONTENT_TYPE_URL_ENCODED;
         String method;
 

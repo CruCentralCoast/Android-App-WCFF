@@ -293,12 +293,12 @@ public class RestUtil {
         try {
             if (remove) {
                 connection = createChangeConnection(Database.REST_RIDE + "/" + rideId + "/" +
-                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_URL_ENCODED, passengerId,
+                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_JSON, passengerId,
                         Database.HTTP_REQUEST_METHOD_DELETE);
             }
             else {
                 connection = createPostConnection(Database.REST_RIDE + "/" + rideId + "/" +
-                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_URL_ENCODED);
+                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_JSON);
             }
 
             HttpResult = connection.getResponseCode();

@@ -17,8 +17,10 @@ import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.Location;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
@@ -45,7 +47,6 @@ public class RideInfoFragment extends CruFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
-
         ride = RideShareActivity.getRide();
         event = RideShareActivity.getEvent(ride);
         title = (TextView) fragmentView.findViewById(R.id.ride_info_title);
@@ -59,7 +60,7 @@ public class RideInfoFragment extends CruFragment {
         // Set text for driver info
         String driverText = Util.getString(R.string.ridesharing_driver) + ride.getDriverName();
         if (ride.getGender() != null) {
-            driverText += " (" + ride.getGender() + ")";
+            driverText += " (" + getGenderFromEnum(ride.getGender()) + ")";
         }
         driver.setText(driverText);
 
@@ -76,7 +77,7 @@ public class RideInfoFragment extends CruFragment {
         // Leaving time
         mainText += Util.getString(R.string.ridesharing_time) +
                 String.format(Util.getString(R.string.ridesharing_leaving_date),
-                ride.getLeaveTime(), ride.getLeaveDate()) + "\n";
+                        ride.getLeaveTime(), ride.getLeaveDate()) + "\n";
 
         // Direction
         mainText += Util.getString(R.string.ridesharing_direction) + ride.getDirection().toString() + "\n";
@@ -92,6 +93,15 @@ public class RideInfoFragment extends CruFragment {
         }
 
         return fragmentView;
+    }
+
+    private String getGenderFromEnum(String num) {
+        if (String.valueOf(Gender.FEMALE.getValue()).equals(num))
+            return Util.getString(Gender.FEMALE.getNameId());
+        else if (String.valueOf(Gender.MALE.getValue()).equals(num))
+            return Util.getString(Gender.MALE.getNameId());
+        else
+            return "";
     }
 
     private String getRideInfo() {
@@ -187,7 +197,7 @@ public class RideInfoFragment extends CruFragment {
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EnterNameDialog popup = new EnterNameDialog(getParent(), ride);
+                EnterNameDialog popup = new EnterNameDialog(getParent(), ride, event);
                 FragmentManager manager = getFragmentManager();
                 popup.show(manager, "ride_info_enter_name");
             }
@@ -195,7 +205,6 @@ public class RideInfoFragment extends CruFragment {
     }
 
     private class DropRide extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected Void doInBackground(Void... params) {
             JsonArray passengers = ride.getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
@@ -203,7 +212,13 @@ public class RideInfoFragment extends CruFragment {
                 RestUtil.dropPassenger(ride.getId(), passengers.get(i).getAsString());
             }
             //TODO: delete from database
-
+            // Currently this just sets the driver's name and number to cancelled and
+            // Sets number of seats to 0
+            System.out.println("TESTING CANCEL");
+            RestUtil.update(Ride.toJSON(ride.getId(), ride.getEventId(), "CANCELLED", "CANCELLED",
+                    ride.getGcmId(), ride.getLocation(), "", 0.0, 0, ride.getDirection(), "1"),
+                    Database.REST_RIDE);
+            //TODO: inform the passengers their ride is cancelled
             return null;
         }
 

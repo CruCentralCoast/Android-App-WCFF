@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
@@ -82,7 +83,7 @@ public class Ride extends DatabaseObject {
         this.gender = gender;
 
         if (this.direction == null) {
-            Log.e("Ride Error", "Given NULL ride direction. Setting as default.");
+            Logger.e("Ride Error", "Given NULL ride direction. Setting as default.");
             this.direction = RideDirection.ONE_WAY_TO_EVENT;
             this.direction.setLeaveTimeFromEvent(Calendar.getInstance());
         }
@@ -106,6 +107,7 @@ public class Ride extends DatabaseObject {
         numSeats = getFieldAsInt(Database.JSON_KEY_RIDE_SEATS);
         direction = RideDirection.fromString(getFieldAsString(Database.JSON_KEY_RIDE_DIRECTION));
         gender = getFieldAsString(Database.JSON_KEY_RIDE_GENDER);
+        //gender = getGenderFromEnum(getFieldAsInt(Database.JSON_KEY_RIDE_GENDER));
 
         if (getField(Database.JSON_KEY_RIDE_PASSENGERS) != null) {
             for (JsonElement passenger : getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray()) {
@@ -115,9 +117,18 @@ public class Ride extends DatabaseObject {
 
         // TODO this keeps happening, and is a problem
         if (direction == null) {
-            Log.e("Ride Error", "Could not get direction from the database. Setting as default.");
+            Logger.e("Ride Error", "Could not get direction from the database. Setting as default.");
             direction = RideDirection.ONE_WAY_TO_EVENT;
         }
+    }
+
+    private String getGenderFromEnum(int num) {
+        if (Gender.FEMALE.getValue() == num)
+            return Util.getString(Gender.FEMALE.getNameId());
+        else if (Gender.MALE.getValue() == num)
+            return Util.getString(Gender.MALE.getNameId());
+        else
+            return "fake";
     }
 
     public boolean isFullToEvent() {
@@ -150,40 +161,12 @@ public class Ride extends DatabaseObject {
     public int getNumAvailableSeatsToEvent() {
         //TODO: Make this work with only to riders
         JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
-        /*
-        JsonArray allRiders = RestUtil.get(Database.REST_PASSENGER);
-        int numSeats = getNumSeats();
-
-        for (int i = 0; i < allRiders.size(); i++) {
-            JsonObject rider = allRiders.get(i).getAsJsonObject();
-            String riderDirection = rider.get("direction").getAsString();
-            if (passengers.contains(rider.get("_id")) &&
-                    (riderDirection == "both" || riderDirection == "to")) {
-                numSeats--;
-            }
-        }
-        return numSeats;
-        */
         return getNumSeats() - passengers.size();
     }
 
     public int getNumAvailableSeatsFromEvent() {
         //TODO: Make this work with only from riders
         JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
-        /*
-        JsonArray allRiders = RestUtil.get(Database.REST_PASSENGER);
-        int numSeats = getNumSeats();
-
-        for (int i = 0; i < allRiders.size(); i++) {
-            JsonObject rider = allRiders.get(i).getAsJsonObject();
-            String riderDirection = rider.get("direction").getAsString();
-            if (passengers.contains(rider.get("_id")) &&
-                    (riderDirection == "both" || riderDirection == "from")) {
-                numSeats--;
-            }
-        }
-        return numSeats;
-        */
         return getNumSeats() - passengers.size();
     }
 
@@ -295,11 +278,6 @@ public class Ride extends DatabaseObject {
         return direction.hasTimeLeavingFromEvent();
     }
 
-    /*public void addToDb() {
-        this.update(RestUtil.create(this.toJSON(), Database.REST_RIDE)); //updates the JSON object held by the parent class
-        this.refreshFields(); //updates the fields for this class based on the parent class
-    }*/
-
     public RideDirection getDirection() {
         return direction;
     }
@@ -357,6 +335,7 @@ public class Ride extends DatabaseObject {
     //Example of how to add a new Ride to the database and store it in a ride object for later use:
     // Ride newRide = new Ride(RestUtil.create(Ride.toJSON(event, driver, seats, loc, dir)));
     public static JsonObject toJSON(
+            final String id,
             final String eventId,
             final String driverName,
             final String driverNumber,
@@ -371,6 +350,7 @@ public class Ride extends DatabaseObject {
         JsonObject thisObj = new JsonObject();
 
         //TODO implement gcm key retrieval
+        thisObj.add(Database.JSON_KEY_COMMON_ID, new JsonPrimitive(id));
         thisObj.add(Database.JSON_KEY_RIDE_EVENT, new JsonPrimitive(eventId));
         thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NAME, new JsonPrimitive(driverName));
         thisObj.add(Database.JSON_KEY_RIDE_DRIVER_NUMBER, new JsonPrimitive(driverNumber));
@@ -380,7 +360,8 @@ public class Ride extends DatabaseObject {
         thisObj.add(Database.JSON_KEY_RIDE_RADIUS, new JsonPrimitive(radius));
         thisObj.add(Database.JSON_KEY_RIDE_SEATS, new JsonPrimitive(Integer.toString(numSeats)));
         thisObj.add(Database.JSON_KEY_RIDE_DIRECTION, new JsonPrimitive(direction.toString()));
-        thisObj.add(Database.JSON_KEY_RIDE_GENDER, new JsonPrimitive(gender));
+        // casting to number failed error
+        //thisObj.add(Database.JSON_KEY_RIDE_GENDER, new JsonPrimitive(gender));
 
         return thisObj;
     }
@@ -398,7 +379,7 @@ public class Ride extends DatabaseObject {
                     numSeats.equals(ride.getNumSeats()) &&
                     getNumAvailableSeatsFromEvent() == ride.getNumAvailableSeatsFromEvent() &&
                     getNumAvailableSeatsToEvent() == ride.getNumAvailableSeatsToEvent() &&
-                    gender == ride.getGender() &&
+                    gender.equals(ride.getGender()) &&
                     getLeaveDate().equals(ride.getLeaveDate()) &&
                     getLeaveTime().equals(ride.getLeaveTime()) &&
                     location.equals(ride.getLocation());

@@ -47,7 +47,6 @@ public class Location {
             address.setAddressLine(0, getFieldAsString(fields, Database.JSON_KEY_COMMON_LOCATION_STREET));
             address.setCountryName(getFieldAsString(fields, Database.JSON_KEY_COMMON_LOCATION_COUNTRY));
             //TODO: add latatitude/longitude
-
         }
     }
 
@@ -91,11 +90,19 @@ public class Location {
     }
 
     public double getLatitude() {
-        return address.getLatitude();
+        try {
+            return address.getLatitude();
+        } catch(IllegalStateException e) {
+            return 0.0;
+        }
     }
 
     public double getLongitude() {
-        return address.getLongitude();
+        try {
+            return address.getLongitude();
+        } catch(IllegalStateException e) {
+            return 0.0;
+        }
     }
 
     @Override
@@ -120,16 +127,23 @@ public class Location {
         JsonObject thisObj = new JsonObject();
         JsonArray geo = new JsonArray();
 
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_POSTCODE, new JsonPrimitive(getPostcode()));
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STATE, new JsonPrimitive(getState()));
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_SUBURB, new JsonPrimitive(getSuburb()));
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STREET, new JsonPrimitive(getStreet()));
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_COUNTRY, new JsonPrimitive(getCountry()));
+        if (getPostcode() != null)
+            thisObj.add(Database.JSON_KEY_COMMON_LOCATION_POSTCODE, new JsonPrimitive(getPostcode()));
+        if (getState() != null)
+            thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STATE, new JsonPrimitive(getState()));
+        if (getSuburb() != null)
+            thisObj.add(Database.JSON_KEY_COMMON_LOCATION_SUBURB, new JsonPrimitive(getSuburb()));
+        if (getStreet() != null)
+            thisObj.add(Database.JSON_KEY_COMMON_LOCATION_STREET, new JsonPrimitive(getStreet()));
+        if (getCountry() != null)
+            thisObj.add(Database.JSON_KEY_COMMON_LOCATION_COUNTRY, new JsonPrimitive(getCountry()));
 
         //Todo: figure out why the following lines are malformed
-        geo.add(new JsonPrimitive(getLongitude() + ""));
-        geo.add(new JsonPrimitive(getLatitude() + ""));
-        thisObj.add(Database.JSON_KEY_COMMON_LOCATION_GEO, geo);
+        if (address != null) {
+            geo.add(new JsonPrimitive(getLongitude() + ""));
+            geo.add(new JsonPrimitive(getLatitude() + ""));
+            thisObj.add(Database.JSON_KEY_COMMON_LOCATION_GEO, geo);
+        }
 
         return thisObj;
     }

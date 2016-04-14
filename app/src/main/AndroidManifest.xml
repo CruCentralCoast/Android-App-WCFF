@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -111,6 +111,14 @@
 
         <activity
             android:name=".view.common.CrashReportActivity"
+            android:parentActivityName=".view.common.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.common.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".view.common.ErrorNoInternetActivity"
             android:parentActivityName=".view.common.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
@@ -77,7 +78,6 @@ public class RestUtil {
         wr.close();
         return connection;
     }
-
 
     /**
      * Gets a JSON object from the server and returns it as a String.
@@ -270,7 +270,7 @@ public class RestUtil {
      * This new JSON object will have an auto-generated _id field.
      */
     public static JsonObject create(JsonObject toSend, String collectionName) {
-        Log.i("RestUtil.java", "Sending object to " + collectionName + ": " + toSend.toString());
+        Logger.i("RestUtil.java", "Sending object to " + collectionName + ": " + toSend.toString());
         return sendJsonObject(toSend, collectionName, false);
     }
 
@@ -281,37 +281,29 @@ public class RestUtil {
         return sendJsonObject(updatedObject, collectionName, true);
     }
 
-    private static boolean addDropHelper(Boolean remove, String rideId, String passengerId) {
+    private static boolean changePost(boolean change, String path, String body, String contentType,
+                                      String id, String requestMethod) {
         HttpURLConnection connection = null;
-        String content = "passenger_id=" + passengerId;
-        JsonParser parser = new JsonParser();
-        JsonObject dbObj = new JsonObject();
-        dbObj.addProperty("passenger_id", passengerId);
         boolean actionSuccessful = false;
         int HttpResult;
 
         try {
-            if (remove) {
-                connection = createChangeConnection(Database.REST_RIDE + "/" + rideId + "/" +
-                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_URL_ENCODED, passengerId,
-                        Database.HTTP_REQUEST_METHOD_DELETE);
-            }
-            else {
-                connection = createPostConnection(Database.REST_RIDE + "/" + rideId + "/" +
-                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_URL_ENCODED);
-            }
+            if (change)
+                connection = createChangeConnection(path, body, contentType, id, requestMethod);
+            else
+                connection = createPostConnection(path, body, contentType);
 
             HttpResult = connection.getResponseCode();
 
             if(HttpResult == HttpURLConnection.HTTP_OK || HttpResult == HttpURLConnection.HTTP_CREATED){
                 actionSuccessful = true;
-                Log.d("RestUtil.java", connection.getResponseMessage());
+                Logger.d("RestUtil.java", connection.getResponseMessage());
             } else{
-                Log.d("RestUtil.java", connection.getResponseMessage());
+                Logger.d("RestUtil.java", connection.getResponseMessage());
             }
 
         } catch (Exception ex) {
-            Log.e("RestUtil.java", ex.toString());
+            Logger.e("RestUtil.java", ex.toString());
             System.out.println(ex.toString());
         } finally {
             if (connection != null) {
@@ -322,15 +314,32 @@ public class RestUtil {
         return actionSuccessful;
     }
 
+    private static boolean addDropHelper(Boolean remove, String rideId, String passengerId) {
+        String path = Database.REST_RIDE + "/" + rideId + "/" + Database.REST_PASSENGER;
+        JsonParser parser = new JsonParser();
+        JsonObject dbObj = new JsonObject();
+        dbObj.addProperty("passenger_id", passengerId);
+        String content = dbObj.toString();
+        String contentType = Database.CONTENT_TYPE_URL_ENCODED;
+        String method;
+
+        if (remove)
+            method = Database.HTTP_REQUEST_METHOD_DELETE;
+        else
+            method = Database.CONTENT_TYPE_URL_ENCODED;
+
+        return changePost(remove, path, content, contentType, passengerId, method);
+    }
+
     //adds a passenger to a ride
     public static boolean addPassenger(String rideId, String passengerId) {
-        Log.i("RestUtil", "adding passenger " + passengerId + " to ride " + rideId);
+        Logger.i("RestUtil", "adding passenger " + passengerId + " to ride " + rideId);
         return addDropHelper(false, rideId, passengerId);
     }
 
     //removes a passenger from a ride
     public static boolean dropPassenger(String rideId, String passengerId) {
-        Log.i("RestUtil", "dropping passenger " + passengerId + " from ride " + rideId);
+        Logger.i("RestUtil", "dropping passenger " + passengerId + " from ride " + rideId);
         return addDropHelper(true, rideId, passengerId);
     }
 
@@ -355,18 +364,5 @@ public class RestUtil {
         }
 
         return passenger;
-    }
-
-    public static Passenger getPassengerFromID(String id) {
-        JsonArray passengers = RestUtil.get(Database.REST_PASSENGER);
-
-        if (passengers != null) {
-            for (JsonElement tempElement : passengers) {
-                if (tempElement.getAsJsonObject().get(Database.JSON_KEY_COMMON_ID).getAsString().equals(id)) {
-                    return new Passenger(tempElement.getAsJsonObject());
-                }
-            }
-        }
-        return null;
     }
 }

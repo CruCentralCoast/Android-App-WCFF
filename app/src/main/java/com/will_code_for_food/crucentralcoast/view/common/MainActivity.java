@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.RegistrationIntentService;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
 
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             CrashReport report = CrashReport.loadCachedReport();
                             if (report != null) {
+                                report.setUserMessage(userInput.getText().toString());
                                 EmailSender.send(act, report.asMessage());
                             }
                         }
@@ -150,9 +152,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendCachedReports() {
-        Log.i("Crash Report", "Checking for cached crash reports");
+        Logger.i("Crash Report", "Checking for cached crash reports");
         if (CrashReport.cacheReportExists()) {
-            Log.i("Crash Report", "Found cached report");
+            Logger.i("Crash Report", "Found cached report");
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Bug Report");
@@ -197,10 +199,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
-            //if (getActiveFragment() != null) {
             setTitle(titleStack.pop());
-            //}
-
         } else {
             super.onBackPressed();
         }

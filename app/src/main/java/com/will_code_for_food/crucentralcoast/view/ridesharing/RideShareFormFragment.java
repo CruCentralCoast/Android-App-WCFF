@@ -29,6 +29,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
@@ -258,7 +259,7 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
             // TODO these are all the errors returned by the form validation
             // TODO we should do this in the same way as dynamic forms
             for(FormValidationResult result : results) {
-                Log.e("Form Error:", result.getMessage(parent));
+                Logger.e("Form Error:", result.getMessage(parent));
             }
         }
     }
@@ -382,7 +383,7 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
         if (selectedAddress != null) {
             selectedLocation = new Location(selectedAddress);
         } else {
-            Log.e("RideShareFormFragment", "Couldn't find nearest address");
+            Logger.e("RideShareFormFragment", "Couldn't find nearest address");
             Toast.makeText(getParent(), "Error", Toast.LENGTH_LONG).show();
         }
     }
@@ -392,7 +393,7 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
      */
     @Override
     public void onError(Status status) {
-        Log.e("RideShareFormFragment", "onError: Status = " + status.toString());
+        Logger.e("RideShareFormFragment", "onError: Status = " + status.toString());
 
         Toast.makeText(getParent(), "Place selection failed: " + status.getStatusMessage(),
                 Toast.LENGTH_SHORT).show();

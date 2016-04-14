@@ -14,6 +14,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
@@ -45,10 +46,10 @@ public class ViewArticleFragment extends CruFragment {
         webView.setWebChromeClient(new CustomChromeClient());
 
         if (article != null) {
-            Log.i("ViewArticleFragment", "attempting to load " + article.getUrl());
+            Logger.i("ViewArticleFragment", "attempting to load " + article.getUrl());
             webView.loadUrl(article.getUrl());
         } else {
-            Log.e("ViewArticleFragment", "article was null");
+            Logger.e("ViewArticleFragment", "article was null");
         }
 
         return fragmentView;

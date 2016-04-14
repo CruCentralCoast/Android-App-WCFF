@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 import android.app.Activity;
 import android.util.Log;
 
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 
 import java.text.DateFormat;
@@ -46,9 +47,9 @@ public class CalendarEvent {
         this(databaseId, title, description, location, startTime, endTime, reminder);
         if (calendarId != -1) {
             this.calendarId = calendarId;
-            Log.i("Create Event", "Found " + title + " in calendar");
+            Logger.i("Create Event", "Found " + title + " in calendar");
         } else {
-            Log.i("Create Event", "Did not find " + title + " in calendar");
+            Logger.i("Create Event", "Did not find " + title + " in calendar");
             this.calendarId = null;
         }
     }

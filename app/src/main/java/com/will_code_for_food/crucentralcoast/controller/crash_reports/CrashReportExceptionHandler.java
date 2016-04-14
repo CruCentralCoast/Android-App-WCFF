@@ -18,6 +18,7 @@ public class CrashReportExceptionHandler implements Thread.UncaughtExceptionHand
     }
 
     public void uncaughtException(Thread thread, Throwable throwable) {
+        // these should stay as Log, not Logger
         Log.e("Crash Report", "App crash detected");
         CrashReport report = new CrashReport(throwable, null);
         report.cache();

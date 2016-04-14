@@ -281,29 +281,37 @@ public class RestUtil {
         return sendJsonObject(updatedObject, collectionName, true);
     }
 
-    private static boolean changePost(boolean change, String path, String body, String contentType,
-                                      String id, String requestMethod) {
+    private static boolean addDropHelper(Boolean remove, String rideId, String passengerId) {
         HttpURLConnection connection = null;
+        String content = "passenger_id=" + passengerId;
+        JsonParser parser = new JsonParser();
+        JsonObject dbObj = new JsonObject();
+        dbObj.addProperty("passenger_id", passengerId);
         boolean actionSuccessful = false;
         int HttpResult;
 
         try {
-            if (change)
-                connection = createChangeConnection(path, body, contentType, id, requestMethod);
-            else
-                connection = createPostConnection(path, body, contentType);
+            if (remove) {
+                connection = createChangeConnection(Database.REST_RIDE + "/" + rideId + "/" +
+                                Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_JSON, passengerId,
+                        Database.HTTP_REQUEST_METHOD_DELETE);
+            }
+            else {
+                connection = createPostConnection(Database.REST_RIDE + "/" + rideId + "/" +
+                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_JSON);
+            }
 
             HttpResult = connection.getResponseCode();
 
             if(HttpResult == HttpURLConnection.HTTP_OK || HttpResult == HttpURLConnection.HTTP_CREATED){
                 actionSuccessful = true;
-                Logger.d("RestUtil.java", connection.getResponseMessage());
+                Log.d("RestUtil.java", connection.getResponseMessage());
             } else{
-                Logger.d("RestUtil.java", connection.getResponseMessage());
+                Log.d("RestUtil.java", connection.getResponseMessage());
             }
 
         } catch (Exception ex) {
-            Logger.e("RestUtil.java", ex.toString());
+            Log.e("RestUtil.java", ex.toString());
             System.out.println(ex.toString());
         } finally {
             if (connection != null) {
@@ -314,32 +322,15 @@ public class RestUtil {
         return actionSuccessful;
     }
 
-    private static boolean addDropHelper(Boolean remove, String rideId, String passengerId) {
-        String path = Database.REST_RIDE + "/" + rideId + "/" + Database.REST_PASSENGER;
-        JsonParser parser = new JsonParser();
-        JsonObject dbObj = new JsonObject();
-        dbObj.addProperty("passenger_id", passengerId);
-        String content = dbObj.toString();
-        String contentType = Database.CONTENT_TYPE_URL_ENCODED;
-        String method;
-
-        if (remove)
-            method = Database.HTTP_REQUEST_METHOD_DELETE;
-        else
-            method = Database.CONTENT_TYPE_URL_ENCODED;
-
-        return changePost(remove, path, content, contentType, passengerId, method);
-    }
-
     //adds a passenger to a ride
     public static boolean addPassenger(String rideId, String passengerId) {
-        Logger.i("RestUtil", "adding passenger " + passengerId + " to ride " + rideId);
+        Log.i("RestUtil", "adding passenger " + passengerId + " to ride " + rideId);
         return addDropHelper(false, rideId, passengerId);
     }
 
     //removes a passenger from a ride
     public static boolean dropPassenger(String rideId, String passengerId) {
-        Logger.i("RestUtil", "dropping passenger " + passengerId + " from ride " + rideId);
+        Log.i("RestUtil", "dropping passenger " + passengerId + " from ride " + rideId);
         return addDropHelper(true, rideId, passengerId);
     }
 

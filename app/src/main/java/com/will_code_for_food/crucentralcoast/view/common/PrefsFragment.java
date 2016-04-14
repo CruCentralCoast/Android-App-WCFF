@@ -22,6 +22,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
@@ -42,6 +43,7 @@ public class PrefsFragment extends PreferenceFragment
 
     private PreferenceCategory prefsContainer;
     private MultiSelectListPreference campusPref;
+    private MultiSelectListPreference ministryPref;
     private Preference clearPref;
     private Preference logoutPref;
     private Preference emailPref;
@@ -62,11 +64,13 @@ public class PrefsFragment extends PreferenceFragment
 
         getComponents();
         setListeners();
+        initMinistrySettings();
+        initCampusSettings();
         hidePrefs();
 
         this.getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-        new MinistrySettingsTask().execute();
-        new CampusSettingsTask().execute();
+        //new MinistrySettingsTask().execute();
+        //new CampusSettingsTask().execute();
     }
 
     public void getComponents() {
@@ -77,6 +81,8 @@ public class PrefsFragment extends PreferenceFragment
         emailPref = findPreference(Android.PREF_EMAIL);
         debugPref = findPreference(Android.PREF_DEBUG);
         setupPref = (CheckBoxPreference) findPreference(Android.PREF_SETUP_COMPLETE);
+        campusPref = (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_CAMPUSES);
+        ministryPref = (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_MINISTRIES);
     }
 
     public void setListeners() {
@@ -157,15 +163,20 @@ public class PrefsFragment extends PreferenceFragment
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             Set<String> newSubscribed = (HashSet<String>) newValue;
             Set<String> oldSubscribed = ((MultiSelectListPreference) preference).getValues();
+
             //Subscibe to new ministries
-            for (String ministry : newSubscribed)
-                if (!oldSubscribed.contains(ministry))
+            for (String ministry : newSubscribed) {
+                if (!oldSubscribed.contains(ministry)) {
                     PushUtil.subscribe(ministry);
+                }
+            }
 
             //Unsubscribe from old ministries
-            for (String ministry : oldSubscribed)
-                if (!newSubscribed.contains(ministry))
+            for (String ministry : oldSubscribed) {
+                if (!newSubscribed.contains(ministry)) {
                     PushUtil.unsubscribe(ministry);
+                }
+            }
 
             return true;
         }
@@ -178,10 +189,39 @@ public class PrefsFragment extends PreferenceFragment
 
     private void reload() {
         parent.recreate();
-        //parent.finish();
-        //parent.startActivity(parent.getIntent());
     }
 
+    private void initMinistrySettings() {
+        List<Ministry> ministries = DBObjectLoader.getMinistries();
+
+        Set<String> selectedCampuses = Util.loadStringSet(Android.PREF_CAMPUSES);
+        List<String> filteredIds = new ArrayList<String>();
+        List<String> filteredNames = new ArrayList<String>();
+
+        ministryPref.setOnPreferenceChangeListener(new MinistryPreferenceListener());
+
+        if (selectedCampuses != null && !selectedCampuses.isEmpty()) {
+            ministryPref.setEnabled(true);
+
+            for (String campus : selectedCampuses) {
+                for (Ministry ministry : ministries) {
+                    if (ministry.getCampuses().contains(campus)) {
+                        filteredIds.add(ministry.getId());
+                        filteredNames.add(ministry.getName());
+                    }
+                }
+            }
+
+            ministryPref.setEntries(filteredNames.toArray(new CharSequence[filteredNames.size()]));
+            ministryPref.setEntryValues(filteredIds.toArray(new CharSequence[filteredIds.size()]));
+        }
+
+        else {
+            ministryPref.setEnabled(false);
+        }
+    }
+
+    /*
     private class MinistrySettingsTask extends AsyncTask<Void, Void, List<Ministry>>{
 
         @Override
@@ -196,8 +236,6 @@ public class PrefsFragment extends PreferenceFragment
             List<String> filteredIds = new ArrayList<String>();
             List<String> filteredNames = new ArrayList<String>();
 
-            MultiSelectListPreference ministryPref =
-                    (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_MINISTRIES);
             ministryPref.setOnPreferenceChangeListener(new MinistryPreferenceListener());
 
             if (selectedCampuses != null && !selectedCampuses.isEmpty()) {
@@ -220,8 +258,26 @@ public class PrefsFragment extends PreferenceFragment
                 ministryPref.setEnabled(false);
             }
         }
+    }*/
+
+    private void initCampusSettings() {
+        List<Campus> campuses = DBObjectLoader.getCampuses();
+
+        CharSequence[] ids = new CharSequence[campuses.size()];
+        CharSequence[] names = new CharSequence[campuses.size()];
+        int idIdx = 0, nameIdx = 0;
+
+        for (Campus campus : campuses)
+        {
+            ids[idIdx++] = campus.getId();
+            names[nameIdx++] = campus.getName();
+        }
+
+        campusPref.setEntries(names);
+        campusPref.setEntryValues(ids);
     }
 
+    /*
     private class CampusSettingsTask extends AsyncTask<Void, Void, List<Campus>>{
 
         @Override
@@ -241,10 +297,9 @@ public class PrefsFragment extends PreferenceFragment
                 ids[idIdx++] = campus.getId();
                 names[nameIdx++] = campus.getName();
             }
-            MultiSelectListPreference ministryPref =
-                    (MultiSelectListPreference) getPreferenceManager().findPreference(Android.PREF_CAMPUSES);
-            ministryPref.setEntries(names);
-            ministryPref.setEntryValues(ids);
+
+            campusPref.setEntries(names);
+            campusPref.setEntryValues(ids);
         }
-    }
+    }*/
 }

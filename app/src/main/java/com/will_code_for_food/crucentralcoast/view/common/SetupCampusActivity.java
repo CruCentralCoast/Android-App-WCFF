@@ -56,9 +56,6 @@ public class SetupCampusActivity extends Activity {
 
         initComponents();
         translateTitle();
-
-        Intent intent = new Intent(this, RegistrationIntentService.class);
-        startService(intent);
     }
 
     /**

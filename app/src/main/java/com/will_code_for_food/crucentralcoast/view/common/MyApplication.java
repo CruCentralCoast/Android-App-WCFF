@@ -22,8 +22,7 @@ public class MyApplication extends MultiDexApplication {
     private static Context appContext;
 
     private final static int MAJOR_VERSION = 0;
-    private final static int MINOR_VERSION = 0;
-    private final static int DEFECT_VERSION = 0;
+    private final static int MINOR_VERSION = 1;
     private final static char RELEASE = 'A';
     private final static int RELEASE_PATCH = 1;
 
@@ -57,7 +56,6 @@ public class MyApplication extends MultiDexApplication {
     }
 
     public static String getVersion() {
-        return "v" + MAJOR_VERSION + '.' + MINOR_VERSION + '.' + DEFECT_VERSION
-                + '.' + RELEASE + RELEASE_PATCH;
+        return "v" + MAJOR_VERSION + '.' + MINOR_VERSION + '.' + RELEASE + RELEASE_PATCH;
     }
 }

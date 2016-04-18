@@ -21,8 +21,8 @@ public class MyApplication extends MultiDexApplication {
 
     private static Context appContext;
 
-    private final static int MAJOR_VERSION = 0;
-    private final static int MINOR_VERSION = 1;
+    private final static int MAJOR_VERSION = 1;
+    private final static int MINOR_VERSION = 0;
     private final static char RELEASE = 'A';
     private final static int RELEASE_PATCH = 1;
 

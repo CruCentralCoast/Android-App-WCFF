@@ -55,10 +55,10 @@
     <string name="ridesharing_header" formatted="false">Ride Sharing Events</string>
     <string name="ridesharing_event">Event: &#160;</string>
     <string name="ridesharing_driver">Driver: &#160;</string>
-    <string name="ridesharing_pickup_location">Pickup Location: &#160;</string>
+    <string name="ridesharing_pickup_location">Location: &#160;</string>
     <string name="ridesharing_unknown_location">unknown</string>
     <string name="ridesharing_time">Time: &#160;</string>
-    <string name="ridesharing_seats_available">Seats Available: &#160;</string>
+    <string name="ridesharing_seats_available">Seats: &#160;</string>
     <string name="ridesharing_to">to</string>
     <string name="ridesharing_to_event">&#160; to event — &#160;</string>
     <string name="ridesharing_from">from</string>

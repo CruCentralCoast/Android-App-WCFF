@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
@@ -66,7 +67,7 @@ public class EventsFragment extends CruFragment {
 
     private void refreshList() {
 
-        Log.i("EventsFragment", "refreshing events and rides");
+        Logger.i("EventsFragment", "refreshing events and rides");
 
         if (!DBObjectLoader.loadEvents(Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh events", Toast.LENGTH_SHORT);

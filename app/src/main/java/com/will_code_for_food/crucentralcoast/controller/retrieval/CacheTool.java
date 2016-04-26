@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 
 import java.lang.reflect.Constructor;
@@ -46,10 +47,10 @@ public class CacheTool<T extends DatabaseObject> {
             try {
                 constructor = cache.objectType.getConstructor(JsonObject.class);
             } catch (NoSuchMethodException ex) {
-                Log.e("Cache Error", "Could not get JSON constructor for " + cache.objectType);
+                Logger.e("Cache Error", "Could not get JSON constructor for " + cache.objectType);
             } finally {
                 if (constructor == null) {
-                    Log.e("Cache Error", "Error getting constructor for " + cache.objectType);
+                    Logger.e("Cache Error", "Error getting constructor for " + cache.objectType);
                     return null;
                 }
             }
@@ -65,14 +66,14 @@ public class CacheTool<T extends DatabaseObject> {
                     try {
                         objects.add(constructor.newInstance(json));
                     } catch (Exception ex) {
-                        Log.e("Cache Error", "Could not create " + cache.objectType + " object");
+                        Logger.e("Cache Error", "Could not create " + cache.objectType + " object");
                     }
                     json = new JsonObject();
                 }
             }
             return new Content<>(objects, ContentType.CACHED);
         } else {
-            Log.e("Cache Error", "Could not read from cache " + cache);
+            Logger.e("Cache Error", "Could not read from cache " + cache);
             return null;
         }
     }

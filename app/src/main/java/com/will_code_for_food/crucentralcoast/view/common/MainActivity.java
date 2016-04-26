@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.RegistrationIntentService;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
 
@@ -58,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private Stack<String> titleStack;
     public static Context context;
-    private static boolean doFeedLoad = true;
 
     private void handleUncaughtExceptions() {
         final Thread.UncaughtExceptionHandler oldHandler =
@@ -96,12 +96,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (doFeedLoad) {
-            loadFragmentById(R.layout.fragment_card_list, "Home", new FeedFragment(), this); //Uncomment this for feed main screen
-            //loadFragmentById(R.layout.fragment_main, "CruCentralCoast", null, this); //Uncomment this for original main screen
-        }
-
-        doFeedLoad = true;
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context, R.color.colorAccent_cruBrightBlue)));
         TypeFaceUtil.overrideFont(getApplicationContext(), getResources().getString(R.string.default_serif), getResources().getString(R.string.new_default));
@@ -136,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             CrashReport report = CrashReport.loadCachedReport();
                             if (report != null) {
+                                report.setUserMessage(userInput.getText().toString());
                                 EmailSender.send(act, report.asMessage());
                             }
                         }
@@ -157,9 +152,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendCachedReports() {
-        Log.i("Crash Report", "Checking for cached crash reports");
+        Logger.i("Crash Report", "Checking for cached crash reports");
         if (CrashReport.cacheReportExists()) {
-            Log.i("Crash Report", "Found cached report");
+            Logger.i("Crash Report", "Found cached report");
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Bug Report");
@@ -204,10 +199,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
-            //if (getActiveFragment() != null) {
             setTitle(titleStack.pop());
-            //}
-
         } else {
             super.onBackPressed();
         }
@@ -252,7 +244,8 @@ public class MainActivity extends AppCompatActivity {
 
         switch (viewText) {
             case "Home":
-                loadFragmentById(R.layout.fragment_card_list, "Home", new FeedFragment(), this);
+                //loadFragmentById(R.layout.fragment_card_list, "Home", new FeedFragment(), this);
+                newActivity(HomeActivity.class);
                 break;
             case "Events":
                 newActivity(EventsActivity.class);
@@ -313,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newActivity(Class newClass) {
-        doFeedLoad = false;
+        getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE); //clear all fragments
         Intent intent = new Intent(this, newClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);

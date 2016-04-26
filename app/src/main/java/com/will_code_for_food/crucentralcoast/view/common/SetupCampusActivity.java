@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.R;
@@ -56,9 +55,6 @@ public class SetupCampusActivity extends Activity {
 
         initComponents();
         translateTitle();
-
-        Intent intent = new Intent(this, RegistrationIntentService.class);
-        startService(intent);
     }
 
     /**
@@ -88,8 +84,12 @@ public class SetupCampusActivity extends Activity {
         });
 
         ArrayList<Campus> campuses = DBObjectLoader.getCampuses();
-        campusList.setAdapter(new CampusAdapter(campuses, this));
-        //new SetupCampusTask(this).execute();
+        if (campuses.size() < 1) {
+            Intent intent = new Intent(this, ErrorNoInternetActivity.class);
+            startActivity(intent);
+        } else {
+            campusList.setAdapter(new CampusAdapter(campuses, this));
+        }
     }
 
     /**

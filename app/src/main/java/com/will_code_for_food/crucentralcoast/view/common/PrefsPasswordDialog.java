@@ -1,56 +1,49 @@
-package com.will_code_for_food.crucentralcoast.view.ridesharing;
+package com.will_code_for_food.crucentralcoast.view.common;
 
+/**
+ * Created by MasonJStevenson on 4/13/2016.
+ */
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RiderForm;
-import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.ridesharing.EnterNumberDialog;
 
 /**
  * Created by MasonJStevenson on 2/16/2016.
  */
 //I will fix the warning for this class later -Mason
-public class EnterNameDialog extends DialogFragment {
+public class PrefsPasswordDialog extends DialogFragment {
 
-    final MainActivity parent;
-    final Ride ride;
-    String passengerName;
-    final Event event;
+    Activity parent;
+    PrefsFragment prefsFragment;
 
-    public EnterNameDialog(final MainActivity parent, final Ride ride, final Event event) {
-        this.parent = parent;
-        this.ride = ride;
-        this.event = event;
+    public PrefsPasswordDialog(PrefsFragment prefsFragment) {
+        parent = (Activity) SettingsActivity.context;
+        this.prefsFragment = prefsFragment;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Set up the input
+
         final EditText input = new EditText(parent);
-        final RiderForm form = new RiderForm("");
-        // auto-fill name
-        if (form.getQuestion(0).isAnswered()) {
-            input.setText((String) form.getQuestion(0).getAnswer());
-        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(input)
-                .setTitle("Enter Your Name")
+                .setTitle("Password?")
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //store the passenger's name
-                        passengerName = input.getText().toString();
-                        EnterNumberDialog popup = new EnterNumberDialog(parent, passengerName,
-                                ride, event);
-                        FragmentManager manager = getFragmentManager();
-                        popup.show(manager, "ride_info_select_number");
+                        //send password to parent
+                        prefsFragment.enableDeveloperOptions(input.getText().toString());
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {

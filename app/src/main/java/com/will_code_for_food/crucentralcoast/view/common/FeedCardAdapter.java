@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
@@ -66,7 +67,7 @@ public class FeedCardAdapter extends CardAdapter {
             String errorMesg = "unknown";
             if (current != null && current.getClass() != null)
                 errorMesg = current.getClass().toString();
-            Log.e("FeedCardAdapter", "Expected valid db object. Got: " + errorMesg);
+            Logger.e("FeedCardAdapter", "Expected valid db object. Got: " + errorMesg);
         }
 
         return convertView;

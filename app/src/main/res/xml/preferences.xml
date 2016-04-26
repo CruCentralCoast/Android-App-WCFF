@@ -22,6 +22,10 @@
             android:key="pref_email"
             android:title="Send Bug Report"
             android:summary="(Thanks for the feedback!)"/>
+        <Preference
+            android:key="pref_debug"
+            android:title="Enable Developer Preferences"/>
+
         <CheckBoxPreference
             android:key="setup_complete"
             android:title="Initial Setup Complete"

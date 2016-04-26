@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.util.HashMap;
@@ -69,7 +70,7 @@ public abstract class DatabaseObject {
                 return Double.parseDouble(field);
             }
         } catch (NumberFormatException ex) {
-            Log.e("DatabaseObject", "NumberFormatException thrown in getFieldAsDouble() for the following field: " + fieldName);
+            Logger.e("DatabaseObject", "NumberFormatException thrown in getFieldAsDouble() for the following field: " + fieldName);
         }
 
         return null;
@@ -87,7 +88,7 @@ public abstract class DatabaseObject {
                 return Integer.parseInt(field);
             }
         } catch (NumberFormatException ex) {
-            Log.e("DatabaseObject", "NumberFormatException thrown in getFieldAsInt() for the following field: " + fieldName);
+            Logger.e("DatabaseObject", "NumberFormatException thrown in getFieldAsInt() for the following field: " + fieldName);
         }
 
         return null;

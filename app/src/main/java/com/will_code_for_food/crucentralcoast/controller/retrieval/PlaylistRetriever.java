@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.controller.retrieval;
 
 import android.util.Log;
 
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 
@@ -29,7 +30,7 @@ public class PlaylistRetriever implements Retriever {
         }
 
         if (playlists != null) {
-            Log.d("PlaylistRetriever", "got " + playlists.size() + " playlists");
+            Logger.d("PlaylistRetriever", "got " + playlists.size() + " playlists");
             return new Content<>(playlists, ContentType.LIVE);
         } else {
             playlists = new ArrayList<>();

@@ -18,18 +18,23 @@ public class Logger {
     }
 
     public static void e(final String tag, final String msg) {
-        Log.i(tag, msg);
+        Log.e(tag, msg);
         appendToLog("E !!! / " + tag.toUpperCase(), msg);
     }
 
     public static void w(final String tag, final String msg) {
-        Log.i(tag, msg);
+        Log.w(tag, msg);
         appendToLog("W/ " + tag.toUpperCase(), msg);
     }
 
     public static void d(final String tag, final String msg) {
-        Log.i(tag, msg);
+        Log.d(tag, msg);
         appendToLog("D/ " + tag.toUpperCase(), msg);
+    }
+
+    public static void d(final String tag, final String msg, final Exception ex) {
+        Log.d(tag, msg, ex);
+        appendToLog("D/ " + tag.toUpperCase(), msg + ex);
     }
 
     private static void appendToLog(final String tag, final String msg) {

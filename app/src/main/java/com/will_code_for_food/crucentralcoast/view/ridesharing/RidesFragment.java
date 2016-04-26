@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
@@ -139,7 +140,7 @@ public class RidesFragment extends CruFragment implements TextView.OnEditorActio
     }
 
     public void refreshRidesList() {
-        Log.i("RidesFragment", "refreshing rides list");
+        Logger.i("RidesFragment", "refreshing rides list");
 
         if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT).show();
@@ -150,11 +151,11 @@ public class RidesFragment extends CruFragment implements TextView.OnEditorActio
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.sort_newest) {
-            Log.i("RideFragment", "sorting by newest");
+            Logger.i("RideFragment", "sorting by newest");
             ((RideAdapter) listView.getAdapter()).sortByNewest();
             return true;
         } else if (item.getItemId() == R.id.sort_oldest) {
-            Log.i("RideFragment", "sorting by oldest");
+            Logger.i("RideFragment", "sorting by oldest");
             ((RideAdapter) listView.getAdapter()).sortByOldest();
             return true;
         } else {

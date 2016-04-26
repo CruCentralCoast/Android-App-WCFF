@@ -7,6 +7,7 @@ import android.util.Log;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -49,7 +50,7 @@ public class MyApplication extends MultiDexApplication {
     public static Context getContext() {
 
         if (appContext == null) {
-            Log.e("MyApplication", "application context was null");
+            Logger.e("MyApplication", "application context was null");
         }
 
         return appContext;

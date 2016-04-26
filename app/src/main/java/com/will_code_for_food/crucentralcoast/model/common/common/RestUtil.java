@@ -7,8 +7,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
-import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.values.Youtube;
@@ -19,7 +19,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 
 /**
  * Created by Brian on 11/16/2015.
@@ -77,7 +76,6 @@ public class RestUtil {
         wr.close();
         return connection;
     }
-
 
     /**
      * Gets a JSON object from the server and returns it as a String.
@@ -270,7 +268,7 @@ public class RestUtil {
      * This new JSON object will have an auto-generated _id field.
      */
     public static JsonObject create(JsonObject toSend, String collectionName) {
-        Log.i("RestUtil.java", "Sending object to " + collectionName + ": " + toSend.toString());
+        Logger.i("RestUtil.java", "Sending object to " + collectionName + ": " + toSend.toString());
         return sendJsonObject(toSend, collectionName, false);
     }
 
@@ -293,12 +291,12 @@ public class RestUtil {
         try {
             if (remove) {
                 connection = createChangeConnection(Database.REST_RIDE + "/" + rideId + "/" +
-                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_URL_ENCODED, passengerId,
+                                Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_JSON, passengerId,
                         Database.HTTP_REQUEST_METHOD_DELETE);
             }
             else {
                 connection = createPostConnection(Database.REST_RIDE + "/" + rideId + "/" +
-                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_URL_ENCODED);
+                        Database.REST_PASSENGER, dbObj.toString(), Database.CONTENT_TYPE_JSON);
             }
 
             HttpResult = connection.getResponseCode();
@@ -355,18 +353,5 @@ public class RestUtil {
         }
 
         return passenger;
-    }
-
-    public static Passenger getPassengerFromID(String id) {
-        JsonArray passengers = RestUtil.get(Database.REST_PASSENGER);
-
-        if (passengers != null) {
-            for (JsonElement tempElement : passengers) {
-                if (tempElement.getAsJsonObject().get(Database.JSON_KEY_COMMON_ID).getAsString().equals(id)) {
-                    return new Passenger(tempElement.getAsJsonObject());
-                }
-            }
-        }
-        return null;
     }
 }

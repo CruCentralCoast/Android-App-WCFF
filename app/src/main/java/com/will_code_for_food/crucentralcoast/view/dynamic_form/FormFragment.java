@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
@@ -62,11 +63,11 @@ public class FormFragment extends CruFragment {
                         fragments.add(null); //TODO load real fragment
                         break;
                     default:
-                        Log.e("DYNAMIC FORM", "Invalid Question Type");
+                        Logger.e("DYNAMIC FORM", "Invalid Question Type");
                 }
             }
         } else {
-            Log.e("DYNAMIC FORM", "Form should not be null");
+            Logger.e("DYNAMIC FORM", "Form should not be null");
         }
     }
 
@@ -87,7 +88,7 @@ public class FormFragment extends CruFragment {
                 }
             }
         } else {
-            Log.e("DYNAMIC FORM", "Form should not be null");
+            Logger.e("DYNAMIC FORM", "Form should not be null");
         }
     }
 }

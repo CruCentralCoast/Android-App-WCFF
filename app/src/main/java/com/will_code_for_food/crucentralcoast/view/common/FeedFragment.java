@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.MultiMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
@@ -43,6 +44,8 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View hold = super.onCreateView(inflater, container, savedInstanceState);
         setHasOptionsMenu(true);
+
+        Log.i("FeedFragment", "feed fragment loading");
 
         layout = (SwipeRefreshLayout) hold.findViewById(R.id.card_refresh_layout);
         listView = (ListView) hold.findViewById(R.id.list_cards);
@@ -113,15 +116,15 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.sort_newest) {
-            Log.i("FeedFragment", "sorting by newest");
+            Logger.i("FeedFragment", "sorting by newest");
             ((FeedCardAdapter) listView.getAdapter()).sortByNewest();
             return true;
         } else if (item.getItemId() == R.id.sort_oldest) {
-            Log.i("FeedFragment", "sorting by oldest");
+            Logger.i("FeedFragment", "sorting by oldest");
             ((FeedCardAdapter) listView.getAdapter()).sortByOldest();
             return true;
         } else if (item.getItemId() == R.id.sort_type) {
-            Log.i("FeedFragment", "sorting by type");
+            Logger.i("FeedFragment", "sorting by type");
             ((FeedCardAdapter) listView.getAdapter()).sortByType();
             return true;
         } else {
@@ -133,7 +136,7 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
      * Gets objects loaded at application start.
      */
     private void loadList() {
-        Log.i("FeedFragment", "Loading feed for the first time");
+        Logger.i("FeedFragment", "Loading feed for the first time");
 
         ArrayList<String> keyList = new ArrayList<String>();
         keyList.add(Database.REST_EVENT);
@@ -153,7 +156,7 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
     }
 
     private void refreshList() {
-        Log.i("FeedFragment", "Refreshing Feed");
+        Logger.i("FeedFragment", "Refreshing Feed");
 
         if (!DBObjectLoader.loadEvents(Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh events", Toast.LENGTH_SHORT);

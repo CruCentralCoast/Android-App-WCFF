@@ -1,13 +1,5 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
-import android.app.Activity;
-import android.util.Log;
-
-import com.will_code_for_food.crucentralcoast.controller.Logger;
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -21,8 +13,6 @@ public class CalendarEvent {
     private long endTime;
     private long reminder;
     private String databaseId;
-
-    private Long calendarId;
 
     // three hours reminder
     public static final int DEFAULT_REMINDER_TIME = 3 * 60;
@@ -39,39 +29,14 @@ public class CalendarEvent {
         } else {
             this.reminder = DEFAULT_REMINDER_TIME;
         }
-
-        calendarId = null;
-    }
-
-    protected CalendarEvent(String databaseId, String title, String description, String location, long startTime, long endTime, long reminder, long calendarId) {
-        this(databaseId, title, description, location, startTime, endTime, reminder);
-        if (calendarId != -1) {
-            this.calendarId = calendarId;
-            Logger.i("Create Event", "Found " + title + " in calendar");
-        } else {
-            Logger.i("Create Event", "Did not find " + title + " in calendar");
-            this.calendarId = null;
-        }
-    }
-
-    protected void setCalendarId(final Long newId) {
-        calendarId = newId;
     }
 
     public long getReminderTime() {
         return reminder;
     }
 
-    public long getCalendarId() {
-        return calendarId;
-    }
-
     public String getDatabaseId() {
         return databaseId;
-    }
-
-    public boolean hasCalendarId() {
-        return calendarId != null;
     }
 
     public String getDescription() {

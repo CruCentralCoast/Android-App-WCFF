@@ -1,139 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true" >
 
-    <!-- Event Name -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/ride_info_event"
-        android:layout_marginTop="40dp"
-        android:text="Event: Sophomore Social"
-        android:textSize="20sp"
-        android:padding="5dp" />
-    <View
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_below="@+id/ride_info_event"
-        android:background="@color/colorPrimary_cruGold"
-        android:paddingTop="10dp"
-        android:id="@+id/ride_info_div1"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_height="wrap_content">
+        <!-- Event Name -->
+        <TextView
+            tools:text="Event: Sophomore Special"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/ride_info_event"
+            android:layout_marginTop="40dp"
+            android:textSize="20sp"
+            android:padding="5dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/colorPrimary_cruGold"
+            android:paddingTop="10dp"
+            android:id="@+id/ride_info_div1"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
+        <!-- Driver Name -->
+        <TextView
+            tools:text="Driver: Layla (Female)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/ride_info_driver"
+            android:textSize="20sp"
+            android:padding="5dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/colorPrimary_cruGold"
+            android:paddingTop="10dp"
+            android:id="@+id/ride_info_div2"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="30dp" />
 
-    <!-- Driver Name -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/ride_info_div1"
-        android:id="@+id/ride_info_driver"
-        android:text="Driver: Kayla (female)"
-        android:textSize="20sp"
-        android:padding="5dp"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_below="@+id/ride_info_driver"
-        android:background="@color/colorPrimary_cruGold"
-        android:paddingTop="10dp"
-        android:id="@+id/ride_info_div2"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="30dp" />
-
-    <!-- Pickup Location -->
-    <ImageButton
-        android:id="@+id/ride_info_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ride_info_div2"
-        android:background="@null"
-        android:paddingLeft="20dp"
-        android:src="@drawable/map"/>
-    <TextView
-        android:id="@+id/ride_info_loc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ride_info_div2"
-        android:layout_toEndOf="@id/ride_info_map"
-        android:layout_toRightOf="@id/ride_info_map"
-        android:paddingTop="6dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="10dp"
-        android:textSize="18sp"
-        android:text="PICKUP LOCATION" />
-
-    <!-- Time Leaving -->
-    <ImageButton
-        android:id="@+id/ride_info_calendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ride_info_loc"
-        android:background="@null"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:src="@drawable/clock"/>
-    <TextView
-        android:id="@+id/ride_info_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ride_info_loc"
-        android:layout_toEndOf="@id/ride_info_calendar"
-        android:layout_toRightOf="@id/ride_info_calendar"
-        android:paddingTop="21dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="10dp"
-        android:textSize="18sp"
-        android:text="TIME LEAVING" />
-
-    <!-- Direction -->
-    <ImageButton
-        android:id="@+id/ride_info_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ride_info_time"
-        android:background="@null"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:src="@drawable/direction"/>
-    <TextView
-        android:id="@+id/ride_info_direction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ride_info_time"
-        android:layout_toEndOf="@id/ride_info_arrow"
-        android:layout_toRightOf="@id/ride_info_arrow"
-        android:paddingTop="24dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="10dp"
-        android:textSize="18sp"
-        android:text="DIRECTION" />
-
-    <!-- Passenger/Driver Info -->
-    <ImageButton
-        android:id="@+id/ride_info_car"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ride_info_direction"
-        android:background="@null"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:src="@drawable/car_yes"/>
-    <TextView
-        android:id="@+id/ride_info_more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ride_info_direction"
-        android:layout_toEndOf="@id/ride_info_car"
-        android:layout_toRightOf="@id/ride_info_car"
-        android:paddingTop="26dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="10dp"
-        android:textSize="18sp"
-        android:text="3 SEATS LEFT" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!-- Pickup Location -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+                    <ImageButton
+                        android:id="@+id/ride_info_map"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@null"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/map"/>
+                    <TextView
+                        tools:text="Location: 1 Grand Avenue, CA 90210"
+                        android:id="@+id/ride_info_loc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:textSize="18sp" />
+                </LinearLayout>
+                <!-- Time Leaving -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+                    <ImageButton
+                        android:id="@+id/ride_info_calendar"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@null"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/clock"/>
+                    <TextView
+                        tools:text="Leaving: 7:28 pm on 4/20/16"
+                        android:id="@+id/ride_info_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:textSize="18sp" />
+                </LinearLayout>
+                <!-- Direction -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+                    <ImageButton
+                        android:id="@+id/ride_info_arrow"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@null"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/direction_g"/>
+                    <TextView
+                        tools:text="Direction: both"
+                        android:id="@+id/ride_info_direction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:textSize="18sp" />
+                </LinearLayout>
+                <!-- Ride Info -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+                    <ImageButton
+                        android:id="@+id/ride_info_car"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@null"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/car_no"/>
+                    <TextView
+                        tools:text="Passengers: 1"
+                        android:id="@+id/ride_info_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
     <!-- Join/Leave Button -->
     <Button

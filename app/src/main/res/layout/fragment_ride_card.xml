@@ -19,30 +19,30 @@
 
     <TextView
         android:id="@+id/card_driver_name"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="95dp"
+        android:layout_height="75dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/image_car"
         android:layout_toEndOf="@+id/image_car"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <!-- Ride Info -->
     <TextView
         android:id="@+id/card_ride_leave_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="127dp"
+        android:layout_height="20dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
-        android:textSize="15sp"/>
+        android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/card_ride_leave_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="125dp"
+        android:layout_height="35dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@id/card_ride_leave_date"
@@ -59,6 +59,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
 </RelativeLayout>

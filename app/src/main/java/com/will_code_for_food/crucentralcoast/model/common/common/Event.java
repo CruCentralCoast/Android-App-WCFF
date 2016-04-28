@@ -141,29 +141,14 @@ public class Event extends DatabaseObject {
     public void saveToCalendar(final Activity currentActivity) {
         updateCalendarEvent();
         Logger.i("Accessing Calendar", "Creating new event");
-        long id = CalendarAccessor.addEventToCalendar(calendarEvent, currentActivity);
-        calendarEvent.setCalendarId(id);
-    }
-
-    /**
-     * Checks if the event has been saved to the user's
-     * local calendar.
-     */
-    public boolean isInCalendarAlready() {
-        return calendarEvent != null && calendarEvent.hasCalendarId();
-    }
-
-    public void deleteFromCalendar(final Activity currentActivity) {
-        Logger.i("Accessing Calendar", "Deleting event from calendar");
-        CalendarAccessor.deleteEventFromCalendar(calendarEvent, currentActivity);
-        calendarEvent.setCalendarId(null);
+        CalendarAccessor.addEventToCalendar(calendarEvent, currentActivity);
     }
 
     /**
      * Parses the JsonArray that contains the parent Ministries associated with this object.
      */
     private void loadParentMinistries() {
-        parentMinistries = new ArrayList<String>();
+        parentMinistries = new ArrayList<>();
         JsonArray ministriesJson = this.getField(Database.JSON_KEY_EVENT_MINISTRIES).getAsJsonArray();
 
         for (JsonElement ministry : ministriesJson) {
@@ -182,11 +167,9 @@ public class Event extends DatabaseObject {
         Date endTime;
         Date reminderTime;
         long reminderMinutesBefore = CalendarEvent.DEFAULT_REMINDER_TIME;
-        String databaseId;
 
         try {
             startTime = isoFormater.parse(getFieldAsString(Database.JSON_KEY_EVENT_STARTDATE));
-            databaseId = getFieldAsString(Database.JSON_KEY_COMMON_ID);
             try {
                 endTime = isoFormater.parse(getFieldAsString(Database.JSON_KEY_EVENT_ENDDATE));
             } catch (java.text.ParseException ex) {
@@ -209,14 +192,17 @@ public class Event extends DatabaseObject {
                 Logger.i("Event Creation", "Unable to get event reminder time for " + getName());
             }
 
-            int calendarId = CalendarAccessor.getExitingCalendarEventId(getName(), databaseId);
-
-            calendarEvent = new CalendarEvent(databaseId, getName(), getDescription(),
-                    getFieldAsString(Database.JSON_KEY_EVENT_LOCATION), startTime.getTime(),
-                    endTime.getTime(), reminderMinutesBefore, calendarId);
+            calendarEvent = new CalendarEvent(getId(), getName(), getDescription(),
+                    getEventLocation(), startTime.getTime(),
+                    endTime.getTime(), reminderMinutesBefore);
+            
         } catch (java.text.ParseException ex) {
             Logger.e("Event Creation", "Unable to get mandatory data for" + getName());
             ex.printStackTrace();
         }
+    }
+
+    public boolean isInCalendarAlready() {
+        return CalendarAccessor.isAlreadyAdded(this);
     }
 }

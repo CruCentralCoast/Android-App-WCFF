@@ -1,5 +1,7 @@
 package com.will_code_for_food.crucentralcoast.view.events;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -127,7 +129,7 @@ public class EventInfoFragment extends CruFragment {
      * the event is already in the calendar
      */
     private void modifyAddToCalendarButton() {
-        Logger.e("Changing button", "changing button");
+        Logger.i("Changing button", "changing button");
         if (event.isInCalendarAlready()) {
             calendarButton.setImageResource(R.drawable.calendar_added);
         } else {
@@ -139,14 +141,21 @@ public class EventInfoFragment extends CruFragment {
     public void calendarButtonSelected() {
         if (event != null) {
             if (event.isInCalendarAlready()) {
-                event.deleteFromCalendar(parent);
-                Toast.makeText(parent,
-                        Util.getString(R.string.toast_calendar_removed), Toast.LENGTH_LONG).show();
-                calendarButton.setImageResource(R.drawable.calendar_add);
+                new AlertDialog.Builder(getParent()).setTitle("Add Event to Calendar")
+                        .setMessage("You already added this event, are you sure you want to add it again?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        event.saveToCalendar(parent);
+                        calendarButton.setImageResource(R.drawable.calendar_added);
+                        dialog.cancel();
+                    }
+                }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).setIcon(android.R.drawable.ic_dialog_alert).show();
             } else {
                 event.saveToCalendar(parent);
-                Toast.makeText(parent,
-                        Util.getString(R.string.toast_calendar_added), Toast.LENGTH_LONG).show();
                 calendarButton.setImageResource(R.drawable.calendar_added);
             }
         } else {

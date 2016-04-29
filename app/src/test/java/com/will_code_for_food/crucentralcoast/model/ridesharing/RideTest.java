@@ -34,7 +34,7 @@ public class RideTest extends WCFFUnitTest {
 
     @Test
     public void testConstructors() {
-        Ride ride = new Ride(Ride.toJSON(id, dName, dNumber, gcm, loc, time, radius, seats, dir, gen));
+        Ride ride = new Ride(Ride.toJSON(id, "", dName, dNumber, gcm, loc, time, radius, seats, dir, gen));
         Assert.assertEquals(id, ride.getEventId());
         Assert.assertEquals(dName, ride.getDriverName());
         Assert.assertEquals(dNumber, ride.getDriverNumber());
@@ -48,7 +48,7 @@ public class RideTest extends WCFFUnitTest {
 
     @Test
     public void testJSON() {
-        Ride ride1 = new Ride(Ride.toJSON(id, dName, dNumber, gcm, loc, time, radius, seats, dir, gen));
+        Ride ride1 = new Ride(Ride.toJSON(id, "", dName, dNumber, gcm, loc, time, radius, seats, dir, gen));
         JsonObject obj = ride1.toJSON();
         Ride ride2 = new Ride(obj);
         Assert.assertEquals(ride1, ride2);
@@ -56,35 +56,33 @@ public class RideTest extends WCFFUnitTest {
 
     @Test
     public void testEquals() {
-        Ride ride1 = new Ride(Ride.toJSON(id, dName, dNumber, gcm, loc, time, radius, seats, dir, gen));
-        Ride ride2 = new Ride(Ride.toJSON(id, dName, dNumber, gcm, loc, time, radius, seats, dir, gen));
+        Ride ride1 = new Ride(Ride.toJSON(id, "", dName, dNumber, gcm, loc, time, radius, seats, dir, gen));
+        Ride ride2 = new Ride(Ride.toJSON(id, "", dName, dNumber, gcm, loc, time, radius, seats, dir, gen));
         Assert.assertEquals(ride1, ride2);
-        ride2 = new Ride(Ride.toJSON("", dName, dNumber, gcm, loc, time, radius, seats, dir, gen));
+        ride2 = new Ride(Ride.toJSON("", "", dName, dNumber, gcm, loc, time, radius, seats, dir, gen));
         Assert.assertFalse(ride1.equals(ride2));
-        ride2 = new Ride(Ride.toJSON(id, "", dNumber, gcm, loc, time, radius, seats, dir, gen));
+        ride2 = new Ride(Ride.toJSON(id, "", "", dNumber, gcm, loc, time, radius, seats, dir, gen));
         Assert.assertFalse(ride1.equals(ride2));
-        ride2 = new Ride(Ride.toJSON(id, dName, "", gcm, loc, time, radius, seats, dir, gen));
+        ride2 = new Ride(Ride.toJSON(id, "", dName, "", gcm, loc, time, radius, seats, dir, gen));
         Assert.assertFalse(ride1.equals(ride2));
-        ride2 = new Ride(Ride.toJSON(id, dName, dNumber, "", loc, time, radius, seats, dir, gen));
+        ride2 = new Ride(Ride.toJSON(id, "", dName, dNumber, "", loc, time, radius, seats, dir, gen));
         Assert.assertFalse(ride1.equals(ride2));
-        ride2 = new Ride(Ride.toJSON(id, dName, dNumber, gcm, new Location("z", "", "", "", ""),
+        ride2 = new Ride(Ride.toJSON(id, "", dName, dNumber, gcm, new Location("z", "", "", "", ""),
                 time, radius, seats, dir, gen));
         Assert.assertFalse(ride1.equals(ride2));
-        ride2 = new Ride(Ride.toJSON(id, dName, dNumber, gcm, loc, "", radius, seats, dir, gen));
+        ride2 = new Ride(Ride.toJSON(id, "", dName, dNumber, gcm, loc, "", radius, seats, dir, gen));
         Assert.assertFalse(ride1.equals(ride2));
-        ride2 = new Ride(Ride.toJSON(id, dName, dNumber, gcm, loc, time, -1.0, seats, dir, gen));
+        ride2 = new Ride(Ride.toJSON(id, "", dName, dNumber, gcm, loc, time, -1.0, seats, dir, gen));
         Assert.assertFalse(ride1.equals(ride2));
-        ride2 = new Ride(Ride.toJSON(id, dName, dNumber, gcm, loc, time, radius, 0, dir, gen));
+        ride2 = new Ride(Ride.toJSON(id, "", dName, dNumber, gcm, loc, time, radius, 0, dir, gen));
         Assert.assertFalse(ride1.equals(ride2));
-        ride2 =  new Ride(Ride.toJSON(id, dName, dNumber, gcm, loc, time, radius, seats,
+        ride2 =  new Ride(Ride.toJSON(id, "", dName, dNumber, gcm, loc, time, radius, seats,
                 RideDirection.TWO_WAY, gen));
         Assert.assertFalse(ride1.equals(ride2));
-        ride2 =  new Ride(Ride.toJSON(id, dName, dNumber, gcm, loc, time, radius, seats, dir, "male"));
+        ride2 =  new Ride(Ride.toJSON(id, "", dName, dNumber, gcm, loc, time, radius, seats, dir, "male"));
         Assert.assertFalse(ride1.equals(ride2));
 
         Assert.assertFalse(ride1.equals(null));
         Assert.assertFalse(ride1.equals("cat"));
     }
-
-
 }

@@ -1,13 +1,9 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.PlaylistRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
@@ -17,17 +13,11 @@ import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
-import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
-import com.will_code_for_food.crucentralcoast.values.Youtube;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * Created by MasonJStevenson on 2/21/2016.
@@ -87,7 +77,7 @@ public class DBObjectLoader {
      */
     public static void loadEvents() {
         Logger.i("DBObjectLoader", "Loading events");
-        new GetOjbectTask<Event>(RetrieverSchema.EVENT).execute();
+        new GetObjectTask<Event>(RetrieverSchema.EVENT).execute();
     }
 
     /**
@@ -104,7 +94,7 @@ public class DBObjectLoader {
      */
     public static void loadMinistries() {
         Logger.i("DBObjectLoader", "Loading ministries");
-        new GetOjbectTask<Ministry>(RetrieverSchema.MINISTRY).execute();
+        new GetObjectTask<Ministry>(RetrieverSchema.MINISTRY).execute();
     }
 
     /**
@@ -121,7 +111,7 @@ public class DBObjectLoader {
      */
     public static void loadRides() {
         Logger.i("DBObjectLoader", "Loading rides");
-        new GetOjbectTask<Ride>(RetrieverSchema.RIDE).execute();
+        new GetObjectTask<Ride>(RetrieverSchema.RIDE).execute();
     }
 
     /**
@@ -138,7 +128,7 @@ public class DBObjectLoader {
      */
     public static void loadCampuses() {
         Logger.i("DBObjectLoader", "Loading campuses");
-        new GetOjbectTask<Campus>(RetrieverSchema.CAMPUS).execute();
+        new GetObjectTask<Campus>(RetrieverSchema.CAMPUS).execute();
     }
 
     /**
@@ -155,7 +145,7 @@ public class DBObjectLoader {
      */
     public static void loadResources() {
         Logger.i("DBObjectLoader", "Loading resources");
-        new GetOjbectTask<Resource>(RetrieverSchema.RESOURCE).execute();
+        new GetObjectTask<Resource>(RetrieverSchema.RESOURCE).execute();
     }
 
     /**
@@ -172,7 +162,7 @@ public class DBObjectLoader {
      */
     public static void loadSummerMissions() {
         Logger.i("DBObjectLoader", "Loading summer missions");
-        new GetOjbectTask<Resource>(RetrieverSchema.SUMMER_MISSION).execute();
+        new GetObjectTask<Resource>(RetrieverSchema.SUMMER_MISSION).execute();
     }
 
     /**
@@ -198,7 +188,7 @@ public class DBObjectLoader {
      */
     public static void loadMinistryTeams() {
         Logger.i("DBObjectLoader", "Loading ministry teams");
-        new GetOjbectTask<Resource>(RetrieverSchema.MINISTRY_TEAM).execute();
+        new GetObjectTask<Resource>(RetrieverSchema.MINISTRY_TEAM).execute();
     }
 
     /**
@@ -215,7 +205,7 @@ public class DBObjectLoader {
      */
     public static void loadPassengers() {
         Logger.i("DBObjectLoader", "Loading ministry teams");
-        new GetOjbectTask<Resource>(RetrieverSchema.PASSENGER).execute();
+        new GetObjectTask<Resource>(RetrieverSchema.PASSENGER).execute();
     }
 
     /**
@@ -312,7 +302,7 @@ public class DBObjectLoader {
 
     private static boolean loadDelayed(RetrieverSchema schema, long waitTime) {
         try {
-            new GetOjbectTask<Event>(schema).execute().get(waitTime, TimeUnit.MILLISECONDS);
+            new GetObjectTask<Event>(schema).execute().get(waitTime, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             return false;
         }
@@ -320,12 +310,12 @@ public class DBObjectLoader {
         return true;
     }
 
-    private static class GetOjbectTask<T extends DatabaseObject> extends AsyncTask<Void, Void, Void> {
+    private static class GetObjectTask<T extends DatabaseObject> extends AsyncTask<Void, Void, Void> {
 
         RetrieverSchema schema;
         String key;
 
-        public GetOjbectTask(RetrieverSchema schema) {
+        public GetObjectTask(RetrieverSchema schema) {
             this.schema = schema;
             this.key = schema.getTableName();
         }

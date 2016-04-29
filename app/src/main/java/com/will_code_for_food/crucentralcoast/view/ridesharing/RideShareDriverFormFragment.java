@@ -20,6 +20,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm;
+import com.will_code_for_food.crucentralcoast.model.ridesharing.SendRideToDBTask;
 
 
 /**
@@ -48,7 +49,7 @@ public class RideShareDriverFormFragment extends RideShareFormFragment {
 
     @Override
     public Form getForm(String eventId) {
-        form = new DriverForm(eventId);
+        form = new DriverForm(eventId, new SendRideToDBTask());
         return form;
     }
 

@@ -5,6 +5,9 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
@@ -45,12 +48,7 @@ public class SelectDirectionDialog extends DialogFragment {
                         directionPreference = choices[which].toString();
                     }
                 })
-                .setPositiveButton("join", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        new RegisterForRideTask(parent, passengerName, number,
-                                directionPreference, ride, event).execute();
-                    }
-                })
+                .setPositiveButton("join", null)
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
@@ -59,6 +57,35 @@ public class SelectDirectionDialog extends DialogFragment {
                 });
 
         // Create the AlertDialog object and return it
-        return builder.create();
+        final AlertDialog alertDialog = builder.create();
+
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialog) {
+
+                Button b = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                b.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        handleOk();
+                    }
+                });
+            }
+        });
+
+        return alertDialog;
+    }
+
+    private void handleOk() {
+
+        if (directionPreference != null) {
+            new RegisterForRideTask(parent, passengerName, number,
+                    directionPreference, ride, event).execute();
+            dismiss();
+        } else {
+            Toast.makeText(parent, "Please select a direction", Toast.LENGTH_SHORT).show();
+        }
     }
 }

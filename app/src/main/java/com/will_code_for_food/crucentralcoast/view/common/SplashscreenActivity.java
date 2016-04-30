@@ -116,6 +116,7 @@ public class SplashscreenActivity extends Activity {
 
         //makes the pause on this screen skippable.
         //you aren't allowed to skip the splashscreen on the initial setup, because it crashes the app.
+        /*
         if (Util.loadBool(Android.PREF_SETUP_COMPLETE)) {
             screen.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -126,7 +127,7 @@ public class SplashscreenActivity extends Activity {
                     launchApp();
                 }
             });
-        }
+        }*/
 
         handler.postDelayed(runnable, UI.SETUP_SPLASHSCREEN_POLL_DURATION);
     }

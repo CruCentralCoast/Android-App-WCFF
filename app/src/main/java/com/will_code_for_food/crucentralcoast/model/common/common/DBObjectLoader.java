@@ -11,6 +11,7 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.PlaylistRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.TaskFactory;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.VideoRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
@@ -41,6 +42,7 @@ public class DBObjectLoader {
     private static ConcurrentHashMap<String, Content> data;
     private static final int OBJECTS_TO_LOAD = 9; //the number of dbobject types to load during the splashscreen
     private static int loadCount = 0; //the current number of dbobject types loaded
+    public static boolean testMode = false;
 
     /**
      * Loads all objects. Doesn't wait for them to finish loading.
@@ -87,7 +89,7 @@ public class DBObjectLoader {
      */
     public static void loadEvents() {
         Logger.i("DBObjectLoader", "Loading events");
-        new GetObjectTask<Event>(RetrieverSchema.EVENT).execute();
+        new GetObjectTaskExecuter<Event>(RetrieverSchema.EVENT).execute();
     }
 
     /**
@@ -104,7 +106,7 @@ public class DBObjectLoader {
      */
     public static void loadMinistries() {
         Logger.i("DBObjectLoader", "Loading ministries");
-        new GetObjectTask<Ministry>(RetrieverSchema.MINISTRY).execute();
+        new GetObjectTaskExecuter<Ministry>(RetrieverSchema.MINISTRY).execute();
     }
 
     /**
@@ -121,7 +123,7 @@ public class DBObjectLoader {
      */
     public static void loadRides() {
         Logger.i("DBObjectLoader", "Loading rides");
-        new GetObjectTask<Ride>(RetrieverSchema.RIDE).execute();
+        new GetObjectTaskExecuter<Ride>(RetrieverSchema.RIDE).execute();
     }
 
     /**
@@ -138,7 +140,7 @@ public class DBObjectLoader {
      */
     public static void loadCampuses() {
         Logger.i("DBObjectLoader", "Loading campuses");
-        new GetObjectTask<Campus>(RetrieverSchema.CAMPUS).execute();
+        new GetObjectTaskExecuter<Campus>(RetrieverSchema.CAMPUS).execute();
     }
 
     /**
@@ -155,7 +157,7 @@ public class DBObjectLoader {
      */
     public static void loadResources() {
         Logger.i("DBObjectLoader", "Loading resources");
-        new GetObjectTask<Resource>(RetrieverSchema.RESOURCE).execute();
+        new GetObjectTaskExecuter<Resource>(RetrieverSchema.RESOURCE).execute();
     }
 
     /**
@@ -172,7 +174,7 @@ public class DBObjectLoader {
      */
     public static void loadSummerMissions() {
         Logger.i("DBObjectLoader", "Loading summer missions");
-        new GetObjectTask<Resource>(RetrieverSchema.SUMMER_MISSION).execute();
+        new GetObjectTaskExecuter<Resource>(RetrieverSchema.SUMMER_MISSION).execute();
     }
 
     /**
@@ -198,7 +200,7 @@ public class DBObjectLoader {
      */
     public static void loadMinistryTeams() {
         Logger.i("DBObjectLoader", "Loading ministry teams");
-        new GetObjectTask<Resource>(RetrieverSchema.MINISTRY_TEAM).execute();
+        new GetObjectTaskExecuter<Resource>(RetrieverSchema.MINISTRY_TEAM).execute();
     }
 
     /**
@@ -215,7 +217,7 @@ public class DBObjectLoader {
      */
     public static void loadPassengers() {
         Logger.i("DBObjectLoader", "Loading ministry teams");
-        new GetObjectTask<Resource>(RetrieverSchema.PASSENGER).execute();
+        new GetObjectTaskExecuter<Resource>(RetrieverSchema.PASSENGER).execute();
     }
 
     /**
@@ -302,22 +304,51 @@ public class DBObjectLoader {
         return data.get(key);
     }
 
-    private static void initData() {
+    public static void initData() {
         if (data == null) {
             Logger.i("DBObjectLoader", "data was null");
             data = new ConcurrentHashMap<String, Content>();
         }
     }
 
+    public static void put(String key, Content content) {
+        data.put(key, content);
+    }
+
+    public static void objectLoaded() {
+        loadCount++;
+    }
+
+    public static int getLoadCount() {
+        return loadCount;
+    }
 
     private static boolean loadDelayed(RetrieverSchema schema, long waitTime) {
         try {
-            new GetObjectTask<Event>(schema).execute().get(waitTime, TimeUnit.MILLISECONDS);
+            new GetObjectTaskExecuter<Event>(schema).execute().get(waitTime, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             return false;
         }
 
         return true;
+    }
+
+    private static class GetObjectTaskExecuter<T extends DatabaseObject> {
+
+        RetrieverSchema schema;
+
+        public GetObjectTaskExecuter(RetrieverSchema schema) {
+            this.schema = schema;
+        }
+
+        public AsyncTask execute() {
+
+            if (testMode) {
+                return new TestGetObjectTask<T>(schema).execute();
+            } else {
+                return new GetObjectTask<T>(schema).execute();
+            }
+        }
     }
 
     private static class GetObjectTask<T extends DatabaseObject> extends AsyncTask<Void, Void, Void> {
@@ -335,7 +366,7 @@ public class DBObjectLoader {
             initData();
 
             Logger.i("DBObjectLoader", "Getting objects of type [" + key + "] from database");
-            Content<T> content = new SingleRetriever<T>(schema).getAll();
+            Content<T> content = getContent();
 
             if (content != null) {
                 data.put(key, content);
@@ -352,6 +383,23 @@ public class DBObjectLoader {
             }
 
             Logger.i("DBObjectLoader", "Finished getting objects of type [" + key + "] from database (loadCount is: " + loadCount + ")");
+        }
+
+        public Content<T> getContent() {
+            Content<T> content = new SingleRetriever<T>(schema).getAll();
+            return content;
+        }
+    }
+
+    private static class TestGetObjectTask<T extends DatabaseObject> extends GetObjectTask<T> {
+
+        public TestGetObjectTask(RetrieverSchema schema) {
+            super(schema);
+        }
+
+        @Override
+        public Content<T> getContent() {
+            return new Content<T>(new ArrayList<T>(), ContentType.TEST);
         }
     }
 

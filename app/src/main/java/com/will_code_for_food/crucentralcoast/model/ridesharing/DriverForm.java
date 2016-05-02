@@ -1,22 +1,17 @@
 package com.will_code_for_food.crucentralcoast.model.ridesharing;
 
-import android.os.AsyncTask;
-
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
-import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
+import com.will_code_for_food.crucentralcoast.tasks.ParameterizedTask;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
-import com.will_code_for_food.crucentralcoast.model.common.form.MultiOptionQuestion;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
 import com.will_code_for_food.crucentralcoast.model.common.form.QuestionType;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.PushUtil;
-import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
@@ -25,6 +20,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class DriverForm extends RiderForm {
     private final Question numSeats;
+    private final ParameterizedTask submitTask;
 
     /**
      * Creates a form for drivers to fill out to offer a ride.
@@ -32,8 +28,9 @@ public class DriverForm extends RiderForm {
      * for the dropdown.
      *      TODO maybe replace this dropdown with a location selector (Google maps)
      */
-    public DriverForm(final String eventId) {
+    public DriverForm(final String eventId, final ParameterizedTask submitTask) {
         super(eventId);
+        this.submitTask = submitTask;
         numSeats = new Question(
                 Util.getString(R.string.ridesharing_seats_question_name),
                 Util.getString(R.string.ridesharing_seats),
@@ -67,39 +64,27 @@ public class DriverForm extends RiderForm {
             // save user info
             saveUserInfo();
 
-            //TODO Fill in with real data
             // save to database
+            Logger.i("Ride Creation", "Buildign ride from user input");
             Ride origRide = new Ride(eventId, driverName, driverNumber, PushUtil.getGCMId(),
                     (Location) location.getAnswer(), 1.0,
                     (int) numSeats.getAnswer(), dir, ((Gender)genderQuestion.getAnswer()).getValue() + "");
             Ride ride = null;
             try {
-                ride = new SendToDBTask(origRide).execute().get(2000, TimeUnit.MILLISECONDS);
+                Logger.i("Ride Creation", "Sending ride to the database");
+                submitTask.putExtra(origRide);
+                ride = (Ride) submitTask.execute().get(2000, TimeUnit.MILLISECONDS);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             // save to user's rides
             if (ride != null) {
+                Logger.i("Ride Creation", "Ride returned from database correctly");
                 LocalStorageIO.appendToList(ride.getId(), LocalFiles.USER_RIDES);
                 return true;
             }
         }
         return false;
-    }
-
-    private class SendToDBTask extends AsyncTask<Void, Void, Ride> {
-
-        Ride origRide;
-
-        public SendToDBTask(Ride origRide) {
-            this.origRide = origRide;
-        }
-
-        @Override
-        protected Ride doInBackground(Void... params) {
-            Ride ride = new Ride(RestUtil.create(origRide.toJSON(), Database.REST_RIDE));
-            return ride;
-        }
     }
 }

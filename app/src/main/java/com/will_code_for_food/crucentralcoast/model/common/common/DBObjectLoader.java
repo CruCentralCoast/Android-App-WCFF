@@ -87,7 +87,7 @@ public class DBObjectLoader {
      */
     public static void loadEvents() {
         Logger.i("DBObjectLoader", "Loading events");
-        new GetOjbectTask<Event>(RetrieverSchema.EVENT).execute();
+        new GetObjectTask<Event>(RetrieverSchema.EVENT).execute();
     }
 
     /**
@@ -104,7 +104,7 @@ public class DBObjectLoader {
      */
     public static void loadMinistries() {
         Logger.i("DBObjectLoader", "Loading ministries");
-        new GetOjbectTask<Ministry>(RetrieverSchema.MINISTRY).execute();
+        new GetObjectTask<Ministry>(RetrieverSchema.MINISTRY).execute();
     }
 
     /**
@@ -121,7 +121,7 @@ public class DBObjectLoader {
      */
     public static void loadRides() {
         Logger.i("DBObjectLoader", "Loading rides");
-        new GetOjbectTask<Ride>(RetrieverSchema.RIDE).execute();
+        new GetObjectTask<Ride>(RetrieverSchema.RIDE).execute();
     }
 
     /**
@@ -138,7 +138,7 @@ public class DBObjectLoader {
      */
     public static void loadCampuses() {
         Logger.i("DBObjectLoader", "Loading campuses");
-        new GetOjbectTask<Campus>(RetrieverSchema.CAMPUS).execute();
+        new GetObjectTask<Campus>(RetrieverSchema.CAMPUS).execute();
     }
 
     /**
@@ -155,7 +155,7 @@ public class DBObjectLoader {
      */
     public static void loadResources() {
         Logger.i("DBObjectLoader", "Loading resources");
-        new GetOjbectTask<Resource>(RetrieverSchema.RESOURCE).execute();
+        new GetObjectTask<Resource>(RetrieverSchema.RESOURCE).execute();
     }
 
     /**
@@ -172,7 +172,7 @@ public class DBObjectLoader {
      */
     public static void loadSummerMissions() {
         Logger.i("DBObjectLoader", "Loading summer missions");
-        new GetOjbectTask<Resource>(RetrieverSchema.SUMMER_MISSION).execute();
+        new GetObjectTask<Resource>(RetrieverSchema.SUMMER_MISSION).execute();
     }
 
     /**
@@ -198,7 +198,7 @@ public class DBObjectLoader {
      */
     public static void loadMinistryTeams() {
         Logger.i("DBObjectLoader", "Loading ministry teams");
-        new GetOjbectTask<Resource>(RetrieverSchema.MINISTRY_TEAM).execute();
+        new GetObjectTask<Resource>(RetrieverSchema.MINISTRY_TEAM).execute();
     }
 
     /**
@@ -215,7 +215,7 @@ public class DBObjectLoader {
      */
     public static void loadPassengers() {
         Logger.i("DBObjectLoader", "Loading ministry teams");
-        new GetOjbectTask<Resource>(RetrieverSchema.PASSENGER).execute();
+        new GetObjectTask<Resource>(RetrieverSchema.PASSENGER).execute();
     }
 
     /**
@@ -312,7 +312,7 @@ public class DBObjectLoader {
 
     private static boolean loadDelayed(RetrieverSchema schema, long waitTime) {
         try {
-            new GetOjbectTask<Event>(schema).execute().get(waitTime, TimeUnit.MILLISECONDS);
+            new GetObjectTask<Event>(schema).execute().get(waitTime, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             return false;
         }
@@ -320,12 +320,12 @@ public class DBObjectLoader {
         return true;
     }
 
-    private static class GetOjbectTask<T extends DatabaseObject> extends AsyncTask<Void, Void, Void> {
+    private static class GetObjectTask<T extends DatabaseObject> extends AsyncTask<Void, Void, Void> {
 
         RetrieverSchema schema;
         String key;
 
-        public GetOjbectTask(RetrieverSchema schema) {
+        public GetObjectTask(RetrieverSchema schema) {
             this.schema = schema;
             this.key = schema.getTableName();
         }

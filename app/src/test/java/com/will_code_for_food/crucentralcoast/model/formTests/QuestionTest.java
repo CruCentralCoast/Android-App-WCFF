@@ -18,30 +18,24 @@ public class QuestionTest extends WCFFUnitTest {
 
     @Test
     public void testAllQuestionTypes() {
-        newTest("Question");
         final String prompt = "prompt";
         final String name = "name";
 
         for (QuestionType type : QuestionType.values()) {
-            logStep("Testing question type: " + type);
-            logInfo("Testing constructor");
             Question question = new Question(name, prompt, type);
             Assert.assertEquals(prompt, question.getPrompt());
             Assert.assertEquals(null, question.getAnswer());
             Assert.assertEquals(type.getAnswerType(), question.getAnswerType());
             Assert.assertTrue(question.getSubquestions().isEmpty());
 
-            logInfo("Testing invalid answer");
             Assert.assertFalse(question.answerQuestion(new Garbage()));
             Assert.assertEquals(null, question.getAnswer());
 
-            logInfo("Testing valid answer");
             Object validAnswer = null;
             try {
                 Constructor ctor = Class.forName(type.getAnswerType().getName()).getConstructor();
                 validAnswer = ctor.newInstance();
             } catch (Exception ex) {
-                logError("Cannot instantiate an instance of " + type.getAnswerType());
                 ex.printStackTrace();
                 return;
             }

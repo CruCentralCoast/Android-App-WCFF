@@ -28,6 +28,7 @@ import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.RideDirection;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
+import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,7 @@ public class RideInfoFragment extends CruFragment {
     TextView rideInfo;
     Button actionButton;
     ImageButton mapButton;
+    ImageButton passengerButton;
     Event event;
     Ride ride;
 
@@ -53,6 +55,7 @@ public class RideInfoFragment extends CruFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
+
         ride = RideShareActivity.getRide();
         event = RideShareActivity.getEvent(ride);
         eventView = (TextView) fragmentView.findViewById(R.id.ride_info_event);
@@ -63,9 +66,26 @@ public class RideInfoFragment extends CruFragment {
         rideInfo = (TextView) fragmentView.findViewById(R.id.ride_info_more);
         actionButton = (Button) fragmentView.findViewById(R.id.btn_ride_info);
         mapButton = (ImageButton) fragmentView.findViewById(R.id.ride_info_map);
+        passengerButton = (ImageButton) fragmentView.findViewById(R.id.ride_info_car);
 
+        try {
+            new SetButtonTask().execute().get(1000, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        setRideInfo();
+        setRideLocationInfo();
+        setRideLeaveInfo();
+        setRidePassengerInfo();
+
+        return fragmentView;
+    }
+
+    private void setRideInfo() {
         // Set text for event info
-        eventView.setText(Util.getString(R.string.ridesharing_event) + event.getName());
+        String eventText = Util.getString(R.string.ridesharing_event) + event.getName();
+        eventView.setText(eventText);
 
         // Set text for driver info
         String driverText = Util.getString(R.string.ridesharing_driver) + ride.getDriverName();
@@ -73,18 +93,20 @@ public class RideInfoFragment extends CruFragment {
             driverText += " (" + getGenderFromEnum(ride.getGender()) + ")";
         }
         driver.setText(driverText);
+    }
 
+    private void setRideLocationInfo() {
         // Set text for pickup location
-        String text = Util.getString(R.string.ridesharing_pickup_location);
+        String locText = Util.getString(R.string.ridesharing_pickup_location);
         final String mapUrl;
         if (ride.getLocation().getStreet() != null) {
             mapUrl = Database.GOOGLE_MAP + ride.getLocation().getStreet();
-            text += ride.getLocation().getStreet();
+            locText += ride.getLocation().getStreet();
         } else {
             mapUrl = "";
-            text += Util.getString(R.string.ridesharing_unknown_location);
+            locText += Util.getString(R.string.ridesharing_unknown_location);
         }
-        pickup.setText(text);
+        pickup.setText(locText);
 
         // Link location to Google maps
         mapButton.setOnClickListener(new View.OnClickListener() {
@@ -93,49 +115,22 @@ public class RideInfoFragment extends CruFragment {
                 viewMap(mapUrl);
             }
         });
+    }
 
+    private void setRideLeaveInfo() {
         // Leaving time
-        text = Util.getString(R.string.ridesharing_time) + String.format(Util.getString(R.string.ridesharing_leaving_date),
+        String timeText = Util.getString(R.string.ridesharing_time) + String.format(Util.getString(R.string.ridesharing_leaving_date),
                 ride.getLeaveTime(), ride.getLeaveDate());
-        leaveTime.setText(text);
+        leaveTime.setText(timeText);
 
         // Direction
-        direction.setText(Util.getString(R.string.ridesharing_direction) + ride.getDirection().toString());
-
-        // Other ride information
-        text = getRideInfo();
-        rideInfo.setText(text);
-
-        try {
-            new SetButtonTask().execute().get(1000, TimeUnit.MILLISECONDS);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return fragmentView;
+        String dirText = Util.getString(R.string.ridesharing_direction) + ride.getDirection().toString();
+        direction.setText(dirText);
     }
 
-    private void viewMap(String url) {
-        // No map for this location
-        if (url.equals("")) {
-            Toast.makeText(getActivity(), Util.getString(R.string.toast_no_map),
-                    Toast.LENGTH_LONG).show();
-        }
-        // Link to the Google Map page
-        else {
-            String map = url;
-            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
-            startActivity(i);
-        }
-    }
-
-    private String getGenderFromEnum(String num) {
-        if (String.valueOf(Gender.FEMALE.getValue()).equals(num))
-            return Util.getString(Gender.FEMALE.getNameId());
-        else if (String.valueOf(Gender.MALE.getValue()).equals(num))
-            return Util.getString(Gender.MALE.getNameId());
-        else
-            return "";
+    private void setRidePassengerInfo() {
+        String passengerInfo = getRideInfo();
+        rideInfo.setText(passengerInfo);
     }
 
     private String getRideInfo() {
@@ -155,16 +150,15 @@ public class RideInfoFragment extends CruFragment {
             if (passengers == null || passengers.size() < 1) {
                 info += "none";
             } else {
-                info += "\n";
-                try {
-                    List<Passenger> myPassengers = new GetPassengers().execute().get();
-                    for (Passenger p : myPassengers) {
-                        info += p.getName() + " (" + p.getPhoneNumber() + ") \n";
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                info += passengers.size();
             }
+            passengerButton.setImageResource(R.drawable.car_yes);
+            passengerButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewPassengers();
+                }
+            });
         }
         // Displays seats available (if not your ride)
         else {
@@ -178,6 +172,35 @@ public class RideInfoFragment extends CruFragment {
         }
 
         return info;
+    }
+
+    private void viewMap(String url) {
+        // No map for this location
+        if (url.equals("")) {
+            Toast.makeText(getActivity(), Util.getString(R.string.toast_no_map),
+                    Toast.LENGTH_LONG).show();
+        }
+        // Link to the Google Map page
+        else {
+            String map = url;
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+            startActivity(i);
+        }
+    }
+
+    private void viewPassengers() {
+        MainActivity currentActivity = getParent();
+        currentActivity.loadFragmentById(R.layout.fragment_card_list, name + " > Passengers",
+                new MyPassengersFragment(ride), currentActivity);
+    }
+
+    private String getGenderFromEnum(String num) {
+        if (String.valueOf(Gender.FEMALE.getValue()).equals(num))
+            return Util.getString(Gender.FEMALE.getNameId());
+        else if (String.valueOf(Gender.MALE.getValue()).equals(num))
+            return Util.getString(Gender.MALE.getNameId());
+        else
+            return "";
     }
 
     private class SetButtonTask extends AsyncTask<Void, Void, Void> {
@@ -279,24 +302,6 @@ public class RideInfoFragment extends CruFragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Toast.makeText(getParent(), "Left Ride", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private class GetPassengers extends AsyncTask<Void, Void, List<Passenger>> {
-        @Override
-        protected List<Passenger> doInBackground(Void... voids) {
-            List<Passenger> myPassengers = new ArrayList<>();
-            JsonArray passengerIDs = ride.getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
-            JsonArray allPassengers = RestUtil.get(Database.REST_PASSENGER);
-
-            for (int i = 0; i < allPassengers.size(); i++) {
-                JsonObject passenger = allPassengers.get(i).getAsJsonObject();
-                JsonElement id = passenger.get(Database.JSON_KEY_COMMON_ID);
-                if (passengerIDs.contains(id)) {
-                    myPassengers.add(new Passenger(passenger));
-                }
-            }
-            return myPassengers;
         }
     }
 }

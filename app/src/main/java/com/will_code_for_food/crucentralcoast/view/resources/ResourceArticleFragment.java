@@ -3,6 +3,7 @@ package com.will_code_for_food.crucentralcoast.view.resources;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,14 +15,20 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
+import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
+import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 
@@ -31,6 +38,7 @@ import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 public class ResourceArticleFragment extends CruFragment implements TextView.OnEditorActionListener {
 
     ListView listView;
+    private SwipeRefreshLayout layout;
     private int index, top;
     private CardFragmentFactory factory;
 
@@ -44,11 +52,42 @@ public class ResourceArticleFragment extends CruFragment implements TextView.OnE
         View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
         setHasOptionsMenu(true);
         listView = (ListView) fragmentView.findViewById(R.id.list_cards);
+        layout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.card_refresh_layout);
 
-        Retriever retriever = new SingleRetriever<Resource>(RetrieverSchema.RESOURCE);
-        new RetrievalTask<Resource>(retriever, factory, R.string.toast_no_articles).execute(index, top);
+        layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshList();
+            }
+        });
+
+        loadList();
 
         return fragmentView;
+    }
+
+    public void refreshList() {
+        Logger.i("ResourceArticleFragment", "refreshing articles");
+
+        if (!DBObjectLoader.loadResources(Database.DB_TIMEOUT)) {
+            Toast.makeText(getParent(), "Unable to refresh articles", Toast.LENGTH_SHORT).show();
+        }
+
+        loadList();
+    }
+
+    public void loadList() {
+        SingleMemoryRetriever retriever = new SingleMemoryRetriever(Database.REST_RESOURCE);
+        populateList(retriever);
+    }
+
+    public void populateList(SingleMemoryRetriever retriever) {
+        new RetrievalTask<Resource>(retriever, factory, R.string.toast_no_articles, new AsyncResponse(getParent()) {
+            @Override
+            public void otherProcessing() {
+                layout.setRefreshing(false);
+            }
+        }).execute(index, top);
     }
 
     @Override

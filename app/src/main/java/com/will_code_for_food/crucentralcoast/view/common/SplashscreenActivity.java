@@ -1,6 +1,6 @@
 package com.will_code_for_food.crucentralcoast.view.common;
 
-import android.Manifest;
+import android.Manifest.permission;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +22,8 @@ import com.will_code_for_food.crucentralcoast.model.common.messaging.Registratio
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.UI;
 
+import java.util.ArrayList;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -34,7 +36,7 @@ public class SplashscreenActivity extends Activity {
     private FrameLayout screen;
 
     //if you need to request a permission on startup, add it here
-    private static final String[] permissions = {Manifest.permission.READ_PHONE_STATE};
+    private static final String[] permissions = {permission.READ_PHONE_STATE, permission.WRITE_CALENDAR, permission.SEND_SMS, permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +64,16 @@ public class SplashscreenActivity extends Activity {
      */
     private void requestPermissions() {
 
+        ArrayList<String> toRequest = new ArrayList<String>();
+
         for (int count = 0; count < permissions.length; count++) {
             if (ContextCompat.checkSelfPermission(this, permissions[count]) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{permissions[count]}, 0);
+                toRequest.add(permissions[count]);
             }
+        }
+
+        if (!toRequest.isEmpty()) {
+            ActivityCompat.requestPermissions(this, toRequest.toArray(new String[toRequest.size()]), 0);
         }
     }
 
@@ -108,6 +116,7 @@ public class SplashscreenActivity extends Activity {
 
         //makes the pause on this screen skippable.
         //you aren't allowed to skip the splashscreen on the initial setup, because it crashes the app.
+        /*
         if (Util.loadBool(Android.PREF_SETUP_COMPLETE)) {
             screen.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,7 +127,7 @@ public class SplashscreenActivity extends Activity {
                     launchApp();
                 }
             });
-        }
+        }*/
 
         handler.postDelayed(runnable, UI.SETUP_SPLASHSCREEN_POLL_DURATION);
     }

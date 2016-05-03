@@ -8,6 +8,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
+import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupForm;
+import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupQuestion;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.values.Database;
@@ -30,12 +32,15 @@ public class RestUtil {
     private static final String DB_URL = Database.DB_URL;
 
     private static HttpURLConnection createGetConnection(String dbUrl, String from) throws Exception {
+        Log.d("GAVIN HTTP 0", dbUrl + "   :   " + from);
         String dataUrl = dbUrl + from;
+        Log.d("GAVIN HTTP 1", dataUrl);
         URL url = new URL(dataUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int timeout = Database.DB_TIMEOUT;
         connection.setConnectTimeout(timeout);
         connection.setRequestMethod(Database.HTTP_REQUEST_METHOD_GET);
+        Log.d("GAVIN HTTP 2", connection.getURL().toString());
         return connection;
     }
 
@@ -116,6 +121,16 @@ public class RestUtil {
         } catch (Exception ex) {
             return null;
         }
+    }
+
+    public static CommunityGroupForm getMinistryQuestions(final String ministryId) {
+        JsonArray ary = get("ministries/" + ministryId + "/questions");
+        Log.i("Getting questions", "Getting from " + ministryId);
+        CommunityGroupForm form = new CommunityGroupForm(ministryId);
+        for (JsonElement obj : ary) {
+            form.add(new CommunityGroupQuestion(obj.getAsJsonObject()));
+        }
+        return form;
     }
 
     /**

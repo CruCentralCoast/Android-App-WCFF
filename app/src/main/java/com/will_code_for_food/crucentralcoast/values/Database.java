@@ -14,6 +14,7 @@ public class Database {
     public static final String REST_SUMMER_MISSION = "summermissions";
     public static final String REST_RIDE = "rides";
     public static final String REST_PASSENGER = "passengers";
+    public static final String REST_COMMUNITY_QUESTION = "";
     public static final String REST_RESOURCE = "resources";
     public static final String PLAYLISTS = "playlists";
     public static final String VIDEOS = "videos";

@@ -124,8 +124,11 @@ public class RestUtil {
         JsonArray ary = get("ministries/" + ministryId + "/questions");
         Logger.i("Getting questions", "Getting from " + ministryId);
         CommunityGroupForm form = new CommunityGroupForm(ministryId);
-        for (JsonElement obj : ary) {
-            form.add(new CommunityGroupQuestion(obj.getAsJsonObject()));
+        if (ary != null) {
+            for (JsonElement obj : ary) {
+                Logger.i("Getting questions", "Found question");
+                form.add(new CommunityGroupQuestion(obj.getAsJsonObject()));
+            }
         }
         return form;
     }

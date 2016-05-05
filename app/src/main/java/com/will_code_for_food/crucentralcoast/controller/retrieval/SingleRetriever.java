@@ -51,7 +51,7 @@ public class SingleRetriever<T extends DatabaseObject> implements Retriever {
      */
     private Content<T> getLiveContent() {
         JsonArray json;
-        List<T> objects = new ArrayList<T>();
+        List<T> objects = new ArrayList<>();
 
         Class objClass = schema.getObjClass();
         Constructor constructor = null;

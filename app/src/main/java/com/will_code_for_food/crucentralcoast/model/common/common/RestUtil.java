@@ -34,6 +34,7 @@ public class RestUtil {
     private static HttpURLConnection createGetConnection(String dbUrl, String from) throws Exception {
         String dataUrl = dbUrl + from;
         URL url = new URL(dataUrl);
+        Logger.e("URL", url.toString());
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int timeout = Database.DB_TIMEOUT;
         connection.setConnectTimeout(timeout);
@@ -111,11 +112,15 @@ public class RestUtil {
             HttpURLConnection conn = createGetConnection(DB_URL, tableName);
             String toParse = request(conn);
 
-            if (toParse.equals("!error"))
+            if (toParse.equals("!error")) {
+                Logger.e("Get", "Got '!error'");
                 return null;
-            else
+            } else {
                 return parser.parse(toParse).getAsJsonArray();
+            }
         } catch (Exception ex) {
+            Logger.e("Get", "Exception in get()");
+            ex.printStackTrace();
             return null;
         }
     }
@@ -129,6 +134,8 @@ public class RestUtil {
                 Logger.i("Getting questions", "Found question");
                 form.add(new CommunityGroupQuestion(obj.getAsJsonObject()));
             }
+        } else {
+            Logger.e("Getting questions", "Returned json array is null");
         }
         return form;
     }

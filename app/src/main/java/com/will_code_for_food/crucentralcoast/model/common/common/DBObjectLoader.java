@@ -1,6 +1,7 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import android.os.AsyncTask;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.google.gson.JsonArray;
@@ -130,6 +131,7 @@ public class DBObjectLoader {
      * @param waitTime maximum wait time in milliseconds
      */
     public static boolean loadRides(long waitTime) {
+        Logger.i("DBObjectLoader", "Loading rides (delayed)");
         return loadDelayed(RetrieverSchema.RIDE, waitTime);
     }
 
@@ -337,9 +339,24 @@ public class DBObjectLoader {
             Logger.i("DBObjectLoader", "Getting objects of type [" + key + "] from database");
             Content<T> content = new SingleRetriever<T>(schema).getAll();
 
-            if (content != null) {
-                data.put(key, content);
+            // filtering out cancelled rides
+            List<T> pruned = new ArrayList<>();
+            for (T obj: content.getObjects()) {
+                if (obj instanceof Ride) {
+                    Log.i("PRUNING RIDES", "Loaded object is a Ride instance");
+                    // don't name yourself 'CANCELLED'
+                    if (!((Ride)obj).getDriverName().equals("CANCELLED")) {
+                        pruned.add(obj);
+                    } else {
+                        Log.i("PRUNING RIDES", "Found cancelled ride");
+                    }
+                } else {
+                    pruned.add(obj);
+                }
             }
+            content = new Content<>(pruned, content.getType());
+
+            data.put(key, content);
             return null;
         }
 

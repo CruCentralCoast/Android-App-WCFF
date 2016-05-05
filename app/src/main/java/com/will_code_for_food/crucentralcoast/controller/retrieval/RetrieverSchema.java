@@ -1,6 +1,7 @@
 package com.will_code_for_food.crucentralcoast.controller.retrieval;
 
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
+import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupQuestion;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
 import com.will_code_for_food.crucentralcoast.model.common.common.*;
@@ -23,7 +24,8 @@ public enum RetrieverSchema {
     RIDE (Ride.class, Database.REST_RIDE),
     RESOURCE(Resource.class, Database.REST_RESOURCE),
     MINISTRY_TEAM (MinistryTeam.class, Database.MINISTRY_TEAM),
-    PASSENGER (Passenger.class, Database.REST_PASSENGER);
+    PASSENGER (Passenger.class, Database.REST_PASSENGER),
+    COMMUNITY_QUESTION (CommunityGroupQuestion.class, Database.REST_COMMUNITY_QUESTION);
 
     public Class<? extends DatabaseObject> getObjClass() {
         return objClass;

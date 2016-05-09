@@ -268,13 +268,7 @@ public class RideInfoFragment extends CruFragment {
             for (int i = 0; i < passengers.size(); i++) {
                 RestUtil.dropPassenger(ride.getId(), passengers.get(i).getAsString());
             }
-            //TODO: delete from database
-            // Currently this just sets the driver's name and number to cancelled and
-            // Sets number of seats to 0
-            System.out.println("TESTING CANCEL");
-            RestUtil.update(Ride.toJSON(ride.getId(), ride.getEventId(), "CANCELLED", "CANCELLED",
-                    ride.getGcmId(), ride.getLocation(), "", 0.0, 0, ride.getDirection(), "1"),
-                    Database.REST_RIDE);
+            RestUtil.delete(ride, Database.REST_RIDE);
             return null;
         }
 

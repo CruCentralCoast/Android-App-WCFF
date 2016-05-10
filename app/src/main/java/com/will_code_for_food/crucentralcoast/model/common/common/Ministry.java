@@ -2,7 +2,6 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
  *
  * A Cru Ministry is a subgroup of the Cru organization usually associated with one or more campuses.
  */
-public class Ministry extends DatabaseObject {
+public class Ministry extends JsonDatabaseObject {
     private ArrayList<String> campuses;
     private ArrayList<String> campusesName;
 

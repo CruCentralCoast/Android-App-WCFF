@@ -7,7 +7,6 @@ import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.sorting.DatabaseObjectSorter;
-import com.will_code_for_food.crucentralcoast.model.common.common.sorting.Search;
 import com.will_code_for_food.crucentralcoast.model.common.common.sorting.SortMethod;
 
 /**

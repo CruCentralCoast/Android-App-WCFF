@@ -2,13 +2,10 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 
 
 import android.app.Activity;
-import android.util.Log;
-import android.widget.ImageButton;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.CalendarAccessor;
 import com.will_code_for_food.crucentralcoast.values.Database;
@@ -24,7 +21,7 @@ import java.util.GregorianCalendar;
 /**
  * Created by Gavin on 1/13/2016.
  */
-public class Event extends DatabaseObject {
+public class Event extends JsonDatabaseObject {
     private CalendarEvent calendarEvent;
     private ArrayList<String> parentMinistries;
 

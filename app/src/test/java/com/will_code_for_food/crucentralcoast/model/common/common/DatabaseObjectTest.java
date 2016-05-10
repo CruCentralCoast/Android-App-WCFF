@@ -40,7 +40,7 @@ public class DatabaseObjectTest extends TestCase {
         assertEquals("this is a test", object.getDescription());
     }
 
-    private class DbObj extends DatabaseObject {
+    private class DbObj extends JsonDatabaseObject {
         public DbObj(JsonObject obj) {
             super(obj);
         }

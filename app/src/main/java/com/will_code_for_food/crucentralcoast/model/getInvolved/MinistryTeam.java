@@ -2,15 +2,14 @@ package com.will_code_for_food.crucentralcoast.model.getInvolved;
 
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
-import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.JsonDatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.Notifier;
 
 /**
  * Created by MasonJStevenson on 11/16/2015.
  */
-public class MinistryTeam extends DatabaseObject{
+public class MinistryTeam extends JsonDatabaseObject {
 
     public MinistryTeam(JsonObject obj) {
         super(obj);

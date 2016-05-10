@@ -301,6 +301,38 @@ public class RestUtil {
         return sendJsonObject(updatedObject, collectionName, true);
     }
 
+    public static boolean delete(DatabaseObject dbObj, String collectionName){
+        HttpURLConnection connection = null;
+        boolean actionSuccessful = false;
+        int httpResult;
+        try {
+           connection = createChangeConnection(collectionName,
+                    "{}", Database.CONTENT_TYPE_JSON, dbObj.getId(), Database.HTTP_REQUEST_METHOD_DELETE);
+
+            httpResult = connection.getResponseCode();
+
+            if(httpResult == HttpURLConnection.HTTP_OK || httpResult == HttpURLConnection.HTTP_CREATED
+                    || httpResult == HttpURLConnection.HTTP_NO_CONTENT){
+                actionSuccessful = true;
+                Log.d("RestUtil.java", connection.getResponseMessage());
+            } else{
+                Log.d("RestUtil.java", connection.getResponseMessage());
+            }
+
+
+        } catch (Exception ex) {
+            Log.e("RestUtil.java", ex.toString());
+            System.out.println(ex.toString());
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+
+        return actionSuccessful;
+
+    }
+
     private static boolean addDropHelper(Boolean remove, String rideId, String passengerId) {
         HttpURLConnection connection = null;
         String content = "passenger_id=" + passengerId;

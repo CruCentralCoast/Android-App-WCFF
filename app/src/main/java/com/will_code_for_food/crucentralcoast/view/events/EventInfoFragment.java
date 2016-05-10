@@ -22,7 +22,10 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity;
+import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareEventCardFactory;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareSelectActionFragment;
+import com.will_code_for_food.crucentralcoast.view.ridesharing.RidesFragment;
 
 /**
  * Created by MasonJStevenson on 2/2/2016.
@@ -167,7 +170,10 @@ public class EventInfoFragment extends CruFragment {
     // Opens the event's ridesharing page, if one exists
     public void viewRidesharing() {
         if (event.hasRideSharing()) {
-            parent.loadFragmentById(R.layout.fragment_ridesharing_select_action, event.getName() + " > " + RideShareSelectActionFragment.TITLE, new RideShareSelectActionFragment(), parent);
+            RideShareActivity activity = new RideShareActivity();
+            parent.loadFragmentById(R.layout.fragment_ride_list, event.getName() + " > " + "Rides", new RidesFragment(), parent);
+            //lcurrentActivity.loadFragmentById(R.layout.fragment_ride_list, "Rides", new RidesFragment(), currentActivity);
+
         }
         else {
             Toast.makeText(parent, Util.getString(R.string.toast_no_rides),

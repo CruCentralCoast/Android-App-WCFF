@@ -26,12 +26,12 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/image_car"
         android:layout_toEndOf="@+id/image_car"
-        android:textSize="20sp" />
+        android:textSize="20sp"/>
 
     <!-- Ride Info -->
     <TextView
         android:id="@+id/card_ride_leave_date"
-        android:layout_width="127dp"
+        android:layout_width="130dp"
         android:layout_height="20dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"

@@ -39,7 +39,7 @@ public final class MinistryQuestionRetriever {
                     Logger.e("Questions", "No Questions!");
                 }
                 for (CommunityGroupQuestion question : forms.get(id)) {
-                    Logger.i("QUESTION", question.getJsonEntrySet().toString());
+                    Logger.i("QUESTION", question.toString());
                 }
             }
         } catch (Exception ex) {

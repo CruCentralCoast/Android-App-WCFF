@@ -1,15 +1,12 @@
 package com.will_code_for_food.crucentralcoast.model.ridesharing;
 
-import android.util.Log;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
-import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.JsonDatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
-import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
@@ -21,13 +18,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
  * A ride, stored in the database.
  */
-public class Ride extends DatabaseObject {
+public class Ride extends JsonDatabaseObject {
     /**
      * these could be final, but it would mean
      * creating a JSON object in the second

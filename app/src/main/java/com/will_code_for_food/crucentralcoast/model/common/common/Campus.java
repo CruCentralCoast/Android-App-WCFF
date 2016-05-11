@@ -1,15 +1,12 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 /**
  * Created by Gavin on 11/12/2015.
  */
-public class Campus extends DatabaseObject {
+public class Campus extends JsonDatabaseObject {
     private Location location;
     private String websiteUrl;
 

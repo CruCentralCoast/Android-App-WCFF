@@ -6,17 +6,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
-import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.JsonDatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.values.Youtube;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Kayla on 2/15/2016.
  */
-public class Playlist extends DatabaseObject {
+public class Playlist extends JsonDatabaseObject {
 
     private String baseUrl;    // base url to load videos from
     private JsonObject fields; // holds the fields

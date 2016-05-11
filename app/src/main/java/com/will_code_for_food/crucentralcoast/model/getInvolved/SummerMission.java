@@ -2,7 +2,7 @@ package com.will_code_for_food.crucentralcoast.model.getInvolved;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.JsonDatabaseObject;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
 import java.text.DateFormat;
@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * Created by Brian on 1/28/2016.
  */
-public class SummerMission extends DatabaseObject {
+public class SummerMission extends JsonDatabaseObject {
 
     public SummerMission(JsonObject obj) {
         super(obj);

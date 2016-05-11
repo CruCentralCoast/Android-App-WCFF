@@ -9,6 +9,7 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
@@ -82,7 +83,7 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
             parent.runOnUiThread(new Runnable() {
                 public void run() {
                     Toast.makeText(parent, "Ride Joined", Toast.LENGTH_SHORT).show();
-                    DBObjectLoader.loadRides(Database.DB_TIMEOUT);
+                    DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
                     parent.loadFragmentById(R.layout.fragment_my_rides_list,
                             Util.getString(R.string.ridesharing_my_rides_title),
                             new MyRidesFragment(), parent);

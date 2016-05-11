@@ -1,14 +1,10 @@
 package com.will_code_for_food.crucentralcoast.model.common.common;
 
 import android.os.AsyncTask;
-import android.provider.ContactsContract;
 import android.util.Log;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.PlaylistRetriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleRetriever;
@@ -18,17 +14,12 @@ import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.model.resources.Resource;
 import com.will_code_for_food.crucentralcoast.model.resources.Video;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
-import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
-import com.will_code_for_food.crucentralcoast.values.Youtube;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * Created by MasonJStevenson on 2/21/2016.
@@ -48,15 +39,10 @@ public class DBObjectLoader {
      */
     public static void loadAll() {
         loadCount = 0;
-        loadEvents();
-        loadCampuses();
-        loadMinistries();
-        loadMinistryTeams();
-        loadRides();
-        loadResources();
-        loadSummerMissions();
+        for (RetrieverSchema schema : RetrieverSchema.values()){
+            loadObjects(schema);
+        }
         loadVideos();
-        loadPassengers();
     }
 
     /**
@@ -65,15 +51,10 @@ public class DBObjectLoader {
      */
     public static void loadAll(long waitTime) {
         loadCount = 0;
-        loadEvents(waitTime);
-        loadCampuses(waitTime);
-        loadMinistries(waitTime);
-        loadMinistryTeams(waitTime);
-        loadRides(waitTime);
-        loadResources(waitTime);
-        loadSummerMissions(waitTime);
+        for (RetrieverSchema schema : RetrieverSchema.values()){
+            loadObjects(schema, waitTime);
+        }
         //TODO: loadVideos(waitTime);
-        loadPassengers(waitTime);
     }
 
     /**
@@ -83,12 +64,10 @@ public class DBObjectLoader {
         return loadCount == OBJECTS_TO_LOAD;
     }
 
-    /**
-     * Loads events. Doesn't wait for them to finish loading.
-     */
-    public static void loadEvents() {
-        Logger.i("DBObjectLoader", "Loading events");
-        new GetOjbectTask<Event>(RetrieverSchema.EVENT).execute();
+
+    public static void loadObjects(RetrieverSchema schema){
+        Logger.i("DBObjectLoader", "Loading " + schema.getTableName());
+        new GetObjectTask<JsonDatabaseObject>(schema).execute();
     }
 
     /**
@@ -96,128 +75,8 @@ public class DBObjectLoader {
      *
      * @param waitTime maximum wait time in milliseconds
      */
-    public static boolean loadEvents(long waitTime) {
-        return loadDelayed(RetrieverSchema.EVENT, waitTime);
-    }
-
-    /**
-     * Loads ministries. Doesn't wait for them to finish loading.
-     */
-    public static void loadMinistries() {
-        Logger.i("DBObjectLoader", "Loading ministries");
-        new GetOjbectTask<Ministry>(RetrieverSchema.MINISTRY).execute();
-    }
-
-    /**
-     * Loads ministries. Waits for them to finish loading.
-     *
-     * @param waitTime maximum wait time in milliseconds
-     */
-    public static boolean loadMinistries(long waitTime) {
-        return loadDelayed(RetrieverSchema.MINISTRY, waitTime);
-    }
-
-    /**
-     * Loads rides. Doesn't wait for them to finish loading.
-     */
-    public static void loadRides() {
-        Logger.i("DBObjectLoader", "Loading rides");
-        new GetOjbectTask<Ride>(RetrieverSchema.RIDE).execute();
-    }
-
-    /**
-     * Loads rides. Waits for them to finish loading.
-     *
-     * @param waitTime maximum wait time in milliseconds
-     */
-    public static boolean loadRides(long waitTime) {
-        Logger.i("DBObjectLoader", "Loading rides (delayed)");
-        return loadDelayed(RetrieverSchema.RIDE, waitTime);
-    }
-
-    /**
-     * Loads campuses. Doesn't wait for them to finish loading.
-     */
-    public static void loadCampuses() {
-        Logger.i("DBObjectLoader", "Loading campuses");
-        new GetOjbectTask<Campus>(RetrieverSchema.CAMPUS).execute();
-    }
-
-    /**
-     * Loads campuses. Waits for them to finish loading.
-     *
-     * @param waitTime maximum wait time in milliseconds
-     */
-    public static boolean loadCampuses(long waitTime) {
-        return loadDelayed(RetrieverSchema.CAMPUS, waitTime);
-    }
-
-    /**
-     * Loads resources. Doesn't wait for them to finish loading.
-     */
-    public static void loadResources() {
-        Logger.i("DBObjectLoader", "Loading resources");
-        new GetOjbectTask<Resource>(RetrieverSchema.RESOURCE).execute();
-    }
-
-    /**
-     * Loads resources. Waits for them to finish loading.
-     *
-     * @param waitTime maximum wait time in milliseconds
-     */
-    public static boolean loadResources(long waitTime) {
-        return loadDelayed(RetrieverSchema.RESOURCE, waitTime);
-    }
-
-    /**
-     * Loads summer missions. Doesn't wait for them to finish loading.
-     */
-    public static void loadSummerMissions() {
-        Logger.i("DBObjectLoader", "Loading summer missions");
-        new GetOjbectTask<Resource>(RetrieverSchema.SUMMER_MISSION).execute();
-    }
-
-    /**
-     * Loads summer missions. Waits for them to finish loading.
-     *
-     * @param waitTime maximum wait time in milliseconds
-     */
-    public static boolean loadSummerMissions(long waitTime) {
-        return loadDelayed(RetrieverSchema.SUMMER_MISSION, waitTime);
-    }
-
-    /**
-     * Loads ministry teams. Waits for them to finish loading.
-     *
-     * @param waitTime maximum wait time in milliseconds
-     */
-    public static boolean loadMinistryTeams(long waitTime) {
-        return loadDelayed(RetrieverSchema.MINISTRY_TEAM, waitTime);
-    }
-
-    /**
-     * Loads ministry teams. Doesn't wait for them to finish loading.
-     */
-    public static void loadMinistryTeams() {
-        Logger.i("DBObjectLoader", "Loading ministry teams");
-        new GetOjbectTask<Resource>(RetrieverSchema.MINISTRY_TEAM).execute();
-    }
-
-    /**
-     * Loads passengers. Waits for them to finish loading.
-     *
-     * @param waitTime maximum wait time in milliseconds
-     */
-    public static boolean loadPassengers(long waitTime) {
-        return loadDelayed(RetrieverSchema.PASSENGER, waitTime);
-    }
-
-    /**
-     * Loads ministry teams. Doesn't wait for them to finish loading.
-     */
-    public static void loadPassengers() {
-        Logger.i("DBObjectLoader", "Loading ministry teams");
-        new GetOjbectTask<Resource>(RetrieverSchema.PASSENGER).execute();
+    public static boolean loadObjects(RetrieverSchema schema, long waitTime) {
+        return loadDelayed(schema, waitTime);
     }
 
     /**
@@ -314,7 +173,7 @@ public class DBObjectLoader {
 
     private static boolean loadDelayed(RetrieverSchema schema, long waitTime) {
         try {
-            new GetOjbectTask<Event>(schema).execute().get(waitTime, TimeUnit.MILLISECONDS);
+            new GetObjectTask(schema).execute().get(waitTime, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             return false;
         }
@@ -322,12 +181,12 @@ public class DBObjectLoader {
         return true;
     }
 
-    private static class GetOjbectTask<T extends DatabaseObject> extends AsyncTask<Void, Void, Void> {
+    private static class GetObjectTask<T extends DatabaseObject> extends AsyncTask<Void, Void, Void> {
 
         RetrieverSchema schema;
         String key;
 
-        public GetOjbectTask(RetrieverSchema schema) {
+        public GetObjectTask(RetrieverSchema schema) {
             this.schema = schema;
             this.key = schema.getTableName();
         }
@@ -377,6 +236,7 @@ public class DBObjectLoader {
         @Override
         protected Void doInBackground(Void... params) {
             Logger.i("DBObjectLoader", "Getting videos from youtube");
+            initData();
 
             PlaylistRetriever playlistRetriever = new PlaylistRetriever();
             VideoRetriever videoRetriever = new VideoRetriever();

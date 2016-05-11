@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
@@ -68,7 +69,7 @@ public class MinistryTeamFragment extends CruFragment {
 
         Logger.i("MinistryTeamFragment", "refreshing ministry team list");
 
-        if (!DBObjectLoader.loadMinistryTeams(Database.DB_TIMEOUT)) {
+        if (!DBObjectLoader.loadObjects(RetrieverSchema.MINISTRY_TEAM, Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh ministry teams", Toast.LENGTH_SHORT);
         }
 

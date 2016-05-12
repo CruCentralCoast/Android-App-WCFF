@@ -18,8 +18,10 @@ import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryQuestion
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.dynamic_form.FormListFragment;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.EnterNameDialog;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -30,6 +32,7 @@ public class GetInvolvedActivity extends MainActivity {
 
     private static String getInvolvedTitle = Util.getString(R.string.get_involved_header);
     private static String ministryTeamTitle = Util.getString(R.string.ministry_team_header);
+    private static String communityGroupsTitle = "Community Group Forms";
     private static MinistryTeam team = null;
 
     @Override
@@ -43,10 +46,18 @@ public class GetInvolvedActivity extends MainActivity {
     }
 
     public void viewJoinCommunityGroup() {
-        HashMap<String, CommunityGroupForm> forms = MinistryQuestionRetriever.getAllCommunityGroupForms();
-
+        //HashMap<String, CommunityGroupForm> forms = MinistryQuestionRetriever.getAllCommunityGroupForms();
+        HashMap<String, CommunityGroupForm> forms = new HashMap<String, CommunityGroupForm>();
+        forms.put("Form 1", new CommunityGroupForm("1"));
+        forms.put("Form 2", new CommunityGroupForm("2"));
+        ArrayList<String> keyList = new ArrayList<String>(forms.keySet());
         Logger.i("Community Groups", "Displaying...");
-        // TODO GUI STUFF
+        FormListFragment flFrag = new FormListFragment();
+        Bundle args = new Bundle();
+        args.putStringArrayList("keyList", keyList);
+        args.putSerializable("formsMap", forms);
+        flFrag.setArguments(args);
+        loadFragmentById(R.layout.fragment_form_list_layout, communityGroupsTitle, flFrag, this);
     }
 
     public static void setMinistryTeam(MinistryTeam team){

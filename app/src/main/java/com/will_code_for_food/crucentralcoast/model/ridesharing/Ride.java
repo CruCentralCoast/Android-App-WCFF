@@ -212,6 +212,10 @@ public class Ride extends JsonDatabaseObject {
         JsonElement date = this.getField(Database.JSON_KEY_RIDE_TIME);
         String rideTime;
 
+        if (date == null) {
+            date = new JsonPrimitive("");
+        }
+
         // Convert ISODate to Java Date format
         try {
             DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
@@ -228,6 +232,10 @@ public class Ride extends JsonDatabaseObject {
     public String getLeaveDate() {
         JsonElement date = this.getField(Database.JSON_KEY_RIDE_TIME);
         String rideDate;
+
+        if (date == null) {
+            date = new JsonPrimitive("");
+        }
 
         // Convert ISODate to Java Date format
         try {

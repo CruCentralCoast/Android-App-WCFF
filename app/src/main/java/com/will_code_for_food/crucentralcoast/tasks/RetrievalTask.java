@@ -16,6 +16,7 @@ import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Filter;
 
 /**
  * Retrieval task gets a list of database objects from a receiver and adds the items to a list.
@@ -32,15 +33,22 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Integer,
     private int errorMessageId;
     private AsyncResponse response;
     private int index, top;
+    private Filterer filterer;
 
     public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory,
-                         int errorMessageId, AsyncResponse response) {
+                         int errorMessageId, AsyncResponse response, Filterer filterer) {
         super();
         this.retriever = retriever;
         this.cardFactory = cardFactory;
         this.errorMessageId = errorMessageId;
         currentActivity = (MainActivity) MainActivity.context;
         this.response = response;
+        this.filterer = filterer;
+    }
+
+    public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory,
+                         int errorMessageId, AsyncResponse response) {
+        this(retriever, cardFactory, errorMessageId, response, null);
     }
 
     public RetrievalTask(Retriever retriever, CardFragmentFactory cardFactory,
@@ -51,6 +59,9 @@ public class RetrievalTask <T extends DatabaseObject> extends AsyncTask<Integer,
     @Override
     protected Void doInBackground(Integer... params) {
         Content dbContent = retriever.getAll();
+        if (filterer != null) {
+            dbContent = filterer.filter(dbContent);
+        }
         index = params.length == 2 ? params[0] : 0;
         top = params.length == 2 ? params[1] : 0;
 

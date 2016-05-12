@@ -176,7 +176,7 @@ public class RidesFragment extends CruFragment implements TextView.OnEditorActio
                     public void otherProcessing() {
                         layout.setRefreshing(false);
                     }
-                }).execute(index, top);
+                }, new MyRideFilterer(Util.getPhoneNum())).execute(index, top);
     }
 
     // Sets up and loads the image for the event into the image header

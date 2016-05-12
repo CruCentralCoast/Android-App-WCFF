@@ -173,7 +173,7 @@ public class DBObjectLoader {
 
     private static boolean loadDelayed(RetrieverSchema schema, long waitTime) {
         try {
-            new GetObjectTask(schema).execute().get(waitTime, TimeUnit.MILLISECONDS);
+            new GetObjectTask<JsonDatabaseObject>(schema).execute().get(waitTime, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             return false;
         }

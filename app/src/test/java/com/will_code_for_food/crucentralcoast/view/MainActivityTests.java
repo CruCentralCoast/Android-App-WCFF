@@ -1,7 +1,9 @@
 package com.will_code_for_food.crucentralcoast.view;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.widget.ListView;
 
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 import java.lang.Exception;
@@ -35,5 +37,14 @@ public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActi
 
         //uncomment this if you want to see a test fail
         //assertEquals("not equal", textView.getText().toString());
+    }
+
+    /**
+     * Test loadFragmentById since it is a pinch point (all descendents of MainActivity use it regularly)
+     */
+    public void testLoadFragmentById() {
+        activity.loadFragmentById(R.layout.fragment_event, "Events", null, activity);
+        ListView listView = (ListView) activity.findViewById(R.id.list_cards);
+        assertTrue(listView != null);
     }
 }

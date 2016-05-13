@@ -14,6 +14,7 @@ import com.will_code_for_food.crucentralcoast.values.Android;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -34,10 +35,14 @@ public class Util {
     }
 
     /**
-     * Gets a string resource using MainActivity.java's context.
+     * Gets a string resource without a context
      */
     public static String getString(final int resId) {
-        return getString(MyApplication.getContext(), resId);
+        try {
+            return Resources.getSystem().getString(resId);
+        } catch (Exception ex) {
+            return getString(MainActivity.context, resId);
+        }
     }
 
     /**

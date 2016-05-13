@@ -1,5 +1,7 @@
 package com.will_code_for_food.crucentralcoast.model.getInvolved;
 
+import android.content.res.Resources;
+
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.JsonDatabaseObject;

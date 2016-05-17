@@ -35,7 +35,7 @@ public abstract class JsonDatabaseObject implements DatabaseObject {
     public void update(JsonObject obj) {
         fields = obj;
 
-        if (fields.has(Database.JSON_KEY_COMMON_IMAGE)) {
+        if (fields != null && fields.has(Database.JSON_KEY_COMMON_IMAGE)) {
             imageData = new ImageData(fields.get(Database.JSON_KEY_COMMON_IMAGE));
         }
     }

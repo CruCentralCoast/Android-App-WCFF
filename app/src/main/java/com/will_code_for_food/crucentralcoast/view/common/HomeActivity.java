@@ -12,6 +12,7 @@ public class HomeActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setBackButtonExitsApp(true);
         loadFragmentById(R.layout.fragment_card_list, "Home", new FeedFragment(), this);
     }
 }

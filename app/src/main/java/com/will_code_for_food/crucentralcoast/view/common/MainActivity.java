@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private Stack<String> titleStack;
     public static Context context;
+    private boolean backButtonExitsApp = false;
 
     private void handleUncaughtExceptions() {
         final Thread.UncaughtExceptionHandler oldHandler =
@@ -198,9 +199,15 @@ public class MainActivity extends AppCompatActivity {
         if (getFragmentManager().getBackStackEntryCount() > 1) {
             getFragmentManager().popBackStack();
             setTitle(titleStack.pop());
-        } else {
+        } else if (backButtonExitsApp){
             super.onBackPressed();
+        } else {
+            newActivity(HomeActivity.class);
         }
+    }
+
+    public void setBackButtonExitsApp(boolean val) {
+        backButtonExitsApp = val;
     }
 
     private void addDrawerItems() {
@@ -242,7 +249,6 @@ public class MainActivity extends AppCompatActivity {
 
         switch (viewText) {
             case "Home":
-                //loadFragmentById(R.layout.fragment_card_list, "Home", new FeedFragment(), this);
                 newActivity(HomeActivity.class);
                 break;
             case "Events":

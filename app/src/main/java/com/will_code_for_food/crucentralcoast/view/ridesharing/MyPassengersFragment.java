@@ -20,6 +20,7 @@ import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.ContentType;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
@@ -88,7 +89,7 @@ public class MyPassengersFragment extends CruFragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 Passenger toRemove = passengers.get(position);
                                 new DropPassenger(toRemove).execute();
-                                DBObjectLoader.loadRides(Database.DB_TIMEOUT);
+                                DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
                                 passengers.remove(position);
                                 adapter.notifyDataSetChanged();
                             }
@@ -108,7 +109,7 @@ public class MyPassengersFragment extends CruFragment {
     }
 
     private void refreshList() {
-        if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
+        if (!DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh passengers", Toast.LENGTH_SHORT).show();
         }
         loadList();

@@ -213,37 +213,11 @@ public class Ride extends DatabaseObject {
     }
 
     public String getLeaveTime() {
-        JsonElement date = this.getField(Database.JSON_KEY_RIDE_TIME);
-        String rideTime;
-
-        // Convert ISODate to Java Date format
-        try {
-            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
-            Date start = dateFormat.parse(date.getAsString());
-            SimpleDateFormat format = new SimpleDateFormat(Database.RIDE_TIME_FORMAT);
-            rideTime = format.format(start);
-        } catch (ParseException e) {
-            // Can't be parsed; just use the default ISO format
-            rideTime = date.getAsString();
-        }
-        return rideTime;
+        return super.getFormattedDate(Database.JSON_KEY_RIDE_TIME, Database.RIDE_TIME_FORMAT);
     }
 
     public String getLeaveDate() {
-        JsonElement date = this.getField(Database.JSON_KEY_RIDE_TIME);
-        String rideDate;
-
-        // Convert ISODate to Java Date format
-        try {
-            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
-            Date start = dateFormat.parse(date.getAsString());
-            SimpleDateFormat format = new SimpleDateFormat(Database.RIDE_DATE_FORMAT);
-            rideDate = format.format(start);
-        } catch (ParseException e) {
-            // Can't be parsed; just use the default ISO format
-            rideDate = date.getAsString();
-        }
-        return rideDate;
+        return super.getFormattedDate(Database.JSON_KEY_RIDE_TIME, Database.RIDE_DATE_FORMAT);
     }
 
     public Calendar getLeaveTimeToEvent() {

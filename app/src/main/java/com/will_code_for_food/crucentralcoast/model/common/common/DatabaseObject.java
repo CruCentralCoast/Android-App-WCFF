@@ -8,6 +8,10 @@ import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -41,6 +45,22 @@ public abstract class DatabaseObject {
 
     public void setField(String key, JsonElement element) {
         fields.add(key, element);
+    }
+
+    protected Date getDate(String key) {
+        JsonElement dateJson = this.getField(key);
+        DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+        try {
+            return dateFormat.parse(dateJson.getAsString());
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    protected String getFormattedDate(String key, String format) {
+        Date date = getDate(key);
+        String dateString = new SimpleDateFormat(format).format(date);
+        return dateString;
     }
 
     /**

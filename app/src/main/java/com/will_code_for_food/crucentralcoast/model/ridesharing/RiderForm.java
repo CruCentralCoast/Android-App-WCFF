@@ -6,6 +6,7 @@ import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNum
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
+import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResultType;
 import com.will_code_for_food.crucentralcoast.model.common.form.MultiOptionQuestion;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
@@ -107,8 +108,34 @@ public class RiderForm extends Form {
     }
 
     public List<FormValidationResult> isValidDetailed() {
-        // TODO actually check user input for validity
-        return new ArrayList<>();
+        // TODO check all fields
+        ArrayList<FormValidationResult> results = new ArrayList<FormValidationResult>();
+
+
+        if (!checkPhoneNumber((String)numberQuestion.getAnswer())) {
+            results.add(new FormValidationResult(FormValidationResultType.ERROR_INPUT_TYPE, numberQuestion, numberQuestion.getIndex()));
+        }
+
+        return results;
+    }
+
+    /**
+     * Shamelessly copied off the internet.
+     *
+     * Returns true if the String number is a valid phone number format.
+     */
+    private boolean checkPhoneNumber(String number) {
+
+        //validate phone numbers of format "1234567890"
+        if (number.matches("\\d{10}")) return true;
+            //validating phone number with -, . or spaces
+        else if(number.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) return true;
+            //validating phone number with extension length from 3 to 5
+        else if(number.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) return true;
+            //validating phone number where area code is in braces ()
+        else if(number.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) return true;
+            //return false if nothing matches the input
+        else return false;
     }
 
     public Ride getCreatedRide() {

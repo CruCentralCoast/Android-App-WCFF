@@ -16,6 +16,8 @@ public class Question {
     private boolean required;
     private List<Question> subquestions;
 
+    private int index;
+
     public Question(final String name, final String prompt, final QuestionType type) {
         this.name = name;
         this.prompt = prompt;
@@ -24,6 +26,14 @@ public class Question {
         this.enabled = true;
         this.subquestions = new ArrayList<>();
         this.required = true;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     public boolean isRequired() {

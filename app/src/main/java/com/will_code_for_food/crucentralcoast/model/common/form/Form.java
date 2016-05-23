@@ -22,6 +22,7 @@ public abstract class Form implements Serializable {
     }
 
     public void addQuestion(final Question question) {
+        question.setIndex(questions.size());
         questions.add(question);
     }
 

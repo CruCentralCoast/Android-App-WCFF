@@ -10,7 +10,7 @@ import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandl
 public class SMSNotifier extends Notifier {
 
     public SMSNotifier(final Context context, final String phoneNumber) {
-        super(context, phoneNumber, null);
+        super(context, null, phoneNumber);
     }
 
     @Override

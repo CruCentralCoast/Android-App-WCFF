@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.MultiMemoryRetriever;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
@@ -158,11 +159,11 @@ public class FeedFragment extends CruFragment implements TextView.OnEditorAction
     private void refreshList() {
         Logger.i("FeedFragment", "Refreshing Feed");
 
-        if (!DBObjectLoader.loadEvents(Database.DB_TIMEOUT)) {
+        if (!DBObjectLoader.loadObjects(RetrieverSchema.EVENT, Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh events", Toast.LENGTH_SHORT);
         }
 
-        if (!DBObjectLoader.loadResources(Database.DB_TIMEOUT)) {
+        if (!DBObjectLoader.loadObjects(RetrieverSchema.RESOURCE, Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh resources", Toast.LENGTH_SHORT);
         }
 

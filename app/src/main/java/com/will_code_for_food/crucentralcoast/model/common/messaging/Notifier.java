@@ -1,46 +1,43 @@
 package com.will_code_for_food.crucentralcoast.model.common.messaging;
 
-import android.app.NotificationManager;
+import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.NotificationCompat;
-import android.telephony.SmsManager;
 
 /**
- * Created by Gavin on 11/12/2015.
+ * An interface that can be used to send some form
+ * of notification to a user.
  */
-public class Notifier {
-    // Current notification
-    int curId;
+public abstract class Notifier {
+    private String name;
+    private String contactInfo;
+    private final Context context;
 
-    public Notifier() {
-        curId = 0;
+    public Notifier(final Context context, final String contactInfo) {
+        this(context, null, contactInfo);
     }
 
-    public boolean notifyUser(String gcmKey, NotificationMessage message) {
-        // TODO handles the push notification API in the superclass
-        return false;
-    }
-    public static boolean textUser(String phoneNumber, String message) {
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-        return true;
+    public Notifier(final Context context, final String name, final String contactInfo) {
+        this.name = name;
+        this.contactInfo = contactInfo;
+        this.context = context;
     }
 
-    public void createNotification(String title, String text, Context context) {
-        // Creates a new notification
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context)
-                        .setSmallIcon(android.R.drawable.stat_notify_more)  // change this to the cru icon
-                        .setContentTitle(title)
-                        .setContentText(text);
-
-        NotificationManager mNotificationManager =  (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        // mId allows you to update the notification later on.
-        mNotificationManager.notify(curId++, mBuilder.build());
+    public String getContactInfo() {
+        return contactInfo;
     }
 
-    public void sendNotification() {
-
+    public String getName() {
+        return name;
     }
+
+    public Context getContext() {
+        return context;
+    }
+
+    /**
+     * Sends the message to the user specified by name and contact info.
+     * Returns success or failure, which can be used to check validity
+     * of provided user information.
+     */
+    public abstract boolean notify(final String message);
 }

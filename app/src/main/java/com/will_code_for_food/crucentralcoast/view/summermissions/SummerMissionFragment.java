@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.SummerMission;
@@ -66,7 +67,7 @@ public class SummerMissionFragment extends CruFragment {
     private void refreshMissionsList() {
         Logger.i("SummerMissionFragment", "refreshing summer missions list");
 
-        if (!DBObjectLoader.loadSummerMissions(Database.DB_TIMEOUT)) {
+        if (!DBObjectLoader.loadObjects(RetrieverSchema.SUMMER_MISSION, Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh summer missions", Toast.LENGTH_SHORT);
         }
 

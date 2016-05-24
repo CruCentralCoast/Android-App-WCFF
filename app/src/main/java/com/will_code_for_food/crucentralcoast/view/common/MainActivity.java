@@ -52,13 +52,13 @@ import java.util.Stack;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
-    Notifier notifier;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private Stack<String> titleStack;
     public static Context context;
+    private boolean backButtonExitsApp = false;
 
     private void handleUncaughtExceptions() {
         final Thread.UncaughtExceptionHandler oldHandler =
@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        notifier = new Notifier();
         titleStack = new Stack<>();
 
         context = this;
@@ -197,12 +196,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
+        if (getFragmentManager().getBackStackEntryCount() > 1) {
             getFragmentManager().popBackStack();
             setTitle(titleStack.pop());
-        } else {
+        } else if (backButtonExitsApp){
             super.onBackPressed();
+        } else {
+            newActivity(HomeActivity.class);
         }
+    }
+
+    public void setBackButtonExitsApp(boolean val) {
+        backButtonExitsApp = val;
     }
 
     private void addDrawerItems() {
@@ -244,7 +249,6 @@ public class MainActivity extends AppCompatActivity {
 
         switch (viewText) {
             case "Home":
-                //loadFragmentById(R.layout.fragment_card_list, "Home", new FeedFragment(), this);
                 newActivity(HomeActivity.class);
                 break;
             case "Events":

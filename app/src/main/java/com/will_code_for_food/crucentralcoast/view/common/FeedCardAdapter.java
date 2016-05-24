@@ -97,7 +97,10 @@ public class FeedCardAdapter extends CardAdapter {
 
         // Load card elements with video information
         ImageView thumbnail = (ImageView) hold.findViewById(R.id.card_image);
-        Picasso.with(getContext()).load(current.getThumbnailUrl()).fit().into(thumbnail);
+        Picasso.with(getContext())
+                .load(current.getThumbnailUrl())
+                .fit()
+                .into(thumbnail);
 
         TextView name = (TextView) hold.findViewById(R.id.card_video_name);
         name.setText(current.getTitle());
@@ -147,7 +150,10 @@ public class FeedCardAdapter extends CardAdapter {
         String imageLabel = current.getImage();
         ImageView imageView = (ImageView) hold.findViewById(R.id.card_image);
         if (imageLabel != null && !imageLabel.equals("")) {
-            Picasso.with(getContext()).load(imageLabel).fit().into(imageView);
+            Picasso.with(getContext())
+                    .load(imageLabel)
+                    .fit()
+                    .into(imageView);
         } else {
             System.out.println("Image is this: " + imageLabel);
             imageView.setImageResource(R.drawable.crulogo);

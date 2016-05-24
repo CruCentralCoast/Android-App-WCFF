@@ -47,6 +47,20 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
         this.event = event;
     }
 
+    public RegisterForRideTask(final MainActivity parent, final String passengerName,
+                               final String number,
+                               final Ride ride, final Event event) {
+        this.parent = parent;
+        this.passengerName = passengerName;
+        this.ride = ride;
+        this.phoneNum = number;
+        this.event = event;
+    }
+
+    public void setDirectionPreference(final String directionPreference) {
+        this.directionPreference = directionPreference;
+    }
+
     @Override
     protected Void doInBackground(Void... params) {
         JsonObject result;

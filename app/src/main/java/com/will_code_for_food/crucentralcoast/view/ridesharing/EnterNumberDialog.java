@@ -52,8 +52,8 @@ public class EnterNumberDialog extends DialogFragment {
                         //if the ride is two-way, the passenger can choose to only go one direction
                         if (ride.getDirection() == RideDirection.TWO_WAY) {
                             SelectDirectionDialog popup =
-                                    new SelectDirectionDialog(parent, passengerName, number,
-                                            ride, event);
+                                    new SelectDirectionDialog(parent, new RegisterForRideTask(parent, passengerName, number,
+                                            ride, event));
                             FragmentManager manager = getFragmentManager();
                             popup.show(manager, "ride_info_select_direction");
                         } else {

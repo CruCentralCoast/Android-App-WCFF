@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,19 +21,12 @@ import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 public class SelectDirectionDialog extends DialogFragment {
 
     private MainActivity parent;
-    private String passengerName;
-    private Ride ride;
     private String directionPreference;
-    private String number;
-    private Event event;
+    private RegisterForRideTask regTask;
 
-    public SelectDirectionDialog(final MainActivity parent, final String passengerName,
-                                 final String number, final Ride ride, final Event event) {
+    public SelectDirectionDialog(final MainActivity parent, RegisterForRideTask regTask) {
         this.parent = parent;
-        this.passengerName = passengerName;
-        this.number = number;
-        this.ride = ride;
-        this.event = event;
+        this.regTask = regTask;
     }
 
     @Override
@@ -79,10 +73,9 @@ public class SelectDirectionDialog extends DialogFragment {
     }
 
     private void handleOk() {
-
         if (directionPreference != null) {
-            new RegisterForRideTask(parent, passengerName, number,
-                    directionPreference, ride, event).execute();
+            regTask.setDirectionPreference(directionPreference);
+            regTask.execute();
             dismiss();
         } else {
             Toast.makeText(parent, "Please select a direction", Toast.LENGTH_SHORT).show();

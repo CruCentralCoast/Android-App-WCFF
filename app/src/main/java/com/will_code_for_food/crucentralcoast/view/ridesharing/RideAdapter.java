@@ -1,33 +1,22 @@
 package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.drive.query.SortableField;
-import com.parse.Parse;
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.model.common.common.sorting.DatabaseObjectSorter;
 import com.will_code_for_food.crucentralcoast.model.common.common.sorting.SortMethod;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.view.common.CardAdapter;
 
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-
-import static com.will_code_for_food.crucentralcoast.model.common.common.sorting.RideSorter.sortRideList;
 
 /**
  * Created by ShelliCrispen on 4/11/16.
@@ -121,7 +110,7 @@ public class RideAdapter extends CardAdapter {
     }
 
     public void sortByTime(Date date){
-        sortRideList(cards, date);
+        //sortRideList(cards, date);
         this.notifyDataSetChanged();
     }
 

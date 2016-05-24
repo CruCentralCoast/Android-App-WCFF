@@ -169,7 +169,7 @@ public class RidesFragment extends CruFragment implements TextView.OnEditorActio
 
             final Dialog dialog = new Dialog(getActivity());
             dialog.setContentView(R.layout.enter_time_dialog);
-            dialog.setTitle("Sort by Time");
+            dialog.setTitle("Enter a time.");
 
             // set the custom dialog components - text, image and button
             final TimePicker time = (TimePicker) dialog.findViewById(R.id.time_picker_time);

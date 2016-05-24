@@ -49,7 +49,6 @@
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:onClick="attemptLogIn"
         android:background="@color/colorPrimary_cruGold"
         android:text="@string/login_title" />
 

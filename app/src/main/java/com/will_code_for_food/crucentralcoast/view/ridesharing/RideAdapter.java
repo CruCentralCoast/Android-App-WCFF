@@ -27,6 +27,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import static com.will_code_for_food.crucentralcoast.model.common.common.sorting.RideSorter.sortRideList;
+
 /**
  * Created by ShelliCrispen on 4/11/16.
  */
@@ -117,6 +119,12 @@ public class RideAdapter extends CardAdapter {
         Collections.sort(cards, new HorribleDateComparator(SortMethod.DESCENDING));
         this.notifyDataSetChanged();
     }
+
+    public void sortByTime(Date date){
+        sortRideList(cards, date);
+        this.notifyDataSetChanged();
+    }
+
 
     public void search(final String phrase) {
         Collections.sort(cards, new Comparator<DatabaseObject>() {

@@ -23,6 +23,10 @@
                 android:id="@+id/sort_oldest"
                 android:title="Oldest"
                 app:showAsAction="ifRoom"/>
+            <item
+                android:id="@+id/sort_time"
+                android:title="Time"
+                app:showAsAction="ifRoom"/>
         </menu>
     </item>
 </menu>

@@ -62,6 +62,8 @@ public class PrefsFragment extends PreferenceFragment
         parent = (Activity) SettingsActivity.context;
     }
 
+    private PrefsPasswordDialog popup;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -135,7 +137,7 @@ public class PrefsFragment extends PreferenceFragment
             public boolean onPreferenceClick(Preference preference) {
 
                 //check for pw eventually
-                PrefsPasswordDialog popup = new PrefsPasswordDialog(thisFrag);
+                popup = new PrefsPasswordDialog(thisFrag);
                 FragmentManager manager = getFragmentManager();
                 popup.show(manager, "prefs_enter_password");
 
@@ -151,6 +153,11 @@ public class PrefsFragment extends PreferenceFragment
      * If given the correct password, the preferences page will display debug settings
      */
     public void enableDeveloperOptions(String password) {
+
+        if (popup != null) {
+            popup.dismiss();
+        }
+
         if (password.equals(Android.DEBUG_PW)) {
             getPreferenceManager().getSharedPreferences().edit().putBoolean(Android.PREF_DEBUG, true).commit();
             reload();

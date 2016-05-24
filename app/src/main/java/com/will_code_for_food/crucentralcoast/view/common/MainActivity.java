@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.view.common;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.graphics.Rect;
@@ -26,6 +27,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -197,6 +199,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 1) {
+            FrameLayout contentFrame = (FrameLayout) findViewById(R.id.content_frame);
+            contentFrame.removeAllViews(); //ensures that the current screen is removed before going back
+
             getFragmentManager().popBackStack();
             setTitle(titleStack.pop());
         } else if (backButtonExitsApp){
@@ -281,8 +286,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO: 1/19/16 Change Settings fragment so it isn't created only programmatically- use XML!
-    public void loadFragmentById(int loadId, String newTitle, Fragment fragment, MainActivity parent) {
+    public void loadFragmentWithBackstackOption(int loadId, String newTitle, Fragment fragment, MainActivity parent, boolean addToStack) {
         FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction;
 
         //if no associated controller code for this fragment
         if (fragment == null) {
@@ -307,13 +313,20 @@ public class MainActivity extends AppCompatActivity {
         args.putString("name", newTitle);
         fragment.setArguments(args);
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, fragment)
-                .addToBackStack(null)
-                .commit();
+        transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.content_frame, fragment);
 
-        titleStack.push(getTitle().toString());
+        if (addToStack) {
+            transaction.addToBackStack(null);
+            titleStack.push(getTitle().toString());
+        }
+
+        transaction.commit();
         setTitle(newTitle);
+    }
+
+    public void loadFragmentById(int loadId, String newTitle, Fragment fragment, MainActivity parent) {
+        loadFragmentWithBackstackOption(loadId, newTitle, fragment, parent, true);
     }
 
     public void newActivity(Class newClass) {

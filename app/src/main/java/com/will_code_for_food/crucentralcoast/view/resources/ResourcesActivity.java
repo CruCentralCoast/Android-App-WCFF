@@ -7,6 +7,7 @@ import android.content.Intent;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.authentication.Authenticator;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.resources.LeaderArticleCardFactory;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
@@ -36,13 +37,14 @@ public class ResourcesActivity extends MainActivity {
         loadFragmentById(R.layout.fragment_resources, title, new ResourcesFragment(), this);
     }
 
+    /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && Authenticator.isUserLoggedIn()) {
             goToLeaderResources();
         }
-    }
+    }*/
 
     /**
      * Displays the Cru YouTube videos in a list
@@ -62,7 +64,8 @@ public class ResourcesActivity extends MainActivity {
 
     public void viewLeaderResources() {
         if (!Authenticator.isUserLoggedIn() && !Authenticator.logIn()) {
-            startActivityForResult(new Intent(this, LogInActivity.class), 1);
+            //startActivityForResult(new Intent(this, LogInActivity.class), 1);
+            loadFragmentById(R.layout.fragment_login_form, Util.getString(context, R.string.login_title), new LogInFragment(), this);
         } else {
             goToLeaderResources();
         }

@@ -1,6 +1,8 @@
 package com.will_code_for_food.crucentralcoast.view.dynamic_form;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,14 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.will_code_for_food.crucentralcoast.controller.Logger;
+import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
 import com.will_code_for_food.crucentralcoast.model.common.form.QuestionType;
+import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupForm;
+import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryQuestionRetriever;
+import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,7 +33,7 @@ import java.util.List;
 public class FormFragment extends CruFragment {
     private List<FormElementFragment> fragments;
     private Form form;
-    private Ministry ministry;
+    private String ministryID;
 
     // TODO may need ui methods (onCResume, etc)
 
@@ -34,7 +43,7 @@ public class FormFragment extends CruFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         Bundle args = getArguments();
         // TODO the form needs to be passed in as an argument
-        //this.form = (Form) args.getSerializable("form");
+        ministryID = args.getString("ministryID");
         form = new Form() {
             @Override
             public List<FormValidationResult> isValidDetailed() {
@@ -51,6 +60,7 @@ public class FormFragment extends CruFragment {
         form.addQuestion(q1);
         form.addQuestion(q2);
         loadForm(form);
+
         return view;
     }
 
@@ -109,4 +119,31 @@ public class FormFragment extends CruFragment {
             Logger.e("DYNAMIC FORM", "Form should not be null");
         }
     }
+
+    /**
+     * Asynchronously retrieves a list of ministries from the database and puts them into the ListView
+     * for this activity.
+     */
+    private class FormTask extends AsyncTask<Void, Void, Void> {
+        Activity parent;
+        CommunityGroupForm correct;
+
+        public FormTask(Activity newParent) {
+            parent = newParent;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            HashMap<String, CommunityGroupForm> forms = MinistryQuestionRetriever.getAllCommunityGroupForms();
+            correct = forms.get(ministryID);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            //form = correct;
+        }
+    }
+
 }

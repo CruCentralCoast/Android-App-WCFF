@@ -46,7 +46,6 @@ public class GetInvolvedActivity extends MainActivity {
     }
 
     public void viewJoinCommunityGroup() {
-        //HashMap<String, CommunityGroupForm> forms = MinistryQuestionRetriever.getAllCommunityGroupForms();
         HashMap<String, CommunityGroupForm> forms = new HashMap<String, CommunityGroupForm>();
         ArrayList<String> ministryList = new ArrayList<String>(Util.loadStringSet(Android.PREF_MINISTRIES));
         for (String ministry : ministryList) {

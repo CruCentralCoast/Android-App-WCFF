@@ -48,13 +48,14 @@ public class GetInvolvedActivity extends MainActivity {
     public void viewJoinCommunityGroup() {
         //HashMap<String, CommunityGroupForm> forms = MinistryQuestionRetriever.getAllCommunityGroupForms();
         HashMap<String, CommunityGroupForm> forms = new HashMap<String, CommunityGroupForm>();
-        forms.put("Form 1", new CommunityGroupForm("1"));
-        forms.put("Form 2", new CommunityGroupForm("2"));
-        ArrayList<String> keyList = new ArrayList<String>(forms.keySet());
+        ArrayList<String> ministryList = new ArrayList<String>(Util.loadStringSet(Android.PREF_MINISTRIES));
+        for (String ministry : ministryList) {
+            forms.put(ministry, new CommunityGroupForm(ministry));
+        }
         Logger.i("Community Groups", "Displaying...");
         FormListFragment flFrag = new FormListFragment();
         Bundle args = new Bundle();
-        args.putStringArrayList("keyList", keyList);
+        args.putStringArrayList("ministryList", ministryList);
         args.putSerializable("formsMap", forms);
         flFrag.setArguments(args);
         loadFragmentById(R.layout.fragment_form_list_layout, communityGroupsTitle, flFrag, this);

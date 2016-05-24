@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.will_code_for_food.crucentralcoast.controller.Logger;
+import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
@@ -23,6 +24,7 @@ import java.util.List;
 public class FormFragment extends CruFragment {
     private List<FormElementFragment> fragments;
     private Form form;
+    private Ministry ministry;
 
     // TODO may need ui methods (onCResume, etc)
 

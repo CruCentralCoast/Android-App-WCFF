@@ -11,6 +11,7 @@ import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
+import com.will_code_for_food.crucentralcoast.model.common.form.QuestionType;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 
 import java.util.ArrayList;
@@ -31,7 +32,22 @@ public class FormFragment extends CruFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         Bundle args = getArguments();
         // TODO the form needs to be passed in as an argument
-        this.form = (Form) args.getSerializable("form");
+        //this.form = (Form) args.getSerializable("form");
+        form = new Form() {
+            @Override
+            public List<FormValidationResult> isValidDetailed() {
+                return null;
+            }
+
+            @Override
+            public boolean submit() {
+                return false;
+            }
+        };
+        Question q1 = new Question("Question 1", "What is your name?", QuestionType.FREE_RESPONSE_SHORT);
+        Question q2 = new Question("Question 2", "Are you cool?", QuestionType.TRUE_FALSE);
+        form.addQuestion(q1);
+        form.addQuestion(q2);
         loadForm(form);
         return view;
     }

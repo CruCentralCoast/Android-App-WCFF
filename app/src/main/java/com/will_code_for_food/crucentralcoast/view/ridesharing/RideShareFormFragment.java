@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.PhoneNumberAccessor;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
@@ -82,10 +83,15 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
+        Logger.i("RideShareFormFragment", "*");
         initComponents(fragmentView);
+        Logger.i("RideShareFormFragment", "**");
         loadMap();
+        Logger.i("RideShareFormFragment", "***");
         autoFill();
+        Logger.i("RideShareFormFragment", "****");
         setListeners();
+        Logger.i("RideShareFormFragment", "*****");
 
         return fragmentView;
     }
@@ -250,7 +256,7 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
             Toast.makeText(parent, "Submitted Form", Toast.LENGTH_SHORT).show();
             form.submit();
             submitFormAdditionalActions();
-            DBObjectLoader.loadRides(Database.DB_TIMEOUT);
+            DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
         } else {
             // error
             Toast.makeText(parent, "Error!", Toast.LENGTH_SHORT).show();
@@ -310,6 +316,7 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
             WorkaroundMapFragment mapFragment = (WorkaroundMapFragment) getParent().getSupportFragmentManager().findFragmentById(R.id.rideshare_form_map);
 
+            Logger.i("RideShareFormFragment", "setting map fragment listener");
             mapFragment.setListener(new WorkaroundMapFragment.OnTouchListener() {
                 @Override
                 public void onTouch() {
@@ -318,6 +325,8 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
             });
 
             mapFragment.getMapAsync(this);
+        } else {
+            Logger.i("RideShareFormFragment", "mMap was not null");
         }
     }
 

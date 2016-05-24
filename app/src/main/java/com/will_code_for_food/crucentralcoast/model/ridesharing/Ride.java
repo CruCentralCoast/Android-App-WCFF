@@ -1,15 +1,12 @@
 package com.will_code_for_food.crucentralcoast.model.ridesharing;
 
-import android.util.Log;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
-import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.JsonDatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
-import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Gender;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
@@ -21,13 +18,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
  * A ride, stored in the database.
  */
-public class Ride extends DatabaseObject {
+public class Ride extends JsonDatabaseObject {
     /**
      * these could be final, but it would mean
      * creating a JSON object in the second
@@ -213,11 +209,45 @@ public class Ride extends DatabaseObject {
     }
 
     public String getLeaveTime() {
-        return super.getFormattedDate(Database.JSON_KEY_RIDE_TIME, Database.RIDE_TIME_FORMAT);
+        JsonElement date = this.getField(Database.JSON_KEY_RIDE_TIME);
+        String rideTime;
+
+        if (date == null) {
+            date = new JsonPrimitive("");
+        }
+
+        // Convert ISODate to Java Date format
+        try {
+            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+            Date start = dateFormat.parse(date.getAsString());
+            SimpleDateFormat format = new SimpleDateFormat(Database.RIDE_TIME_FORMAT);
+            rideTime = format.format(start);
+        } catch (ParseException e) {
+            // Can't be parsed; just use the default ISO format
+            rideTime = date.getAsString();
+        }
+        return rideTime;
     }
 
     public String getLeaveDate() {
-        return super.getFormattedDate(Database.JSON_KEY_RIDE_TIME, Database.RIDE_DATE_FORMAT);
+        JsonElement date = this.getField(Database.JSON_KEY_RIDE_TIME);
+        String rideDate;
+
+        if (date == null) {
+            date = new JsonPrimitive("");
+        }
+
+        // Convert ISODate to Java Date format
+        try {
+            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+            Date start = dateFormat.parse(date.getAsString());
+            SimpleDateFormat format = new SimpleDateFormat(Database.RIDE_DATE_FORMAT);
+            rideDate = format.format(start);
+        } catch (ParseException e) {
+            // Can't be parsed; just use the default ISO format
+            rideDate = date.getAsString();
+        }
+        return rideDate;
     }
 
     public Calendar getLeaveTimeToEvent() {

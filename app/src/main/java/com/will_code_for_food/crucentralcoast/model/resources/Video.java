@@ -2,7 +2,7 @@ package com.will_code_for_food.crucentralcoast.model.resources;
 
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.JsonDatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.values.Youtube;
@@ -15,7 +15,7 @@ import java.util.Date;
  * Video represents a YouTube video loaded from a Json query
  * Used to retrieve information needed to play and display the YouTube video
  */
-public class Video extends DatabaseObject implements Comparable {
+public class Video extends JsonDatabaseObject implements Comparable {
 
     JsonObject snippet;
 

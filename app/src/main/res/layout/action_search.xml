@@ -18,6 +18,7 @@
         android:imeActionId="1337"
         android:imeOptions="actionDone"
         android:inputType="text"
-        android:width="100sp"/>
+        android:width="175sp"
+        android:maxLength="25"/>
 
 </LinearLayout>

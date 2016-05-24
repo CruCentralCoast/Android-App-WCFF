@@ -1,5 +1,6 @@
 package com.will_code_for_food.crucentralcoast.view;
 
+import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.ImageButton;
@@ -11,6 +12,7 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.TestDB;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
+import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity;
 
 import java.util.ArrayList;
 
@@ -77,7 +79,7 @@ public class EventsActivityTests extends ActivityInstrumentationTestCase2<Events
 
         // Test the buttons
         ImageButton calendarButton = (ImageButton) activity.findViewById(R.id.button_calendar);
-        ImageButton ridesharingButton = (ImageButton) activity.findViewById(R.id.button_rideshare);
+        final ImageButton ridesharingButton = (ImageButton) activity.findViewById(R.id.button_rideshare);
         ImageButton facebookButton = (ImageButton) activity.findViewById(R.id.button_facebook);
         ImageButton mapButton = (ImageButton) activity.findViewById(R.id.button_map);
         assertTrue(calendarButton != null);
@@ -100,5 +102,32 @@ public class EventsActivityTests extends ActivityInstrumentationTestCase2<Events
         TextView descriptionLabel = (TextView)activity.findViewById(R.id.text_event_description);
         assertTrue(descriptionLabel != null);
         assertEquals(events.get(0).getDescription(), descriptionLabel.getText());
+
+        //begin characterization tests, expected to fail
+        ridesharingButton.performClick();
+        assertEquals(getActivity(), activity);
+        //this test worked?  need to figure out where activity is being sent
+
+        //re-characterize test
+        // register next activity that need to be monitored.
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(RideShareActivity.class.getName(), null, false);
+
+        // open current activity.
+        EventsActivity myActivity = getActivity();
+        myActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // click button and open next activity.
+                ridesharingButton.performClick();
+            }
+        });
+
+        //Watch for the timeout
+        //example values 5000 if in ms, or 5 if it's in seconds.
+        RideShareActivity nextActivity = (RideShareActivity) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
+        // next activity is opened and captured.
+        assertNotNull(nextActivity);
+        assertEquals(true, nextActivity instanceof RideShareActivity);
+        nextActivity .finish();
     }
 }

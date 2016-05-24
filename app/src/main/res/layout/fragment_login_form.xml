@@ -17,13 +17,14 @@
         android:text="@string/login_user"
         android:textSize="15sp"
         android:textColor="@color/colorAccent_cruBrightBlue"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"/>
 
     <EditText
         android:id="@+id/login_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"/>
+        android:paddingTop="10dp"
+        android:maxLength="25"/>
 
     <TextView
         android:id="@+id/login_password_prompt"
@@ -39,7 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:paddingTop="10dp"/>
+        android:paddingTop="10dp"
+        android:maxLength="25"/>
 
     <Button
         android:id="@+id/login_button"
@@ -47,7 +49,6 @@
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:onClick="attemptLogIn"
         android:background="@color/colorPrimary_cruGold"
         android:text="@string/login_title" />
 

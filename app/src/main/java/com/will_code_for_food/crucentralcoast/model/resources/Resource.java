@@ -3,14 +3,14 @@ package com.will_code_for_food.crucentralcoast.model.resources;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.JsonDatabaseObject;
 
 import java.util.ArrayList;
 
 /**
  * Created by MasonStevenson on 11/15/2015.
  */
-public class Resource extends DatabaseObject {
+public class Resource extends JsonDatabaseObject {
 
     private String url;
     private String type;

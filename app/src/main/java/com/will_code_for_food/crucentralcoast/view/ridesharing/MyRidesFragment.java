@@ -82,7 +82,7 @@ public class MyRidesFragment extends CruFragment {
     private void refreshList() {
         Logger.i("MyRidesFragment", "refreshing rides");
 
-        if (!DBObjectLoader.loadRides(Database.DB_TIMEOUT)) {
+        if (!DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT).show();
         }
 

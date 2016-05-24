@@ -8,6 +8,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
+import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupForm;
+import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupQuestion;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.values.Database;
@@ -32,6 +34,7 @@ public class RestUtil {
     private static HttpURLConnection createGetConnection(String dbUrl, String from) throws Exception {
         String dataUrl = dbUrl + from;
         URL url = new URL(dataUrl);
+        Logger.e("URL", url.toString());
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int timeout = Database.DB_TIMEOUT;
         connection.setConnectTimeout(timeout);
@@ -109,13 +112,32 @@ public class RestUtil {
             HttpURLConnection conn = createGetConnection(DB_URL, tableName);
             String toParse = request(conn);
 
-            if (toParse.equals("!error"))
+            if (toParse.equals("!error")) {
+                Logger.e("Get", "Got '!error'");
                 return null;
-            else
+            } else {
                 return parser.parse(toParse).getAsJsonArray();
+            }
         } catch (Exception ex) {
+            Logger.e("Get", "Exception in get()");
+            ex.printStackTrace();
             return null;
         }
+    }
+
+    public static CommunityGroupForm getMinistryQuestions(final String ministryId) {
+        JsonArray ary = get("ministries/" + ministryId + "/questions");
+        Logger.i("Getting questions", "Getting from " + ministryId);
+        CommunityGroupForm form = new CommunityGroupForm(ministryId);
+        if (ary != null) {
+            for (JsonElement obj : ary) {
+                Logger.i("Getting questions", "Found question");
+                form.add(new CommunityGroupQuestion(obj.getAsJsonObject()));
+            }
+        } else {
+            Logger.e("Getting questions", "Returned json array is null");
+        }
+        return form;
     }
 
     /**
@@ -277,6 +299,38 @@ public class RestUtil {
      */
     public static JsonObject update(JsonObject updatedObject, String collectionName) {
         return sendJsonObject(updatedObject, collectionName, true);
+    }
+
+    public static boolean delete(DatabaseObject dbObj, String collectionName){
+        HttpURLConnection connection = null;
+        boolean actionSuccessful = false;
+        int httpResult;
+        try {
+           connection = createChangeConnection(collectionName,
+                    "{}", Database.CONTENT_TYPE_JSON, dbObj.getId(), Database.HTTP_REQUEST_METHOD_DELETE);
+
+            httpResult = connection.getResponseCode();
+
+            if(httpResult == HttpURLConnection.HTTP_OK || httpResult == HttpURLConnection.HTTP_CREATED
+                    || httpResult == HttpURLConnection.HTTP_NO_CONTENT){
+                actionSuccessful = true;
+                Log.d("RestUtil.java", connection.getResponseMessage());
+            } else{
+                Log.d("RestUtil.java", connection.getResponseMessage());
+            }
+
+
+        } catch (Exception ex) {
+            Log.e("RestUtil.java", ex.toString());
+            System.out.println(ex.toString());
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+
+        return actionSuccessful;
+
     }
 
     private static boolean addDropHelper(Boolean remove, String rideId, String passengerId) {

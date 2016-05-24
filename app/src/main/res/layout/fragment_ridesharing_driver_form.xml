@@ -32,7 +32,8 @@
                 android:layout_below="@+id/name_prompt"
                 android:textSize="15sp"
                 android:paddingTop="5dp"
-                android:paddingBottom="10dp"/>
+                android:paddingBottom="10dp"
+                android:maxLength="35"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -52,7 +53,8 @@
                 android:layout_below="@+id/number_prompt"
                 android:textSize="15sp"
                 android:paddingTop="5dp"
-                android:paddingBottom="10dp"/>
+                android:paddingBottom="10dp"
+                android:maxLength="10"/>
 
             <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="fill_parent"

@@ -9,11 +9,13 @@ import com.google.gson.JsonParser;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
+import com.will_code_for_food.crucentralcoast.model.common.common.JsonDatabaseObject;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Caches objects of a certain type
@@ -26,7 +28,7 @@ public class CacheTool<T extends DatabaseObject> {
                                 final List<T> list) {
         List<String> stringList = new ArrayList<>();
         for (T obj : list) {
-            HashMap<String, JsonElement> map = obj.getJsonEntrySet();
+            Map<String, String> map = obj.getEntrySet();
             for (String key : map.keySet()) {
                 stringList.add(key + LocalStorageIO.HASHMAP_DELIMITER + map.get(key));
             }

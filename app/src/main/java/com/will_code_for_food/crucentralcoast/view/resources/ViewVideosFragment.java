@@ -2,6 +2,7 @@ package com.will_code_for_food.crucentralcoast.view.resources;
 
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,6 +41,7 @@ public class ViewVideosFragment extends CruFragment implements TextView.OnEditor
     private ListView list;
     private MainActivity currentActivity;
     private int firstItem, visibleItems, totalItems;
+    private SwipeRefreshLayout layout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +55,11 @@ public class ViewVideosFragment extends CruFragment implements TextView.OnEditor
         list = (ListView) fragmentView.findViewById(R.id.list_cards);
         LoadVideos();
         DisplayVideos();
+
+        layout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.card_refresh_layout);
+
+        //TODO: re-enable this and implement refresh for videos
+        layout.setEnabled(false);
 
         return fragmentView;
     }

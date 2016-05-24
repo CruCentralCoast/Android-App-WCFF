@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.Notifier;
+import com.will_code_for_food.crucentralcoast.model.common.messaging.SMSNotifier;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
@@ -49,7 +50,10 @@ public class MinistryTeamSignupDialog extends DialogFragment {
                 String name = nameInput.getText().toString();
                 String email = emailInput.getText().toString();
                 String number = numberInput.getText().toString();
-                team.signup(name, email, number);
+
+                // create an SMS notifier to send a text to the user
+                SMSNotifier notifier = new SMSNotifier(getActivity(), Util.getString(R.string.phone_number));
+                team.signup(name, email, number, notifier);
             }
         });
         // Create the AlertDialog object and return it

@@ -1,27 +1,36 @@
 package com.will_code_for_food.crucentralcoast.controller.api_interfaces;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.will_code_for_food.crucentralcoast.controller.Logger;
+
 /**
- * Created by Mallika on 11/17/15.
- * Class to demonstrate SMS messaging capability.
+ * Handles the interface between our application and
+ * the SMS application on the user's phone
  */
 public class SMSHandler {
 
-    public static void sendSMS(Activity currentActivity, final String number, final String msg) {
+    /**
+     * Sends a text message via an intent
+     */
+    public static boolean sendSMS(Context context, final String number, final String msg) {
         try {
+            Logger.i("Send SMS", "Sending SMS to " + number);
             Intent sendIntent = new Intent(Intent.ACTION_VIEW);
             sendIntent.putExtra("sms_body", msg);
-            sendIntent.putExtra("address"  , number);
+            sendIntent.putExtra("address", number);
             sendIntent.setType("vnd.android-dir/mms-sms");
-            currentActivity.startActivity(sendIntent);
+            context.startActivity(sendIntent);
+            return true;
         } catch (Exception ex) {
-            Toast.makeText(currentActivity.getApplicationContext(),
+            Toast.makeText(context.getApplicationContext(),
                     "Sending SMS failed.",
                     Toast.LENGTH_LONG).show();
             ex.printStackTrace();
+            Logger.e("Send SMS", "Message failed to send to " + number);
+            return false;
         }
     }
 }

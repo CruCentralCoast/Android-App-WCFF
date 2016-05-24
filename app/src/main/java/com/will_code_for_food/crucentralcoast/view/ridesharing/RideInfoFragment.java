@@ -18,6 +18,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
@@ -254,7 +255,7 @@ public class RideInfoFragment extends CruFragment {
                     public void onClick(View v) {
                         //drop ride
                         new DropPassenger(thisPassenger).execute();
-                        DBObjectLoader.loadRides(Database.DB_TIMEOUT);
+                        DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
                         setToJoin();
                     }
                 });
@@ -265,7 +266,7 @@ public class RideInfoFragment extends CruFragment {
                     public void onClick(View v) {
                         //cancel ride
                         new DropRide().execute();
-                        DBObjectLoader.loadRides(Database.DB_TIMEOUT);
+                        DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
                     }
                 });
             } else {
@@ -294,13 +295,7 @@ public class RideInfoFragment extends CruFragment {
             for (int i = 0; i < passengers.size(); i++) {
                 RestUtil.dropPassenger(ride.getId(), passengers.get(i).getAsString());
             }
-            //TODO: delete from database
-            // Currently this just sets the driver's name and number to cancelled and
-            // Sets number of seats to 0
-            System.out.println("TESTING CANCEL");
-            RestUtil.update(Ride.toJSON(ride.getId(), ride.getEventId(), "CANCELLED", "CANCELLED",
-                    ride.getGcmId(), ride.getLocation(), "", 0.0, 0, ride.getDirection(), "1"),
-                    Database.REST_RIDE);
+            RestUtil.delete(ride, Database.REST_RIDE);
             return null;
         }
 

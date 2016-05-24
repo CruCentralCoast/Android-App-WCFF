@@ -18,6 +18,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.will_code_for_food.crucentralcoast.R;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
@@ -228,7 +229,7 @@ public class RideInfoFragment extends CruFragment {
                     public void onClick(View v) {
                         //drop ride
                         new DropPassenger(thisPassenger).execute();
-                        DBObjectLoader.loadRides(Database.DB_TIMEOUT);
+                        DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
                         setToJoin();
                     }
                 });
@@ -239,7 +240,7 @@ public class RideInfoFragment extends CruFragment {
                     public void onClick(View v) {
                         //cancel ride
                         new DropRide().execute();
-                        DBObjectLoader.loadRides(Database.DB_TIMEOUT);
+                        DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
                     }
                 });
             } else {

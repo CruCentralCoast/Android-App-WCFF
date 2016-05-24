@@ -69,7 +69,7 @@ public class ResourceArticleFragment extends CruFragment implements TextView.OnE
     public void refreshList() {
         Logger.i("ResourceArticleFragment", "refreshing articles");
 
-        if (!DBObjectLoader.loadResources(Database.DB_TIMEOUT)) {
+        if (!DBObjectLoader.loadObjects(RetrieverSchema.RESOURCE, Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh articles", Toast.LENGTH_SHORT).show();
         }
 

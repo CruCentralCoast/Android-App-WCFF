@@ -9,16 +9,20 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.LocalStorageIO;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
+import com.will_code_for_food.crucentralcoast.model.common.messaging.Notifier;
 import com.will_code_for_food.crucentralcoast.model.common.messaging.PushUtil;
+import com.will_code_for_food.crucentralcoast.model.common.messaging.SMSNotifier;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.values.LocalFiles;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
+import com.will_code_for_food.crucentralcoast.view.common.MyApplication;
 
 /**
  * Created by MasonJStevenson on 2/16/2016.
@@ -77,12 +81,14 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
 
         if ((result != null) && ((ride.hasPassenger(new Passenger(result).getId()))
                 || (RestUtil.addPassenger(ride.getId(), new Passenger(result).getId())))) {
-            notifyDriver(passengerName, ride, directionPreference);
+            // create a notifier to send a message to the driver
+            Notifier notifier = new SMSNotifier(MainActivity.context, ride.getDriverNumber());
+            notifyDriver(passengerName, ride, directionPreference, notifier);
 
             parent.runOnUiThread(new Runnable() {
                 public void run() {
                     Toast.makeText(parent, "Ride Joined", Toast.LENGTH_SHORT).show();
-                    DBObjectLoader.loadRides(Database.DB_TIMEOUT);
+                    DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
                     parent.loadFragmentById(R.layout.fragment_my_rides_list,
                             Util.getString(R.string.ridesharing_my_rides_title),
                             new MyRidesFragment(), parent);
@@ -104,7 +110,7 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
     }
 
     private void notifyDriver(final String passengerName, final Ride ride,
-                              final String directionPreference) {
+                              final String directionPreference, final Notifier notifier) {
         Logger.i("Signing up for ride", "Notifying driver of a new rider");
         // creating message
         String msg = "Hi! My name is %s, and I just used the CRU app to sign up "
@@ -114,7 +120,7 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
             msg += String.format(" I'm hoping to get a ride %s the event, thanks!",
                     directionPreference != "both" ? directionPreference : "both to and from");
         }
-        SMSHandler.sendSMS(parent, ride.getDriverNumber(), msg);
+        notifier.notify(msg);
     }
 
     @Override

@@ -21,13 +21,43 @@ public class SummerMission extends JsonDatabaseObject {
 
     // Gets the date of the mission in reader format
     public String getMissionDateString() {
-        return super.getFormattedDate(Database.JSON_KEY_EVENT_STARTDATE, Database.MISSION_DATE_FORMAT);
+        JsonElement dateStart = this.getField(Database.JSON_KEY_EVENT_STARTDATE);
+        String eventDate;
+
+        // Convert ISODate to Java Date format
+        try {
+            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+            Date start = dateFormat.parse(dateStart.getAsString());
+            eventDate = formatDate(start);
+        } catch (ParseException e) {
+            // Can't be parsed; just use the default ISO format
+            eventDate = dateStart.getAsString();
+        }
+
+        return eventDate;
     }
 
     // Gets the start and end date of the mission in reader format
     public String getMissionFullDate() {
-        return getMissionDateString() + " - " +
-                super.getFormattedDate(Database.JSON_KEY_EVENT_ENDDATE, Database.MISSION_DATE_FORMAT);
+        JsonElement dateEnd = getField(Database.JSON_KEY_EVENT_ENDDATE);
+        String eventDate;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+            SimpleDateFormat newFormat = new SimpleDateFormat(Database.MISSION_DATE_FORMAT);
+            Date end = dateFormat.parse(dateEnd.getAsString());
+            eventDate = getMissionDateString() + " - " + newFormat.format(end);
+        } catch (ParseException e) {
+            // Can't be parsed; just use the default ISO format
+            eventDate = getMissionDateString();
+        }
+
+        return eventDate;
+    }
+
+    // Formats the date into the form January 15, 2016
+    private String formatDate(Date date) {
+        String formattedDate = new SimpleDateFormat(Database.MISSION_DATE_FORMAT).format(date);
+        return formattedDate;
     }
 
     // Gets the website url of the mission

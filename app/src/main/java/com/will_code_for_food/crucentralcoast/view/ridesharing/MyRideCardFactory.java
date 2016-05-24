@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.will_code_for_food.crucentralcoast.R;
@@ -99,7 +100,12 @@ public class MyRideCardFactory implements CardFragmentFactory {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.fragment_ride_card, parent, false);
             }
-            
+
+            if (isPassenger(current, Util.getPhoneNum())) {
+                ImageView imageView = (ImageView) convertView.findViewById(R.id.image_car);
+                imageView.setImageResource(R.drawable.passenger_icon);
+            }
+
             TextView driverName = (TextView) convertView.findViewById(R.id.card_driver_name);
             driverName.setText(current.getDriverName());
 

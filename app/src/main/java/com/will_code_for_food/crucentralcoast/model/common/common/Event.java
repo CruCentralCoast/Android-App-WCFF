@@ -68,18 +68,54 @@ public class Event extends JsonDatabaseObject {
     }
 
     public Date getDate() {
-        return super.getDate(Database.JSON_KEY_EVENT_STARTDATE);
+        JsonElement dateStart = this.getField(Database.JSON_KEY_EVENT_STARTDATE);
+        DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+        try {
+            return dateFormat.parse(dateStart.getAsString());
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     // Gets the date of the event in reader format
     public String getEventDate() {
-        return super.getFormattedDate(Database.JSON_KEY_EVENT_STARTDATE, Database.EVENT_DATE_FORMAT);
+        JsonElement dateStart = this.getField(Database.JSON_KEY_EVENT_STARTDATE);
+        String eventDate;
+
+        // Convert ISODate to Java Date format
+        try {
+            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+            Date start = dateFormat.parse(dateStart.getAsString());
+            eventDate = formatDate(start);
+        } catch (ParseException e) {
+            // Can't be parsed; just use the default ISO format
+            eventDate = dateStart.getAsString();
+        }
+        return eventDate;
     }
 
     // Gets the start and end dates of the event in reader format
     public String getEventFullDate() {
-        return getEventDate() + " - " +
-                super.getFormattedDate(Database.JSON_KEY_EVENT_ENDDATE, Database.EVENT_DATE_FORMAT);
+        JsonElement dateEnd = getField(Database.JSON_KEY_EVENT_ENDDATE);
+        String eventDate;
+
+        // Convert ISODate to Java Date format
+        try {
+            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+            Date end = dateFormat.parse(dateEnd.getAsString());
+            eventDate = getEventDate() + " - " + formatDate(end);
+        } catch (ParseException e) {
+            // Can't be parsed; just use the default ISO format
+            eventDate = getEventDate();
+        }
+
+        return eventDate;
+    }
+
+    // Formats the date into the form Jan 15, 7:00AM
+    private String formatDate(Date date) {
+        String formattedDate = new SimpleDateFormat(Database.EVENT_DATE_FORMAT).format(date);
+        return formattedDate;
     }
 
     // Gets the address of the event in reader format
@@ -166,7 +202,7 @@ public class Event extends JsonDatabaseObject {
             calendarEvent = new CalendarEvent(getId(), getName(), getDescription(),
                     getEventLocation(), startTime.getTime(),
                     endTime.getTime(), reminderMinutesBefore);
-            
+
         } catch (java.text.ParseException ex) {
             Logger.e("Event Creation", "Unable to get mandatory data for" + getName());
             ex.printStackTrace();

@@ -2,13 +2,23 @@ package com.will_code_for_food.crucentralcoast.view.dynamic_form;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
@@ -34,6 +44,8 @@ public class FormFragment extends CruFragment {
     private List<FormElementFragment> fragments;
     private Form form;
     private String ministryID;
+    private ListView listView;
+    private Button submitButton;
 
     // TODO may need ui methods (onCResume, etc)
 
@@ -59,7 +71,14 @@ public class FormFragment extends CruFragment {
         Question q2 = new Question("Question 2", "Are you cool?", QuestionType.TRUE_FALSE);
         form.addQuestion(q1);
         form.addQuestion(q2);
-        loadForm(form);
+
+        Log.e("QUESTION #", Integer.toString(form.getQuestions().size()));
+
+        listView = (ListView) view.findViewById(R.id.question_list_view);
+        submitButton = (Button) view.findViewById(R.id.question_submit);
+
+        //loadForm(form);
+        new FormTask(getActivity()).execute();
 
         return view;
     }
@@ -120,6 +139,76 @@ public class FormFragment extends CruFragment {
         }
     }
 
+    private class FormFragmentAdapter extends ArrayAdapter<Question> {
+
+        private List<Question> questionList;
+        private Context context;
+
+        public FormFragmentAdapter(List<Question> questionList, Context context) {
+            super(context, R.layout.fragment_ministry_setup_card, questionList);
+            this.questionList = questionList;
+            this.context = context;
+        }
+
+        /**
+         * Fixes a weird bug in ListView that makes the list items change around when you scroll.
+         */
+        @Override
+        public int getViewTypeCount() {
+            return getCount();
+        }
+
+        /**
+         * Fixes a weird bug in ListView that makes the list items change around when you scroll.
+         */
+        @Override
+        public int getItemViewType(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            Question question = questionList.get(position);
+            LayoutInflater inflater = LayoutInflater.from(context);
+            switch (question.getType()) {
+                case FREE_RESPONSE_SHORT:
+                    convertView = inflater.inflate(R.layout.question_free_response, parent, false);
+                    TextView questionText = (TextView) convertView.findViewById(R.id.question_text);
+                    questionText.setText(question.getPrompt());
+                    Log.e("PROMPT", question.getPrompt());
+                    break;
+                case FREE_RESPONSE_LONG:
+                    convertView = inflater.inflate(R.layout.question_free_response, parent, false);
+                    TextView questionTextFR = (TextView) convertView.findViewById(R.id.question_text);
+                    questionTextFR.setText(question.getPrompt());
+                    Log.e("PROMPT", question.getPrompt());
+                    break;
+                /*case MAP_SELECTION:
+                    fragments.add(null); //TODO load real fragment
+                    break;
+                case MULTI_OPTION_SELECT:
+                    fragments.add(null); //TODO load real fragment
+                    break;*/
+                /*case TIME_SELECT:
+                    fragments.add(null); //TODO load real fragment
+                    break;*/
+                case TRUE_FALSE:
+                    convertView = inflater.inflate(R.layout.yes_no_radio, parent, false);
+                    TextView questionTextTF = (TextView) convertView.findViewById(R.id.question_text);
+                    questionTextTF.setText(question.getPrompt());
+                    Log.e("PROMPT", question.getPrompt());
+                    break;
+                /*case NUMBER_SELECT:
+                    fragments.add(null); //TODO load real fragment
+                    break;*/
+                default:
+                    Logger.e("DYNAMIC FORM", "Invalid Question Type");
+            }
+
+            return convertView;
+        }
+    }
+
     /**
      * Asynchronously retrieves a list of ministries from the database and puts them into the ListView
      * for this activity.
@@ -134,8 +223,8 @@ public class FormFragment extends CruFragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            HashMap<String, CommunityGroupForm> forms = MinistryQuestionRetriever.getAllCommunityGroupForms();
-            correct = forms.get(ministryID);
+            //HashMap<String, CommunityGroupForm> forms = MinistryQuestionRetriever.getAllCommunityGroupForms();
+            //correct = forms.get(ministryID);
             return null;
         }
 
@@ -143,6 +232,9 @@ public class FormFragment extends CruFragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             //form = correct;
+            Log.e("SETTING ADAPTER", "TRUE");
+            listView.setAdapter(new FormFragmentAdapter(form.getQuestions(), parent));
+            Log.e("FormTask", "Set Adapter");
         }
     }
 

@@ -178,12 +178,9 @@ public class RidesFragment extends CruFragment implements TextView.OnEditorActio
             dialogButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Date date = new Date();
-                    String[] dayInfo = selected.getEventDate().split("/");
-                    date.setMonth(Integer.parseInt(dayInfo[0]));
-                    date.setDate(Integer.parseInt(dayInfo[1]));
-                    date.setYear(Integer.parseInt("20" + dayInfo[2]));
-                    date.setTime(time.getCurrentHour() + time.getCurrentMinute());
+                    Date date = selected.getEventStartDate();
+                    date.setHours(time.getCurrentHour());
+                    date.setMinutes(time.getCurrentMinute());
                     ((RideAdapter) listView.getAdapter()).sortByTime(date);
                     dialog.dismiss();
                 }

@@ -10,6 +10,7 @@ import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.Content;
 import com.will_code_for_food.crucentralcoast.model.common.common.DatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
+import com.will_code_for_food.crucentralcoast.model.common.common.sorting.RideSorter;
 import com.will_code_for_food.crucentralcoast.model.common.common.sorting.SortMethod;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.view.common.CardAdapter;
@@ -110,7 +111,8 @@ public class RideAdapter extends CardAdapter {
     }
 
     public void sortByTime(Date date){
-        //sortRideList(cards, date);
+//        sortRideList(cards, date);
+        cards = new Content<>(RideSorter.sortRideList(cards.getObjects(), date), cards.getType());
         this.notifyDataSetChanged();
     }
 

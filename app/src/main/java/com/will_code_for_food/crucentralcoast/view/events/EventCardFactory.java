@@ -16,6 +16,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.values.Database;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -24,7 +25,7 @@ import java.util.Set;
 public class EventCardFactory implements CardFragmentFactory<Event> {
     private Set<String> myMinistries;
 
-    public EventCardFactory(){
+    public EventCardFactory() {
         // Only display dbObjects for the ministry
         myMinistries = Util.loadStringSet(Android.PREF_MINISTRIES);
     }
@@ -39,6 +40,9 @@ public class EventCardFactory implements CardFragmentFactory<Event> {
 
         if (ministriesObject == null)
             return true;
+        // Return false if event date has already passed
+        if (object.getDate().before(new Date()))
+            return false;
         //Go through all ministries for the event and see if the user is subscribed
         for (JsonElement objectMinistry : ministriesObject.getAsJsonArray()) {
             if (myMinistries.contains(objectMinistry.getAsString())) {
@@ -46,7 +50,7 @@ public class EventCardFactory implements CardFragmentFactory<Event> {
             }
         }
 
-        //Return false if my ministries are not found
+        // Return false if my ministries are not found
         return false;
     }
 

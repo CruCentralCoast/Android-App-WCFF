@@ -13,6 +13,8 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
 import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
+import java.util.Date;
+
 /**
  * Created by Kayla on 1/31/2016.
  */
@@ -33,8 +35,8 @@ public class RideCardFactory implements CardFragmentFactory {
         //TODO: filter based on time leaving, 1/2-way, etc.
         // TODO use the RideSorter class!
 
-        return event != null && event.getId().equals(ride.getEventId()) && (!ride.isFullFromEvent() || !ride.isFullToEvent());
-
+        return event != null && event.getId().equals(ride.getEventId()) && (!ride.isFullFromEvent() || !ride.isFullToEvent())
+                && ride.getDate().after(new Date());
     }
 
     @Override

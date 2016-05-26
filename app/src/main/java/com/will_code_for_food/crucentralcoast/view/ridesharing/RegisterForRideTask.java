@@ -50,19 +50,9 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         JsonObject result;
-        Passenger passenger;
 
         //try to find passenger in db
-        passenger = RestUtil.getPassenger(phoneNum);
-
-        //if passenger doesn't exist
-        if (passenger == null) {
-            //push new passenger into db
-            result = RestUtil.create(Passenger.toJSON(passengerName, phoneNum, PushUtil.getGCMId(), directionPreference), Database.REST_PASSENGER);
-        } else {
-            //update existing passenger
-            result = RestUtil.update(Passenger.toJSON(passenger.getId(), passengerName, phoneNum, PushUtil.getGCMId(), directionPreference), Database.REST_PASSENGER);
-        }
+        result = RestUtil.create(Passenger.toJSON(passengerName, phoneNum, PushUtil.getGCMId(), directionPreference), Database.REST_PASSENGER);
 
         // check for internet connection
         if (!Util.isNetworkAvailable(parent)) {
@@ -89,6 +79,7 @@ public class RegisterForRideTask extends AsyncTask<Void, Void, Void> {
                 public void run() {
                     Toast.makeText(parent, "Ride Joined", Toast.LENGTH_SHORT).show();
                     DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
+                    DBObjectLoader.loadObjects(RetrieverSchema.PASSENGER, Database.DB_TIMEOUT);
                     parent.loadFragmentById(R.layout.fragment_my_rides_list,
                             Util.getString(R.string.ridesharing_my_rides_title),
                             new MyRidesFragment(), parent);

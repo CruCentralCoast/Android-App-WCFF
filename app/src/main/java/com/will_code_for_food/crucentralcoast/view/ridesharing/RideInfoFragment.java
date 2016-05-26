@@ -85,90 +85,116 @@ public class RideInfoFragment extends CruFragment {
 
     private void setRideInfo() {
         // Set text for event info
-        String eventText = Util.getString(R.string.ridesharing_event) + event.getName();
-        eventView.setText(eventText);
-
+        setRideEventInfo(eventView, event);
         // Set text for driver info
-        String driverText = Util.getString(R.string.ridesharing_driver) + ride.getDriverName();
-        if (ride.getGender() != null) {
-            driverText += " (" + getGenderFromEnum(ride.getGender()) + ")";
+        setRideDriverInfo(driver, ride);
+    }
+
+    public void setRideEventInfo(TextView textView, Event e) {
+        String eventText = Util.getString(R.string.ridesharing_event) + e.getName();
+        textView.setText(eventText);
+    }
+
+    public void setRideDriverInfo(TextView textView, Ride r) {
+        String driverText = Util.getString(R.string.ridesharing_driver) + r.getDriverName();
+        if (r.getGender() != null) {
+            driverText += " (" + getGenderFromEnum(r.getGender()) + ")";
         }
-        driver.setText(driverText);
+        textView.setText(driverText);
     }
 
     private void setRideLocationInfo() {
         // Set text for pickup location
+        String url = setRideLocationInfo(pickup, ride);
+        // Link location to Google maps
+        setMapButton(mapButton, url);
+    }
+
+    public String setRideLocationInfo(TextView textView, Ride r) {
         String locText = Util.getString(R.string.ridesharing_pickup_location);
         final String mapUrl;
-        if (ride.getLocation().getStreet() != null) {
-            mapUrl = Database.GOOGLE_MAP + ride.getLocation().getStreet();
-            locText += ride.getLocation().getStreet();
+        if (r.getLocation().getStreet() != null) {
+            mapUrl = Database.GOOGLE_MAP + r.getLocation().getStreet();
+            locText += r.getLocation().getStreet();
         } else {
             mapUrl = "";
             locText += Util.getString(R.string.ridesharing_unknown_location);
         }
-        pickup.setText(locText);
+        textView.setText(locText);
+        return mapUrl;
+    }
 
-        // Link location to Google maps
-        mapButton.setOnClickListener(new View.OnClickListener() {
+    public void setMapButton(ImageButton button, final String url) {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewMap(mapUrl);
+                viewMap(url);
             }
         });
     }
 
     private void setRideLeaveInfo() {
         // Leaving time
-        String timeText = Util.getString(R.string.ridesharing_time) + String.format(Util.getString(R.string.ridesharing_leaving_date),
-                ride.getLeaveTime(), ride.getLeaveDate());
-        leaveTime.setText(timeText);
-
+        setRideLeaveInfo(leaveTime, ride);
         // Direction
-        String dirText = Util.getString(R.string.ridesharing_direction) + ride.getDirection().toString();
-        direction.setText(dirText);
+        setRideDirectionInfo(direction, ride);
+    }
+
+    public void setRideLeaveInfo(TextView textView, Ride r) {
+        String timeText = Util.getString(R.string.ridesharing_time) + String.format(Util.getString(R.string.ridesharing_leaving_date),
+                r.getLeaveTime(), r.getLeaveDate());
+        textView.setText(timeText);
+    }
+
+    public void setRideDirectionInfo(TextView textView, Ride r) {
+        String dirText = Util.getString(R.string.ridesharing_direction) + r.getDirection().toString();
+        textView.setText(dirText);
     }
 
     private void setRidePassengerInfo() {
-        String passengerInfo = getRideInfo();
-        rideInfo.setText(passengerInfo);
+        setRidePassengerInfo(rideInfo, passengerButton, ride);
     }
 
-    private String getRideInfo() {
+    public void setRidePassengerInfo(TextView textView, ImageButton button, Ride r) {
+        String passengerInfo = getRideInfo(button, r);
+        textView.setText(passengerInfo);
+    }
+
+    private String getRideInfo(ImageButton button, final Ride r) {
         String info = "";
         String myPhoneNumber = Util.getPhoneNum();
         Passenger me = RestUtil.getPassenger(myPhoneNumber);
 
         // Displays driver's information (if joined ride)
-        if (me != null && ride.hasPassenger(me.getId())) {
-            info += "Driver #: " + ride.getDriverNumber();
+        if (me != null && r.hasPassenger(me.getId())) {
+            info += "Driver #: " + r.getDriverNumber();
         }
         // Display passenger information (if my ride)
-        else if (myPhoneNumber.equals(ride.getDriverNumber())) {
+        else if (myPhoneNumber.equals(r.getDriverNumber())) {
             info += "Passengers: ";
-            JsonArray passengers = ride.getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
+            JsonArray passengers = r.getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
 
             if (passengers == null || passengers.size() < 1) {
                 info += "none";
             } else {
                 info += passengers.size();
             }
-            passengerButton.setImageResource(R.drawable.car_yes);
-            passengerButton.setOnClickListener(new View.OnClickListener() {
+            button.setImageResource(R.drawable.car_yes);
+            button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    viewPassengers();
+                    viewPassengers(r);
                 }
             });
         }
         // Displays seats available (if not your ride)
         else {
             info += Util.getString(R.string.ridesharing_seats_available);
-            if ((ride.getDirection() == RideDirection.ONE_WAY_TO_EVENT) || (ride.getDirection() == RideDirection.TWO_WAY)) {
-                info += ride.getNumAvailableSeatsToEvent() + Util.getString(R.string.ridesharing_to_event);
+            if ((r.getDirection() == RideDirection.ONE_WAY_TO_EVENT) || (r.getDirection() == RideDirection.TWO_WAY)) {
+                info += r.getNumAvailableSeatsToEvent() + Util.getString(R.string.ridesharing_to_event);
             }
-            if ((ride.getDirection() == RideDirection.ONE_WAY_FROM_EVENT) || (ride.getDirection() == RideDirection.TWO_WAY)) {
-                info += ride.getNumAvailableSeatsFromEvent() + Util.getString(R.string.ridesharing_from_event);
+            if ((r.getDirection() == RideDirection.ONE_WAY_FROM_EVENT) || (r.getDirection() == RideDirection.TWO_WAY)) {
+                info += r.getNumAvailableSeatsFromEvent() + Util.getString(R.string.ridesharing_from_event);
             }
         }
 
@@ -189,10 +215,10 @@ public class RideInfoFragment extends CruFragment {
         }
     }
 
-    private void viewPassengers() {
+    private void viewPassengers(Ride r) {
         MainActivity currentActivity = getParent();
         currentActivity.loadFragmentById(R.layout.fragment_card_list, name + " > Passengers",
-                new MyPassengersFragment(ride), currentActivity);
+                new MyPassengersFragment(r), currentActivity);
     }
 
     private String getGenderFromEnum(String num) {
@@ -202,6 +228,16 @@ public class RideInfoFragment extends CruFragment {
             return Util.getString(Gender.MALE.getNameId());
         else
             return "";
+    }
+
+    private boolean isPassenger(Ride ride, String phoneNum) {
+        ArrayList<Passenger> passengers = DBObjectLoader.getPassengers();
+        for (Passenger passenger : passengers) {
+            if (passenger.getPhoneNumber().equals(phoneNum) && ride.hasPassenger(passenger.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private class SetButtonTask extends AsyncTask<Void, Void, Void> {
@@ -214,7 +250,7 @@ public class RideInfoFragment extends CruFragment {
         protected Void doInBackground(Void... params) {
             phoneNum = Util.getPhoneNum();
             thisPassenger = RestUtil.getPassenger(phoneNum);
-            rideJoined = thisPassenger != null && ride.hasPassenger(thisPassenger.getId());
+            rideJoined = isPassenger(ride, phoneNum);
             myRide = (phoneNum.equals(ride.getDriverNumber()));
             return null;
         }
@@ -229,7 +265,6 @@ public class RideInfoFragment extends CruFragment {
                     public void onClick(View v) {
                         //drop ride
                         new DropPassenger(thisPassenger).execute();
-                        DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
                         setToJoin();
                     }
                 });
@@ -240,7 +275,6 @@ public class RideInfoFragment extends CruFragment {
                     public void onClick(View v) {
                         //cancel ride
                         new DropRide().execute();
-                        DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
                     }
                 });
             } else {
@@ -277,6 +311,8 @@ public class RideInfoFragment extends CruFragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Toast.makeText(getParent(), "Cancelled Ride", Toast.LENGTH_SHORT).show();
+            DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
+            DBObjectLoader.loadObjects(RetrieverSchema.PASSENGER, Database.DB_TIMEOUT);
         }
     }
 
@@ -297,6 +333,8 @@ public class RideInfoFragment extends CruFragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Toast.makeText(getParent(), "Left Ride", Toast.LENGTH_SHORT).show();
+            DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
+            DBObjectLoader.loadObjects(RetrieverSchema.PASSENGER, Database.DB_TIMEOUT);
         }
     }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.will_code_for_food.crucentralcoast.R;
@@ -23,6 +24,7 @@ import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,9 +77,13 @@ public class MyRideCardFactory implements CardFragmentFactory {
     }
 
     private boolean isPassenger(Ride ride, String phoneNum) {
-        Passenger passenger = DBObjectLoader.getPassenger(phoneNum);
-
-        return passenger != null && ride.hasPassenger(passenger.getId());
+        ArrayList<Passenger> passengers = DBObjectLoader.getPassengers();
+        for (Passenger passenger : passengers) {
+            if (passenger.getPhoneNumber().equals(phoneNum) && ride.hasPassenger(passenger.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isDriver(Ride ride, String phoneNum) {
@@ -93,13 +99,17 @@ public class MyRideCardFactory implements CardFragmentFactory {
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
             Ride current = (Ride) cards.get(position);
-            
-            
+
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.fragment_ride_card, parent, false);
             }
-            
+
+            if (isPassenger(current, Util.getPhoneNum())) {
+                ImageView imageView = (ImageView) convertView.findViewById(R.id.image_car);
+                imageView.setImageResource(R.drawable.passenger_icon);
+            }
+
             TextView driverName = (TextView) convertView.findViewById(R.id.card_driver_name);
             driverName.setText(current.getDriverName());
 

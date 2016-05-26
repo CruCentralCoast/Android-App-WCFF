@@ -118,6 +118,7 @@ public class ResourceArticleFragment extends CruFragment implements TextView.OnE
             }
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
+                ((ArticleCardAdapter) listView.getAdapter()).clearSearch();
                 search.setText("");
                 sortItem.setVisible(true);
                 return true;

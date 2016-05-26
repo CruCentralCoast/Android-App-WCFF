@@ -72,6 +72,16 @@ public class Event extends JsonDatabaseObject {
         return url != null && !url.equals("");
     }
 
+    public Date getDate() {
+        JsonElement dateStart = this.getField(Database.JSON_KEY_EVENT_STARTDATE);
+        DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+        try {
+            return dateFormat.parse(dateStart.getAsString());
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
     // Gets the date of the event in reader format
     public String getEventDate() {
         JsonElement dateStart = this.getField(Database.JSON_KEY_EVENT_STARTDATE);
@@ -213,7 +223,7 @@ public class Event extends JsonDatabaseObject {
             calendarEvent = new CalendarEvent(getId(), getName(), getDescription(),
                     getEventLocation(), startTime.getTime(),
                     endTime.getTime(), reminderMinutesBefore);
-            
+
         } catch (java.text.ParseException ex) {
             Logger.e("Event Creation", "Unable to get mandatory data for" + getName());
             ex.printStackTrace();

@@ -48,6 +48,7 @@ import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -114,6 +115,13 @@ public abstract class RideShareFormFragment extends CruFragment implements OnMap
 
         hideKeyboardOnUnfocus(name, number);
         unfocusOnEnterKey(name, number);
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(selectedEvent.getDate());
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        datePicker.updateDate(year, month, day);
 
         form = getForm(selectedEvent.getId());
         form.print();

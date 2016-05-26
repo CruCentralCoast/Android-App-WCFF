@@ -144,7 +144,10 @@ public abstract class JsonDatabaseObject implements DatabaseObject {
     @Override
     public String getImage() {
         if (imageData != null) {
-            return imageData.getUrl();
+            String url = imageData.getUrl();
+            if (url.startsWith("//"))
+                url = "https:".concat(url);
+            return url;
         }
 
         return null;

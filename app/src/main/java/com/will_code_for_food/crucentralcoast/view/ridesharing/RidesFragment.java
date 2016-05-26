@@ -148,7 +148,8 @@ public class RidesFragment extends CruFragment implements TextView.OnEditorActio
     public void refreshRidesList() {
         Logger.i("RidesFragment", "refreshing rides list");
 
-        if (!DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT)) {
+        if (!DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT) &&
+                !DBObjectLoader.loadObjects(RetrieverSchema.PASSENGER, Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT).show();
         }
         loadRidesList();

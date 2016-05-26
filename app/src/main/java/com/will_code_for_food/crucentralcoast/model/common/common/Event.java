@@ -53,7 +53,12 @@ public class Event extends JsonDatabaseObject {
 
     // Gets whether ride sharing is enabled for this event
     public boolean hasRideSharing() {
-        return getField(Database.JSON_KEY_EVENT_HASRIDES).getAsBoolean();
+        JsonElement fieldValue = getField(Database.JSON_KEY_EVENT_HASRIDES);
+        if (fieldValue != null) {
+            return fieldValue.getAsBoolean();
+        } else {
+            return false;
+        }
     }
 
     // Gets the url of the Facebook page for this event
@@ -160,11 +165,13 @@ public class Event extends JsonDatabaseObject {
      */
     private void loadParentMinistries() {
         parentMinistries = new ArrayList<>();
-        JsonArray ministriesJson = this.getField(Database.JSON_KEY_EVENT_MINISTRIES).getAsJsonArray();
+        if (this.getField(Database.JSON_KEY_EVENT_MINISTRIES) != null){
+            JsonArray ministriesJson = this.getField(Database.JSON_KEY_EVENT_MINISTRIES).getAsJsonArray();
 
-        for (JsonElement ministry : ministriesJson) {
-            if (ministry.isJsonPrimitive()) {
-                parentMinistries.add(ministry.getAsString());
+            for (JsonElement ministry : ministriesJson) {
+                if (ministry.isJsonPrimitive()) {
+                    parentMinistries.add(ministry.getAsString());
+                }
             }
         }
     }

@@ -8,8 +8,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
-import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupForm;
-import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupQuestion;
+import com.will_code_for_food.crucentralcoast.model.common.form.Form;
+import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
+import com.will_code_for_food.crucentralcoast.model.common.form.MultiOptionQuestion;
+import com.will_code_for_food.crucentralcoast.model.common.form.Question;
+import com.will_code_for_food.crucentralcoast.model.common.form.QuestionType;
 import com.will_code_for_food.crucentralcoast.model.resources.Playlist;
 import com.will_code_for_food.crucentralcoast.model.common.common.users.Passenger;
 import com.will_code_for_food.crucentralcoast.values.Database;
@@ -21,6 +24,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Brian on 11/16/2015.
@@ -125,14 +130,59 @@ public class RestUtil {
         }
     }
 
-    public static CommunityGroupForm getMinistryQuestions(final String ministryId) {
+    public static Form getMinistryQuestions(final String ministryId) {
         JsonArray ary = get("ministries/" + ministryId + "/questions");
         Logger.i("Getting questions", "Getting from " + ministryId);
-        CommunityGroupForm form = new CommunityGroupForm(ministryId);
+
+        Form form = new Form() {
+            @Override
+            public List<FormValidationResult> isValidDetailed() {
+                return null;
+            }
+
+            @Override
+            public boolean submit() {
+                // TODO submit the form
+                Logger.i("Submitting the form...", "Currently not implemented");
+                return false;
+            }
+        };
+        // build the form
         if (ary != null) {
             for (JsonElement obj : ary) {
-                Logger.i("Getting questions", "Found question");
-                form.add(new CommunityGroupQuestion(obj.getAsJsonObject()));
+                Logger.i("Getting questions", "Found question " + obj.getAsJsonObject());
+                JsonObject qObj = obj.getAsJsonObject();
+                QuestionType type;
+                switch (qObj.get("type").getAsString()) {
+                    case "text":
+                        type = QuestionType.FREE_RESPONSE_SHORT;
+                        break;
+                    case "datetime":
+                        type = QuestionType.TIME_SELECT;
+                        break;
+                    case "select":
+                        type = QuestionType.MULTI_OPTION_SELECT;
+                        break;
+                    default:
+                        Logger.e("Getting Question", "Invalid type: " + qObj.get("type").getAsString());
+                        continue;
+                }
+                final String prompt = qObj.get("question").getAsString();
+                Logger.i("Question Prompt", prompt);
+                Question question;
+                if (type != QuestionType.MULTI_OPTION_SELECT) {
+                    question = new Question(prompt, prompt, type);
+                } else {
+                    List<Object> options = new ArrayList<>();
+                    for (JsonElement option : qObj.get("selectOptions").getAsJsonArray()) {
+                        String opt = option.getAsJsonObject().get("value").getAsString();
+                        Logger.i("Adding option:", opt);
+                        options.add(opt);
+                    }
+                    question = new MultiOptionQuestion(prompt, prompt, options);
+                }
+                question.setRequired(qObj.get("required").getAsBoolean());
+                form.addQuestion(question);
             }
         } else {
             Logger.e("Getting questions", "Returned json array is null");

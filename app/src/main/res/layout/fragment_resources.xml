@@ -16,6 +16,13 @@
         android:layout_width="fill_parent"
         android:layout_height="400dp" />
 
+    <!-- Divider -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/list_resources"
+        android:background="@color/colorPrimary_cruGold"/>
+
     <!-- Button Bar -->
     <LinearLayout
         android:id="@+id/buttons"
@@ -23,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/stroke_bg"
         android:orientation="horizontal">
         <!-- Facebook Link -->
         <ImageButton

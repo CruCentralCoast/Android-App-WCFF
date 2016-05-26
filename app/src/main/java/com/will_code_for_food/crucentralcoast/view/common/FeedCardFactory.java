@@ -66,6 +66,8 @@ public class FeedCardFactory implements CardFragmentFactory<DatabaseObject> {
 
     private boolean includeEvent(Event event) {
         JsonElement ministries = event.getField(Database.JSON_KEY_EVENT_MINISTRIES);
+        if (ministries == null)
+            return true;
         return checkMinistry(ministries);
     }
 

@@ -23,6 +23,9 @@ public class RideShareEventCardFactory extends EventCardFactory {
     public boolean include(Event object) {
         JsonElement ministriesObject = object.getField(Database.JSON_KEY_EVENT_MINISTRIES);
 
+        if (ministriesObject == null)
+            return (object instanceof Event) && ((Event) object).hasRideSharing();
+
         //Go through all ministries for the event and see if the user is subscribed
         for (JsonElement objectMinistry : ministriesObject.getAsJsonArray()) {
             if (getMyMinistries().contains(objectMinistry.getAsString())) {

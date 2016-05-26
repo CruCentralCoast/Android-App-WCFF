@@ -37,6 +37,8 @@ public class EventCardFactory implements CardFragmentFactory<Event> {
     public boolean include(Event object) {
         JsonElement ministriesObject = object.getField(Database.JSON_KEY_EVENT_MINISTRIES);
 
+        if (ministriesObject == null)
+            return true;
         //Go through all ministries for the event and see if the user is subscribed
         for (JsonElement objectMinistry : ministriesObject.getAsJsonArray()) {
             if (myMinistries.contains(objectMinistry.getAsString())) {

@@ -283,12 +283,28 @@ public class Ride extends JsonDatabaseObject {
         return rideDate;
     }
 
-    public Calendar getLeaveTimeToEvent() {
-        return direction.getLeaveTimeToEvent();
+    public Date getLeaveTimeToEvent() {
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+        Date date = null;
+        try {
+            date = dateFormat.parse(getLeaveTime());
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+            Logger.e("Ride Time", "Couldn't parse ride leave time");
+        }
+        return date;
     }
 
-    public Calendar getLeaveTimeFromEvent() {
-        return direction.getLeaveTimeFromEvent();
+    public Date getLeaveTimeFromEvent() {
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+        Date date = null;
+        try {
+            date = dateFormat.parse(getLeaveTime());
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+            Logger.e("Ride Time", "Couldn't parse ride leave time");
+        }
+        return date;
     }
 
     public Location getLocation() {

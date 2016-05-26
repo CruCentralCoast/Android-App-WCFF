@@ -19,16 +19,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/card_image"
         android:paddingLeft="10dp"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:paddingBottom="10dp"/>
 
     <!-- Video Upload Date -->
     <TextView
         android:id="@+id/card_video_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/card_video_name"
+        android:layout_below="@id/card_image"
+        android:paddingRight="10dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

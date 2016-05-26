@@ -53,7 +53,12 @@ public class Event extends JsonDatabaseObject {
 
     // Gets whether ride sharing is enabled for this event
     public boolean hasRideSharing() {
-        return getField(Database.JSON_KEY_EVENT_HASRIDES).getAsBoolean();
+        JsonElement fieldValue = getField(Database.JSON_KEY_EVENT_HASRIDES);
+        if (fieldValue != null) {
+            return fieldValue.getAsBoolean();
+        } else {
+            return false;
+        }
     }
 
     // Gets the url of the Facebook page for this event
@@ -92,6 +97,20 @@ public class Event extends JsonDatabaseObject {
             eventDate = dateStart.getAsString();
         }
         return eventDate;
+    }
+
+    public Date getEventStartDate() {
+        JsonElement dateStart = this.getField(Database.JSON_KEY_EVENT_STARTDATE);
+        Date start;
+        // Convert ISODate to Java Date format
+        try {
+            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+            start = dateFormat.parse(dateStart.getAsString());
+        } catch (ParseException e) {
+            // Can't be parsed; just use the default ISO format
+            start = null;
+        }
+        return start;
     }
 
     // Gets the start and end dates of the event in reader format
@@ -156,11 +175,13 @@ public class Event extends JsonDatabaseObject {
      */
     private void loadParentMinistries() {
         parentMinistries = new ArrayList<>();
-        JsonArray ministriesJson = this.getField(Database.JSON_KEY_EVENT_MINISTRIES).getAsJsonArray();
+        if (this.getField(Database.JSON_KEY_EVENT_MINISTRIES) != null){
+            JsonArray ministriesJson = this.getField(Database.JSON_KEY_EVENT_MINISTRIES).getAsJsonArray();
 
-        for (JsonElement ministry : ministriesJson) {
-            if (ministry.isJsonPrimitive()) {
-                parentMinistries.add(ministry.getAsString());
+            for (JsonElement ministry : ministriesJson) {
+                if (ministry.isJsonPrimitive()) {
+                    parentMinistries.add(ministry.getAsString());
+                }
             }
         }
     }

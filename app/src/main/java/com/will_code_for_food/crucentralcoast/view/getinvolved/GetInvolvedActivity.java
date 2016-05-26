@@ -1,27 +1,21 @@
 package com.will_code_for_food.crucentralcoast.view.getinvolved;
 
 import android.app.FragmentManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
-import com.will_code_for_food.crucentralcoast.controller.api_interfaces.SMSHandler;
-import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupForm;
-import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupQuestion;
+import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryQuestionRetriever;
 import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryTeam;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
-import com.will_code_for_food.crucentralcoast.view.ridesharing.EnterNameDialog;
+import com.will_code_for_food.crucentralcoast.view.dynamic_form.FormListFragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * Created by mallika on 1/14/16.
@@ -30,6 +24,7 @@ public class GetInvolvedActivity extends MainActivity {
 
     private static String getInvolvedTitle = Util.getString(R.string.get_involved_header);
     private static String ministryTeamTitle = Util.getString(R.string.ministry_team_header);
+    private static String communityGroupsTitle = "Community Group Forms";
     private static MinistryTeam team = null;
 
     @Override
@@ -43,10 +38,15 @@ public class GetInvolvedActivity extends MainActivity {
     }
 
     public void viewJoinCommunityGroup() {
-        HashMap<String, CommunityGroupForm> forms = MinistryQuestionRetriever.getAllCommunityGroupForms();
-
+        HashMap<String, Form> forms = MinistryQuestionRetriever.getAllCommunityGroupForms();
+        ArrayList<String> ministryList = new ArrayList<String>(Util.loadStringSet(Android.PREF_MINISTRIES));
         Logger.i("Community Groups", "Displaying...");
-        // TODO GUI STUFF
+        FormListFragment flFrag = new FormListFragment();
+        Bundle args = new Bundle();
+        args.putStringArrayList("ministryList", ministryList);
+        args.putSerializable("formsMap", forms);
+        flFrag.setArguments(args);
+        loadFragmentById(R.layout.fragment_form_list_layout, communityGroupsTitle, flFrag, this);
     }
 
     public static void setMinistryTeam(MinistryTeam team){

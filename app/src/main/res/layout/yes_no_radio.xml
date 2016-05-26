@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:background="@android:drawable/dialog_holo_light_frame">
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/question_text"
         android:textSize="20sp"
         android:layout_margin="10dp"
@@ -21,13 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="Yes"
-            android:id="@+id/Yes"
-            android:onClick="onRadioButtonClicked"/>
+            android:id="@+id/Yes" />
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="No"
-            android:id="@+id/No"
-            android:onClick="onRadioButtonClicked"/>
+            android:id="@+id/No" />
     </RadioGroup>
 </LinearLayout>

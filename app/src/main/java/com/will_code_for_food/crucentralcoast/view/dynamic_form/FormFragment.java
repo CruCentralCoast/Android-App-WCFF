@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.will_code_for_food.crucentralcoast.R;
@@ -19,9 +24,11 @@ import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
 import com.will_code_for_food.crucentralcoast.model.common.form.QuestionType;
+import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryQuestionRetriever;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -64,50 +71,23 @@ public class FormFragment extends CruFragment {
         listView = (ListView) view.findViewById(R.id.question_list_view);
         submitButton = (Button) view.findViewById(R.id.question_submit);
 
-        //loadForm(form);
-        new FormTask(getActivity()).execute();
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    pressSubmmitButton();
+            }
+        });
+
+        //new FormTask(getActivity()).execute();
+        listView.setAdapter(new FormFragmentAdapter(form.getQuestions(), getActivity()));
 
         return view;
     }
 
-    public void loadForm(final Form form) {
-        fragments = new ArrayList<>();
-        if (form != null) {
-            for (Question question : form.getQuestions()) {
-                switch (question.getType()) {
-                    case FREE_RESPONSE_SHORT:
-                        fragments.add(null); //TODO load real fragment
-                        break;
-                    case FREE_RESPONSE_LONG:
-                        fragments.add(null); //TODO load real fragment
-                        break;
-                    case MAP_SELECTION:
-                        fragments.add(null); //TODO load real fragment
-                        break;
-                    case MULTI_OPTION_SELECT:
-                        fragments.add(null); //TODO load real fragment
-                        break;
-                    case TIME_SELECT:
-                        fragments.add(null); //TODO load real fragment
-                        break;
-                    case TRUE_FALSE:
-                        fragments.add(null); //TODO load real fragment
-                        break;
-                    case NUMBER_SELECT:
-                        fragments.add(null); //TODO load real fragment
-                        break;
-                    default:
-                        Logger.e("DYNAMIC FORM", "Invalid Question Type");
-                }
-            }
-        } else {
-            Logger.e("DYNAMIC FORM", "Form should not be null");
-        }
-    }
 
     // TODO this needs to be linked to the submit button of the form
     public void pressSubmmitButton() {
-        if (form != null) {
+        /*if (form != null) {
             form.clear();
             for (int ndx = 0; ndx < fragments.size(); ndx++) {
                 form.answerQuestion(ndx, fragments.get(ndx).getAnswer());
@@ -123,7 +103,7 @@ public class FormFragment extends CruFragment {
             }
         } else {
             Logger.e("DYNAMIC FORM", "Form should not be null");
-        }
+        }*/
     }
 
     private class FormFragmentAdapter extends ArrayAdapter<Question> {
@@ -155,19 +135,53 @@ public class FormFragment extends CruFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            Question question = questionList.get(position);
+            final Question question = questionList.get(position);
             LayoutInflater inflater = LayoutInflater.from(context);
             switch (question.getType()) {
                 case FREE_RESPONSE_SHORT:
                     convertView = inflater.inflate(R.layout.question_free_response, parent, false);
                     TextView questionText = (TextView) convertView.findViewById(R.id.question_text);
+                    EditText questionAnswer = (EditText) convertView.findViewById(R.id.question_answer);
                     questionText.setText(question.getPrompt());
+                    questionAnswer.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            question.answerQuestion(s.toString());
+                        }
+                    });
                     Log.e("PROMPT", question.getPrompt());
                     break;
                 case FREE_RESPONSE_LONG:
                     convertView = inflater.inflate(R.layout.question_free_response, parent, false);
                     TextView questionTextFR = (TextView) convertView.findViewById(R.id.question_text);
                     questionTextFR.setText(question.getPrompt());
+                    EditText questionAnswerFR = (EditText) convertView.findViewById(R.id.question_answer);
+                    questionAnswerFR.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            question.answerQuestion(s.toString());
+                        }
+                    });
                     Log.e("PROMPT", question.getPrompt());
                     break;
                 /*case MAP_SELECTION:
@@ -182,6 +196,20 @@ public class FormFragment extends CruFragment {
                 case TRUE_FALSE:
                     convertView = inflater.inflate(R.layout.yes_no_radio, parent, false);
                     TextView questionTextTF = (TextView) convertView.findViewById(R.id.question_text);
+                    RadioButton yesButton = (RadioButton) convertView.findViewById(R.id.Yes);
+                    RadioButton noButton = (RadioButton) convertView.findViewById(R.id.No);
+                    yesButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            question.answerQuestion("Yes");
+                        }
+                    });
+                    noButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            question.answerQuestion("No");
+                        }
+                    });
                     questionTextTF.setText(question.getPrompt());
                     Log.e("PROMPT", question.getPrompt());
                     break;
@@ -210,15 +238,16 @@ public class FormFragment extends CruFragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            //HashMap<String, CommunityGroupForm> forms = MinistryQuestionRetriever.getAllCommunityGroupForms();
-            //correct = forms.get(ministryID);
+            Log.e("BACKGROUND", "RETRIEVING QUESTIONS");
+            HashMap<String, Form> forms = MinistryQuestionRetriever.getAllCommunityGroupForms();
+            correct = forms.get(ministryID);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            //form = correct;
+            form = correct;
             Log.e("SETTING ADAPTER", "TRUE");
             listView.setAdapter(new FormFragmentAdapter(form.getQuestions(), parent));
             Log.e("FormTask", "Set Adapter");

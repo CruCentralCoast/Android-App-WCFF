@@ -230,6 +230,16 @@ public class RideInfoFragment extends CruFragment {
             return "";
     }
 
+    private boolean isPassenger(Ride ride, String phoneNum) {
+        ArrayList<Passenger> passengers = DBObjectLoader.getPassengers();
+        for (Passenger passenger : passengers) {
+            if (passenger.getPhoneNumber().equals(phoneNum) && ride.hasPassenger(passenger.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private class SetButtonTask extends AsyncTask<Void, Void, Void> {
         Passenger thisPassenger;
         String phoneNum;
@@ -240,7 +250,7 @@ public class RideInfoFragment extends CruFragment {
         protected Void doInBackground(Void... params) {
             phoneNum = Util.getPhoneNum();
             thisPassenger = RestUtil.getPassenger(phoneNum);
-            rideJoined = thisPassenger != null && ride.hasPassenger(thisPassenger.getId());
+            rideJoined = isPassenger(ride, phoneNum);
             myRide = (phoneNum.equals(ride.getDriverNumber()));
             return null;
         }
@@ -255,7 +265,6 @@ public class RideInfoFragment extends CruFragment {
                     public void onClick(View v) {
                         //drop ride
                         new DropPassenger(thisPassenger).execute();
-                        DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
                         setToJoin();
                     }
                 });
@@ -266,7 +275,6 @@ public class RideInfoFragment extends CruFragment {
                     public void onClick(View v) {
                         //cancel ride
                         new DropRide().execute();
-                        DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
                     }
                 });
             } else {
@@ -303,6 +311,8 @@ public class RideInfoFragment extends CruFragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Toast.makeText(getParent(), "Cancelled Ride", Toast.LENGTH_SHORT).show();
+            DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
+            DBObjectLoader.loadObjects(RetrieverSchema.PASSENGER, Database.DB_TIMEOUT);
         }
     }
 
@@ -323,6 +333,8 @@ public class RideInfoFragment extends CruFragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Toast.makeText(getParent(), "Left Ride", Toast.LENGTH_SHORT).show();
+            DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
+            DBObjectLoader.loadObjects(RetrieverSchema.PASSENGER, Database.DB_TIMEOUT);
         }
     }
 }

@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
+import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.JsonDatabaseObject;
 import com.will_code_for_food.crucentralcoast.model.common.common.Location;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
@@ -155,15 +156,37 @@ public class Ride extends JsonDatabaseObject {
     }
 
     public int getNumAvailableSeatsToEvent() {
-        //TODO: Make this work with only to riders
-        JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
-        return getNumSeats() - passengers.size();
+        int numPassengers = 0;
+        JsonArray myPassengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
+        ArrayList<Passenger> allPassengers = DBObjectLoader.getPassengers();
+
+        for (Passenger passenger : allPassengers) {
+            if (myPassengers.contains(new JsonPrimitive(passenger.getId()))) {
+                if (passenger.getFieldAsString("direction").equals("to") ||
+                    passenger.getFieldAsString("direction").equals("both")) {
+                    numPassengers++;
+                }
+            }
+        }
+
+        return getNumSeats() - numPassengers;
     }
 
     public int getNumAvailableSeatsFromEvent() {
-        //TODO: Make this work with only from riders
-        JsonArray passengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
-        return getNumSeats() - passengers.size();
+        int numPassengers = 0;
+        JsonArray myPassengers = getField(Database.JSON_KEY_RIDE_PASSENGERS).getAsJsonArray();
+        ArrayList<Passenger> allPassengers = DBObjectLoader.getPassengers();
+
+        for (Passenger passenger : allPassengers) {
+            if (myPassengers.contains(new JsonPrimitive(passenger.getId()))) {
+                if (passenger.getFieldAsString("direction").equals("from") ||
+                        passenger.getFieldAsString("direction").equals("both")) {
+                    numPassengers++;
+                }
+            }
+        }
+
+        return getNumSeats() - numPassengers;
     }
 
     public boolean addRiderToEvent(final Passenger rider) {
@@ -206,6 +229,16 @@ public class Ride extends JsonDatabaseObject {
 
     public String getDriverNumber() {
         return getFieldAsString(Database.JSON_KEY_RIDE_DRIVER_NUMBER);
+    }
+
+    public Date getDate() {
+        JsonElement date = this.getField(Database.JSON_KEY_RIDE_TIME);
+        DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+        try {
+            return dateFormat.parse(date.getAsString());
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     public String getLeaveTime() {

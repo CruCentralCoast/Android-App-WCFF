@@ -93,7 +93,7 @@ public class MyRidesFragment extends CruFragment {
         CardFragmentFactory factory = new MyRideCardFactory();
 
         //try {
-                new RetrievalTask<Ride>(retriever, factory, R.string.toast_no_my_rides, new AsyncResponse(getParent()) {
+                new RetrievalTask<Ride>(retriever, factory, R.string.toast_no_rides, new AsyncResponse(getParent()) {
                 @Override
                 public void otherProcessing() {
                     layout.setRefreshing(false);

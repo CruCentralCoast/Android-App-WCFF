@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +22,6 @@ import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 import com.will_code_for_food.crucentralcoast.view.common.MainActivity;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity;
-import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareEventCardFactory;
-import com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareSelectActionFragment;
 import com.will_code_for_food.crucentralcoast.view.ridesharing.RidesFragment;
 
 /**
@@ -176,7 +173,7 @@ public class EventInfoFragment extends CruFragment {
 
         }
         else {
-            Toast.makeText(parent, Util.getString(R.string.toast_no_rides),
+            Toast.makeText(parent, Util.getString(R.string.toast_no_ridesharing),
                     Toast.LENGTH_LONG).show();
         }
     }

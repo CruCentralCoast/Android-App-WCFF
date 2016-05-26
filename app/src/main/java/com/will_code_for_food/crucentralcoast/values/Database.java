@@ -54,7 +54,7 @@ public class Database {
     public static final String JSON_KEY_EVENT_LOCATION = "location";
     public static final String JSON_KEY_EVENT_MINISTRIES = "parentMinistries";
     public static final String JSON_KEY_EVENT_REMINDER = "notificationDate";
-    public static final String JSON_KEY_EVENT_HASRIDES = "rideSharingEnabled";
+    public static final String JSON_KEY_EVENT_HASRIDES = "rideSharing";
     public static final String EVENT_BAD_LOCATION = "TBD";
     public static final String EVENT_DATE_FORMAT = "MMM dd, h:mma";
 

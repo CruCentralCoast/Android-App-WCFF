@@ -1,40 +1,27 @@
 package com.will_code_for_food.crucentralcoast.view.dynamic_form;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
-import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
-import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
-import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
-import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.common.form.FormValidationResult;
 import com.will_code_for_food.crucentralcoast.model.common.form.Question;
 import com.will_code_for_food.crucentralcoast.model.common.form.QuestionType;
-import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupForm;
-import com.will_code_for_food.crucentralcoast.model.getInvolved.MinistryQuestionRetriever;
-import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -215,7 +202,7 @@ public class FormFragment extends CruFragment {
      */
     private class FormTask extends AsyncTask<Void, Void, Void> {
         Activity parent;
-        CommunityGroupForm correct;
+        Form correct;
 
         public FormTask(Activity newParent) {
             parent = newParent;

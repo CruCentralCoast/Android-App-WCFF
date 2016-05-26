@@ -2,16 +2,13 @@ package com.will_code_for_food.crucentralcoast.view.dynamic_form;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,10 +19,9 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Campus;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
 import com.will_code_for_food.crucentralcoast.model.common.common.Ministry;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupForm;
+import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.values.Android;
 import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
-import com.will_code_for_food.crucentralcoast.view.common.MinistryInfoActivity;
 
 
 import java.util.ArrayList;
@@ -38,7 +34,7 @@ import java.util.List;
  */
 public class FormListFragment extends CruFragment {
 
-    HashMap<String, CommunityGroupForm> forms;
+    HashMap<String, Form> forms;
     ArrayList<String> ministryList;
     ListView list;
     List<Campus> selectedCampuses;
@@ -56,7 +52,7 @@ public class FormListFragment extends CruFragment {
 
         Bundle args = getArguments();
         ministryList = args.getStringArrayList("ministryList");
-        forms = (HashMap<String, CommunityGroupForm>) args.getSerializable("formsMap");
+        forms = (HashMap<String, Form>) args.getSerializable("formsMap");
 
         new MinistryListTask(getActivity()).execute();
 

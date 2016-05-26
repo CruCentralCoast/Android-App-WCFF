@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:autoLink="web"
                 android:textColor="@color/colorPrimary_cruGray"
+                android:textSize="17sp"
                 android:padding="20dip" />
         </LinearLayout>
     </ScrollView>

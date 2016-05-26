@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
 import com.will_code_for_food.crucentralcoast.model.common.common.RestUtil;
 import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupForm;
+import com.will_code_for_food.crucentralcoast.model.common.form.Form;
 import com.will_code_for_food.crucentralcoast.model.community_groups.CommunityGroupQuestion;
 import com.will_code_for_food.crucentralcoast.values.Android;
 
@@ -16,12 +16,12 @@ import java.util.Set;
  * Created by Gavin on 5/5/2016.
  */
 public final class MinistryQuestionRetriever {
-    public static HashMap<String, CommunityGroupForm> getAllCommunityGroupForms() {
+    public static HashMap<String, Form> getAllCommunityGroupForms() {
         Logger.i("Community Groups", "Getting questions for all subscribed ministries");
-        AsyncTask task = new AsyncTask<String, Void, HashMap<String, CommunityGroupForm>>() {
+        AsyncTask task = new AsyncTask<String, Void, HashMap<String, Form>>() {
             @Override
-            protected HashMap<String, CommunityGroupForm> doInBackground(String... params) {
-                HashMap<String, CommunityGroupForm> forms = new HashMap<>();
+            protected HashMap<String, Form> doInBackground(String... params) {
+                HashMap<String, Form> forms = new HashMap<>();
                 for (String id : params) {
                     forms.put(id, RestUtil.getMinistryQuestions(id));
                 }
@@ -29,19 +29,10 @@ public final class MinistryQuestionRetriever {
             }
         };
 
-        HashMap<String, CommunityGroupForm> forms = null;
+        HashMap<String, Form> forms = null;
         try {
             Set<String> ids = Util.loadStringSet(Android.PREF_MINISTRIES);
-            forms = (HashMap<String, CommunityGroupForm>)task.execute(ids.toArray(new String[ids.size()])).get();
-            for (String id : forms.keySet()) {
-                Logger.i("MINSITRY", id);
-                if (forms.get(id).isEmpty()) {
-                    Logger.e("Questions", "No Questions!");
-                }
-                for (CommunityGroupQuestion question : forms.get(id)) {
-                    Logger.i("QUESTION", question.toString());
-                }
-            }
+            forms = (HashMap<String, Form>)task.execute(ids.toArray(new String[ids.size()])).get();
         } catch (Exception ex) {
             Logger.e("Getting questions", "Failure to retrieve community group forms");
             ex.printStackTrace();

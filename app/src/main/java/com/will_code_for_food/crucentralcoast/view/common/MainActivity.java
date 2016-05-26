@@ -301,7 +301,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Supply index input as an argument.
-        Bundle args = new Bundle();
+        Bundle args;
+
+        if (fragment.getArguments() != null) {
+            args = fragment.getArguments();
+        }
+        else {
+            args = new Bundle();
+        }
         args.putInt("id", loadId);
         args.putString("name", newTitle);
         fragment.setArguments(args);

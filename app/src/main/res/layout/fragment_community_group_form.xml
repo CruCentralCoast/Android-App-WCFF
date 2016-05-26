@@ -4,11 +4,14 @@
     android:layout_height="match_parent"
     android:id="@+id/community_group_form">
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/question_list_view">
-    </ListView>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:id="@+id/question_list_view"
+            android:layout_gravity="center_horizontal">
+        </ListView>
+
 
     <Button
         android:layout_width="match_parent"

@@ -1,44 +1,48 @@
 package com.will_code_for_food.crucentralcoast.view.ridesharing;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.will_code_for_food.crucentralcoast.R;
 import com.will_code_for_food.crucentralcoast.controller.Logger;
+import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.RetrieverSchema;
 import com.will_code_for_food.crucentralcoast.controller.retrieval.SingleMemoryRetriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.DBObjectLoader;
-import com.will_code_for_food.crucentralcoast.model.common.common.Util;
-import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
-import com.will_code_for_food.crucentralcoast.values.Database;
-import com.will_code_for_food.crucentralcoast.view.common.FeedCardAdapter;
-import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
-import com.will_code_for_food.crucentralcoast.R;
-import com.will_code_for_food.crucentralcoast.controller.retrieval.Retriever;
 import com.will_code_for_food.crucentralcoast.model.common.common.Event;
+import com.will_code_for_food.crucentralcoast.model.common.common.Util;
 import com.will_code_for_food.crucentralcoast.model.ridesharing.Ride;
+import com.will_code_for_food.crucentralcoast.tasks.AsyncResponse;
 import com.will_code_for_food.crucentralcoast.tasks.RetrievalTask;
-import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
+import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.common.CardFragmentFactory;
+import com.will_code_for_food.crucentralcoast.view.common.CruFragment;
+import com.will_code_for_food.crucentralcoast.view.events.EventsActivity;
+
+import java.util.Date;
 
 /**
  * Created by Kayla on 2/1/2016.
@@ -49,7 +53,7 @@ public class RidesFragment extends CruFragment implements TextView.OnEditorActio
     EditText search;
     private int index, top;
     MenuItem sortItem;
-
+    Event selected;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +67,7 @@ public class RidesFragment extends CruFragment implements TextView.OnEditorActio
         //Set up action button to add a ride
 
         final Event selectedEvent = EventsActivity.getEvent();
+        selected = selectedEvent;
         FloatingActionButton fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +163,29 @@ public class RidesFragment extends CruFragment implements TextView.OnEditorActio
         } else if (item.getItemId() == R.id.sort_oldest) {
             Logger.i("RideFragment", "sorting by oldest");
             ((RideAdapter) listView.getAdapter()).sortByOldest();
+            return true;
+        } else if(item.getItemId() == R.id.sort_time){
+            Logger.i("RideFragment", "sorting by time");
+
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.setContentView(R.layout.enter_time_dialog);
+            dialog.setTitle("Enter a time.");
+
+            // set the custom dialog components - text, image and button
+            final TimePicker time = (TimePicker) dialog.findViewById(R.id.time_picker_time);
+            Button dialogButton = (Button) dialog.findViewById(R.id.filter_time_button);
+            // if button is clicked, close the custom dialog
+            dialogButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Date date = selected.getEventStartDate();
+                    date.setHours(time.getCurrentHour());
+                    date.setMinutes(time.getCurrentMinute());
+                    ((RideAdapter) listView.getAdapter()).sortByTime(date);
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
             return true;
         } else {
             return super.onOptionsItemSelected(item);

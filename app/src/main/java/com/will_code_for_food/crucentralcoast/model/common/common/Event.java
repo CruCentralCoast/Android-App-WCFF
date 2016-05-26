@@ -89,6 +89,20 @@ public class Event extends JsonDatabaseObject {
         return eventDate;
     }
 
+    public Date getEventStartDate() {
+        JsonElement dateStart = this.getField(Database.JSON_KEY_EVENT_STARTDATE);
+        Date start;
+        // Convert ISODate to Java Date format
+        try {
+            DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
+            start = dateFormat.parse(dateStart.getAsString());
+        } catch (ParseException e) {
+            // Can't be parsed; just use the default ISO format
+            start = null;
+        }
+        return start;
+    }
+
     // Gets the start and end dates of the event in reader format
     public String getEventFullDate() {
         JsonElement dateEnd = getField(Database.JSON_KEY_EVENT_ENDDATE);

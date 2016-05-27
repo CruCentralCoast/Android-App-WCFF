@@ -13,6 +13,7 @@ import com.will_code_for_food.crucentralcoast.model.common.common.Event;
 import com.will_code_for_food.crucentralcoast.values.Database;
 import com.will_code_for_food.crucentralcoast.view.events.EventCardFactory;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +24,9 @@ public class RideShareEventCardFactory extends EventCardFactory {
     public boolean include(Event object) {
         JsonElement ministriesObject = object.getField(Database.JSON_KEY_EVENT_MINISTRIES);
 
+        // Return false if event date has already passed
+        if (object.getDate().before(new Date()))
+            return false;
         if (ministriesObject == null)
             return (object instanceof Event) && ((Event) object).hasRideSharing();
 

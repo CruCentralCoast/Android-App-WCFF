@@ -67,14 +67,14 @@ public class EventsFragment extends CruFragment {
     }
 
     private void refreshList() {
-
         Logger.i("EventsFragment", "refreshing events and rides");
 
         if (!DBObjectLoader.loadObjects(RetrieverSchema.EVENT, Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh events", Toast.LENGTH_SHORT).show();
         }
 
-        if (!DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT)) {
+        if (!DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT) &&
+                !DBObjectLoader.loadObjects(RetrieverSchema.PASSENGER, Database.DB_TIMEOUT)) {
             Toast.makeText(getParent(), "Unable to refresh rides", Toast.LENGTH_SHORT).show();
         }
 

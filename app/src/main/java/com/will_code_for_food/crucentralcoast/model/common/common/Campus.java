@@ -13,8 +13,16 @@ public class Campus extends JsonDatabaseObject {
     public Campus(JsonObject obj) {
         super(obj);
 
-        websiteUrl = this.getFieldAsString(Database.JSON_KEY_CAMPUS_URL);
-        location = new Location(this.getField(Database.JSON_KEY_COMMON_LOCATION));
+        websiteUrl = grabWebsiteUrl();
+        location = grabLocation();
+    }
+
+    public String grabWebsiteUrl(){
+        return this.getFieldAsString(Database.JSON_KEY_CAMPUS_URL);
+    }
+
+    public Location grabLocation(){
+        return new Location(this.getField(Database.JSON_KEY_COMMON_LOCATION));
     }
 
     public String getWebsiteUrl() {

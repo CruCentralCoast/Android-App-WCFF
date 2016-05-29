@@ -18,9 +18,11 @@ public class Ministry extends JsonDatabaseObject {
 
     public Ministry(JsonObject obj) {
         super(obj);
+        campuses = grabCampuses();
+    }
 
-        campuses = new ArrayList<String>();
-        campusesName = new ArrayList<String>();
+    public ArrayList<String> grabCampuses(){
+        ArrayList<String> campuses = new ArrayList<String>();
 
         JsonElement campusList = this.getField(Database.JSON_KEY_MINISTRY_CAMPUSES);
 
@@ -33,6 +35,7 @@ public class Ministry extends JsonDatabaseObject {
         } else {
             System.out.println("campusList is not an array");
         }
+        return campuses;
     }
 
     public ArrayList<String> getCampuses() {

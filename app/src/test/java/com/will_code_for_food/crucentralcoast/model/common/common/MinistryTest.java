@@ -3,35 +3,37 @@ package com.will_code_for_food.crucentralcoast.model.common.common;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+
+import java.util.ArrayList;
 
 /**
  * Created by MasonJStevenson on 1/18/2016.
  */
 public class MinistryTest extends TestCase{
-    Ministry ministry;
-    String ministryString =
-            "{\"_id\":\"12345\"," +
-            "\"name\":\"test\"," +
-            "\"image\":{" +
-                "\"public_id\":\"1\"," +
-                "\"version\":0," +
-                "\"signature\":\"adf4a6\"," +
-                "\"width\":2048," +
-                "\"height\":770," +
-                "\"format\":\"jpg\"," +
-                "\"resource_type\":\"image\"," +
-                "\"url\":\"http://blahblahblah\"," +
-                "\"secure_url\":\"https://blahblahblah\"}," +
-            "\"description\":\"this is a test\"," +
-            "\"campuses\":[\"camp1\", \"camp2\"]}";
 
-    public void testConstructMinistry() {
-        JsonParser parser = new JsonParser();
-        JsonObject ministyJson = parser.parse(ministryString).getAsJsonObject();
-        ministry = new Ministry(ministyJson);
+    public void testConstructMinistryWELC(){
+        TestMinistry ministry = new TestMinistry();
+        ArrayList<String> campuses = new ArrayList<>();
+        campuses.add("campus1");
+        campuses.add("campus2");
+        assertEquals(campuses, ministry.getCampuses());
 
-        assertEquals("camp1", ministry.getCampuses().get(0));
-        assertEquals("camp2", ministry.getCampuses().get(1));
+    }
+
+    private class TestMinistry extends Ministry{
+
+        public TestMinistry() {
+            super(null);
+        }
+
+        @Override
+        public ArrayList<String> grabCampuses(){
+            ArrayList<String> campuses = new ArrayList<>();
+            campuses.add("campus1");
+            campuses.add("campus2");
+            return campuses;
+        }
     }
 }

@@ -149,45 +149,49 @@ public class RestUtil {
         };
         // build the form
         if (ary != null) {
-            for (JsonElement obj : ary) {
-                Logger.i("Getting questions", "Found question " + obj.getAsJsonObject());
-                JsonObject qObj = obj.getAsJsonObject();
-                QuestionType type;
-                switch (qObj.get("type").getAsString()) {
-                    case "text":
-                        type = QuestionType.FREE_RESPONSE_SHORT;
-                        break;
-                    case "datetime":
-                        type = QuestionType.TIME_SELECT;
-                        break;
-                    case "select":
-                        type = QuestionType.MULTI_OPTION_SELECT;
-                        break;
-                    default:
-                        Logger.e("Getting Question", "Invalid type: " + qObj.get("type").getAsString());
-                        continue;
-                }
-                final String prompt = qObj.get("question").getAsString();
-                Logger.i("Question Prompt", prompt);
-                Question question;
-                if (type != QuestionType.MULTI_OPTION_SELECT) {
-                    question = new Question(prompt, prompt, type);
-                } else {
-                    List<Object> options = new ArrayList<>();
-                    for (JsonElement option : qObj.get("selectOptions").getAsJsonArray()) {
-                        String opt = option.getAsJsonObject().get("value").getAsString();
-                        Logger.i("Adding option:", opt);
-                        options.add(opt);
-                    }
-                    question = new MultiOptionQuestion(prompt, prompt, options);
-                }
-                question.setRequired(qObj.get("required").getAsBoolean());
-                form.addQuestion(question);
-            }
+            buildForm(ary, form);
         } else {
             Logger.e("Getting questions", "Returned json array is null");
         }
         return form;
+    }
+
+    public static void buildForm(JsonArray ary, Form form){
+        for (JsonElement obj : ary) {
+            Logger.i("Getting questions", "Found question " + obj.getAsJsonObject());
+            JsonObject qObj = obj.getAsJsonObject();
+            QuestionType type;
+            switch (qObj.get("type").getAsString()) {
+                case "text":
+                    type = QuestionType.FREE_RESPONSE_SHORT;
+                    break;
+                case "datetime":
+                    type = QuestionType.TIME_SELECT;
+                    break;
+                case "select":
+                    type = QuestionType.MULTI_OPTION_SELECT;
+                    break;
+                default:
+                    Logger.e("Getting Question", "Invalid type: " + qObj.get("type").getAsString());
+                    continue;
+            }
+            final String prompt = qObj.get("question").getAsString();
+            Logger.i("Question Prompt", prompt);
+            Question question;
+            if (type != QuestionType.MULTI_OPTION_SELECT) {
+                question = new Question(prompt, prompt, type);
+            } else {
+                List<Object> options = new ArrayList<>();
+                for (JsonElement option : qObj.get("selectOptions").getAsJsonArray()) {
+                    String opt = option.getAsJsonObject().get("value").getAsString();
+                    Logger.i("Adding option:", opt);
+                    options.add(opt);
+                }
+                question = new MultiOptionQuestion(prompt, prompt, options);
+            }
+            question.setRequired(qObj.get("required").getAsBoolean());
+            form.addQuestion(question);
+        }
     }
 
     /**

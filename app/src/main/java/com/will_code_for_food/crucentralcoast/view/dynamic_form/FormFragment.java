@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class FormFragment extends CruFragment {
     private List<FormElementFragment> fragments;
-    private Form form;
+    private static Form form;
     private String ministryID;
     private ListView listView;
     private Button submitButton;
@@ -50,7 +50,7 @@ public class FormFragment extends CruFragment {
         Bundle args = getArguments();
         // TODO the form needs to be passed in as an argument
         ministryID = args.getString("ministryID");
-        form = new Form() {
+        setForm(new Form() {
             @Override
             public List<FormValidationResult> isValidDetailed() {
                 return null;
@@ -60,7 +60,7 @@ public class FormFragment extends CruFragment {
             public boolean submit() {
                 return false;
             }
-        };
+        });
         Question q1 = new Question("Question 1", "What is your name?", QuestionType.FREE_RESPONSE_SHORT);
         Question q2 = new Question("Question 2", "Are you cool?", QuestionType.TRUE_FALSE);
         form.addQuestion(q1);
@@ -82,6 +82,10 @@ public class FormFragment extends CruFragment {
         listView.setAdapter(new FormFragmentAdapter(form.getQuestions(), getActivity()));
 
         return view;
+    }
+
+    public static void setForm(Form newForm) {
+        form = newForm;
     }
 
 

@@ -15,7 +15,7 @@
     <!-- Video Name -->
     <TextView
         android:id="@+id/card_video_name"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/card_image"
         android:paddingLeft="10dp"

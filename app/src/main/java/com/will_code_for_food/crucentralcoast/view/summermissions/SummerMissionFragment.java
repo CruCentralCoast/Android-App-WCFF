@@ -36,7 +36,7 @@ public class SummerMissionFragment extends CruFragment {
         View hold = super.onCreateView(inflater, container, savedInstanceState);
         layout = (SwipeRefreshLayout) hold.findViewById(R.id.card_refresh_layout);
         listView = (ListView) hold.findViewById(R.id.list_cards);
-        loadMissionsList();
+        loadMissionsList(new SingleMemoryRetriever(Database.REST_SUMMER_MISSION));
         return hold;
     }
 
@@ -59,8 +59,7 @@ public class SummerMissionFragment extends CruFragment {
         super.onPause();
     }
 
-    private void loadMissionsList() {
-        SingleMemoryRetriever retriever = new SingleMemoryRetriever(Database.REST_SUMMER_MISSION);
+    private void loadMissionsList(Retriever retriever) {
         populateList(retriever);
     }
 
@@ -71,7 +70,7 @@ public class SummerMissionFragment extends CruFragment {
             Toast.makeText(getParent(), "Unable to refresh summer missions", Toast.LENGTH_SHORT);
         }
 
-        loadMissionsList();
+        loadMissionsList(new SingleMemoryRetriever(Database.REST_SUMMER_MISSION));
     }
 
     private void populateList(Retriever retriever) {

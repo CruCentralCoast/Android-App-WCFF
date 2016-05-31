@@ -54,7 +54,7 @@
                 android:textSize="15sp"
                 android:paddingTop="5dp"
                 android:paddingBottom="10dp"
-                android:maxLength="10"/>
+                android:maxLength="11"/>
 
             <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="fill_parent"

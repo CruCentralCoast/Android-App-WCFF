@@ -14,5 +14,6 @@
         android:id="@+id/filter_time_button"
         android:text="Search"
         android:layout_gravity="center_horizontal"
-        android:background="@color/colorPrimary_cruGold"/>
+        android:background="@color/colorPrimary_cruGold"
+        android:paddingBottom="10dp"/>
 </LinearLayout>

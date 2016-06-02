@@ -127,7 +127,7 @@ public class RiderForm extends Form {
     private boolean checkPhoneNumber(String number) {
 
         //validate phone numbers of format "1234567890"
-        if (number.matches("\\d{10}")) return true;
+        if (number.matches("\\d{10}") || number.matches("\\d{11}")) return true;
             //validating phone number with -, . or spaces
         else if(number.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) return true;
             //validating phone number with extension length from 3 to 5

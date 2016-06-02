@@ -263,8 +263,7 @@ public class RideInfoFragment extends CruFragment {
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //drop ride
-                        new DropPassenger(thisPassenger).execute();
+                        dropPassenger(thisPassenger);
                         setToJoin();
                     }
                 });
@@ -273,8 +272,7 @@ public class RideInfoFragment extends CruFragment {
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //cancel ride
-                        new DropRide().execute();
+                        dropRide();
                     }
                 });
             } else {
@@ -296,6 +294,14 @@ public class RideInfoFragment extends CruFragment {
         });
     }
 
+    public void dropRide() {
+        new DropRide().execute();
+    }
+
+    public void dropPassenger(Passenger passenger) {
+        new DropPassenger(passenger).execute();
+    }
+
     private class DropRide extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
@@ -311,8 +317,7 @@ public class RideInfoFragment extends CruFragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Toast.makeText(getParent(), "Cancelled Ride", Toast.LENGTH_SHORT).show();
-            DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
-            DBObjectLoader.loadObjects(RetrieverSchema.PASSENGER, Database.DB_TIMEOUT);
+            refreshRides();
         }
     }
 
@@ -333,8 +338,12 @@ public class RideInfoFragment extends CruFragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Toast.makeText(getParent(), "Left Ride", Toast.LENGTH_SHORT).show();
-            DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
-            DBObjectLoader.loadObjects(RetrieverSchema.PASSENGER, Database.DB_TIMEOUT);
+            refreshRides();
         }
+    }
+
+    private void refreshRides() {
+        DBObjectLoader.loadObjects(RetrieverSchema.RIDE, Database.DB_TIMEOUT);
+        DBObjectLoader.loadObjects(RetrieverSchema.PASSENGER, Database.DB_TIMEOUT);
     }
 }

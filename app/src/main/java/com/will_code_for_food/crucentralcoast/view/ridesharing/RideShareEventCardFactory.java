@@ -22,26 +22,8 @@ import java.util.List;
 public class RideShareEventCardFactory extends EventCardFactory {
     @Override
     public boolean include(Event object) {
-        JsonElement ministriesObject = object.getField(Database.JSON_KEY_EVENT_MINISTRIES);
-
-        // Return false if event date has already passed
-        if (object.getDate().before(new Date()))
-            return false;
-        if (ministriesObject == null)
-            return (object instanceof Event) && ((Event) object).hasRideSharing();
-
-        //Go through all ministries for the event and see if the user is subscribed
-        for (JsonElement objectMinistry : ministriesObject.getAsJsonArray()) {
-            if (getMyMinistries().contains(objectMinistry.getAsString())) {
-                Event event = null;
-                if ((object instanceof Event) && ((Event) object).hasRideSharing()) {
-                    return true;
-                }
-            }
-        }
-
-        //Return false if my ministries are not found
-        return false;
+        boolean validEvent = super.include(object);
+        return validEvent && object.hasRideSharing();
     }
 
     @Override

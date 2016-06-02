@@ -56,7 +56,7 @@ public class Database {
     public static final String JSON_KEY_EVENT_REMINDER = "notificationDate";
     public static final String JSON_KEY_EVENT_HASRIDES = "rideSharing";
     public static final String EVENT_BAD_LOCATION = "TBD";
-    public static final String EVENT_DATE_FORMAT = "MMM dd, h:mma";
+    public static final String EVENT_DATE_FORMAT = "MMM d yyyy, h:mma";
 
     public static final String JSON_KEY_RIDE_EVENT = "event";
     public static final String JSON_KEY_RIDE_DRIVER_NAME = "driverName";

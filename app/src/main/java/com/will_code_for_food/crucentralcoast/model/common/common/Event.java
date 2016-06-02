@@ -73,10 +73,10 @@ public class Event extends JsonDatabaseObject {
     }
 
     public Date getDate() {
-        JsonElement dateStart = this.getField(Database.JSON_KEY_EVENT_STARTDATE);
+        JsonElement dateEnd = this.getField(Database.JSON_KEY_EVENT_ENDDATE);
         DateFormat dateFormat = new SimpleDateFormat(Database.ISO_FORMAT);
         try {
-            return dateFormat.parse(dateStart.getAsString());
+            return dateFormat.parse(dateEnd.getAsString());
         } catch (ParseException e) {
             return null;
         }

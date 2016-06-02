@@ -1,0 +1,170 @@
+No user message
+
+
+APP VERSION: v0.0.0.A1
+
+
+DATE: Wed Apr 27 21:50:01 PDT 2016
+
+API VERSION: 21 ( v5.0 )
+
+MODEL: SAMSUNG-SM-G900A
+
+MANUFACTURER: samsung
+
+
+
+**************************************************
+
+
+STACK TRACE:
+
+
+Unable to start activity ComponentInfo{com.will_code_for_food.crucentralcoast/com.will_code_for_food.crucentralcoast.view.events.EventsActivity}: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.will_code_for_food.crucentralcoast.model.common.common.Event.getImage()' on a null object reference
+
+
+android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2661)
+
+android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2726)
+
+android.app.ActivityThread.access$900(ActivityThread.java:172)
+
+android.app.ActivityThread$H.handleMessage(ActivityThread.java:1421)
+
+android.os.Handler.dispatchMessage(Handler.java:102)
+
+android.os.Looper.loop(Looper.java:145)
+
+android.app.ActivityThread.main(ActivityThread.java:5835)
+
+java.lang.reflect.Method.invoke(Native Method)
+
+java.lang.reflect.Method.invoke(Method.java:372)
+
+com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1399)
+
+com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1194)
+
+
+
+**************************************************
+
+
+SESSION LOG:
+
+
+LOG SESSION: Wed Apr 27 18:52:47 PDT 2016
+
+Wed Apr 27 18:52:47 PDT 2016 | I/ DBOBJECTLOADER : Loading events
+
+Wed Apr 27 18:52:47 PDT 2016 | I/ DBOBJECTLOADER : Loading campuses
+
+Wed Apr 27 18:52:47 PDT 2016 | I/ DBOBJECTLOADER : data was null
+
+Wed Apr 27 18:52:47 PDT 2016 | I/ DBOBJECTLOADER : Loading ministries
+
+Wed Apr 27 18:52:47 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [events] from database
+
+Wed Apr 27 18:52:47 PDT 2016 | I/ DBOBJECTLOADER : Loading rides
+
+Wed Apr 27 18:52:47 PDT 2016 | I/ DBOBJECTLOADER : Loading resources
+
+Wed Apr 27 18:52:47 PDT 2016 | I/ DBOBJECTLOADER : Loading summer missions
+
+Wed Apr 27 18:52:47 PDT 2016 | I/ DBOBJECTLOADER : Loading ministry teams
+
+Wed Apr 27 18:52:47 PDT 2016 | I/ REGINTENTSERVICE : GCM Registration Token: ciPhE562qv8:APA91bFMHnwVFrhl3v-dEPv4ajNSoxcwIt1oltquDqje8O8i3CyA9BMItlPvCpKCATMU_QM57UDnFlSzXGQq7FLLZVSk6Z4h5uCQ1a2rZxe2tOmVmgeU9I_r2W8sEullJT24eAiQ_9e1
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [campuses] from database
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [events] from database (loadCount is: 1)
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministries] from database
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [campuses] from database (loadCount is: 2)
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministryteams] from database
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministries] from database (loadCount is: 3)
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Wed Apr 27 18:52:48 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministryteams] from database (loadCount is: 4)
+
+Wed Apr 27 18:52:49 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Wed Apr 27 18:52:49 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 27 18:52:49 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [resources] from database
+
+Wed Apr 27 18:52:49 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 27 18:52:49 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [summermissions] from database
+
+Wed Apr 27 18:52:49 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [resources] from database (loadCount is: 6)
+
+Wed Apr 27 18:52:49 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 27 18:52:49 PDT 2016 | I/ DBOBJECTLOADER : Getting videos from youtube
+
+Wed Apr 27 18:52:49 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [summermissions] from database (loadCount is: 7)
+
+Wed Apr 27 18:52:52 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Wed Apr 27 18:52:53 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Wed Apr 27 18:52:53 PDT 2016 | D/ VIDEORETRIEVER : got 20 videos
+
+Wed Apr 27 18:52:53 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [passengers] from database
+
+Wed Apr 27 18:52:53 PDT 2016 | I/ DBOBJECTLOADER : Finished getting videos from youtube (loadCount is: 8)
+
+Wed Apr 27 18:52:53 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 27 18:52:53 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [passengers] from database (loadCount is: 9)
+
+Wed Apr 27 18:52:54 PDT 2016 | I/ LAUNCHING APP : Starting MainActivity
+
+Wed Apr 27 18:52:54 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Wed Apr 27 18:52:54 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Wed Apr 27 18:52:57 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Wed Apr 27 18:52:59 PDT 2016 | I/ CHANGING BUTTON : changing button
+
+Wed Apr 27 18:52:59 PDT 2016 | I/ ADD TO CALENDAR : Checking if event id has been saved locally
+
+Wed Apr 27 18:53:00 PDT 2016 | I/ ADD TO CALENDAR : Checking if event id has been saved locally
+
+Wed Apr 27 18:53:01 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Wed Apr 27 18:53:01 PDT 2016 | I/ ACCESSING CALENDAR : Creating new event
+
+Wed Apr 27 18:53:01 PDT 2016 | I/ ADD TO CALENDAR : Building calendar intent
+
+Wed Apr 27 18:53:01 PDT 2016 | I/ EVENT LOCATION : location: 6010 Las Pilitas Road, Santa Margarita CA
+
+Wed Apr 27 18:53:01 PDT 2016 | I/ ADD TO CALENDAR : Saving event id locally
+
+Wed Apr 27 21:50:00 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+

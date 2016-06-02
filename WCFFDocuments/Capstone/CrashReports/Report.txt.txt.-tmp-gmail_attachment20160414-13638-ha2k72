@@ -1,0 +1,436 @@
+No user message
+
+
+APP VERSION: v0.0.0.A1
+
+
+DATE: Thu Apr 14 14:50:34 PDT 2016
+
+API VERSION: 21 ( v5.0 )
+
+MODEL: SAMSUNG-SM-G900A
+
+MANUFACTURER: samsung
+
+
+
+**************************************************
+
+
+STACK TRACE:
+
+
+Attempt to invoke virtual method 'java.util.Date java.util.Calendar.getTime()' on a null object reference
+
+
+com.will_code_for_food.crucentralcoast.model.ridesharing.Ride.<init>(Ride.java:91)
+
+com.will_code_for_food.crucentralcoast.model.ridesharing.DriverForm.submit(DriverForm.java:74)
+
+com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareFormFragment.submitForm(RideShareFormFragment.java:251)
+
+com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareFormFragment.access$100(RideShareFormFragment.java:56)
+
+com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareFormFragment$7.onClick(RideShareFormFragment.java:197)
+
+android.view.View.performClick(View.java:5156)
+
+android.view.View$PerformClick.run(View.java:20755)
+
+android.os.Handler.handleCallback(Handler.java:739)
+
+android.os.Handler.dispatchMessage(Handler.java:95)
+
+android.os.Looper.loop(Looper.java:145)
+
+android.app.ActivityThread.main(ActivityThread.java:5835)
+
+java.lang.reflect.Method.invoke(Native Method)
+
+java.lang.reflect.Method.invoke(Method.java:372)
+
+com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1399)
+
+com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1194)
+
+
+
+**************************************************
+
+
+SESSION LOG:
+
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ DBOBJECTLOADER : Loading ministries
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ DBOBJECTLOADER : Loading ministry teams
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ DBOBJECTLOADER : Loading rides
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ DBOBJECTLOADER : Loading resources
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ DBOBJECTLOADER : Loading summer missions
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ DBOBJECTLOADER : Loading ministry teams
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ REGINTENTSERVICE : GCM Registration Token: dXIiYhyu8yI:APA91bHX2JjN6F4C7cLXDeZQlUqsUe0C-AP5Ccr4BjC-_Qh-IAA9GNJXal15IyUqmzsyBWA8j_ZBp1u2JSRz7oeVSdWUPKXqwdJ0MC389jBXZVKf3dKo3vRvDu0ak1yPmOLEVIj07TKN
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [campuses] from database
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [events] from database (loadCount is: 1)
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministries] from database
+
+Thu Apr 14 14:48:41 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [campuses] from database (loadCount is: 2)
+
+Thu Apr 14 14:48:42 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:48:42 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministryteams] from database
+
+Thu Apr 14 14:48:42 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:48:42 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Thu Apr 14 14:48:42 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministryteams] from database (loadCount is: 4)
+
+Thu Apr 14 14:48:42 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Thu Apr 14 14:48:42 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:48:42 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [resources] from database
+
+Thu Apr 14 14:48:42 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 5)
+
+Thu Apr 14 14:48:43 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:48:43 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [resources] from database (loadCount is: 6)
+
+Thu Apr 14 14:48:43 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:48:43 PDT 2016 | I/ DBOBJECTLOADER : Getting videos from youtube
+
+Thu Apr 14 14:48:43 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [summermissions] from database (loadCount is: 7)
+
+Thu Apr 14 14:48:44 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Thu Apr 14 14:48:46 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Thu Apr 14 14:48:46 PDT 2016 | D/ VIDEORETRIEVER : got 20 videos
+
+Thu Apr 14 14:48:46 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [passengers] from database
+
+Thu Apr 14 14:48:46 PDT 2016 | I/ DBOBJECTLOADER : Finished getting videos from youtube (loadCount is: 8)
+
+Thu Apr 14 14:48:46 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:48:46 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [passengers] from database (loadCount is: 9)
+
+Thu Apr 14 14:48:47 PDT 2016 | I/ LAUNCHING APP : Starting MainActivity
+
+Thu Apr 14 14:49:11 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Thu Apr 14 14:49:11 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Thu Apr 14 14:49:35 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ RETRIEVAL : Getting cached content
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ RETRIEVAL : Getting cached content
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ RETRIEVAL : Getting cached content
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Thu Apr 14 14:49:36 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Thu Apr 14 14:49:39 PDT 2016 | I/ RESTUTIL : dropping passenger 570b21a0fbc29ad633560ad0 from ride 5701be578a4478a967bcc9b5
+
+Thu Apr 14 14:49:39 PDT 2016 | D/ RESTUTIL.JAVA : OK
+
+Thu Apr 14 14:49:39 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Thu Apr 14 14:49:40 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Thu Apr 14 14:49:40 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:49:40 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 9)
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ RETRIEVAL : Getting cached content
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ RETRIEVAL : Getting cached content
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Thu Apr 14 14:49:42 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Thu Apr 14 14:49:44 PDT 2016 | I/ MYRIDESFRAGMENT : refreshing rides
+
+Thu Apr 14 14:49:44 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Thu Apr 14 14:49:45 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 9)
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ RETRIEVAL : Getting cached content
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ RETRIEVAL : Getting cached content
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Thu Apr 14 14:49:45 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Thu Apr 14 14:50:03 PDT 2016 | I/ RESTUTIL : dropping passenger 570b21a0fbc29ad633560ad0 from ride 5701c0e68a4478a967bcc9b8
+
+Thu Apr 14 14:50:03 PDT 2016 | D/ RESTUTIL.JAVA : OK
+
+Thu Apr 14 14:50:03 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Thu Apr 14 14:50:04 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Thu Apr 14 14:50:04 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:50:04 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 9)
+
+Thu Apr 14 14:50:06 PDT 2016 | I/ RETRIEVAL : Getting cached content
+
+Thu Apr 14 14:50:06 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Thu Apr 14 14:50:06 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Thu Apr 14 14:50:06 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Thu Apr 14 14:50:06 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Thu Apr 14 14:50:06 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Thu Apr 14 14:50:06 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Thu Apr 14 14:50:06 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Thu Apr 14 14:50:06 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Thu Apr 14 14:50:06 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Thu Apr 14 14:50:06 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Thu Apr 14 14:50:06 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Thu Apr 14 14:50:08 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Thu Apr 14 14:50:08 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Thu Apr 14 14:50:08 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:50:08 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 9)
+
+Thu Apr 14 14:50:11 PDT 2016 | I/ MYRIDESFRAGMENT : refreshing rides
+
+Thu Apr 14 14:50:11 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Thu Apr 14 14:50:12 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Thu Apr 14 14:50:12 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 14 14:50:12 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 9)
+
+Thu Apr 14 14:50:22 PDT 2016 | I/ FORM : Printing form...
+
+Thu Apr 14 14:50:22 PDT 2016 | I/ QUESITON : Please Enter Your Name -> null
+
+Thu Apr 14 14:50:22 PDT 2016 | I/ QUESITON : Please Enter Your Phone Number -> null
+
+Thu Apr 14 14:50:22 PDT 2016 | I/ QUESITON : Gender -> null
+
+Thu Apr 14 14:50:22 PDT 2016 | I/ QUESITON : When would you like to leave for the event? -> null
+
+Thu Apr 14 14:50:22 PDT 2016 | I/ QUESITON : What kind of ride? -> null
+
+Thu Apr 14 14:50:22 PDT 2016 | I/ QUESITON : Where are you leaving from? -> null
+
+Thu Apr 14 14:50:22 PDT 2016 | I/ QUESITON : How many seats are available? Don't include yourself! -> null
+
+Thu Apr 14 14:50:33 PDT 2016 | I/ ANSWERING : 0 : name = delete
+
+Thu Apr 14 14:50:33 PDT 2016 | I/ ANSWERING : 1 : phone number = 18057087161
+
+Thu Apr 14 14:50:33 PDT 2016 | I/ ANSWERING : 2 : gender = MALE
+
+Thu Apr 14 14:50:33 PDT 2016 | I/ ANSWERING : 3 : departure time = java.util.GregorianCalendar[time=?,areFieldsSet=false,lenient=true,zone=America/Los_Angeles,firstDayOfWeek=1,minimalDaysInFirstWeek=1,ERA=?,YEAR=2016,MONTH=3,WEEK_OF_YEAR=?,WEEK_OF_MONTH=?,DAY_OF_MONTH=14,DAY_OF_YEAR=?,DAY_OF_WEEK=?,DAY_OF_WEEK_IN_MONTH=?,AM_PM=?,HOUR=?,HOUR_OF_DAY=14,MINUTE=50,SECOND=?,MILLISECOND=?,ZONE_OFFSET=?,DST_OFFSET=?]
+
+Thu Apr 14 14:50:33 PDT 2016 | I/ ANSWERING : 4 : ride type = from
+
+Thu Apr 14 14:50:33 PDT 2016 | I/ ANSWERING : 5 : leave location = com.will_code_for_food.crucentralcoast.model.common.common.Location@be034ea
+
+Thu Apr 14 14:50:33 PDT 2016 | I/ ANSWERING : 6 : number of seats = 1
+
+

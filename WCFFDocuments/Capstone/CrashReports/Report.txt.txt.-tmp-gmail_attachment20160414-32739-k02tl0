@@ -1,0 +1,92 @@
+No user message
+
+
+APP VERSION: v0.0.0.A1
+
+
+DATE: Wed Apr 13 18:31:20 PDT 2016
+
+API VERSION: 21 ( v5.0 )
+
+MODEL: SAMSUNG-SM-G900A
+
+MANUFACTURER: samsung
+
+
+
+**************************************************
+
+
+STACK TRACE:
+
+
+Unable to destroy activity {com.will_code_for_food.crucentralcoast/com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity}: java.lang.IllegalStateException: Activity has been destroyed
+
+
+android.app.ActivityThread.performDestroyActivity(ActivityThread.java:4109)
+
+android.app.ActivityThread.handleDestroyActivity(ActivityThread.java:4127)
+
+android.app.ActivityThread.access$1500(ActivityThread.java:172)
+
+android.app.ActivityThread$H.handleMessage(ActivityThread.java:1475)
+
+android.os.Handler.dispatchMessage(Handler.java:102)
+
+android.os.Looper.loop(Looper.java:145)
+
+android.app.ActivityThread.main(ActivityThread.java:5835)
+
+java.lang.reflect.Method.invoke(Native Method)
+
+java.lang.reflect.Method.invoke(Method.java:372)
+
+com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1399)
+
+com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1194)
+
+
+
+**************************************************
+
+
+SESSION LOG:
+
+
+LOG SESSION: Wed Apr 13 18:20:03 PDT 2016
+
+Wed Apr 13 18:20:03 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 13 18:20:03 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 13 18:20:04 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 13 18:20:04 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 13 18:20:04 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 13 18:20:04 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 13 18:20:05 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 13 18:20:09 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 13 18:20:09 PDT 2016 | I/ LAUNCHING APP : Starting MainActivity
+
+Wed Apr 13 18:20:58 PDT 2016 | I/ RETRIEVAL : Getting cached content
+
+Wed Apr 13 18:28:09 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 13 18:28:09 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 13 18:29:45 PDT 2016 | I/ RETRIEVAL : Getting cached content
+
+Wed Apr 13 18:29:50 PDT 2016 | I/ RETRIEVAL : Getting cached content
+
+Wed Apr 13 18:29:52 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 13 18:29:52 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 13 18:30:38 PDT 2016 | I/ RETRIEVAL : Getting cached content
+
+

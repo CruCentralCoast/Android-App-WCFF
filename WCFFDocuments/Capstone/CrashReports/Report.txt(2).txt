@@ -1,0 +1,182 @@
+No user message
+
+
+APP VERSION: v0.0.0.A1
+
+
+DATE: Thu Apr 28 13:00:09 PDT 2016
+
+API VERSION: 21 ( v5.0 )
+
+MODEL: SAMSUNG-SM-G900A
+
+MANUFACTURER: samsung
+
+
+
+**************************************************
+
+
+STACK TRACE:
+
+
+An error occured while executing doInBackground()
+
+
+android.os.AsyncTask$3.done(AsyncTask.java:300)
+
+java.util.concurrent.FutureTask.finishCompletion(FutureTask.java:355)
+
+java.util.concurrent.FutureTask.setException(FutureTask.java:222)
+
+java.util.concurrent.FutureTask.run(FutureTask.java:242)
+
+android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:231)
+
+java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1112)
+
+java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:587)
+
+java.lang.Thread.run(Thread.java:818)
+
+
+
+**************************************************
+
+
+SESSION LOG:
+
+
+Thu Apr 28 12:34:00 PDT 2016 | I/ DBOBJECTLOADER : Loading ministries
+
+ | I/ DBOBJECTLOADER : Loading events
+
+Thu Apr 28 12:34:00 PDT 2016 | I/ DBOBJECTLOADER : Loading campuses
+
+Thu Apr 28 12:34:00 PDT 2016 | I/ DBOBJECTLOADER : data was null
+
+Thu Apr 28 12:34:00 PDT 2016 | I/ DBOBJECTLOADER : Loading ministry teams
+
+ [events] from database
+
+Thu Apr 28 12:34:00 PDT 2016 | I/ DBOBJECTLOADER : Loading rides
+
+Thu Apr 28 12:34:00 PDT 2016 | I/ DBOBJECTLOADER : Loading resources
+
+Thu Apr 28 12:34:00 PDT 2016 | I/ DBOBJECTLOADER : Loading summer missions
+
+Thu Apr 28 12:34:00 PDT 2016 | I/ DBOBJECTLOADER : Loading ministry teams
+
+Thu Apr 28 12:34:00 PDT 2016 | I/ DBOBJECTLOADER : Loading ministry teams
+
+Thu Apr 28 12:34:00 PDT 2016 | I/ REGINTENTSERVICE : GCM Registration Token: ciPhE562qv8:APA91bFMHnwVFrhl3v-dEPv4ajNSoxcwIt1oltquDqje8O8i3CyA9BMItlPvCpKCATMU_QM57UDnFlSzXGQq7FLLZVSk6Z4h5uCQ1a2rZxe2tOmVmgeU9I_r2W8sEullJT24eAiQ_9e1
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [campuses] from database
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [events] from database (loadCount is: 1)
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [campuses] from database (loadCount is: 2)
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministryteams] from database
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministries] from database (loadCount is: 3)
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministryteams] from database (loadCount is: 4)
+
+Thu Apr 28 12:34:01 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [resources] from database
+
+Thu Apr 28 12:34:01 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 5)
+
+Thu Apr 28 12:34:02 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 28 12:34:02 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [summermissions] from database
+
+Thu Apr 28 12:34:02 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [resources] from database (loadCount is: 6)
+
+Thu Apr 28 12:34:02 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 28 12:34:02 PDT 2016 | I/ DBOBJECTLOADER : Getting videos from youtube
+
+Thu Apr 28 12:34:02 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [summermissions] from database (loadCount is: 7)
+
+Thu Apr 28 12:34:04 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Thu Apr 28 12:34:05 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Thu Apr 28 12:34:05 PDT 2016 | D/ VIDEORETRIEVER : got 20 videos
+
+Thu Apr 28 12:34:05 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [passengers] from database
+
+Thu Apr 28 12:34:05 PDT 2016 | I/ DBOBJECTLOADER : Finished getting videos from youtube (loadCount is: 8)
+
+Thu Apr 28 12:34:05 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 28 12:34:05 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministryquestions] from database
+
+Thu Apr 28 12:34:05 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [passengers] from database (loadCount is: 9)
+
+Thu Apr 28 12:34:06 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 28 12:34:06 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministryquestions] from database (loadCount is: 9)
+
+Thu Apr 28 12:34:06 PDT 2016 | I/ LAUNCHING APP : Starting MainActivity
+
+Thu Apr 28 12:34:06 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Thu Apr 28 12:34:06 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Thu Apr 28 13:00:08 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Thu Apr 28 13:00:08 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Thu Apr 28 13:00:08 PDT 2016 | I/ DBOBJECTLOADER : data was null
+
+Thu Apr 28 13:00:08 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Thu Apr 28 13:00:09 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Thu Apr 28 13:00:09 PDT 2016 | I/ CRASH REPORT : Found cached report
+
+Thu Apr 28 13:00:09 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Thu Apr 28 13:00:09 PDT 2016 | I/ DBOBJECTLOADER : data was null
+
+Thu Apr 28 13:00:09 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+

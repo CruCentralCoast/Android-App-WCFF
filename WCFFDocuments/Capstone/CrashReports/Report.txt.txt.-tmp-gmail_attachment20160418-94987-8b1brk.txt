@@ -1,0 +1,322 @@
+No user message
+
+
+APP VERSION: v0.0.0.A1
+
+
+DATE: Mon Apr 18 15:28:42 PDT 2016
+
+API VERSION: 23 ( v6.0.1 )
+
+MODEL: Nexus 5
+
+MANUFACTURER: LGE
+
+
+
+**************************************************
+
+
+STACK TRACE:
+
+
+An error occurred while executing doInBackground()
+
+
+android.os.AsyncTask$3.done(AsyncTask.java:309)
+
+java.util.concurrent.FutureTask.finishCompletion(FutureTask.java:354)
+
+java.util.concurrent.FutureTask.setException(FutureTask.java:223)
+
+java.util.concurrent.FutureTask.run(FutureTask.java:242)
+
+android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:234)
+
+java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1113)
+
+java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:588)
+
+java.lang.Thread.run(Thread.java:818)
+
+
+
+**************************************************
+
+
+SESSION LOG:
+
+
+Mon Apr 18 15:25:21 PDT 2016 | I/ DBOBJECTLOADER : Loading ministry teams
+
+Mon Apr 18 15:25:21 PDT 2016 | I/ DBOBJECTLOADER : Loading rides
+
+Mon Apr 18 15:25:21 PDT 2016 | I/ DBOBJECTLOADER : Loading resources
+
+Mon Apr 18 15:25:21 PDT 2016 | I/ DBOBJECTLOADER : Loading summer missions
+
+Mon Apr 18 15:25:21 PDT 2016 | I/ DBOBJECTLOADER : Loading ministry teams
+
+Mon Apr 18 15:25:21 PDT 2016 | I/ REGINTENTSERVICE : GCM Registration Token: fmhRrbUHYhs:APA91bEhG67inQv7RtoL_ryIVuPKQMPSdpb0UxdqsrxAwLjNoNXHRqLjZ9tGgcuo8k26F4-trQNirCkYZCtth0BOxAvfLnp6F9W8OPChxbnNnOhjJuXviIfElMlOgLSbl8YwmcQB1d93
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [campuses] from database
+
+tabase (loadCount is: 1)
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministries] from database
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [campuses] from database (loadCount is: 2)
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministryteams] from database
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministries] from database (loadCount is: 3)
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Mon Apr 18 15:25:22 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministryteams] from database (loadCount is: 4)
+
+Mon Apr 18 15:25:23 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Mon Apr 18 15:25:23 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:25:23 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [resources] from database
+
+Mon Apr 18 15:25:23 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 5)
+
+Mon Apr 18 15:25:23 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:25:23 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [summermissions] from database
+
+Mon Apr 18 15:25:23 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [resources] from database (loadCount is: 6)
+
+Mon Apr 18 15:25:23 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:25:23 PDT 2016 | I/ DBOBJECTLOADER : Getting videos from youtube
+
+Mon Apr 18 15:25:23 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [summermissions] from database (loadCount is: 7)
+
+Mon Apr 18 15:25:27 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Mon Apr 18 15:25:29 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Mon Apr 18 15:25:29 PDT 2016 | D/ VIDEORETRIEVER : got 20 videos
+
+Mon Apr 18 15:25:29 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [passengers] from database
+
+Mon Apr 18 15:25:29 PDT 2016 | I/ DBOBJECTLOADER : Finished getting videos from youtube (loadCount is: 8)
+
+Mon Apr 18 15:25:29 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:25:29 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [passengers] from database (loadCount is: 9)
+
+Mon Apr 18 15:25:30 PDT 2016 | I/ LAUNCHING APP : Starting MainActivity
+
+Mon Apr 18 15:25:30 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Mon Apr 18 15:25:30 PDT 2016 | I/ CRASH REPORT : Found cached report
+
+Mon Apr 18 15:25:30 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Mon Apr 18 15:25:43 PDT 2016 | E !!! / SENDING EMAIL : Sending email to Will.Code.For.Food.CP@gmail.com
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ FEEDFRAGMENT : Refreshing Feed
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [events] from database
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [resources] from database
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:26:06 PDT 2016 | I/ DBOBJECTLOADER : Getting videos from youtube
+
+Mon Apr 18 15:26:08 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Mon Apr 18 15:26:08 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Mon Apr 18 15:26:08 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [events] from database (loadCount is: 9)
+
+Mon Apr 18 15:26:08 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [resources] from database (loadCount is: 9)
+
+Mon Apr 18 15:26:10 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Mon Apr 18 15:26:10 PDT 2016 | D/ VIDEORETRIEVER : got 20 videos
+
+Mon Apr 18 15:26:10 PDT 2016 | I/ DBOBJECTLOADER : Finished getting videos from youtube (loadCount is: 9)
+
+Mon Apr 18 15:26:11 PDT 2016 | E !!! / CHANGING BUTTON : changing button
+
+Mon Apr 18 15:26:20 PDT 2016 | E !!! / CHANGING BUTTON : changing button
+
+Mon Apr 18 15:26:21 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ FEEDFRAGMENT : Refreshing Feed
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [events] from database
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Mon Apr 18 15:26:42 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Mon Apr 18 15:26:43 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:26:43 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [resources] from database
+
+Mon Apr 18 15:26:43 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:26:43 PDT 2016 | I/ DBOBJECTLOADER : Getting videos from youtube
+
+Mon Apr 18 15:26:44 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Mon Apr 18 15:26:45 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Mon Apr 18 15:26:45 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [events] from database (loadCount is: 9)
+
+Mon Apr 18 15:26:45 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [resources] from database (loadCount is: 9)
+
+Mon Apr 18 15:26:46 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Mon Apr 18 15:26:46 PDT 2016 | D/ VIDEORETRIEVER : got 20 videos
+
+Mon Apr 18 15:26:46 PDT 2016 | I/ DBOBJECTLOADER : Finished getting videos from youtube (loadCount is: 9)
+
+Mon Apr 18 15:26:48 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Mon Apr 18 15:26:52 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Mon Apr 18 15:27:10 PDT 2016 | I/ FORM : Printing form...
+
+Mon Apr 18 15:27:10 PDT 2016 | I/ QUESITON : Please Enter Your Name -> null
+
+Mon Apr 18 15:27:10 PDT 2016 | I/ QUESITON : Please Enter Your Phone Number -> null
+
+Mon Apr 18 15:27:10 PDT 2016 | I/ QUESITON : Gender -> null
+
+Mon Apr 18 15:27:10 PDT 2016 | I/ QUESITON : When would you like to leave for the event? -> null
+
+Mon Apr 18 15:27:10 PDT 2016 | I/ QUESITON : What kind of ride? -> null
+
+Mon Apr 18 15:27:10 PDT 2016 | I/ QUESITON : Where are you leaving from? -> null
+
+Mon Apr 18 15:27:10 PDT 2016 | I/ QUESITON : How many seats are available? Don't include yourself! -> null
+
+Mon Apr 18 15:28:05 PDT 2016 | I/ ANSWERING : 0 : name = d
+
+Mon Apr 18 15:28:05 PDT 2016 | I/ ANSWERING : 1 : phone number = 3103103100
+
+Mon Apr 18 15:28:05 PDT 2016 | I/ ANSWERING : 2 : gender = FEMALE
+
+Mon Apr 18 15:28:05 PDT 2016 | I/ ANSWERING : 3 : departure time = java.util.GregorianCalendar[time=?,areFieldsSet=false,lenient=true,zone=America/Los_Angeles,firstDayOfWeek=1,minimalDaysInFirstWeek=1,ERA=?,YEAR=2016,MONTH=3,WEEK_OF_YEAR=?,WEEK_OF_MONTH=?,DAY_OF_MONTH=8,DAY_OF_YEAR=?,DAY_OF_WEEK=?,DAY_OF_WEEK_IN_MONTH=?,AM_PM=?,HOUR=?,HOUR_OF_DAY=15,MINUTE=27,SECOND=?,MILLISECOND=?,ZONE_OFFSET=?,DST_OFFSET=?]
+
+Mon Apr 18 15:28:05 PDT 2016 | I/ ANSWERING : 4 : ride type = both
+
+Mon Apr 18 15:28:05 PDT 2016 | I/ ANSWERING : 5 : leave location = com.will_code_for_food.crucentralcoast.model.common.common.Location@d0004d0
+
+Mon Apr 18 15:28:05 PDT 2016 | I/ ANSWERING : 6 : number of seats = 3
+
+Mon Apr 18 15:28:05 PDT 2016 | I/ RESTUTIL.JAVA : Sending object to rides: {"event":"563b12d85e926d03001ac15d","driverName":"d","driverNumber":"3103103100","gcm_id":"fmhRrbUHYhs:APA91bEhG67inQv7RtoL_ryIVuPKQMPSdpb0UxdqsrxAwLjNoNXHRqLjZ9tGgcuo8k26F4-trQNirCkYZCtth0BOxAvfLnp6F9W8OPChxbnNnOhjJuXviIfElMlOgLSbl8YwmcQB1d93","location":{"postcode":"93405","state":"California","suburb":"San Luis Obispo","street1":"1 Grand Ave","country":"United States","geo":["-120.6578793","35.3004878"]},"time":"2016-04-08T15:27:00.000Z","radius":1.0,"seats":"3","direction":"both","gender":"2"}
+
+Mon Apr 18 15:28:05 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Mon Apr 18 15:28:06 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Mon Apr 18 15:28:06 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:28:06 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 9)
+
+Mon Apr 18 15:28:09 PDT 2016 | I/ MYRIDESFRAGMENT : refreshing rides
+
+Mon Apr 18 15:28:09 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Mon Apr 18 15:28:09 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Mon Apr 18 15:28:09 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:28:09 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 9)
+
+Mon Apr 18 15:28:10 PDT 2016 | I/ MYRIDESFRAGMENT : refreshing rides
+
+Mon Apr 18 15:28:10 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Mon Apr 18 15:28:10 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Mon Apr 18 15:28:10 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Mon Apr 18 15:28:10 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 9)
+
+Mon Apr 18 15:28:24 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Mon Apr 18 15:28:29 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+

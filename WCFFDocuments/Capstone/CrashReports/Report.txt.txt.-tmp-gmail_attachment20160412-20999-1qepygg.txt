@@ -1,0 +1,70 @@
+No user message
+
+
+APP VERSION: v0.0.0.A1
+
+
+DATE: Tue Apr 12 13:25:35 PDT 2016
+
+API VERSION: 19 ( v4.4.2 )
+
+MODEL: DROID RAZR HD
+
+MANUFACTURER: motorola
+
+
+
+**************************************************
+
+
+STACK TRACE:
+
+
+An error occured while executing doInBackground()
+
+
+android.os.AsyncTask$3.done(AsyncTask.java:300)
+
+java.util.concurrent.FutureTask.finishCompletion(FutureTask.java:355)
+
+java.util.concurrent.FutureTask.setException(FutureTask.java:222)
+
+java.util.concurrent.FutureTask.run(FutureTask.java:242)
+
+android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:231)
+
+java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1112)
+
+java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:587)
+
+java.lang.Thread.run(Thread.java:841)
+
+
+
+**************************************************
+
+
+SESSION LOG:
+
+
+LOG SESSION: Tue Apr 12 13:24:41 PDT 2016
+
+Tue Apr 12 13:24:41 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue Apr 12 13:24:42 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue Apr 12 13:24:42 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue Apr 12 13:24:42 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue Apr 12 13:24:43 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue Apr 12 13:24:44 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue Apr 12 13:24:44 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue Apr 12 13:24:48 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue Apr 12 13:24:48 PDT 2016 | I/ LAUNCHING APP : Starting MainActivity
+
+

@@ -1,0 +1,112 @@
+No user message
+
+
+APP VERSION: v0.0.0.A1
+
+
+DATE: Thu Apr 21 12:33:51 PDT 2016
+
+API VERSION: 23 ( v6.0.1 )
+
+MODEL: Nexus 5
+
+MANUFACTURER: LGE
+
+
+
+**************************************************
+
+
+STACK TRACE:
+
+
+An error occurred while executing doInBackground()
+
+
+android.os.AsyncTask$3.done(AsyncTask.java:309)
+
+java.util.concurrent.FutureTask.finishCompletion(FutureTask.java:354)
+
+java.util.concurrent.FutureTask.setException(FutureTask.java:223)
+
+java.util.concurrent.FutureTask.run(FutureTask.java:242)
+
+android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:234)
+
+java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1113)
+
+java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:588)
+
+java.lang.Thread.run(Thread.java:818)
+
+
+
+**************************************************
+
+
+SESSION LOG:
+
+
+Thu Apr 21 12:31:28 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [campuses] from database (loadCount is: 2)
+
+Thu Apr 21 12:31:28 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 21 12:31:28 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministryteams] from database
+
+Thu Apr 21 12:31:28 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministries] from database (loadCount is: 3)
+
+Thu Apr 21 12:31:29 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 21 12:31:29 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Thu Apr 21 12:31:29 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministryteams] from database (loadCount is: 4)
+
+Thu Apr 21 12:31:29 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Thu Apr 21 12:31:29 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 21 12:31:29 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [resources] from database
+
+Thu Apr 21 12:31:29 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 5)
+
+Thu Apr 21 12:31:29 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 21 12:31:29 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [resources] from database (loadCount is: 6)
+
+Thu Apr 21 12:31:29 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [summermissions] from database
+
+Thu Apr 21 12:31:30 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 21 12:31:30 PDT 2016 | I/ DBOBJECTLOADER : Getting videos from youtube
+
+Thu Apr 21 12:31:30 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [summermissions] from database (loadCount is: 7)
+
+Thu Apr 21 12:31:31 PDT 2016 | I/ REGINTENTSERVICE : GCM Registration Token: dRwXGWHqUTA:APA91bFo8C2uZBH7kpmdOp7DpT6pnWty_L6Mw4JNCquMYoQzw3Ctf1U4I943043P0Ce5t6DUOB-qYNtlz7n7m_ix53e-qUB5nx8Q8eC-YkzeF167LMQZ09MW82vSqFZ97nZT7avfpLSl
+
+Thu Apr 21 12:31:31 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Thu Apr 21 12:31:32 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Thu Apr 21 12:31:32 PDT 2016 | D/ VIDEORETRIEVER : got 20 videos
+
+Thu Apr 21 12:31:32 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [passengers] from database
+
+Thu Apr 21 12:31:32 PDT 2016 | I/ DBOBJECTLOADER : Finished getting videos from youtube (loadCount is: 8)
+
+Thu Apr 21 12:31:33 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Thu Apr 21 12:31:33 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [passengers] from database (loadCount is: 9)
+
+Thu Apr 21 12:32:09 PDT 2016 | I/ LAUNCHING APP : Starting MainActivity
+
+Thu Apr 21 12:32:21 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Thu Apr 21 12:32:21 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Thu Apr 21 12:32:26 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Thu Apr 21 12:33:51 PDT 2016 | I/ RESTUTIL.JAVA : Sending object to passengers: {"name":"weeeeeee no name filter or length ahahahahahahhahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahhahahahahahahahahahhahahahahahahahahahagahhaHahahahah","phone":"phone","gcm_id":"dRwXGWHqUTA:APA91bFo8C2uZBH7kpmdOp7DpT6pnWty_L6Mw4JNCquMYoQzw3Ctf1U4I943043P0Ce5t6DUOB-qYNtlz7n7m_ix53e-qUB5nx8Q8eC-YkzeF167LMQZ09MW82vSqFZ97nZT7avfpLSl","direction":"both"}
+
+Thu Apr 21 12:33:51 PDT 2016 | I/ SIGNING UP FOR RIDE : Notifying driver of a new rider
+
+

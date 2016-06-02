@@ -1,0 +1,4916 @@
+
+
+
+
+<html>
+<head>
+    <title>Time Tracking Report</title>
+    <meta name="decorator" content="none" />
+    <meta http-equiv="Content-Type" Content="application/vnd.ms-excel; charset=UTF-8" />
+</head>
+<body>
+
+<table id="time_tracking_report_table" border="1">
+<tr>
+    <td bgcolor="#205081" colspan="15" height=30>
+        <img src="/images/icon-jira-logo.png" width="57" height="30" border="0" alt="Cal Poly Software Engineering">
+    </td>
+</tr>
+<tr>
+    <td bgcolor=#ffffff colspan="15">
+        <a href=""><span class="bluetext">Cal Poly Software Engineering</span></a>
+    </td>
+</tr>
+<tr>
+    <th bgcolor="#dddddd">Issue Type</th>
+    <th bgcolor="#dddddd"><b>Key</b></th>
+    <th bgcolor="#dddddd"><b>Status</b></th>
+    <th bgcolor="#dddddd"><b>Priority</b></th>
+    <th bgcolor="#dddddd"><b>Summary</b></th>
+    <th bgcolor="#dddddd"><b>Original Time Estimated (min)</b></th>
+            <th bgcolor="#dddddd">&Sigma;</th>
+        <th bgcolor="#dddddd"><b>Estimated Time Remaining (min)</b></th>
+            <th bgcolor="#dddddd">&Sigma;</th>
+        <th bgcolor="#dddddd"><b>Total Time Spent (min)</b></th>
+            <th bgcolor="#dddddd">&Sigma;</th>
+        <th bgcolor="#dddddd"><b>Accuracy</b></th>
+            <th bgcolor="#dddddd">&Sigma;</th>
+        <th bgcolor="#dddddd"><b>Accuracy (%)</b></th>
+            <th bgcolor="#dddddd">&Sigma;</th>
+    </tr>
+
+    <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-24">WCFF-24</a></td>
+    <td>Closed</td>
+    <td>Minor</td>
+    <td>
+                Vertical Prototype (DB component)
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>180</td>
+            <td>
+                            180
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-38">WCFF-38</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a student, I can select campuses to join
+    </td>
+    <td></td>
+            <td>
+                            0
+                    </td>
+        <td></td>
+            <td>
+                            0
+                    </td>
+        <td>120</td>
+            <td>
+                            690
+                    </td>
+        <td>
+            </td>
+            <td>
+                            -690
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-51">WCFF-51</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Display list of campuses in a card layout
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>150</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-54">WCFF-54</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Save the campus selections to the app
+    </td>
+    <td>0</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>240</td>
+            <td>
+                    </td>
+        <td>
+                    -240
+            </td>
+            <td>
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-50">WCFF-50</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Retrieve campus information from the database
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>180</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-39">WCFF-39</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a student, I can select ministries to subscribe to
+    </td>
+    <td></td>
+            <td>
+                            0
+                    </td>
+        <td></td>
+            <td>
+                            0
+                    </td>
+        <td>555</td>
+            <td>
+                            795
+                    </td>
+        <td>
+            </td>
+            <td>
+                            -795
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-53">WCFF-53</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Display list of ministries in a card layout
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>120</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-55">WCFF-55</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Save the ministry selections to the app
+    </td>
+    <td>0</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>120</td>
+            <td>
+                    </td>
+        <td>
+                    -120
+            </td>
+            <td>
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-52">WCFF-52</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Retrieve list of ministry information from database
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-40">WCFF-40</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a student, I can view summary, campus, image about ministries
+    </td>
+    <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>18</td>
+            <td>
+                            18
+                    </td>
+        <td>
+                    -18
+            </td>
+            <td>
+                            -18
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-42">WCFF-42</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a user, I can view a list of upcoming events from my subscribed ministries
+    </td>
+    <td></td>
+            <td>
+                            0
+                    </td>
+        <td></td>
+            <td>
+                            0
+                    </td>
+        <td></td>
+            <td>
+                            1110
+                    </td>
+        <td>
+            </td>
+            <td>
+                            -1110
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-56">WCFF-56</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Retrieve info from db
+    </td>
+    <td>0</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>390</td>
+            <td>
+                    </td>
+        <td>
+                    -390
+            </td>
+            <td>
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-57">WCFF-57</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Display event info
+    </td>
+    <td>0</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>720</td>
+            <td>
+                    </td>
+        <td>
+                    -720
+            </td>
+            <td>
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-43">WCFF-43</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a user, I can select an event and view image, time, location, ministry, description
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>19</td>
+            <td>
+                            19
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-45">WCFF-45</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                As a user, I can view a settings tab
+    </td>
+    <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>360</td>
+            <td>
+                            360
+                    </td>
+        <td>
+                    -360
+            </td>
+            <td>
+                            -360
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-46">WCFF-46</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a user, I can receive a push notification from an admin to a specific ministry for a ministry event
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>240</td>
+            <td>
+                            240
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-48">WCFF-48</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a user, I can view a list of Summer Missions from the cru db
+    </td>
+    <td>480</td>
+            <td>
+                            480
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>540</td>
+            <td>
+                            540
+                    </td>
+        <td>
+                    -60
+            </td>
+            <td>
+                            -60
+                    </td>
+        <td>
+                    -12
+            </td>
+            <td>
+                            -12
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-49">WCFF-49</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a user, I can view the location, date, image of a summer mission
+    </td>
+    <td>480</td>
+            <td>
+                            480
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>480</td>
+            <td>
+                            480
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-59">WCFF-59</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Initial Cleanup
+    </td>
+    <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>600</td>
+            <td>
+                            600
+                    </td>
+        <td>
+                    -600
+            </td>
+            <td>
+                            -600
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-70">WCFF-70</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Make back buttons work
+    </td>
+    <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>60</td>
+            <td>
+                            60
+                    </td>
+        <td>
+                    -60
+            </td>
+            <td>
+                            -60
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-87">WCFF-87</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a user, I can see a list of rides for an event
+    </td>
+    <td>480</td>
+            <td>
+                            480
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td></td>
+            <td>
+                            1020
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            -540
+                    </td>
+        <td>
+                    100
+            </td>
+            <td>
+                            -112
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-113">WCFF-113</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                UI for viewing events that have ridesharing enabled
+    </td>
+    <td>0</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>180</td>
+            <td>
+                    </td>
+        <td>
+                    -180
+            </td>
+            <td>
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-115">WCFF-115</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Retrieve rides for an event from the database
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>240</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-116">WCFF-116</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                UI for list of rides in database for event
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>600</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-114">WCFF-114</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                UI for I can ride or I can drive after clicking event
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-100">WCFF-100</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a user, I can click a ministry to see information about the ministry
+    </td>
+    <td>480</td>
+            <td>
+                            840
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td></td>
+            <td>
+                            360
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            480
+                    </td>
+        <td>
+                    100
+            </td>
+            <td>
+                            57
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-103">WCFF-103</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Make ministries clickable
+    </td>
+    <td>120</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>60</td>
+            <td>
+                    </td>
+        <td>
+                    60
+            </td>
+            <td>
+                    </td>
+        <td>
+                    50
+            </td>
+            <td>
+                            50
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-105">WCFF-105</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Make ministry info screen
+    </td>
+    <td>240</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>300</td>
+            <td>
+                    </td>
+        <td>
+                    -60
+            </td>
+            <td>
+                    </td>
+        <td>
+                    -25
+            </td>
+            <td>
+                            -25
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Bug</td>
+    <td><a href="/browse/WCFF-110">WCFF-110</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Delete ministry prefs after de-selecting a campus
+    </td>
+    <td>120</td>
+            <td>
+                            120
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>300</td>
+            <td>
+                            300
+                    </td>
+        <td>
+                    -180
+            </td>
+            <td>
+                            -180
+                    </td>
+        <td>
+                    -150
+            </td>
+            <td>
+                            -150
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-119">WCFF-119</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Add comments to my code from Sprint1
+    </td>
+    <td>120</td>
+            <td>
+                            120
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>70</td>
+            <td>
+                            70
+                    </td>
+        <td>
+                    50
+            </td>
+            <td>
+                            50
+                    </td>
+        <td>
+                    41
+            </td>
+            <td>
+                            41
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-163">WCFF-163</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Event and Summer Mission event image sizes keep same
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td>0</td>
+            <td>
+                            0
+                    </td>
+        <td>30</td>
+            <td>
+                            30
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-60">WCFF-60</a></td>
+    <td>Resolved</td>
+    <td>Minor</td>
+    <td>
+                Create UML &amp; Doc explaining database retreival
+    </td>
+    <td>1</td>
+            <td>
+                            1
+                    </td>
+        <td>1</td>
+            <td>
+                            1
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Bug</td>
+    <td><a href="/browse/WCFF-122">WCFF-122</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                When rotating the screen lists are reloaded and summary context is not kept
+    </td>
+    <td>5</td>
+            <td>
+                            5
+                    </td>
+        <td>5</td>
+            <td>
+                            5
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Bug</td>
+    <td><a href="/browse/WCFF-123">WCFF-123</a></td>
+    <td>In Progress</td>
+    <td>Major</td>
+    <td>
+                Back button takes you to blank screen.  Also back stack is not getting cleared out.
+    </td>
+    <td>780</td>
+            <td>
+                            780
+                    </td>
+        <td>13</td>
+            <td>
+                            13
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    98
+            </td>
+            <td>
+                            98
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-44">WCFF-44</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a user, I can add an event to my calendar
+    </td>
+    <td>0</td>
+            <td>
+                            480
+                    </td>
+        <td>0</td>
+            <td>
+                            30
+                    </td>
+        <td>60</td>
+            <td>
+                            789
+                    </td>
+        <td>
+                    -60
+            </td>
+            <td>
+                            -339
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            -70
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-58">WCFF-58</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Add button to event page for add to calendar
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>5</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-66">WCFF-66</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Update CalendarEvent and CalendarAccessor
+    </td>
+    <td>60</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>61</td>
+            <td>
+                    </td>
+        <td>
+                    -1
+            </td>
+            <td>
+                    </td>
+        <td>
+                    -1
+            </td>
+            <td>
+                            -1
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-72">WCFF-72</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Link UI to calendar event creator
+    </td>
+    <td>60</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>90</td>
+            <td>
+                    </td>
+        <td>
+                    -30
+            </td>
+            <td>
+                    </td>
+        <td>
+                    -50
+            </td>
+            <td>
+                            -50
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-74">WCFF-74</a></td>
+    <td>Resolved</td>
+    <td>Minor</td>
+    <td>
+                                -&gt;
+                Keep UI &quot;add event&quot; button blue after adding event
+    </td>
+    <td>60</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>120</td>
+            <td>
+                    </td>
+        <td>
+                    -60
+            </td>
+            <td>
+                    </td>
+        <td>
+                    -100
+            </td>
+            <td>
+                            -100
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-75">WCFF-75</a></td>
+    <td>Resolved</td>
+    <td>Minor</td>
+    <td>
+                                -&gt;
+                Change calendar event reminder time to match time in database
+    </td>
+    <td>60</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>120</td>
+            <td>
+                    </td>
+        <td>
+                    -60
+            </td>
+            <td>
+                    </td>
+        <td>
+                    -100
+            </td>
+            <td>
+                            -100
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-76">WCFF-76</a></td>
+    <td>Resolved</td>
+    <td>Minor</td>
+    <td>
+                                -&gt;
+                Delete event on deselect of the &quot;add to calendar&quot; button
+    </td>
+    <td>60</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>183</td>
+            <td>
+                    </td>
+        <td>
+                    -123
+            </td>
+            <td>
+                    </td>
+        <td>
+                    -205
+            </td>
+            <td>
+                            -205
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-73">WCFF-73</a></td>
+    <td>Resolved</td>
+    <td>Minor</td>
+    <td>
+                                -&gt;
+                Save calendar event ids locally
+    </td>
+    <td>180</td>
+            <td>
+                    </td>
+        <td>30</td>
+            <td>
+                    </td>
+        <td>150</td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Bug</td>
+    <td><a href="/browse/WCFF-77">WCFF-77</a></td>
+    <td>Resolved</td>
+    <td>Trivial</td>
+    <td>
+                Event times are in military time
+    </td>
+    <td>60</td>
+            <td>
+                            60
+                    </td>
+        <td>50</td>
+            <td>
+                            50
+                    </td>
+        <td>10</td>
+            <td>
+                            10
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-65">WCFF-65</a></td>
+    <td>Open</td>
+    <td>Trivial</td>
+    <td>
+                Split up strings.xml
+    </td>
+    <td>60</td>
+            <td>
+                            60
+                    </td>
+        <td>60</td>
+            <td>
+                            60
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-71">WCFF-71</a></td>
+    <td>In Progress</td>
+    <td>Minor</td>
+    <td>
+                Look into caching data pulled from the database
+    </td>
+    <td>180</td>
+            <td>
+                            180
+                    </td>
+        <td>60</td>
+            <td>
+                            60
+                    </td>
+        <td>120</td>
+            <td>
+                            120
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-63">WCFF-63</a></td>
+    <td>Closed</td>
+    <td>Minor</td>
+    <td>
+                Create consistent/persistent logs
+    </td>
+    <td>240</td>
+            <td>
+                            240
+                    </td>
+        <td>120</td>
+            <td>
+                            120
+                    </td>
+        <td>180</td>
+            <td>
+                            180
+                    </td>
+        <td>
+                    -60
+            </td>
+            <td>
+                            -60
+                    </td>
+        <td>
+                    -25
+            </td>
+            <td>
+                            -25
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Epic</td>
+    <td><a href="/browse/WCFF-78">WCFF-78</a></td>
+    <td>Open</td>
+    <td>Critical</td>
+    <td>
+                Testing for all the different components of the app
+    </td>
+    <td></td>
+            <td>
+                            185
+                    </td>
+        <td></td>
+            <td>
+                            185
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-68">WCFF-68</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Test Campus
+    </td>
+    <td>2</td>
+            <td>
+                    </td>
+        <td>2</td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-69">WCFF-69</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Test Database Retriever Functionality
+    </td>
+    <td>3</td>
+            <td>
+                    </td>
+        <td>3</td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-67">WCFF-67</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Test Calendar and CalendarEvent
+    </td>
+    <td>180</td>
+            <td>
+                    </td>
+        <td>180</td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-64">WCFF-64</a></td>
+    <td>Open</td>
+    <td>Trivial</td>
+    <td>
+                Add UI Displaying Logging Information
+    </td>
+    <td>240</td>
+            <td>
+                            240
+                    </td>
+        <td>240</td>
+            <td>
+                            240
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-79">WCFF-79</a></td>
+    <td>Open</td>
+    <td>Minor</td>
+    <td>
+                Cut down on image load times
+    </td>
+    <td>480</td>
+            <td>
+                            480
+                    </td>
+        <td>300</td>
+            <td>
+                            300
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    37
+            </td>
+            <td>
+                            37
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-130">WCFF-130</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                Change the ridesharing tab to show my rides, with an &quot;add ride&quot; button
+    </td>
+    <td>300</td>
+            <td>
+                            300
+                    </td>
+        <td>300</td>
+            <td>
+                            300
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-80">WCFF-80</a></td>
+    <td>Resolved</td>
+    <td>Minor</td>
+    <td>
+                Screens that display cards should use the same code
+    </td>
+    <td>480</td>
+            <td>
+                            480
+                    </td>
+        <td>480</td>
+            <td>
+                            480
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-125">WCFF-125</a></td>
+    <td>In Progress</td>
+    <td>Major</td>
+    <td>
+                As a user, I can view rides that I have signed up for already
+    </td>
+    <td>480</td>
+            <td>
+                            480
+                    </td>
+        <td>480</td>
+            <td>
+                            480
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-88">WCFF-88</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                As a user I can fill a form to find relevant rides for an event
+    </td>
+    <td>780</td>
+            <td>
+                            780
+                    </td>
+        <td>780</td>
+            <td>
+                            780
+                    </td>
+        <td></td>
+            <td>
+                            120
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            -120
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            -15
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-132">WCFF-132</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Create a view for the Rider Form
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-133">WCFF-133</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Update rides in the database when a user signs up for a ride
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>120</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-89">WCFF-89</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                Make our app work with Ian&#39;s push notifications
+    </td>
+    <td>780</td>
+            <td>
+                            780
+                    </td>
+        <td>780</td>
+            <td>
+                            780
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-124">WCFF-124</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                As a group leader, I can log in to the app to view leader-only resources
+    </td>
+    <td>780</td>
+            <td>
+                            780
+                    </td>
+        <td>780</td>
+            <td>
+                            780
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-153">WCFF-153</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Remember log in information permanently
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-154">WCFF-154</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Fingerprint log in (stretch goal)
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-155">WCFF-155</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Verify user credentials in database
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-156">WCFF-156</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Create Log in UI
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-127">WCFF-127</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                UI Overhaul 2
+    </td>
+    <td>780</td>
+            <td>
+                            780
+                    </td>
+        <td>780</td>
+            <td>
+                            780
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-131">WCFF-131</a></td>
+    <td>Open</td>
+    <td>Minor</td>
+    <td>
+                                -&gt;
+                Card Text Overlap issue
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-134">WCFF-134</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Clean up Need a Ride/I Can Drive page
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-136">WCFF-136</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Add Ride Share icon to event cards
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-128">WCFF-128</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                As a user, I can view videos from cru&#39;s youtube channels
+    </td>
+    <td>780</td>
+            <td>
+                            780
+                    </td>
+        <td>780</td>
+            <td>
+                            780
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-135">WCFF-135</a></td>
+    <td>In Progress</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                UI card list
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-139">WCFF-139</a></td>
+    <td>In Progress</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Retrieve videos from Cru YT channel
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-140">WCFF-140</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Filter list of YT videos
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-141">WCFF-141</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Open YT video in YT app
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-142">WCFF-142</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Search for a YT video
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-149">WCFF-149</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Order videos by new first
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-126">WCFF-126</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                As a user, I can cancel rides that I have signed up for
+    </td>
+    <td>780</td>
+            <td>
+                            960
+                    </td>
+        <td>780</td>
+            <td>
+                            840
+                    </td>
+        <td></td>
+            <td>
+                            120
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            0
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-158">WCFF-158</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Delete passengers from a ride in the database
+    </td>
+    <td>180</td>
+            <td>
+                    </td>
+        <td>60</td>
+            <td>
+                    </td>
+        <td>120</td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-137">WCFF-137</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                UI to view their rides
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-138">WCFF-138</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Delete rides from the database
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-157">WCFF-157</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                Be able to sort/filter/search on card screens
+    </td>
+    <td>780</td>
+            <td>
+                            1020
+                    </td>
+        <td>780</td>
+            <td>
+                            900
+                    </td>
+        <td></td>
+            <td>
+                            120
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            0
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-160">WCFF-160</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Create logic for sorting/searching
+    </td>
+    <td>240</td>
+            <td>
+                    </td>
+        <td>120</td>
+            <td>
+                    </td>
+        <td>120</td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-159">WCFF-159</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Create UI components to allow for searching/sorting
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-83">WCFF-83</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                UI Overhaul
+    </td>
+    <td>1260</td>
+            <td>
+                            1860
+                    </td>
+        <td>960</td>
+            <td>
+                            1080
+                    </td>
+        <td>300</td>
+            <td>
+                            2580
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            -1800
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            -96
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-81">WCFF-81</a></td>
+    <td>Resolved</td>
+    <td>Trivial</td>
+    <td>
+                                -&gt;
+                Use Cru Fonts
+    </td>
+    <td>120</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>240</td>
+            <td>
+                    </td>
+        <td>
+                    -120
+            </td>
+            <td>
+                    </td>
+        <td>
+                    -100
+            </td>
+            <td>
+                            -100
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-84">WCFF-84</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Change colors to Cru Colors
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>360</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-93">WCFF-93</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Event images fill screen
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>90</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-94">WCFF-94</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Event whole screen scrolls
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>150</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-95">WCFF-95</a></td>
+    <td>Resolved</td>
+    <td>Minor</td>
+    <td>
+                                -&gt;
+                Make checkboxes for initial setup not pink
+    </td>
+    <td>60</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>60</td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-96">WCFF-96</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Calendar button not grey
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>10</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-98">WCFF-98</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Splash Screen Overhaul
+    </td>
+    <td>0</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>420</td>
+            <td>
+                    </td>
+        <td>
+                    -420
+            </td>
+            <td>
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-99">WCFF-99</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Make cards prettier
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>540</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-101">WCFF-101</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Bigger gaps between cards
+    </td>
+    <td>60</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>330</td>
+            <td>
+                    </td>
+        <td>
+                    -270
+            </td>
+            <td>
+                    </td>
+        <td>
+                    -450
+            </td>
+            <td>
+                            -450
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-112">WCFF-112</a></td>
+    <td>Resolved</td>
+    <td>Minor</td>
+    <td>
+                                -&gt;
+                Allow user to go back from ministries to campuses on initial setup
+    </td>
+    <td>60</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>5</td>
+            <td>
+                    </td>
+        <td>
+                    55
+            </td>
+            <td>
+                    </td>
+        <td>
+                    91
+            </td>
+            <td>
+                            91
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-117">WCFF-117</a></td>
+    <td>Resolved</td>
+    <td>Minor</td>
+    <td>
+                                -&gt;
+                Interrupt and skip fade animation in initial setup.
+    </td>
+    <td>180</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>75</td>
+            <td>
+                    </td>
+        <td>
+                    105
+            </td>
+            <td>
+                    </td>
+        <td>
+                    58
+            </td>
+            <td>
+                            58
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-118">WCFF-118</a></td>
+    <td>Open</td>
+    <td>Minor</td>
+    <td>
+                                -&gt;
+                Get ministry info screen to work in a ScrollView 
+    </td>
+    <td>120</td>
+            <td>
+                    </td>
+        <td>120</td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-85">WCFF-85</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Headers to designate what campuses/ministries in cards
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-129">WCFF-129</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                As a user, I can view cru resources such as articles
+    </td>
+    <td>1260</td>
+            <td>
+                            1260
+                    </td>
+        <td>1260</td>
+            <td>
+                            1260
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-143">WCFF-143</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                UI card list
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-144">WCFF-144</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Retrieve articles from database
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-145">WCFF-145</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Open article in app
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-147">WCFF-147</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Filter/search articles
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-148">WCFF-148</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Order articles by new first
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-86">WCFF-86</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                As a Cru driver, I can fill out a form to offer a ride for an event
+    </td>
+    <td>1260</td>
+            <td>
+                            2520
+                    </td>
+        <td>1260</td>
+            <td>
+                            1679
+                    </td>
+        <td></td>
+            <td>
+                            2101
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                            -1260
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            -50
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-97">WCFF-97</a></td>
+    <td>In Progress</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Create screen to display ride offering form
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>600</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-104">WCFF-104</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Create a generic form that can be given to the UI
+    </td>
+    <td>300</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>330</td>
+            <td>
+                    </td>
+        <td>
+                    -30
+            </td>
+            <td>
+                    </td>
+        <td>
+                    -10
+            </td>
+            <td>
+                            -10
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-106">WCFF-106</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Push created rides to the database
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>120</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-107">WCFF-107</a></td>
+    <td>In Progress</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                View a user&#39;s rides in the UI
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>300</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-109">WCFF-109</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Link the ridesharing tab to the ridsharing UI
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>60</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-111">WCFF-111</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Link the ridesharing button to the ridesharing tab
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>120</td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-152">WCFF-152</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Save &amp; Autofill the user&#39;s name
+    </td>
+    <td>120</td>
+            <td>
+                    </td>
+        <td>0</td>
+            <td>
+                    </td>
+        <td>150</td>
+            <td>
+                    </td>
+        <td>
+                    -30
+            </td>
+            <td>
+                    </td>
+        <td>
+                    -25
+            </td>
+            <td>
+                            -25
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-108">WCFF-108</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Store a user&#39;s rides on the phone
+    </td>
+    <td>300</td>
+            <td>
+                    </td>
+        <td>59</td>
+            <td>
+                    </td>
+        <td>241</td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-120">WCFF-120</a></td>
+    <td>In Progress</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Allow forms to create a Ride
+    </td>
+    <td>240</td>
+            <td>
+                    </td>
+        <td>60</td>
+            <td>
+                    </td>
+        <td>180</td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-150">WCFF-150</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Finish New Ride Pushing
+    </td>
+    <td>300</td>
+            <td>
+                    </td>
+        <td>300</td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+                    
+            </td>
+            <td>
+                    </td>
+        <td>
+                    0
+            </td>
+            <td>
+                            0
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-102">WCFF-102</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Create screen to ask user if offering or riding
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-151">WCFF-151</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Fix the rider/driver forms to make it easier for the GUI people
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Epic</td>
+    <td><a href="/browse/WCFF-1">WCFF-1</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                Ride Sharing Functionality in the Android Application
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-2">WCFF-2</a></td>
+    <td>Resolved</td>
+    <td>Minor</td>
+    <td>
+                Requirements Sample
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-5">WCFF-5</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Systems Requirement Specification
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-6">WCFF-6</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Vision and Scope
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-7">WCFF-7</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Ride Sharing Mockup
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-8">WCFF-8</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Events Mockup
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-9">WCFF-9</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Summer Missions Mockup
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-10">WCFF-10</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Initial Setup Mockup
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Epic</td>
+    <td><a href="/browse/WCFF-11">WCFF-11</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Balsamiq Mockups
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-12">WCFF-12</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                Get Involved Mockup
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-13">WCFF-13</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Resources Mockup
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-14">WCFF-14</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                Build &amp; Dev Environment
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>            <tr valign="top">
+    <td>
+                    -&gt;
+                Sub-task</td>
+    <td><a href="/browse/WCFF-17">WCFF-17</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                                -&gt;
+                Create Instructions
+    </td>
+    <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td></td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-15">WCFF-15</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Set up Continuous Integration (Bamboo?)
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-16">WCFF-16</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Set up Git repository on Bitbucket
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Epic</td>
+    <td><a href="/browse/WCFF-18">WCFF-18</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                Create Vertical Prototype
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-19">WCFF-19</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                QA Document
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-20">WCFF-20</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Class UML Diagram
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-21">WCFF-21</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                Sequence UML Diagram
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-22">WCFF-22</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                Create UI For Prototype
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-23">WCFF-23</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                Validation Plan (QA Plan)
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-25">WCFF-25</a></td>
+    <td>Closed</td>
+    <td>Minor</td>
+    <td>
+                Final SRS
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-26">WCFF-26</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                Software Architecture v2
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-27">WCFF-27</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                Requirements Traceability Matrix
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-28">WCFF-28</a></td>
+    <td>Resolved</td>
+    <td>Minor</td>
+    <td>
+                Vertical Prototype (SMS component)
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-29">WCFF-29</a></td>
+    <td>Closed</td>
+    <td>Minor</td>
+    <td>
+                Youtube Api
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-30">WCFF-30</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Push Notifications
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-31">WCFF-31</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Integrate Calendar API into the vertical prototype
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-32">WCFF-32</a></td>
+    <td>Closed</td>
+    <td>Minor</td>
+    <td>
+                Push Notification to other phones
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-33">WCFF-33</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Add side bar to UI 
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-34">WCFF-34</a></td>
+    <td>Closed</td>
+    <td>Major</td>
+    <td>
+                Update Sequence Diagrams (Event) and Class Diagrams (Ministries)
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Epic</td>
+    <td><a href="/browse/WCFF-35">WCFF-35</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                V2
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-36">WCFF-36</a></td>
+    <td>Closed</td>
+    <td>Minor</td>
+    <td>
+                Review Brian Quezada Architecture sections
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-37">WCFF-37</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a student user, I can view a welcome screen to introduce the application
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-41">WCFF-41</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                As a student, I can change my campuses and ministries in a settings tab
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>430</td>
+            <td>
+                            430
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                            
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-47">WCFF-47</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                As a user, I can opt out of ministry notifications
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-61">WCFF-61</a></td>
+    <td>Closed</td>
+    <td>Minor</td>
+    <td>
+                Create UML &amp; Doc explaining database retreival
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-62">WCFF-62</a></td>
+    <td>Closed</td>
+    <td>Minor</td>
+    <td>
+                Save events to the app
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-82">WCFF-82</a></td>
+    <td>Open</td>
+    <td>Trivial</td>
+    <td>
+                Have the app play catchy music!
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-90">WCFF-90</a></td>
+    <td>Open</td>
+    <td>Minor</td>
+    <td>
+                Switch Preferences/Settings over to xml format (currently programmatic)
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-91">WCFF-91</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                As a user, I can refresh the list of event cards
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Story</td>
+    <td><a href="/browse/WCFF-92">WCFF-92</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                As a user, I can refresh the list of ride cards
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-121">WCFF-121</a></td>
+    <td>Open</td>
+    <td>Minor</td>
+    <td>
+                Allow user to re-enter the initial setup screen from the preferences menu
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-146">WCFF-146</a></td>
+    <td>Resolved</td>
+    <td>Major</td>
+    <td>
+                Cache information pulled from the database
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Task</td>
+    <td><a href="/browse/WCFF-161">WCFF-161</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                Spoof database for testing
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>        <tr valign="top">
+    <td>
+                Bug</td>
+    <td><a href="/browse/WCFF-162">WCFF-162</a></td>
+    <td>Open</td>
+    <td>Major</td>
+    <td>
+                App crashes in event if rotate screen
+    </td>
+    <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td></td>
+            <td>
+                            
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+        <td>
+            </td>
+            <td>
+                    </td>
+    </tr>    
+<tr>
+    <td colspan="4" align="right">
+        &nbsp;
+    </td>
+    <td><b>Total</b></td>
+    <td>18011</td>
+            <td>18011</td>
+        <td>11983</td>
+            <td>11983</td>
+        <td>13442</td>
+            <td>13442</td>
+        <td>-7414</td>
+            <td>-7414</td>
+        <td>-41</td>
+            <td>-41</td>
+    </tr>
+
+<tr>
+    <td bgcolor="#ffffff" colspan="15">&nbsp;</td>
+</tr>
+<tr>
+    <td bgcolor="#dddddd" colspan="15"><font size=1>
+                    Generated at 2/11/16 11:42 AM by Mason Stevenson using JIRA 7.0.0#70107-sha1:6cd5e8da0433ba37cd68ac1f1a6078fc22964e15.
+            </font></td>
+</tr>
+</table>
+
+
+</body>
+</html>

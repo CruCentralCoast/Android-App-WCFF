@@ -1,0 +1,27 @@
+Modularity,Thu, 11 Feb 2016 19:30:48 PST
+Package,E_RAT
+"com.will_code_for_food.crucentralcoast",100.00%
+"com.will_code_for_food.crucentralcoast.controller",0.00%
+"com.will_code_for_food.crucentralcoast.controller.api_interfaces",0.00%
+"com.will_code_for_food.crucentralcoast.controller.retrieval",25.00%
+"com.will_code_for_food.crucentralcoast.model.common",100.00%
+"com.will_code_for_food.crucentralcoast.model.common.common",22.22%
+"com.will_code_for_food.crucentralcoast.model.common.common.users",0.00%
+"com.will_code_for_food.crucentralcoast.model.common.form",0.00%
+"com.will_code_for_food.crucentralcoast.model.common.list",100.00%
+"com.will_code_for_food.crucentralcoast.model.common.messaging",33.33%
+"com.will_code_for_food.crucentralcoast.model.formTests",100.00%
+"com.will_code_for_food.crucentralcoast.model.getInvolved",50.00%
+"com.will_code_for_food.crucentralcoast.model.resources",71.43%
+"com.will_code_for_food.crucentralcoast.model.ridesharing",25.00%
+"com.will_code_for_food.crucentralcoast.model.ridesharingTests",100.00%
+"com.will_code_for_food.crucentralcoast.tasks",25.00%
+"com.will_code_for_food.crucentralcoast.values",20.00%
+"com.will_code_for_food.crucentralcoast.view",100.00%
+"com.will_code_for_food.crucentralcoast.view.common",76.47%
+"com.will_code_for_food.crucentralcoast.view.events",60.00%
+"com.will_code_for_food.crucentralcoast.view.getinvolved",0.00%
+"com.will_code_for_food.crucentralcoast.view.resources",80.00%
+"com.will_code_for_food.crucentralcoast.view.ridesharing",66.67%
+"com.will_code_for_food.crucentralcoast.view.summermissions",75.00%
+

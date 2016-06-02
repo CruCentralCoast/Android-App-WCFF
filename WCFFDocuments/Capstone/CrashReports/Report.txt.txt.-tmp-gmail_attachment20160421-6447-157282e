@@ -1,0 +1,230 @@
+No user message
+
+
+APP VERSION: v0.0.0.A1
+
+
+DATE: Wed Apr 20 22:42:26 PDT 2016
+
+API VERSION: 23 ( v6.0.1 )
+
+MODEL: Nexus 5
+
+MANUFACTURER: LGE
+
+
+
+**************************************************
+
+
+STACK TRACE:
+
+
+null
+
+
+java.util.Stack.pop(Stack.java:73)
+
+com.will_code_for_food.crucentralcoast.view.common.MainActivity.onBackPressed(MainActivity.java:202)
+
+android.app.Activity.onKeyUp(Activity.java:2483)
+
+android.view.KeyEvent.dispatch(KeyEvent.java:2664)
+
+android.app.Activity.dispatchKeyEvent(Activity.java:2736)
+
+android.support.v7.internal.view.WindowCallbackWrapper.dispatchKeyEvent(WindowCallbackWrapper.java:50)
+
+android.support.v7.app.AppCompatDelegateImplBase$AppCompatWindowCallbackBase.dispatchKeyEvent(AppCompatDelegateImplBase.java:226)
+
+com.android.internal.policy.PhoneWindow$DecorView.dispatchKeyEvent(PhoneWindow.java:2310)
+
+android.view.ViewRootImpl$ViewPostImeInputStage.processKeyEvent(ViewRootImpl.java:4127)
+
+android.view.ViewRootImpl$ViewPostImeInputStage.onProcess(ViewRootImpl.java:4089)
+
+android.view.ViewRootImpl$InputStage.deliver(ViewRootImpl.java:3642)
+
+android.view.ViewRootImpl$InputStage.onDeliverToNext(ViewRootImpl.java:3695)
+
+android.view.ViewRootImpl$InputStage.forward(ViewRootImpl.java:3661)
+
+android.view.ViewRootImpl$AsyncInputStage.forward(ViewRootImpl.java:3787)
+
+android.view.ViewRootImpl$InputStage.apply(ViewRootImpl.java:3669)
+
+android.view.ViewRootImpl$AsyncInputStage.apply(ViewRootImpl.java:3844)
+
+android.view.ViewRootImpl$InputStage.deliver(ViewRootImpl.java:3642)
+
+android.view.ViewRootImpl$InputStage.onDeliverToNext(ViewRootImpl.java:3695)
+
+android.view.ViewRootImpl$InputStage.forward(ViewRootImpl.java:3661)
+
+android.view.ViewRootImpl$InputStage.apply(ViewRootImpl.java:3669)
+
+android.view.ViewRootImpl$InputStage.deliver(ViewRootImpl.java:3642)
+
+android.view.ViewRootImpl$InputStage.onDeliverToNext(ViewRootImpl.java:3695)
+
+android.view.ViewRootImpl$InputStage.forward(ViewRootImpl.java:3661)
+
+android.view.ViewRootImpl$AsyncInputStage.forward(ViewRootImpl.java:3820)
+
+android.view.ViewRootImpl$ImeInputStage.onFinishedInputEvent(ViewRootImpl.java:3981)
+
+android.view.inputmethod.InputMethodManager$PendingEvent.run(InputMethodManager.java:2253)
+
+android.view.inputmethod.InputMethodManager.invokeFinishedInputEventCallback(InputMethodManager.java:1874)
+
+android.view.inputmethod.InputMethodManager.finishedInputEvent(InputMethodManager.java:1865)
+
+android.view.inputmethod.InputMethodManager$ImeInputEventSender.onInputEventFinished(InputMethodManager.java:2230)
+
+android.view.InputEventSender.dispatchInputEventFinished(InputEventSender.java:141)
+
+android.os.MessageQueue.nativePollOnce(Native Method)
+
+android.os.MessageQueue.next(MessageQueue.java:323)
+
+android.os.Looper.loop(Looper.java:135)
+
+android.app.ActivityThread.main(ActivityThread.java:5417)
+
+java.lang.reflect.Method.invoke(Native Method)
+
+com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+
+com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)
+
+
+
+**************************************************
+
+
+SESSION LOG:
+
+
+Wed Apr 20 22:40:15 PDT 2016 | I/ DBOBJECTLOADER : Loading ministry teams
+
+Wed Apr 20 22:40:15 PDT 2016 | I/ DBOBJECTLOADER : Loading rides
+
+Wed Apr 20 22:40:15 PDT 2016 | I/ DBOBJECTLOADER : Loading resources
+
+Wed Apr 20 22:40:15 PDT 2016 | I/ DBOBJECTLOADER : Loading summer missions
+
+Wed Apr 20 22:40:15 PDT 2016 | I/ DBOBJECTLOADER : Loading ministry teams
+
+Wed Apr 20 22:40:15 PDT 2016 | I/ REGINTENTSERVICE : GCM Registration Token: fmhRrbUHYhs:APA91bEhG67inQv7RtoL_ryIVuPKQMPSdpb0UxdqsrxAwLjNoNXHRqLjZ9tGgcuo8k26F4-trQNirCkYZCtth0BOxAvfLnp6F9W8OPChxbnNnOhjJuXviIfElMlOgLSbl8YwmcQB1d93
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ CREATE EVENT : Did not find Fall Retreat in calendar
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ CREATE EVENT : Did not find Sophomore Social in calendar
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ CREATE EVENT : Did not find Freshman Bowling in calendar
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ CREATE EVENT : Did not find Epic Conference in calendar
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ CREATE EVENT : Did not find Night at the Oscars in calendar
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ CREATE EVENT : Did not find Men's Retreat in calendar
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [campuses] from database
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [events] from database (loadCount is: 1)
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministries] from database
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [campuses] from database (loadCount is: 2)
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministries] from database (loadCount is: 3)
+
+Wed Apr 20 22:40:16 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministryteams] from database
+
+Wed Apr 20 22:40:17 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 20 22:40:17 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Wed Apr 20 22:40:17 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministryteams] from database (loadCount is: 4)
+
+Wed Apr 20 22:40:17 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Wed Apr 20 22:40:17 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 20 22:40:17 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [resources] from database
+
+Wed Apr 20 22:40:17 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [rides] from database (loadCount is: 5)
+
+Wed Apr 20 22:40:18 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 20 22:40:18 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [summermissions] from database
+
+Wed Apr 20 22:40:18 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [resources] from database (loadCount is: 6)
+
+Wed Apr 20 22:40:18 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 20 22:40:18 PDT 2016 | I/ DBOBJECTLOADER : Getting videos from youtube
+
+Wed Apr 20 22:40:18 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [summermissions] from database (loadCount is: 7)
+
+Wed Apr 20 22:40:20 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Wed Apr 20 22:40:22 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Wed Apr 20 22:40:22 PDT 2016 | D/ VIDEORETRIEVER : got 20 videos
+
+Wed Apr 20 22:40:22 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [passengers] from database
+
+Wed Apr 20 22:40:22 PDT 2016 | I/ DBOBJECTLOADER : Finished getting videos from youtube (loadCount is: 8)
+
+Wed Apr 20 22:40:23 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 20 22:40:23 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [passengers] from database (loadCount is: 9)
+
+Wed Apr 20 22:40:23 PDT 2016 | I/ LAUNCHING APP : Starting MainActivity
+
+Wed Apr 20 22:40:23 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Wed Apr 20 22:40:23 PDT 2016 | I/ CRASH REPORT : Found cached report
+
+Wed Apr 20 22:40:23 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Wed Apr 20 22:41:08 PDT 2016 | E !!! / SENDING EMAIL : Sending email to Will.Code.For.Food.CP@gmail.com
+
+Wed Apr 20 22:41:56 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Wed Apr 20 22:42:07 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Wed Apr 20 22:42:07 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Wed Apr 20 22:42:09 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Wed Apr 20 22:42:10 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Wed Apr 20 22:42:10 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Wed Apr 20 22:42:11 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Wed Apr 20 22:42:15 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Wed Apr 20 22:42:18 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Wed Apr 20 22:42:23 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+

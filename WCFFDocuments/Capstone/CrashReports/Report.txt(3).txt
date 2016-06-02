@@ -1,0 +1,158 @@
+No user message
+
+
+APP VERSION: v0.0.0.A1
+
+
+DATE: Tue May 03 13:39:17 PDT 2016
+
+API VERSION: 21 ( v5.0 )
+
+MODEL: SAMSUNG-SM-G900A
+
+MANUFACTURER: samsung
+
+
+
+**************************************************
+
+
+STACK TRACE:
+
+
+Unable to start activity ComponentInfo{com.will_code_for_food.crucentralcoast/com.will_code_for_food.crucentralcoast.view.ridesharing.RideShareActivity}: java.lang.NullPointerException: Attempt to invoke virtual method 'java.util.Iterator java.util.ArrayList.iterator()' on a null object reference
+
+
+android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2661)
+
+android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2726)
+
+android.app.ActivityThread.access$900(ActivityThread.java:172)
+
+android.app.ActivityThread$H.handleMessage(ActivityThread.java:1421)
+
+android.os.Handler.dispatchMessage(Handler.java:102)
+
+android.os.Looper.loop(Looper.java:145)
+
+android.app.ActivityThread.main(ActivityThread.java:5835)
+
+java.lang.reflect.Method.invoke(Native Method)
+
+java.lang.reflect.Method.invoke(Method.java:372)
+
+com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1399)
+
+com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1194)
+
+
+
+**************************************************
+
+
+SESSION LOG:
+
+
+Tue May 03 12:15:53 PDT 2016 | I/ DBOBJECTLOADER : Loading ministry teams
+
+Tue May 03 12:15:53 PDT 2016 | I/ DBOBJECTLOADER : Loading rides
+
+Tue May 03 12:15:53 PDT 2016 | I/ DBOBJECTLOADER : Loading resources
+
+Tue May 03 12:15:53 PDT 2016 | I/ DBOBJECTLOADER : Loading summer missions
+
+Tue May 03 12:15:53 PDT 2016 | I/ DBOBJECTLOADER : Loading ministry teams
+
+Tue May 03 12:15:53 PDT 2016 | I/ REGINTENTSERVICE : GCM Registration Token: ciPhE562qv8:APA91bFMHnwVFrhl3v-dEPv4ajNSoxcwIt1oltquDqje8O8i3CyA9BMItlPvCpKCATMU_QM57UDnFlSzXGQq7FLLZVSk6Z4h5uCQ1a2rZxe2tOmVmgeU9I_r2W8sEullJT24eAiQ_9e1
+
+Tue May 03 12:15:54 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Sophomore Social
+
+Tue May 03 12:15:54 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Freshman Bowling
+
+Tue May 03 12:15:54 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Epic Conference
+
+Tue May 03 12:15:54 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Night at the Oscars
+
+Tue May 03 12:15:54 PDT 2016 | I/ EVENT CREATION : Unable to get event reminder time for Men's Retreat
+
+Tue May 03 12:15:54 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue May 03 12:15:54 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [campuses] from database
+
+Tue May 03 12:15:54 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [events] from database (loadCount is: 1)
+
+Tue May 03 12:15:54 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue May 03 12:15:54 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministries] from database
+
+Tue May 03 12:15:54 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [campuses] from database (loadCount is: 2)
+
+Tue May 03 12:15:54 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue May 03 12:15:54 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [ministryteams] from database
+
+Tue May 03 12:15:54 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministries] from database (loadCount is: 3)
+
+Tue May 03 12:15:54 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue May 03 12:15:54 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [rides] from database
+
+Tue May 03 12:15:54 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [ministryteams] from database (loadCount is: 4)
+
+Tue May 03 12:15:54 PDT 2016 | E !!! / RIDE ERROR : Could not get direction from the database. Setting as default.
+
+Tue May 03 12:15:54 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue May 03 12:15:54 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [resources] from database
+
+base (loadCount is: 5)
+
+Tue May 03 12:15:55 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue May 03 12:15:55 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [summermissions] from database
+
+Tue May 03 12:15:55 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [resources] from database (loadCount is: 6)
+
+Tue May 03 12:15:55 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue May 03 12:15:55 PDT 2016 | I/ DBOBJECTLOADER : Getting videos from youtube
+
+Tue May 03 12:15:55 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [summermissions] from database (loadCount is: 7)
+
+Tue May 03 12:15:59 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Tue May 03 12:16:00 PDT 2016 | D/ PLAYLISTRETRIEVER : got 2 playlists
+
+Tue May 03 12:16:00 PDT 2016 | D/ VIDEORETRIEVER : got 20 videos
+
+Tue May 03 12:16:00 PDT 2016 | I/ DBOBJECTLOADER : Getting objects of type [passengers] from database
+
+Tue May 03 12:16:00 PDT 2016 | I/ DBOBJECTLOADER : Finished getting videos from youtube (loadCount is: 8)
+
+Tue May 03 12:16:00 PDT 2016 | I/ RETRIEVAL : Getting live content
+
+Tue May 03 12:16:00 PDT 2016 | I/ DBOBJECTLOADER : Finished getting objects of type [passengers] from database (loadCount is: 9)
+
+Tue May 03 12:16:01 PDT 2016 | I/ LAUNCHING APP : Starting MainActivity
+
+Tue May 03 12:16:01 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Tue May 03 12:16:01 PDT 2016 | I/ FEEDFRAGMENT : Loading feed for the first time
+
+Tue May 03 12:16:09 PDT 2016 | I/ CHANGING BUTTON : changing button
+
+Tue May 03 12:16:09 PDT 2016 | I/ ADD TO CALENDAR : Checking if event id has been saved locally
+
+Tue May 03 12:16:13 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Tue May 03 12:20:51 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Tue May 03 12:21:25 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Tue May 03 13:39:15 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Tue May 03 13:39:17 PDT 2016 | I/ CRASH REPORT : Checking for cached crash reports
+
+Tue May 03 13:39:17 PDT 2016 | I/ DBOBJECTLOADER : data was null
+
+
